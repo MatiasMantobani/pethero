@@ -1,0 +1,64 @@
+Clase User{
+	dni(PK)
+	nombre
+	apellido
+	direccion
+	telefono
+	ciudad
+	foto opcional
+}
+
+Clase Dueño extends User{
+	Sus mascotas[] (Clase)
+	Listado todas las reservas[] (Clase)
+	Listado todos los pagos[] (Clase)
+}
+
+Clase Guardian extends User{
+	Reputacion Unica
+	Tipo De Perro Aceptado[S,M,L]
+	Remuneracion Esperada por hr
+	Fechas Disponibles[dias][hrs] -> Clase? o Date?
+	Listado Reservas[] (Clase)
+	Listado reviews [texto,texto,texto...] (Clase)
+}
+
+Clase Mascota{
+	id(PK)
+	Nombre
+	Dueño(Clase)
+	Foto (img)
+	Carnet de vacunacion (img)
+	Observaciones
+	Raza
+	Tamaño
+	Video opcional
+}
+
+Clase Review {
+	Puntuacion
+	Texto
+	Estadia (Clase)
+}
+
+Clase Reserva{
+	id(PK)
+	Confirmada (boolean)
+	Dueño(Clase)
+	Guardian(Clase)
+	Mascota(Clase)
+	Monto Total (cant hrs * precio hr)
+	Fecha
+	Pago(Clase)
+}
+
+Clase Pago{
+	id(PK)
+	Reserva (Clase)
+	QR
+}
+
+Estadia/Alojamiento{
+	id(PK)
+	Pago (Clase)
+}
