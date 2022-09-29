@@ -15,5 +15,12 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Guardian/ShowListView">Ver listado guardianes</a>
           </li>
 
+         <li class="nav-item">
+             <a class="nav-link" href="<?php echo FRONT_ROOT ?>Dueno/ShowAddView">Agregar dueño</a>
+         </li>
+
+         <li class="nav-item">
+             <a class="nav-link" href="<?php echo FRONT_ROOT ?>Dueno/ShowListView">Ver listado dueño</a>
+         </li>
      </ul>
 </nav>
