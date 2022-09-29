@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
 
+    <a href="<?php echo FRONT_ROOT ?>">
 <img src="<?php echo FRONT_ROOT ?>Views/img/logo.png" height="65" alt="logo">
+    </a>
 
      <ul class="navbar-nav ml-auto">
 

@@ -16,5 +16,14 @@
         "telephone": "asd",
         "email": "asd",
         "password": "asd"
+    },
+    {
+        "firstName": "asdf",
+        "lastName": "asdf",
+        "dni": "adsf",
+        "adress": "asdf",
+        "telephone": "asdf",
+        "email": "asdf",
+        "password": "asdf"
     }
 ]
