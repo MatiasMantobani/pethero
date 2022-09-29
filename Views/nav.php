@@ -7,8 +7,6 @@
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Guardian/ShowAddView">Agregar Guardian</a>
           </li>
-
-
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Guardian/ShowListView">Ver listado guardianes</a>
           </li>
