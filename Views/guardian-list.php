@@ -1,0 +1,45 @@
+<?php
+    require_once('nav.php');
+?>
+<main class="py-5">
+     <section id="listado" class="mb-5">
+          <div class="container">
+               <h2 class="mb-4">Listado de clientes</h2>
+               <table class="table bg-light-alpha">
+                    <thead>
+                         <th>Nombre</th>
+                         <th>Apellido</th>
+                         <th>DNI</th>
+                         <th>Direccion</th>
+                         <th>Telefono</th>
+                         <th>Email</th>
+                         <th>Contraseña</th>
+                         <!-- <th>ID</th>          Despues habria que sacarlo al ID -->
+                        
+                        
+                    </thead>
+                    <tbody>
+                         <?php
+                              foreach($guardianList as $guardian)
+                              {
+                                   ?>
+                                        <tr>
+                                             <td><?php echo $guardian->getFirstName() ?></td>
+                                             <td><?php echo $guardian->getLastName() ?></td>
+                                             <td><?php echo $guardian->getDNI() ?></td>
+                                             <td><?php echo $guardian->getAdress() ?></td>
+                                             <td><?php echo $guardian->getTelephone() ?></td>
+                                             <td><?php echo $guardian->getEmail() ?></td>
+                                             <td><?php echo $guardian->getPassword() ?></td>
+
+                                             <!-- <td><?php //echo $guardian->getID() ?></td> -->
+                                        </tr>
+                                   <?php
+                              }
+                         ?>
+                         </tr>
+                    </tbody>
+               </table>
+          </div>
+     </section>
+</main>
