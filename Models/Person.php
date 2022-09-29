@@ -15,8 +15,6 @@ abstract class Person
     // public static $ID = 0;
     // protected $fotoOpcional;
 
-
-
     protected function __construct($firstName, $lastName, $dni, $adress, $telephone, $email, $password)
     {
         $this->firstName = $firstName;
