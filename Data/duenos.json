@@ -1,0 +1,38 @@
+[
+    {
+        "firstName": "qwe",
+        "lastName": "qwe",
+        "dni": "qwe",
+        "adress": "asd",
+        "telephone": "asd",
+        "email": "asd",
+        "password": "asd",
+        "mascotas": "123",
+        "reservas": "qwe1",
+        "pagos": "qwe"
+    },
+    {
+        "firstName": "",
+        "lastName": "",
+        "dni": "",
+        "adress": "",
+        "telephone": "",
+        "email": "",
+        "password": "",
+        "mascotas": "",
+        "reservas": "",
+        "pagos": ""
+    },
+    {
+        "firstName": "",
+        "lastName": "",
+        "dni": "",
+        "adress": "",
+        "telephone": "",
+        "email": "",
+        "password": "",
+        "mascotas": "",
+        "reservas": "",
+        "pagos": ""
+    }
+]

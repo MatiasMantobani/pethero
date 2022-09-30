@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600');
 
-html, body {
+html,
+body {
      height: 100%;
 }
+
 body {
      font-family: 'Montserrat', sans-serif;
      background: url(../img/bg.png) no-repeat center center fixed;
      -webkit-background-size: cover;
-        -moz-background-size: cover;
-          -o-background-size: cover;
-             background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
 }
 
 .height-100 {
@@ -17,13 +19,62 @@ body {
 }
 
 .bg-dark-alpha {
-     background-color: rgba(0,0,0,0.2);
+     background-color: rgba(0, 0, 0, 0.2);
 }
+
 .bg-light-alpha {
-     background-color: rgba(255,255,255,0.2);
+     background-color: rgba(255, 255, 255, 0.2);
 }
 
 .login-form {
      width: 500px;
      border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+
+/* PERFIL GUARDIAN  */
+
+
+
+.card {
+     width: 30em;
+     height: 30em;
+     background-color:#B3E5FC;
+     border-radius: 10px;
+     width: 600px;
+     border: none;
+     border-radius: 10px;
+     background-color: rgb(232, 232, 233);
+}
+
+.stats {
+     background: #f2f5f8 !important;
+     color: #000 !important;
+}
+
+.articles {
+     font-size: 10px;
+     color: #a1aab9;
+}
+
+.number1 {
+     font-weight: 500;
+}
+
+.followers {
+     font-size: 10px;
+     color: #a1aab9;
+}
+
+.number2 {
+     font-weight: 500;
+}
+
+.rating {
+     font-size: 10px;
+     color: #a1aab9;
+}
+
+.number3 {
+     font-weight: 500;
 }
