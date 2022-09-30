@@ -30,6 +30,9 @@ class GuardianController
 
 
 
+
+
+
     public function Add($firstName, $lastName, $dni, $adress, $telephone, $email, $password, $cuil, $remuneracion, $tamanoDeMascota, $disponibilidad)
     {
         $guardian = new Guardian(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -47,6 +50,7 @@ class GuardianController
 
         $this->guardianDAO->Add($guardian);
 
-        $this->ShowListView();
+        // $this->ShowListView();
+        require_once(VIEWS_PATH . "guardian-perfil.php");
     }
 }
