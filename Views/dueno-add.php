@@ -11,3 +11,18 @@
                             <input type="text" name="mascotas" value="" class="form-control">
                         </div>
                     </div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="">Reservas</label>
+                            <input type="text" name="reservas" value="" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="">Pagos</label>
+                            <input type="text" name="pagos" value="" class="form-control">
+                        </div>
+                    </div>
+                    <!-- Quitar esto datos después. Por ahora solo solo estan mientras usamos string-->

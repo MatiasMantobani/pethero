@@ -1,38 +1,14 @@
 [
     {
-        "firstName": "qwe",
-        "lastName": "qwe",
-        "dni": "qwe",
+        "firstName": "asd",
+        "lastName": "asd",
+        "dni": "38497649",
         "adress": "asd",
-        "telephone": "asd",
-        "email": "asd",
-        "password": "asd",
-        "mascotas": "123",
-        "reservas": "qwe1",
-        "pagos": "qwe"
-    },
-    {
-        "firstName": "",
-        "lastName": "",
-        "dni": "",
-        "adress": "",
-        "telephone": "",
-        "email": "",
-        "password": "",
-        "mascotas": "",
-        "reservas": "",
-        "pagos": ""
-    },
-    {
-        "firstName": "",
-        "lastName": "",
-        "dni": "",
-        "adress": "",
-        "telephone": "",
-        "email": "",
-        "password": "",
-        "mascotas": "",
-        "reservas": "",
-        "pagos": ""
+        "telephone": "234253234",
+        "email": "matiasmantobani1@gmail.com",
+        "password": "234324",
+        "mascotas": "asd",
+        "reservas": "asd",
+        "pagos": "asd"
     }
 ]
