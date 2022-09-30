@@ -15,7 +15,6 @@ class GuardianController
     }
 
 
-
     public function ShowAddView()
     {
         require_once(VIEWS_PATH . "guardian-add.php");
@@ -27,10 +26,6 @@ class GuardianController
 
         require_once(VIEWS_PATH . "guardian-list.php");
     }
-
-
-
-
 
 
     public function Add($firstName, $lastName, $dni, $adress, $telephone, $email, $password, $cuil, $remuneracion, $tamanoDeMascota, $disponibilidad)
@@ -50,7 +45,7 @@ class GuardianController
 
         $this->guardianDAO->Add($guardian);
 
-        // $this->ShowListView();
-        require_once(VIEWS_PATH . "guardian-perfil.php");
+        $this->ShowListView();
+        // require_once(VIEWS_PATH . "guardian-perfil.php");
     }
 }
