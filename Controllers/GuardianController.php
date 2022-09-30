@@ -30,9 +30,9 @@ class GuardianController
 
 
 
-    public function Add($firstName, $lastName, $dni, $adress, $telephone, $email, $password)
+    public function Add($firstName, $lastName, $dni, $adress, $telephone, $email, $password, $cuil, $remuneracion, $tamanoDeMascota, $disponibilidad)
     {
-        $guardian = new Guardian(NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+        $guardian = new Guardian(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
         $guardian->setFirstName($firstName);
         $guardian->setLastName($lastName);
         $guardian->setDni($dni);
@@ -40,9 +40,13 @@ class GuardianController
         $guardian->setTelephone($telephone);
         $guardian->setEmail($email);
         $guardian->setPassword($password);
+        $guardian->setCuil($cuil);
+        $guardian->setRemuneracion($remuneracion);
+        $guardian->setTamanoDeMascota($tamanoDeMascota);
+        $guardian->setDisponibilidad($disponibilidad);
 
         $this->guardianDAO->Add($guardian);
 
-        $this->ShowAddView();
+        $this->ShowListView();
     }
 }

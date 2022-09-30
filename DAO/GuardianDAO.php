@@ -37,6 +37,13 @@
                 $valuesArray["telephone"] = $guardian->getTelephone();
                 $valuesArray["email"] = $guardian->getEmail();
                 $valuesArray["password"] = $guardian->getPassword();
+                $valuesArray["cuil"] = $guardian->getCuil();
+                $valuesArray["remuneracion"] = $guardian->getRemuneracion();
+                $valuesArray["reputacion"] = $guardian->getReputacion();
+                $valuesArray["tamanoDeMascota"] = $guardian->getTamanoDeMascota();
+                $valuesArray["disponibilidad"] = $guardian->getDisponibilidad();
+                $valuesArray["reservas"] = $guardian->getReservas();
+                $valuesArray["reviews"] = $guardian->getReviews();
                 // $valuesArray["ID"] = $guardian->getID();
 
                 // echo "DAO GUARDIAN SAVE DATA".$valuesArray["ID"] = $guardian->getID(); //DEBUG
@@ -62,7 +69,7 @@
 
                 foreach($arrayToDecode as $valuesArray)
                 {
-                    $guardian = new Guardian(NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+                    $guardian = new Guardian(NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
                     $guardian->setFirstName($valuesArray["firstName"]);
                     $guardian->setLastName($valuesArray["lastName"]);
                     $guardian->setDNI($valuesArray["dni"]);
@@ -70,6 +77,13 @@
                     $guardian->setTelephone($valuesArray["telephone"]);
                     $guardian->setEmail($valuesArray["email"]);
                     $guardian->setPassword($valuesArray["password"]);
+                    $guardian->setCuil($valuesArray["cuil"]);
+                    $guardian->setRemuneracion($valuesArray["remuneracion"]);
+                    $guardian->setReputacion($valuesArray["reputacion"]);
+                    $guardian->setTamanoDeMascota($valuesArray["tamanoDeMascota"]);
+                    $guardian->setDisponibilidad($valuesArray["disponibilidad"]);
+                    $guardian->setReservas($valuesArray["reservas"]);
+                    $guardian->setReviews($valuesArray["reviews"]);
                     // $guardian->setID($valuesArray["ID"]);
 
                     // echo "DAO GUARDIAN RETRIEVE DATA".$valuesArray["ID"] = $guardian->getID(); //DEBUG

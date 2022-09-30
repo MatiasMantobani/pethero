@@ -1,20 +1,18 @@
 [
     {
-        "firstName": "asd",
-        "lastName": "asd",
-        "dni": "asd",
-        "adress": "asd",
-        "telephone": "asd",
-        "email": "asd",
-        "password": "asd"
-    },
-    {
-        "firstName": "asd",
-        "lastName": "asd",
-        "dni": "asd",
-        "adress": "asd",
-        "telephone": "asd",
-        "email": "asd",
-        "password": "asd"
+        "firstName": "dfsdf",
+        "lastName": "dfsdf",
+        "dni": "dfsdf",
+        "adress": "dfsdf",
+        "telephone": "dfsdf",
+        "email": "dfsdf",
+        "password": "dfsdfdfsdf",
+        "cuil": "dfsdf",
+        "remuneracion": "dfsdf",
+        "reputacion": null,
+        "tamanoDeMascota": "dfsdf",
+        "disponibilidad": "dfsdf",
+        "reservas": null,
+        "reviews": null
     }
 ]

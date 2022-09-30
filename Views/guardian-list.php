@@ -14,6 +14,12 @@
                          <th>Telefono</th>
                          <th>Email</th>
                          <th>Contraseña</th>
+                         <th>Cuil</th>
+                         <th>Remuneracion</th>
+                         <th>Tamano de las mascotas</th>
+                         <th>Disponibilidad</th>
+                         <th>Reservas</th>
+                         <th>Reviews</th>
                          <!-- <th>ID</th>          Despues habria que sacarlo al ID -->
                         
                         
@@ -31,6 +37,12 @@
                                              <td><?php echo $guardian->getTelephone() ?></td>
                                              <td><?php echo $guardian->getEmail() ?></td>
                                              <td><?php echo $guardian->getPassword() ?></td>
+                                            <td><?php echo $guardian->getCuil() ?></td>
+                                            <td><?php echo $guardian->getRemuneracion() ?></td>
+                                            <td><?php echo $guardian->getTamanoDeMascota()?></td>
+                                            <td><?php echo $guardian->getDisponibilidad() ?></td>
+                                            <td><?php echo $guardian->getReservas() ?></td>
+                                            <td><?php echo $guardian->getReviews() ?></td>
 
                                              <!-- <td><?php //echo $guardian->getID() ?></td> -->
                                         </tr>
