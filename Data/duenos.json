@@ -22,5 +22,17 @@
         "mascotas": "1",
         "reservas": "1",
         "pagos": "1"
+    },
+    {
+        "firstName": "asd",
+        "lastName": "11111111111",
+        "dni": "asd",
+        "adress": "asda",
+        "telephone": "asd",
+        "email": "asd",
+        "password": "asd",
+        "mascotas": "ads",
+        "reservas": "asd",
+        "pagos": "asd"
     }
 ]
