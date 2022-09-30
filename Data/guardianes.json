@@ -14,5 +14,37 @@
         "disponibilidad": "dfsdf",
         "reservas": null,
         "reviews": null
+    },
+    {
+        "firstName": "asd",
+        "lastName": "asd",
+        "dni": "asd",
+        "adress": "asd",
+        "telephone": "asd",
+        "email": "asd",
+        "password": "asd",
+        "cuil": "asd",
+        "remuneracion": "asd",
+        "reputacion": null,
+        "tamanoDeMascota": "asd",
+        "disponibilidad": "asd",
+        "reservas": null,
+        "reviews": null
+    },
+    {
+        "firstName": "",
+        "lastName": "",
+        "dni": "",
+        "adress": "",
+        "telephone": "",
+        "email": "",
+        "password": "",
+        "cuil": "",
+        "remuneracion": "",
+        "reputacion": null,
+        "tamanoDeMascota": "",
+        "disponibilidad": "",
+        "reservas": null,
+        "reviews": null
     }
 ]

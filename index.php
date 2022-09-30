@@ -18,9 +18,7 @@
 //	session_start();    <- Por teoria lo pasamos a la linea 2
 
 	require_once(VIEWS_PATH."header.php");
-
 	require_once(VIEWS_PATH."nav.php");
 	Router::Route(new Request());
-
 	require_once(VIEWS_PATH."footer.php");
 ?>

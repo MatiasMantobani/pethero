@@ -11,8 +11,9 @@ abstract class Person
     protected $telephone;
     protected $email;
     protected $password;
-    // protected $id2 = 0;
-    // public static $ID = 0;
+
+    protected $id2 = 0; //asi
+    public static $ID = 0;  //asi no
     // protected $fotoOpcional;
 
     protected function __construct($firstName, $lastName, $dni, $adress, $telephone, $email, $password)
