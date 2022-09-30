@@ -14,5 +14,21 @@
         "disponibilidad": "asda",
         "reservas": null,
         "reviews": null
+    },
+    {
+        "firstName": "dfsdf",
+        "lastName": "dfsdf",
+        "dni": "12341233",
+        "adress": "dfsdf",
+        "telephone": "143121234",
+        "email": "prueba2rodri@hotmail.com",
+        "password": "1234",
+        "cuil": "12341234121",
+        "remuneracion": "1234",
+        "reputacion": null,
+        "tamanoDeMascota": "dfsdf",
+        "disponibilidad": "dfsdf",
+        "reservas": null,
+        "reviews": null
     }
 ]
