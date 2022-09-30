@@ -7,15 +7,15 @@
 
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="">Cuil</label>
-                            <input type="text" name="cuil" value="" class="form-control">
+                            <label for="">Cuil <small>[Sin guiones]</small></label>
+                            <input type="number" min="11111111111" maxlength="99999999999" name="cuil" value="" class="form-control" title="El campo solo acepta 11 caracteres numericos" required>
                         </div>
                     </div>
 
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="">Remuneracion</label>
-                            <input type="text" name="remuneracion" value="" class="form-control">
+                            <label for="">Remuneracion <small>[1 a 10.000]</small></label>
+                            <input type="number" min="1" max="10000" name="remuneracion" value="" class="form-control" title="El campo solo admite numeros, en un maximo de 10.000" required>
                         </div>
                     </div>
 
