@@ -142,5 +142,21 @@
         "disponibilidad": "",
         "reservas": null,
         "reviews": null
+    },
+    {
+        "firstName": "dsa",
+        "lastName": "dsa",
+        "dni": "dsa",
+        "adress": "asd",
+        "telephone": "asd",
+        "email": "dsa",
+        "password": "asd",
+        "cuil": "asd",
+        "remuneracion": "asd",
+        "reputacion": null,
+        "tamanoDeMascota": "asd",
+        "disponibilidad": "asd",
+        "reservas": null,
+        "reviews": null
     }
 ]
