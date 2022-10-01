@@ -10,5 +10,17 @@
         "mascotas": "asd",
         "reservas": "asd",
         "pagos": "asd"
+    },
+    {
+        "firstName": "dfsdf",
+        "lastName": "dfsdf",
+        "dni": "12342312",
+        "adress": "fdassdfa",
+        "telephone": "231432152341",
+        "email": "pruebarodri@hotmail.com",
+        "password": "1234",
+        "mascotas": "dfsdf",
+        "reservas": "dfsdf",
+        "pagos": "dfsdf"
     }
 ]
