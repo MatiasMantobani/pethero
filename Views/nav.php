@@ -6,9 +6,18 @@
 
      <ul class="navbar-nav ml-auto">
 
+
+     <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT ?>Mascota/ShowAddView">Crear Perfil Mascota</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT ?>Mascota/ShowListView">Ver listado de Mascotas</a>
+          </li>
+
          <li class="nav-item">
              <a class="nav-link" href="<?php echo FRONT_ROOT ?>Person/LogInView">Log In</a>
          </li>
+
 
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Person/AddPerson">Crear Perfil</a>
