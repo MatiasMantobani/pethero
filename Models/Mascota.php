@@ -12,6 +12,7 @@ class Mascota
 	//Tamaño
 	//Video opcional
 
+    private $idDueno;   //implementar
     private $petName;
     private $foto; //Esto va a tener que ser una imagen, no se como ahora
     private $carnetVacunas; //Esto también tiene que ser una imagen

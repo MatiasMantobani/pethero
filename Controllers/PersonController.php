@@ -22,8 +22,11 @@ class PersonController
         $duenos = new DuenoDAO();
         $usuarios = array();
         $usuarios = array_merge($guardianes->GetAll(), $duenos->GetAll()); // arreglo de todos los usuarios
-
+        // var_dump($usuarios);
+        // echo "<br>";
         // recorrer arreglo y buscar por el $mail y $password que llega por parametro
+        //cuando lo encontras generas perfil con sus datos
+
     }
 
     public function ChooseType($personType)
