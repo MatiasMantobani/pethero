@@ -21,6 +21,7 @@
 	require_once(VIEWS_PATH."nav.php");
 	// require_once(VIEWS_PATH."dueno-perfil.php");
 	// require_once(VIEWS_PATH."guardian-perfil.php");
+	// require_once(VIEWS_PATH."login.php");
 	Router::Route(new Request());
 	require_once(VIEWS_PATH."footer.php");
 ?>
