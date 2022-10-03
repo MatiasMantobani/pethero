@@ -3,24 +3,18 @@ namespace Models;
 
 class Mascota
 {
-   //Nombre
-	//Dueño(Clase)
-	//Foto (img)
-	//Carnet de vacunacion (img)
-	//Observaciones
-	//Raza
-	//Tamaño
-	//Video opcional
-
+   
     private $idDueno;   //implementar
+    private $idMascota;   //implementar
+
     private $petName;
-    private $foto; //Esto va a tener que ser una imagen, no se como ahora
-    private $carnetVacunas; //Esto también tiene que ser una imagen
-    private $observaciones; //Comentario sobre la mascota
+    private $foto;           //img
+    private $carnetVacunas; //img
+    private $observaciones;
     private $raza;
-    private $tamano;    //char S, M, L
-    private $video; //como c*rajo implemento esto!? (╯°□°）╯︵ ┻━┻
-    //id para cuando haya base de datos
+    private $tamano;    //array S, M, L
+    private $video; // implementar como c*rajo implemento esto!? (╯°□°）╯︵ ┻━┻
+    
     
     public function __construct($petName, $foto, $carnetVacunas, $observaciones, $raza, $tamano, $video)
     {
@@ -160,4 +154,3 @@ class Mascota
         return $this;
     }
 }
-?>

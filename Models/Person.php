@@ -11,10 +11,8 @@ abstract class Person
     protected $telephone;
     protected $email;
     protected $password;
-
-    protected $id; //asi si, desde base de datos
-    
-    // protected $fotoOpcional;
+    protected $idPerson;
+    // protected $fotoOpcional; //implementar
 
     protected function __construct($firstName, $lastName, $dni, $adress, $telephone, $email, $password)
     {
