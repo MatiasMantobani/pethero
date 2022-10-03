@@ -16,5 +16,14 @@
         "raza": "1",
         "tamano": "1",
         "video": "1"
+    },
+    {
+        "petName": "asd",
+        "foto": "asd",
+        "carnetVacunas": "asd",
+        "observaciones": "asd",
+        "raza": "asd",
+        "tamano": "asd",
+        "video": "asd"
     }
 ]
