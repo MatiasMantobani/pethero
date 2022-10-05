@@ -32,7 +32,7 @@
 
         <li class="nav-item">
             <!-- HECHO -->
-            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Person/LogInView">Log In</a>
+            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Home/LogInView">Log In</a>
         </li>
 
         <!--  -->

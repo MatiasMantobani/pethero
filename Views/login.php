@@ -5,7 +5,7 @@
                 <img src="<?php echo FRONT_ROOT ?>Views/img/dog-png.png" class="img-fluid" alt="Dog image" style="width: 50%">
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1 bg-light p-4 rounded">
-                <form action="<?php echo FRONT_ROOT ?>Person/LogIn" method="post">
+                <form action="<?php echo FRONT_ROOT ?>Home/LogIn" method="post">
                     <!-- Email input -->
                     <div class="form-outline mb-4">
                         <input type="email" name="email" id="form1Example13" class="form-control form-control-lg" />
