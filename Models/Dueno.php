@@ -18,6 +18,7 @@ class Dueno extends Person
         $this->$mascotas = $mascotas;
         $this->$reservas = $reservas;
         $this->$pagos = $pagos;
+        parent::setTipoDeUsuario(1);    //dueno
     }
 
     //METODOS

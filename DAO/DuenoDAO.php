@@ -38,6 +38,7 @@ class DuenoDAO implements IDuenoDAO
             $valuesArray["mascotas"] = $dueno->getMascotas();
             $valuesArray["reservas"] = $dueno->getReservas();
             $valuesArray["pagos"] = $dueno->getPagos();
+            $valuesArray["tipoDeUsuario"] = $dueno->getTipoDeUsuario();
             // $valuesArray["ID"] = $dueno->getID();
             // echo "DAO DUENO SAVE DATA".$valuesArray["ID"] = $dueno->getID(); //DEBUG
             // echo "<br>";
@@ -67,6 +68,8 @@ class DuenoDAO implements IDuenoDAO
                 $dueno->setMascotas($valuesArray["mascotas"]);
                 $dueno->setReservas($valuesArray["reservas"]);
                 $dueno->setPagos($valuesArray["pagos"]);
+                $dueno->setTipoDeUsuario($valuesArray["tipoDeUsuario"]);
+                
                 // $dueno->setID($valuesArray["ID"]);
                 // echo "DAO DUENO RETRIEVE DATA".$valuesArray["ID"] = $dueno->getID(); //DEBUG
                 // echo "<br>";

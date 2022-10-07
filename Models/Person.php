@@ -14,7 +14,7 @@ abstract class Person
     protected $password;
     protected $idPerson;
     // protected $fotoOpcional; //implementar
-    // protected tipoDeUsuario; //posible solucion a validate-session (?)
+    protected $tipoDeUsuario; //posible solucion a validate-session (?)
 
     //CONSTRUCTOR
     protected function __construct($firstName, $lastName, $dni, $adress, $telephone, $email, $password)
@@ -26,12 +26,17 @@ abstract class Person
         $this->telephone = $telephone;
         $this->email = $email;
         $this->password = $password;
+        $this->tipoDeUsuario = null;    // 0 admin(desde Json)), 1 dueno, 2 guardian
+
         // Para el ID autoincremental utilizar la solucion del atributo maxValue (hecho en resolucion modelo pre-parcial 2022 de Andres)
         // $this->incrementarAtributoEstatico();
         // $this->getIDAuto();
     }
 
     //METODOS
+
+
+
 
     // public function incrementarAtributoEstatico()    //Podria no ser static pero habra limitaciones
     // {
@@ -132,5 +137,16 @@ abstract class Person
     public function setPassword($password)
     {
         $this->password = $password;
+    }
+
+    //TIPO DE USUARIO
+    public function getTipoDeUsuario()
+    {
+        return $this->tipoDeUsuario;
+    }
+    public function setTipoDeUsuario($tipoDeUsuario)
+    {
+        $this->tipoDeUsuario = $tipoDeUsuario;
+        return $this;
     }
 }

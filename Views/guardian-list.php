@@ -1,5 +1,5 @@
 <?php
-    require_once('nav.php');
+require_once('nav.php');
 ?>
 <main class="py-5">
      <section id="listado" class="mb-5">
@@ -20,34 +20,35 @@
                          <th>Disponibilidad</th>
                          <th>Reservas</th>
                          <th>Reviews</th>
+                         <th>Tipo de Usuario</th>
                          <!-- <th>ID</th>          Despues habria que sacarlo al ID -->
-                        
-                        
+
                     </thead>
                     <tbody>
                          <?php
-                              foreach($guardianList as $guardian)
-                              {
-                                   ?>
-                                        <tr>
-                                             <td><?php echo $guardian->getFirstName() ?></td>
-                                             <td><?php echo $guardian->getLastName() ?></td>
-                                             <td><?php echo $guardian->getDNI() ?></td>
-                                             <td><?php echo $guardian->getAdress() ?></td>
-                                             <td><?php echo $guardian->getTelephone() ?></td>
-                                             <td><?php echo $guardian->getEmail() ?></td>
-                                             <td><?php echo $guardian->getPassword() ?></td>
-                                            <td><?php echo $guardian->getCuil() ?></td>
-                                            <td><?php echo $guardian->getRemuneracion() ?></td>
-                                            <td><?php echo $guardian->getTamanoDeMascota()?></td>
-                                            <td><?php echo $guardian->getDisponibilidad() ?></td>
-                                            <td><?php echo $guardian->getReservas() ?></td>
-                                            <td><?php echo $guardian->getReviews() ?></td>
+                         foreach ($guardianList as $guardian) {
+                         ?>
+                              <tr>
+                                   <td><?php echo $guardian->getFirstName() ?></td>
+                                   <td><?php echo $guardian->getLastName() ?></td>
+                                   <td><?php echo $guardian->getDNI() ?></td>
+                                   <td><?php echo $guardian->getAdress() ?></td>
+                                   <td><?php echo $guardian->getTelephone() ?></td>
+                                   <td><?php echo $guardian->getEmail() ?></td>
+                                   <td><?php echo $guardian->getPassword() ?></td>
+                                   <td><?php echo $guardian->getCuil() ?></td>
+                                   <td><?php echo $guardian->getRemuneracion() ?></td>
+                                   <td><?php echo $guardian->getTamanoDeMascota() ?></td>
+                                   <td><?php echo $guardian->getDisponibilidad() ?></td>
+                                   <td><?php echo $guardian->getReservas() ?></td>
+                                   <td><?php echo $guardian->getReviews() ?></td>
+                                   <td><?php echo $guardian->getTipoDeUsuario() ?></td>
 
-                                             <!-- <td><?php //echo $guardian->getID() ?></td> -->
-                                        </tr>
-                                   <?php
-                              }
+                                   <!-- <td><?php //echo $guardian->getID() 
+                                             ?></td> -->
+                              </tr>
+                         <?php
+                         }
                          ?>
                          </tr>
                     </tbody>

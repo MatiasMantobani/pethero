@@ -16,20 +16,20 @@ class GuardianController
 
     public function ShowAddView()
     {
-        require_once(VIEWS_PATH . "validate-session.php");
+        // require_once(VIEWS_PATH . "validate-session.php");
         require_once(VIEWS_PATH . "guardian-add.php");
     }
 
     public function ShowListView()
     {
-        require_once(VIEWS_PATH . "validate-session.php");
+        // require_once(VIEWS_PATH . "validate-session.php");
         $guardianList = $this->guardianDAO->GetAll();   // guardianList lo usa guardian-list.php en el foreach($guardianList as $guardian)
         require_once(VIEWS_PATH . "guardian-list.php");
     }
 
     public function Add($firstName, $lastName, $dni, $adress, $telephone, $email, $password, $cuil, $remuneracion, $tamanoDeMascota, $disponibilidad)
     {
-        require_once(VIEWS_PATH . "validate-session.php");
+        // require_once(VIEWS_PATH . "validate-session.php");
 
         $guardian = new Guardian();
 

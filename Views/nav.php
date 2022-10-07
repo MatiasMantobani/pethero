@@ -6,9 +6,12 @@
 
     <ul class="navbar-nav ml-auto">
 
+        <!-- traes el SESSIONS y chequeas vistas para cada tipo de usuario -->
+
         <li class="nav-item">
             <a class="nav-link" href="<?php echo FRONT_ROOT ?>Dueno/ShowListView">Ver Todos Los Dueño</a>
         </li>
+
 
         <li class="nav-item">
             <a class="nav-link" href="<?php echo FRONT_ROOT ?>Mascota/ShowListView">Ver Todas Las Mascotas</a>

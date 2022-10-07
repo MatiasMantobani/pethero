@@ -45,7 +45,7 @@ class HomeController
         }
 
         if ($hallado == true) {
-            $_SESSION["loggedUser"] = $user;    //No se deberia guardar todo el usuario, solo el id (se puede usar para parcial)
+            $_SESSION["loggedUser"] = $user;    //No se deberia guardar todo el usuario, solo el id y tipo de usuario (se puede usar para parcial)
             // var_dump($_SESSION);
             if ($user instanceof Guardian) {
                 require_once(VIEWS_PATH . "guardian-perfil.php");

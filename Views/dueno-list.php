@@ -17,6 +17,7 @@
                          <th>Mascotas</th>
                          <th>Reservas</th>
                          <th>Pagos</th>
+                         <th>Tipo de Usuario</th>
 
                          </thead>
                     <tbody>
@@ -35,6 +36,7 @@
                                              <td><?php echo $dueno->getMascotas() ?></td>
                                              <td><?php echo $dueno->getReservas() ?></td>
                                              <td><?php echo $dueno->getPagos() ?></td>
+                                             <td><?php echo $dueno->getTipoDeUsuario() ?></td>
                                             
 
                                              <!-- <td><?php //echo $dueno->getID() ?></td> -->

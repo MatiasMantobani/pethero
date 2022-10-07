@@ -41,6 +41,7 @@
                 $valuesArray["disponibilidad"] = $guardian->getDisponibilidad();
                 $valuesArray["reservas"] = $guardian->getReservas();
                 $valuesArray["reviews"] = $guardian->getReviews();
+                $valuesArray["tipoDeUsuario"] = $guardian->getTipoDeUsuario();
                 // $valuesArray["ID"] = $guardian->getID();
                 // echo "DAO GUARDIAN SAVE DATA".$valuesArray["ID"] = $guardian->getID(); //DEBUG
                 // echo "<br>";
@@ -77,6 +78,7 @@
                     $guardian->setDisponibilidad($valuesArray["disponibilidad"]);
                     $guardian->setReservas($valuesArray["reservas"]);
                     $guardian->setReviews($valuesArray["reviews"]);
+                    $guardian->setTipoDeUsuario($valuesArray["tipoDeUsuario"]);
                     // $guardian->setID($valuesArray["ID"]);
                     // echo "DAO GUARDIAN RETRIEVE DATA".$valuesArray["ID"] = $guardian->getID(); //DEBUG
                     // echo "<br>";

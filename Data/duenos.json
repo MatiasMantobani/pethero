@@ -1,26 +1,15 @@
 [
     {
-        "firstName": "Ana",
-        "lastName": "Perez",
-        "dni": "40497649",
-        "adress": "saavedra 5214",
-        "telephone": "234253234",
-        "email": "ana@gmail.com",
+        "firstName": "asd",
+        "lastName": "asd",
+        "dni": "38497649",
+        "adress": "asd",
+        "telephone": "111111111",
+        "email": "matiasmantobani1@gmail.com",
         "password": "123456",
-        "mascotas": "mascota sin crear",
-        "reservas": "reserva sin crear",
-        "pagos": "pago sin crear"
-    },
-    {
-        "firstName": "Juan",
-        "lastName": "Lopez",
-        "dni": "29097621",
-        "adress": "avenida siempreviva 642",
-        "telephone": "231432152341",
-        "email": "juan@hotmail.com",
-        "password": "123456",
-        "mascotas": "mascota sin crear",
-        "reservas": "reserva sin crear",
-        "pagos": "pago sin crear"
+        "mascotas": "asd",
+        "reservas": "asd",
+        "pagos": "asd",
+        "tipoDeUsuario": 1
     }
 ]

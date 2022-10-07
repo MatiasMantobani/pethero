@@ -24,6 +24,7 @@ class Guardian extends Person
         $this->remuneracion = $remuneracion;
         $this->tamanoDeMascota = $tamanoDeMascota;
         $this->disponibilidad = $disponibilidad;
+        parent::setTipoDeUsuario(2);    //guardian
     }
 
     //METODOS
