@@ -4,6 +4,7 @@ namespace Models;
 
 abstract class Person
 {
+    //ATRIBUTOS
     protected $firstName;
     protected $lastName;
     protected $dni;
@@ -13,7 +14,9 @@ abstract class Person
     protected $password;
     protected $idPerson;
     // protected $fotoOpcional; //implementar
+    // protected tipoDeUsuario; //posible solucion a validate-session (?)
 
+    //CONSTRUCTOR
     protected function __construct($firstName, $lastName, $dni, $adress, $telephone, $email, $password)
     {
         $this->firstName = $firstName;
@@ -23,10 +26,12 @@ abstract class Person
         $this->telephone = $telephone;
         $this->email = $email;
         $this->password = $password;
-
+        // Para el ID autoincremental utilizar la solucion del atributo maxValue (hecho en resolucion modelo pre-parcial 2022 de Andres)
         // $this->incrementarAtributoEstatico();
         // $this->getIDAuto();
     }
+
+    //METODOS
 
     // public function incrementarAtributoEstatico()    //Podria no ser static pero habra limitaciones
     // {
@@ -59,66 +64,51 @@ abstract class Person
     //     return self::$ID;
     // }
 
-
-
     //NOMBRE      
     public function getFirstName()
     {
         return $this->firstName;
     }
-
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
     }
-
 
     // APELLIDO
     public function getLastName()
     {
         return $this->lastName;
     }
-
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
     }
-
 
     //DNI
     public function getDni()
     {
         return $this->dni;
     }
-
-
     public function setDni($dni)
     {
         $this->dni = $dni;
     }
 
-
     // DIRECCION
-
     public function getAdress()
     {
         return $this->adress;
     }
-
-
     public function setAdress($adress)
     {
         $this->adress = $adress;
     }
-
 
     //TELEFONO
     public function getTelephone()
     {
         return $this->telephone;
     }
-
-
     public function setTelephone($telephone)
     {
         $this->telephone = $telephone;
@@ -129,8 +119,6 @@ abstract class Person
     {
         return $this->email;
     }
-
-
     public function setEmail($email)
     {
         $this->email = $email;
@@ -141,7 +129,6 @@ abstract class Person
     {
         return $this->password;
     }
-
     public function setPassword($password)
     {
         $this->password = $password;

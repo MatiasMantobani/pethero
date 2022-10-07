@@ -14,10 +14,6 @@ class PersonController
         require_once(VIEWS_PATH . "user-type.php");
     }
 
-    
-
-    
-
     public function ChooseType($personType)
     {
         if ($personType == "guardian") {

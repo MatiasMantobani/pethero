@@ -11,16 +11,13 @@
         public function Add(Guardian $guardian)
         {
             $this->RetrieveData();
-            
             array_push($this->guardianList, $guardian);
-
             $this->SaveData();
         }
 
         public function GetAll()
         {
             $this->RetrieveData();
-
             return $this->guardianList;
         }
 
@@ -45,15 +42,11 @@
                 $valuesArray["reservas"] = $guardian->getReservas();
                 $valuesArray["reviews"] = $guardian->getReviews();
                 // $valuesArray["ID"] = $guardian->getID();
-
                 // echo "DAO GUARDIAN SAVE DATA".$valuesArray["ID"] = $guardian->getID(); //DEBUG
                 // echo "<br>";
-
                 array_push($arrayToEncode, $valuesArray);
             }
-
             $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-            
             file_put_contents('Data/guardianes.json', $jsonContent);
         }
 
@@ -64,12 +57,12 @@
             if(file_exists('Data/guardianes.json'))
             {
                 $jsonContent = file_get_contents('Data/guardianes.json');
-
                 $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
 
                 foreach($arrayToDecode as $valuesArray)
                 {
-                    $guardian = new Guardian(NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
+                    $guardian = new Guardian();
+                    
                     $guardian->setFirstName($valuesArray["firstName"]);
                     $guardian->setLastName($valuesArray["lastName"]);
                     $guardian->setDNI($valuesArray["dni"]);
@@ -85,7 +78,6 @@
                     $guardian->setReservas($valuesArray["reservas"]);
                     $guardian->setReviews($valuesArray["reviews"]);
                     // $guardian->setID($valuesArray["ID"]);
-
                     // echo "DAO GUARDIAN RETRIEVE DATA".$valuesArray["ID"] = $guardian->getID(); //DEBUG
                     // echo "<br>";
                     array_push($this->guardianList, $guardian);
@@ -93,4 +85,3 @@
             }
         }
     }
-?>

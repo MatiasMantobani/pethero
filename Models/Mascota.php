@@ -1,12 +1,12 @@
 <?php
+
 namespace Models;
 
 class Mascota
 {
-   
+    //ATRIBUTOS
     private $idDueno;   //implementar
     private $idMascota;   //implementar
-
     private $petName;
     private $foto;           //img
     private $carnetVacunas; //img
@@ -14,23 +14,22 @@ class Mascota
     private $raza;
     private $tamano;    //array S, M, L
     private $video; // implementar como c*rajo implemento esto!? (╯°□°）╯︵ ┻━┻
-    
-    
-    public function __construct($petName, $foto, $carnetVacunas, $observaciones, $raza, $tamano, $video)
-    {
-        $this->$petName=$petName;
-        $this->$foto=$foto;
-        $this->$carnetVacunas=$carnetVacunas;
-        $this->$observaciones=$observaciones;
-        $this->$raza=$raza;
-        $this->$tamano=$tamano;
-        $this->$video=$video;
 
+    //CONSTRUCTOR
+    public function __construct($petName=null, $foto=null, $carnetVacunas=null, $observaciones=null, $raza=null, $tamano=null, $video=null)
+    {
+        $this->$petName = $petName;
+        $this->$foto = $foto;
+        $this->$carnetVacunas = $carnetVacunas;
+        $this->$observaciones = $observaciones;
+        $this->$raza = $raza;
+        $this->$tamano = $tamano;
+        $this->$video = $video;
     }
 
-    /**
-     * Get the value of petName
-     */
+    //METODOS
+
+    //NOMBRE
     public function getPetName()
     {
         return $this->petName;

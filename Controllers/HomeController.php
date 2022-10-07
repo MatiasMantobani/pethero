@@ -8,11 +8,12 @@ use DAO\DuenoDAO as DuenoDAO;
 
 class HomeController
 {
-    public function Index($message = "")
+    public function Index($message = "")    //el nombre Index esta definido en framework: Config/Request.php
     {
-        // require_once(VIEWS_PATH."guardian-add.php");
-        require_once(VIEWS_PATH . "main.php");    //AGREGADO
+        require_once(VIEWS_PATH . "main.php");    //Vista por default de la pagina
     }
+
+    // LogInView(), LogIn($email, $password) y Logout() se pueden pasar a un controlador propio del login (LoginController | AuthController | algo asi
 
     public function LogInView()
     {
@@ -21,61 +22,42 @@ class HomeController
 
     public function LogIn($email, $password)
     {
+        // Esto se puede cambiar a atributo tipo arreglo en clase controller (la lista de usuarios se creara menos veces)
         $guardianes = new GuardianDAO();
         $duenos = new DuenoDAO();
         $usuarios = array();
         $usuarios = array_merge($guardianes->GetAll(), $duenos->GetAll()); // arreglo de todos los usuarios
-        // var_dump($usuarios);
-        // print_r($usuarios);
         echo "<br>";
+        // ---
 
         $hallado = false;
         $user = NULL;
         foreach ($usuarios as $u) {
-            // echo "<br>INDICE DEL ARREGLO <br>";
+            // echo "<br> SOY UN INDICE NUEVO <br>";
             if ($email ==  $u->getEmail() && $password == $u->getPassword() && $hallado == false) {
-
-
-
                 $user = $u;
                 $hallado = true;
-                // echo "El usuario existe y es: ";
-                // var_dump($u);   //guardar en session usuario que se loguea
-                // echo "<br>";
             }
         }
         if ($hallado == false) {
-            echo '<div class="alert alert-danger text-center" role="alert" >Usuario y/o clave incorrecta.</div>';
+            echo '<div class="alert alert-danger text-center" role="alert" >Usuario y/o clave incorrecta. Vuelva a intentarlo...</div>';
             $this->LogInView();
         }
 
         if ($hallado == true) {
-            $_SESSION["loggedUser"] = $user;
-            var_dump($_SESSION);
+            $_SESSION["loggedUser"] = $user;    //No se deberia guardar todo el usuario, solo el id (se puede usar para parcial)
+            // var_dump($_SESSION);
             if ($user instanceof Guardian) {
                 require_once(VIEWS_PATH . "guardian-perfil.php");
+            } else {
+                require_once(VIEWS_PATH . "dueno-perfil.php");
             }
         }
-
-
-
-
-        // ESTO NO ANDA
-        // // recorrer arreglo y buscar por el $mail y $password que llega por parametro 
-        // $jsonContent = json_encode($usuarios, JSON_PRETTY_PRINT);
-        // file_put_contents('Data/arregloLogin.json', $jsonContent);
-
-        //cuando lo encontras generas perfil con sus datos
-
     }
-
-
-
 
     public function Logout()
     {
         session_destroy();
-
         $this->Index();
     }
 }

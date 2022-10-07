@@ -14,25 +14,25 @@ class DuenoController
         $this->duenoDAO = new DuenoDAO();
     }
 
-
-
     public function ShowAddView()
     {
+        require_once(VIEWS_PATH . "validate-session.php");
         require_once(VIEWS_PATH . "dueno-add.php");
     }
 
     public function ShowListView()
     {
-        $duenoList = $this->duenoDAO->GetAll();
-
+        require_once(VIEWS_PATH . "validate-session.php");
+        $duenoList = $this->duenoDAO->GetAll(); // duenoList lo usa dueno-list.php en el foreach($duenoList as $dueno)
         require_once(VIEWS_PATH . "dueno-list.php");
     }
 
-
-
-    public function Add($firstName, $lastName, $dni, $adress, $telephone, $email, $password,$mascotas,$reservas,$pagos )
+    public function Add($firstName, $lastName, $dni, $adress, $telephone, $email, $password, $mascotas, $reservas, $pagos)
     {
-        $dueno = new Dueno(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+        require_once(VIEWS_PATH . "validate-session.php");
+
+        $dueno = new Dueno();
+
         $dueno->setFirstName($firstName);
         $dueno->setLastName($lastName);
         $dueno->setDni($dni);

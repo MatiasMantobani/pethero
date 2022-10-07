@@ -11,8 +11,7 @@
         {
             $url = filter_input(INPUT_GET, "url", FILTER_SANITIZE_URL);
 
-
-//          $urlArray = explode("/", $url); <- Original: passing NULL
+            // $urlArray = explode("/", $url); // original (warning: passing null)
             $urlArray = explode("/", $url ?? "");
             $urlArray = array_filter($urlArray);
 
@@ -22,7 +21,7 @@
                 $this->controller = ucwords(array_shift($urlArray));
 
             if(empty($urlArray))
-                $this->method = "Index";
+                $this->method = "Index";    //esto hace que se llame al metodo Index de Home Controller cuando la url esta vacia
             else
                 $this->method = array_shift($urlArray);
 
@@ -57,7 +56,7 @@
         private static function getMethodRequest()
         {
             return $_SERVER['REQUEST_METHOD'];
-//            return $_SERVER["REQUEST_METHOD"];    <- Cambiar a comillas simples evita un error
+            // return $_SERVER["REQUEST_METHOD"];   //Cambiar a comillas simples evita un error
         }
 
         public function getController() {
@@ -72,4 +71,3 @@
             return $this->parameters;
         }
     }
-?>

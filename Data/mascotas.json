@@ -1,38 +1,20 @@
 [
     {
-        "petName": "1",
-        "foto": "1",
-        "carnetVacunas": "1",
-        "observaciones": "1",
-        "raza": "1",
-        "tamano": "1",
-        "video": "1"
+        "petName": "hamster 1",
+        "foto": "l",
+        "carnetVacunas": "l",
+        "observaciones": "l",
+        "raza": "l",
+        "tamano": "l",
+        "video": "l"
     },
     {
-        "petName": "2",
-        "foto": "2",
-        "carnetVacunas": "2",
-        "observaciones": "Best boy",
-        "raza": "1",
-        "tamano": "1",
-        "video": "1"
-    },
-    {
-        "petName": "asd",
-        "foto": "asd",
+        "petName": "hasmter2",
+        "foto": "no",
         "carnetVacunas": "asd",
         "observaciones": "asd",
-        "raza": "asd",
-        "tamano": "asd",
+        "raza": "epf",
+        "tamano": "asdf",
         "video": "asd"
-    },
-    {
-        "petName": "",
-        "foto": "",
-        "carnetVacunas": "",
-        "observaciones": "",
-        "raza": "",
-        "tamano": "",
-        "video": ""
     }
 ]

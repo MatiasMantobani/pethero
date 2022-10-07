@@ -15,7 +15,7 @@
 		
 	Autoload::start();
 
-//	session_start();    <- Por teoria lo pasamos a la linea 2
+	// session_start();	//Por teoria lo pasamos al principio // si hay problemas con guardar un objeto en sessions volverlo a dejar aca
 
 	require_once(VIEWS_PATH."header.php");
 	require_once(VIEWS_PATH."nav.php");
