@@ -7,5 +7,6 @@
     {
         function Add(Dueno $dueno);
         function GetAll();
+        function Remove($dni);
     }
 ?>

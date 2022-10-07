@@ -27,6 +27,15 @@ class GuardianController
         require_once(VIEWS_PATH . "guardian-list.php");
     }
 
+    public function Remove($dni)
+    {
+        require_once(VIEWS_PATH."validate-session.php");
+
+        $this->guardianDAO->Remove($dni);
+
+        $this->ShowListView();
+    }
+
     public function Add($firstName, $lastName, $dni, $adress, $telephone, $email, $password, $cuil, $remuneracion, $tamanoDeMascota, $disponibilidad)
     {
         // require_once(VIEWS_PATH . "validate-session.php");

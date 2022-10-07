@@ -21,6 +21,17 @@
             return $this->guardianList;
         }
 
+        public function Remove($dni)
+        {
+            $this->RetrieveData();
+
+            $this->guardianList = array_filter($this->guardianList, function($guardian) use($dni){
+                return $guardian->getDni() != $dni;
+            });
+
+            $this->SaveData();
+        }
+
         private function SaveData()
         {
             $arrayToEncode = array();

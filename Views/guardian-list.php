@@ -21,6 +21,7 @@ require_once('nav.php');
                          <th>Reservas</th>
                          <th>Reviews</th>
                          <th>Tipo de Usuario</th>
+                         <th>Acciones</th>
                          <!-- <th>ID</th>          Despues habria que sacarlo al ID -->
 
                     </thead>
@@ -43,6 +44,11 @@ require_once('nav.php');
                                    <td><?php echo $guardian->getReservas() ?></td>
                                    <td><?php echo $guardian->getReviews() ?></td>
                                    <td><?php echo $guardian->getTipoDeUsuario() ?></td>
+                                  <form action="<?php echo FRONT_ROOT."Guardian/Remove" ?>" method="">
+                                      <td>
+                                          <button type="submit" name="dni" class="btn" value="<?php echo $guardian->getDni() ?>"> Remove </button>
+                                      </td>
+                                  </form>
 
                                    <!-- <td><?php //echo $guardian->getID() 
                                              ?></td> -->
