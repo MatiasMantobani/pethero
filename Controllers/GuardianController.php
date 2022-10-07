@@ -29,14 +29,31 @@ class GuardianController
 
     public function Remove($dni)
     {
-        require_once(VIEWS_PATH."validate-session.php");
+        // require_once(VIEWS_PATH."validate-session.php");
 
         $this->guardianDAO->Remove($dni);
 
         $this->ShowListView();
     }
 
-    public function Add($firstName, $lastName, $dni, $adress, $telephone, $email, $password, $cuil, $remuneracion, $tamanoDeMascota, $disponibilidad)
+    public function ShowDisponibilidadView(){
+        // require_once(VIEWS_PATH."validate-session.php");
+        require_once(VIEWS_PATH . "disponibilidad-view.php");
+    }
+
+    public function ModifyDisponibilidad($lunes = "", $martes = "", $miercoles = "", $jueves = "", $viernes = "", $sabado = "", $domingo = ""){
+        $disponibilidadActualizada = $lunes.$martes.$miercoles.$jueves.$viernes.$sabado.$domingo;
+        var_dump($disponibilidadActualizada);
+        echo "<br>";
+        $guardian = new Guardian();
+        $guardian = unserialize($_SESSION["loggedUser"]);
+        var_dump($guardian);
+        $guardian->setDisponibilidad($disponibilidadActualizada);
+        $this->guardianDAO->Remove($guardian->getDni());
+        $this->guardianDAO->Add($guardian);
+    }
+
+    public function Add($firstName, $lastName, $dni, $adress, $telephone, $email, $password, $cuil, $remuneracion, $tamanoDeMascota)
     {
         // require_once(VIEWS_PATH . "validate-session.php");
 
@@ -52,7 +69,6 @@ class GuardianController
         $guardian->setCuil($cuil);
         $guardian->setRemuneracion($remuneracion);
         $guardian->setTamanoDeMascota($tamanoDeMascota);
-        $guardian->setDisponibilidad($disponibilidad);
 
         $this->guardianDAO->Add($guardian);
 

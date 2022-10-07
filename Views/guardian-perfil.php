@@ -10,7 +10,7 @@
 
                 <?php
             
-                $usuarioActual = $_SESSION["loggedUser"];
+                $usuarioActual = unserialize($_SESSION["loggedUser"]); // No olvidarse de deserializar el SESSION
                 
                 ?>
 
@@ -49,7 +49,9 @@
                    <div class="button mt-2 d-flex flex-row align-items-center">
 
                     <button class="btn btn-sm btn-outline-primary w-100">Chat</button>
-                    <button class="btn btn-sm btn-primary w-100 ml-2">Follow</button>
+                    <a href="<?php echo FRONT_ROOT ?>Guardian/ShowDisponibilidadView">
+                           <button class="btn btn-sm btn-primary w-100 ml-2">Modificar Disponibilidad</button>
+                       </a>
 
                        
                    </div>

@@ -51,8 +51,8 @@ class HomeController
         }
 
         if ($hallado == true) {
-            $_SESSION["loggedUser"] = $user;    //No se deberia guardar todo el usuario, solo el id y tipo de usuario (se puede usar para parcial)
-            // var_dump($_SESSION);
+            $_SESSION["loggedUser"] = serialize($user); // No olvidarse de serializar el SESSION    //No se deberia guardar toodo el usuario, solo el id y tipo de usuario (se puede usar para parcial)
+            //var_dump($_SESSION);
             if ($user->getTipoDeUsuario() == 2) { // se puede chequear con el atributo tipoDeUsuario! 2 = Guardian
                 $this->ShowAddViewGuardian();
             } else {

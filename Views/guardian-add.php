@@ -26,9 +26,9 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label for="">Disponibilidad</label>
-                            <input type="text" name="disponibilidad" value="" class="form-control">
-                        </div>
-                    </div>
+<!--                    <div class="col-lg-4">-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="">Disponibilidad</label>-->
+<!--                            <input type="hidden" name="disponibilidad" value="" class="form-control">-->
+<!--                        </div>-->
+<!--                    </div>-->
