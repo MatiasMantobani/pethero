@@ -48,4 +48,13 @@ class DuenoController
 
         $this->ShowListView();
     }
+
+    public function Remove($dni)
+    {
+        require_once(VIEWS_PATH."validate-session.php");
+
+        $this->duenoDAO->Remove($dni);
+
+        $this->ShowListView();
+    }
 }

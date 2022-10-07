@@ -15,5 +15,22 @@
         "reservas": null,
         "reviews": null,
         "tipoDeUsuario": 2
+    },
+    {
+        "firstName": "rodri",
+        "lastName": "guardian",
+        "dni": "43141431",
+        "adress": "Que te iomporta?",
+        "telephone": "34134123412",
+        "email": "rodriguardian@hotmail.com",
+        "password": "123",
+        "cuil": "22344124124",
+        "remuneracion": "10000",
+        "reputacion": null,
+        "tamanoDeMascota": "tumama",
+        "disponibilidad": "si",
+        "reservas": null,
+        "reviews": null,
+        "tipoDeUsuario": 2
     }
 ]

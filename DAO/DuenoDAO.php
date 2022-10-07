@@ -22,6 +22,17 @@ class DuenoDAO implements IDuenoDAO
         return $this->duenoList;
     }
 
+    public function Remove($dni)
+    {
+        $this->RetrieveData();
+
+        $this->duenoList = array_filter($this->duenoList, function($dueno) use($dni){
+            return $dueno->getDni() != $dni;
+        });
+
+        $this->SaveData();
+    }
+
     //$firstName, $lastName, $dni, $adress, $telephone, $email, $password,$mascotas,$reservas,$pagos
     private function SaveData()
     {
@@ -77,4 +88,5 @@ class DuenoDAO implements IDuenoDAO
             }
         }
     }
+
 }

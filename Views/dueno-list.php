@@ -18,6 +18,7 @@
                          <th>Reservas</th>
                          <th>Pagos</th>
                          <th>Tipo de Usuario</th>
+                         <th>Acciones</th>
 
                          </thead>
                     <tbody>
@@ -37,7 +38,11 @@
                                              <td><?php echo $dueno->getReservas() ?></td>
                                              <td><?php echo $dueno->getPagos() ?></td>
                                              <td><?php echo $dueno->getTipoDeUsuario() ?></td>
-                                            
+                                            <form action="<?php echo FRONT_ROOT."Dueno/Remove" ?>" method="">
+                                                <td>
+                                                    <button type="submit" name="dni" class="btn" value="<?php echo $dueno->getDni() ?>"> Remove </button>
+                                                </td>
+                                            </form>
 
                                              <!-- <td><?php //echo $dueno->getID() ?></td> -->
                                         </tr>

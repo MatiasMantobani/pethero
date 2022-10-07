@@ -15,6 +15,12 @@ class HomeController
 
     // LogInView(), LogIn($email, $password) y Logout() se pueden pasar a un controlador propio del login (LoginController | AuthController | algo asi
 
+    public function ShowAddViewGuardian()
+    {
+        require_once(VIEWS_PATH."validate-session.php");
+        require_once(VIEWS_PATH . "guardian-perfil.php");
+    }
+
     public function LogInView()
     {
         require_once(VIEWS_PATH . "login.php");
@@ -47,10 +53,10 @@ class HomeController
         if ($hallado == true) {
             $_SESSION["loggedUser"] = $user;    //No se deberia guardar todo el usuario, solo el id y tipo de usuario (se puede usar para parcial)
             // var_dump($_SESSION);
-            if ($user instanceof Guardian) {
-                require_once(VIEWS_PATH . "guardian-perfil.php");
+            if ($user->getTipoDeUsuario() == 2) { // se puede chequear con el atributo tipoDeUsuario! 2 = Guardian
+                $this->ShowAddViewGuardian();
             } else {
-                require_once(VIEWS_PATH . "dueno-perfil.php");
+                require_once(VIEWS_PATH . "dueno-perfil.php"); // conviene con el metodo ShowAddViewDueno?
             }
         }
     }

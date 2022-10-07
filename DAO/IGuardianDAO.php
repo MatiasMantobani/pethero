@@ -7,5 +7,6 @@
     {
         function Add(Guardian $guardian);
         function GetAll();
+        function Remove($dni);
     }
 ?>
