@@ -41,16 +41,24 @@ class GuardianController
         require_once(VIEWS_PATH . "disponibilidad-view.php");
     }
 
+    // pasar a DAO parte
     public function ModifyDisponibilidad($lunes = "", $martes = "", $miercoles = "", $jueves = "", $viernes = "", $sabado = "", $domingo = ""){
+
         $disponibilidadActualizada = $lunes.$martes.$miercoles.$jueves.$viernes.$sabado.$domingo;
         var_dump($disponibilidadActualizada);
         echo "<br>";
         $guardian = new Guardian();
         $guardian = unserialize($_SESSION["loggedUser"]);
+
+
         var_dump($guardian);
         $guardian->setDisponibilidad($disponibilidadActualizada);
+
+
         $this->guardianDAO->Remove($guardian->getDni());
         $this->guardianDAO->Add($guardian);
+
+
     }
 
     public function Add($firstName, $lastName, $dni, $adress, $telephone, $email, $password, $cuil, $remuneracion, $tamanoDeMascota)

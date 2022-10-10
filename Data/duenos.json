@@ -1,15 +1,1 @@
-[
-    {
-        "firstName": "asd",
-        "lastName": "asd",
-        "dni": "3243412",
-        "adress": "dsafas",
-        "telephone": "3423124312",
-        "email": "rodridueno@hotmail.com",
-        "password": "123",
-        "mascotas": "asd",
-        "reservas": "asd",
-        "pagos": "asd",
-        "tipoDeUsuario": 1
-    }
-]
+[]
