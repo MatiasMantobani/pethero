@@ -152,4 +152,16 @@ class Mascota
 
         return $this;
     }
+
+    // ID DUEÑO 
+    public function getIdDueno()
+    {
+        return $this->idDueno;
+    }
+    public function setIdDueno($idDueno)
+    {
+        $this->idDueno = $idDueno;
+
+        return $this;
+    }
 }

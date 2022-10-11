@@ -38,6 +38,7 @@ class GuardianController
 
     public function ShowDisponibilidadView(){
         // require_once(VIEWS_PATH."validate-session.php");
+        // require_once(VIEWS_PATH."validate-session-guardian.php");
         require_once(VIEWS_PATH . "disponibilidad-view.php");
     }
 

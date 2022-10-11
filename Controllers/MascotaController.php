@@ -21,7 +21,7 @@ class MascotaController
 
     public function ShowListView()
     {
-        // require_once(VIEWS_PATH . "validate-session.php");
+        require_once(VIEWS_PATH . "validate-session.php");
         $mascotaList = $this->mascotaDAO->GetAll(); // mascotaList lo usa mascota-list.php en el foreach($mascotaList as $mascota)
         require_once (VIEWS_PATH . "mascota-list.php");
     }

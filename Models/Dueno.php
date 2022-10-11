@@ -7,7 +7,7 @@ use Models\Person as Person;
 class Dueno extends Person
 {
     //ATRIBUTOS
-    private $mascotas;  //deberia ser un array
+    private $mascotas;  //deberia ser un array de ids mascotas
     private $reservas; //deberia ser un array
     private $pagos; //deberia ser un array
 

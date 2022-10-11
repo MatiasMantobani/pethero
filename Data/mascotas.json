@@ -1,5 +1,17 @@
 [
     {
+        "idDueno": "39636106",
+        "petName": "choclito",
+        "foto": "",
+        "carnetVacunas": "",
+        "observaciones": "",
+        "raza": "",
+        "tamano": "",
+        "video": ""
+    },
+
+    {
+        "idDueno": "90682406",
         "petName": "sabandija",
         "foto": "",
         "carnetVacunas": "",
@@ -8,4 +20,5 @@
         "tamano": "",
         "video": ""
     }
+
 ]

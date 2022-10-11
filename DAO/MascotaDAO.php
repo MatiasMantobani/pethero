@@ -27,6 +27,8 @@ class MascotaDAO implements IMascotaDAO
         $arrayToEncode = array();
 
         foreach ($this->mascotaList as $mascota) {
+
+            $valuesArray["idDueno"] = $mascota->getIdDueno();
             $valuesArray["petName"] = $mascota->getPetName();
             $valuesArray["foto"] = $mascota->getFoto();
             $valuesArray["carnetVacunas"] = $mascota->getCarnetVacunas();
@@ -53,6 +55,7 @@ class MascotaDAO implements IMascotaDAO
 
                 $mascota = new Mascota();
 
+                $mascota->setIdDueno($valuesArray["idDueno"]);
                 $mascota->setPetName($valuesArray["petName"]);
                 $mascota->setFoto($valuesArray["foto"]);
                 $mascota->setCarnetVacunas($valuesArray["carnetVacunas"]);
