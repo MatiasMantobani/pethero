@@ -1,1 +1,36 @@
-[]
+[
+    {
+        "firstName": "ana",
+        "lastName": "conda",
+        "dni": "89854456",
+        "adress": "-",
+        "telephone": "425",
+        "email": "hola@com",
+        "password": "-",
+        "cuil": "74523699111",
+        "remuneracion": "1",
+        "reputacion": null,
+        "tamanoDeMascota": "-",
+        "disponibilidad": null,
+        "reservas": null,
+        "reviews": null,
+        "tipoDeUsuario": 2
+    },
+    {
+        "firstName": "asd",
+        "lastName": "asd",
+        "dni": "38497649",
+        "adress": "asd",
+        "telephone": "7855745",
+        "email": "matiasmantobani1@gmail.com",
+        "password": "8",
+        "cuil": "25253226614",
+        "remuneracion": "3",
+        "reputacion": null,
+        "tamanoDeMascota": "",
+        "disponibilidad": null,
+        "reservas": null,
+        "reviews": null,
+        "tipoDeUsuario": 2
+    }
+]

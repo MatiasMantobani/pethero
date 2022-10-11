@@ -1,1 +1,15 @@
-[]
+[
+    {
+        "firstName": "heraldo",
+        "lastName": "antonio",
+        "dni": "39636106",
+        "adress": "-",
+        "telephone": "486456645",
+        "email": "email@com",
+        "password": "-",
+        "mascotas": "-",
+        "reservas": "-",
+        "pagos": "-",
+        "tipoDeUsuario": 1
+    }
+]

@@ -46,6 +46,9 @@
                         <button class="btn btn-sm btn-outline-primary w-100">Ver mascotas</button>
                     </a>
 
+                    <a href="<?php echo FRONT_ROOT ?>Guardian/ShowListView">
+                        <button class="btn btn-sm btn-outline-primary w-100">Ver Guardianes</button>
+                    </a>
 
 
                     <a href="<?php echo FRONT_ROOT ?>Mascota/ShowAddView">

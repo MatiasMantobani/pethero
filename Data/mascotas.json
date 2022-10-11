@@ -1,20 +1,11 @@
 [
     {
-        "petName": "hamster 1",
-        "foto": "l",
-        "carnetVacunas": "l",
-        "observaciones": "l",
-        "raza": "l",
-        "tamano": "l",
-        "video": "l"
-    },
-    {
-        "petName": "hasmter2",
-        "foto": "no",
-        "carnetVacunas": "asd",
-        "observaciones": "asd",
-        "raza": "epf",
-        "tamano": "asdf",
-        "video": "asd"
+        "petName": "sabandija",
+        "foto": "",
+        "carnetVacunas": "",
+        "observaciones": "",
+        "raza": "",
+        "tamano": "",
+        "video": ""
     }
 ]
