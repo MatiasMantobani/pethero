@@ -18,7 +18,7 @@
 	// session_start();	//Por teoria lo pasamos al principio // si hay problemas con guardar un objeto en sessions volverlo a dejar aca
 
 	require_once(VIEWS_PATH."header.php");
-	require_once(VIEWS_PATH."nav.php");
+    // require_once(VIEWS_PATH."nav.php"); // -> Se va a cada vistaa
 	// require_once(VIEWS_PATH."dueno-perfil.php");
 	// require_once(VIEWS_PATH."guardian-perfil.php");
 	// require_once(VIEWS_PATH."login.php");

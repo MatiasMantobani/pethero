@@ -2,7 +2,7 @@
 
 
 use Models\Dueno as Dueno;
-
+require_once(VIEWS_PATH."nav.php");
 
 ?>
 <main class="py-5">

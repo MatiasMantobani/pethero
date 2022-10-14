@@ -4,6 +4,8 @@ namespace Controllers;
 
 use DAO\GuardianDAO as GuardianDAO;
 use Models\Guardian as Guardian;
+use Controllers\PersonController as PersonController;
+
 
 class GuardianController
 {
@@ -36,6 +38,8 @@ class GuardianController
         $this->ShowListView();
     }
 
+
+
     public function ShowDisponibilidadView(){
         // require_once(VIEWS_PATH."validate-session.php");
         // require_once(VIEWS_PATH."validate-session-guardian.php");
@@ -46,18 +50,21 @@ class GuardianController
     public function ModifyDisponibilidad($lunes = "", $martes = "", $miercoles = "", $jueves = "", $viernes = "", $sabado = "", $domingo = ""){
 
         $disponibilidadActualizada = $lunes.$martes.$miercoles.$jueves.$viernes.$sabado.$domingo;
-        var_dump($disponibilidadActualizada);
-        echo "<br>";
+        // var_dump($disponibilidadActualizada);
+        // echo "<br>";
         $guardian = new Guardian();
         $guardian = unserialize($_SESSION["loggedUser"]);
 
 
-        var_dump($guardian);
+        // var_dump($guardian);
         $guardian->setDisponibilidad($disponibilidadActualizada);
 
 
         $this->guardianDAO->Remove($guardian->getDni());
         $this->guardianDAO->Add($guardian);
+
+        $personController = new PersonController();
+        $personController->ShowProfileView();
 
 
     }

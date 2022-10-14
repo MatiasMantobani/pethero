@@ -33,8 +33,6 @@ class HomeController
         $duenos = new DuenoDAO();
         $usuarios = array();
         $usuarios = array_merge($guardianes->GetAll(), $duenos->GetAll()); // arreglo de todos los usuarios
-        echo "<br>";
-        // ---
 
         $hallado = false;
         $user = NULL;
@@ -63,6 +61,7 @@ class HomeController
 
     public function Logout()
     {
+        unset($_SESSION['loggedUser']);
         session_destroy();
         $this->Index();
     }
