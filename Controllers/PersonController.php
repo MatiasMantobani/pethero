@@ -24,4 +24,19 @@ class PersonController
             require_once(VIEWS_PATH . "person-add.php");
         }
     }
+
+    public function ShowProfileView()
+    {
+        // require_once(VIEWS_PATH . "validate-session.php");
+        $person = unserialize($_SESSION['loggedUser']);
+        if($person->getTipoDeUsuario() == 1)
+        {
+            require_once(VIEWS_PATH . "dueno-perfil.php");
+        }
+        else if ($person->getTipoDeUsuario() == 2)
+        {
+            require_once(VIEWS_PATH . "guardian-perfil.php");
+        }
+    }
+
 }

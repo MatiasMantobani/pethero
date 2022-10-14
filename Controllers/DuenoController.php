@@ -4,6 +4,7 @@ namespace Controllers;
 
 use DAO\DuenoDAO as DuenoDAO;
 use Models\Dueno as Dueno;
+use Controllers\PersonController as PersonController;
 
 class DuenoController
 {
@@ -27,7 +28,7 @@ class DuenoController
         require_once(VIEWS_PATH . "dueno-list.php");
     }
 
-    public function Add($firstName, $lastName, $dni, $adress, $telephone, $email, $password, $mascotas, $reservas, $pagos)
+    public function Add($firstName, $lastName, $dni, $adress, $telephone, $email, $password) // , $mascotas, $reservas, $pagos
     {
         // require_once(VIEWS_PATH . "validate-session.php");
 
@@ -40,9 +41,9 @@ class DuenoController
         $dueno->setTelephone($telephone);
         $dueno->setEmail($email);
         $dueno->setPassword($password);
-        $dueno->setMascotas($mascotas);
-        $dueno->setReservas($reservas);
-        $dueno->setPagos($pagos);
+//        $dueno->setMascotas($mascotas);
+//        $dueno->setReservas($reservas);
+//        $dueno->setPagos($pagos);
 
         $this->duenoDAO->Add($dueno);
 
@@ -57,4 +58,7 @@ class DuenoController
 
         $this->ShowListView();
     }
+
+
+
 }

@@ -2,14 +2,14 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Nombre</label>
-                            <input type="text" name="firstName" value="" pattern="[a-z]{1,15}" class="form-control" title="El campo solo acepta letras, y un maximo de 15 caracteres" required>
+                            <input type="text" name="firstName" value=""  class="form-control" title="El campo solo acepta letras, y un maximo de 15 caracteres" required>
                         </div>
                     </div>
 
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Apellido</label>
-                            <input type="text" name="lastName" value="" pattern="[a-z]{1,15}" class="form-control" title="El campo solo acepta letras, y un maximo de 15 caracteres" required>
+                            <input type="text" name="lastName" value="" class="form-control" title="El campo solo acepta letras, y un maximo de 15 caracteres" required>
                             <div class="valid-feedback">
                                 ¡Bien!
                             </div>
@@ -46,8 +46,8 @@
 
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="password">Contraseña <small>[1-8 caracteres]</small></label>
-                            <input type="password" name="password" maxlength="8" value="" class="form-control" title="El campo admite hasta 8 caracteres" required>
+                            <label for="password">Contraseña <small>[4 a 8 caracteres]</small></label>
+                            <input type="password" name="password" minlength="4" maxlength="8" value="" class="form-control" title="El campo admite de 4 a 8 caracteres" required>
                         </div>
                     </div>
 

@@ -40,8 +40,10 @@ class MascotaController
         $mascota->setTamano($tamano);
         $mascota->setVideo($video);
 
-        $this->mascotaDAO->Add($mascota);
+        $Dueno = unserialize($_SESSION['loggedUser']);
+        $mascota->setIdDueno($Dueno->getDni());
 
+        $this->mascotaDAO->Add($mascota);
         $this->ShowListView();
     }
 }
