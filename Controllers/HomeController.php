@@ -15,7 +15,7 @@ class HomeController
 
     // LogInView(), LogIn($email, $password) y Logout() se pueden pasar a un controlador propio del login (LoginController | AuthController | algo asi
 
-    public function ShowAddViewGuardian()
+    public function ShowAddViewGuardian()   //cambiar por instanciacion de controlador guardian y madnarlo a list view
     {
         // require_once(VIEWS_PATH."validate-session.php");
         require_once(VIEWS_PATH . "guardian-perfil.php");
