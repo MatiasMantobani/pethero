@@ -1,3 +1,6 @@
+<?php include (VIEWS_PATH."nav.php"); ?>
+
+
 <section class="vh-100">
     <div class="container py-5 h-100">
         <div class="row d-flex align-items-center justify-content-center h-100">

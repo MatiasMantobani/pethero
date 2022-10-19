@@ -1,6 +1,8 @@
+<?php include (VIEWS_PATH."nav.php"); ?>
+
 <div class="container mt-5 d-flex justify-content-center">
 
-    <div class="card p-3">
+    <div class="card p-4" style="min-width: 450px">
 
         <div class="d-flex align-items-center">
 
@@ -9,9 +11,11 @@
             </div>
 
             <div class="ml-3 w-100">
-
-                <h4 class="mb-0 mt-0">Alex HMorrision</h4>
-                <span>Senior Journalist</span>
+                <?php
+                $usuarioActual = unserialize($_SESSION["loggedUser"]); // No olvidarse de deserializar el SESSION
+                ?>
+                <h4 class="mb-0 mt-0"><?php echo $usuarioActual->getFirstName(); echo " " .$usuarioActual->getLastName(); ?></h4>
+                <span>Dueño de una pasión</span>
 
                 <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
 

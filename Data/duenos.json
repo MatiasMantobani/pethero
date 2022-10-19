@@ -7,9 +7,6 @@
         "telephone": "486456645",
         "email": "dueno1@com",
         "password": "-",
-        "mascotas": "-",
-        "reservas": "-",
-        "pagos": "-",
         "tipoDeUsuario": 1
     },
     {
@@ -20,9 +17,46 @@
         "telephone": "8562235",
         "email": "dueno2@com",
         "password": "-",
-        "mascotas": "-",
-        "reservas": "-",
-        "pagos": "-",
+        "tipoDeUsuario": 1
+    },
+    {
+        "firstName": "juan",
+        "lastName": "dedios",
+        "dni": "45612345",
+        "adress": "Av Martinez De Hoz 1791",
+        "telephone": "22355545678",
+        "email": "hgfhfgh@hgfh.com",
+        "password": "1",
+        "tipoDeUsuario": 1
+    },
+    {
+        "firstName": "enrico",
+        "lastName": "jusjus",
+        "dni": "45456456",
+        "adress": "ghdjasd 78",
+        "telephone": "2234564564",
+        "email": "2hhhhh@hgfhg2.com",
+        "password": "1234",
+        "tipoDeUsuario": 1
+    },
+    {
+        "firstName": "pepe",
+        "lastName": "argento",
+        "dni": "45789789",
+        "adress": "Marconi 1996",
+        "telephone": "02235820553",
+        "email": "3@3.com",
+        "password": "1234",
+        "tipoDeUsuario": 1
+    },
+    {
+        "firstName": "pepe",
+        "lastName": "argento",
+        "dni": "45789789",
+        "adress": "Marconi 1996",
+        "telephone": "02235820553",
+        "email": "3@3.com",
+        "password": "1234",
         "tipoDeUsuario": 1
     }
 ]

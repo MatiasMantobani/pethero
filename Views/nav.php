@@ -29,6 +29,14 @@
             <a class="nav-link" href="<?php echo FRONT_ROOT ?>Person/AddPerson">Crear Perfil</a>
         </li>
 
+        <?php if(isset($_SESSION['loggedUser'])) { ?>
+
+        <li class="nav-item">
+            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Person/ShowProfileView">Mi perfil</a>
+        </li>
+
+        <?php } ?>
+
         <li class="nav-item">
             <a class="nav-link" href="<?php echo FRONT_ROOT ?>Home/LogInView">Log In</a>
         </li>

@@ -1,7 +1,7 @@
 [
     {
         "idDueno": "39636106",
-        "petName": "choclito",
+        "petName": "Perrito",
         "foto": "",
         "carnetVacunas": "",
         "observaciones": "",
@@ -9,16 +9,54 @@
         "tamano": "",
         "video": ""
     },
-
     {
         "idDueno": "90682406",
-        "petName": "sabandija",
+        "petName": "Luna",
         "foto": "",
         "carnetVacunas": "",
         "observaciones": "",
         "raza": "",
         "tamano": "",
         "video": ""
+    },
+    {
+        "idDueno": "45456456",
+        "petName": "Lucky",
+        "foto": "",
+        "carnetVacunas": "",
+        "observaciones": "",
+        "raza": "",
+        "tamano": "",
+        "video": ""
+    },
+    {
+        "idDueno": "45456456",
+        "petName": "Pluto",
+        "foto": "no",
+        "carnetVacunas": "no",
+        "observaciones": "no",
+        "raza": "Lindo",
+        "tamano": "Grande",
+        "video": "no"
+    },
+    {
+        "idDueno": "45456456",
+        "petName": "Puppy",
+        "foto": "no",
+        "carnetVacunas": "no",
+        "observaciones": "no",
+        "raza": "no",
+        "tamano": "Grande",
+        "video": "no"
+    },
+    {
+        "idDueno": "45789789",
+        "petName": "fatiga",
+        "foto": "no",
+        "carnetVacunas": "no",
+        "observaciones": "no",
+        "raza": "no",
+        "tamano": "no",
+        "video": "no"
     }
-
 ]
