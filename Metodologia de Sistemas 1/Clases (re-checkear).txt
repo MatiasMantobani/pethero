@@ -1,20 +1,40 @@
-Clase User{
-	dni(PK)
-	nombre
-	apellido
-	direccion
+User{
+	id_user			(PK)
+	nombres
+	apellidos
+	dni
+	email
+	user_type
+	password
 	telefono
-	ciudad
-	foto opcional
+	foto
 }
 
-Clase Dueño extends User{
-	Sus mascotas[] (Clase)
-	Listado todas las reservas[] (Clase)
-	Listado todos los pagos[] (Clase)
+Direccion{
+	id			(PK)
+	user_id		(FK)
+	calle
+	altura
+	piso
+	depto
+	CP
 }
 
-Clase Guardian extends User{
+Dueño{
+	id_dueno		(PK)
+	user_id			(FK)
+	mascotas_id		(FK)
+	reservas_id		(FK)
+	pagos_id		(FK)
+}
+
+
+Guardian{
+	id_guardian		(PK)
+	user_id			(FK)
+	reputacion
+	
+	
 	Reputacion Unica
 	Tipo De Perro Aceptado[S,M,L]
 	Remuneracion Esperada por hr
