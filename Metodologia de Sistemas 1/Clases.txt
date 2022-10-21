@@ -7,17 +7,7 @@ User{
 	user_type
 	password
 	telefono
-	foto
-}
-
-Direccion{
-	id_direccion	(PK)
-	user_id			(FK)
-	calle
-	altura
-	piso
-	depto
-	CP
+	foto_id			(FK)
 }
 
 Dueño{
@@ -27,7 +17,6 @@ Dueño{
 	reservas_id		(FK)
 	pagos_id		(FK)
 }
-
 
 Guardian{
 	id_guardian		(PK)
@@ -52,15 +41,6 @@ Mascota{
 	video_id		(FK)
 }
 
-Review{
-	id_review	(PK)
-	Puntuacion
-	Texto
-	guardian_id	(FK)
-	dueno_id	(FK)
-	estadia_id	(FK)
-}
-
 Reserva{
 	id_reserva		(PK)
 	isConfirmada 	(bool)
@@ -80,7 +60,40 @@ Pago{
 	email
 }
 
+Review{
+	id_review	(PK)
+	Puntuacion
+	Texto
+	guardian_id	(FK)
+	dueno_id	(FK)
+	estadia_id	(FK)
+}
+
 Estadia/Alojamiento{
 	id_alojamiento	(PK)
 	reserva_id		(FK)
+}
+
+Direccion{
+	id_direccion	(PK)
+	user_id			(FK)
+	calle
+	altura
+	piso
+	depto
+	CP
+}
+
+Imagen{
+	id_imagen	(PK)
+	peso
+	extension
+	url
+}
+
+Video{
+	id_video
+	peso
+	extension
+	duracion
 }
