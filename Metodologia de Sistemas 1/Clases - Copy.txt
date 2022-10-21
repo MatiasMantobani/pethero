@@ -1,5 +1,5 @@
 User{
-	id_user
+	id_user			(PK)
 	nombres
 	apellidos
 	dni
@@ -7,24 +7,26 @@ User{
 	user_type
 	password
 	telefono
+	foto_id			(FK)
 }
 
-Imagen{
-	id_imagen		(PK)
-	mascota_id		(FK)
-	user_id
-	peso
-	extension
-	url
-	tipo(perfil,vacunacion)
+Dueño{
+	id_dueno		(PK)
+	user_id			(FK)
+	mascotas_id		(FK)
+	reservas_id		(FK)
+	pagos_id		(FK)
 }
 
 Guardian{
-	user_id			
+	id_guardian		(PK)
+	user_id			(FK)
 	reputacion
 	tipoMascotaAceptado[S,M,L]
 	remuneracionHora
-	FechasDisponibles[dias] --> calendar?
+	FechaDisponible[dias] --> calendar?
+	reservas_id		(FK)
+	reviews_id		(FK)
 }
 
 Mascota{
@@ -67,6 +69,11 @@ Review{
 	estadia_id	(FK)
 }
 
+Estadia/Alojamiento{
+	id_alojamiento	(PK)
+	reserva_id		(FK)
+}
+
 Direccion{
 	id_direccion	(PK)
 	user_id			(FK)
@@ -75,6 +82,14 @@ Direccion{
 	piso
 	depto
 	CP
+}
+
+Imagen{
+	id_imagen	(PK)
+	user_id		(FK)
+	peso
+	extension
+	url
 }
 
 Video{

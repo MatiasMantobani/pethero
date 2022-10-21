@@ -5,16 +5,14 @@ namespace Models;
 abstract class Person
 {
     //ATRIBUTOS
-    protected $firstName;
-    protected $lastName;
-    protected $dni;
-    protected $adress;
-    protected $telephone;
+    protected $idPerson;
+    protected $tipoDeUsuario; // 0 admin, 1 dueno, 2 guardian
     protected $email;
     protected $password;
-    protected $idPerson;
-    // protected $fotoOpcional; //implementar
-    protected $tipoDeUsuario; // 0 admin, 1 dueno, 2 guardian
+    protected $dni;
+    protected $lastName;
+    protected $firstName;
+    protected $telephone;
 
     //CONSTRUCTOR
     protected function __construct($firstName, $lastName, $dni, $adress, $telephone, $email, $password)
