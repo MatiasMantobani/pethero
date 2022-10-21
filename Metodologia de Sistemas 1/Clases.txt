@@ -1,0 +1,86 @@
+User{
+	id_user			(PK)
+	nombres
+	apellidos
+	dni
+	email
+	user_type
+	password
+	telefono
+	foto
+}
+
+Direccion{
+	id_direccion	(PK)
+	user_id			(FK)
+	calle
+	altura
+	piso
+	depto
+	CP
+}
+
+Dueño{
+	id_dueno		(PK)
+	user_id			(FK)
+	mascotas_id		(FK)
+	reservas_id		(FK)
+	pagos_id		(FK)
+}
+
+
+Guardian{
+	id_guardian		(PK)
+	user_id			(FK)
+	reputacion
+	tipoMascotaAceptado[S,M,L]
+	remuneracionHora
+	FechaDisponible[dias] --> calendar?
+	reservas_id		(FK)
+	reviews_id		(FK)
+}
+
+Mascota{
+	id_mascota		(PK)
+	Nombre
+	dueno_id		(FK)
+	fotos_id		(FK)
+	Observaciones
+	Raza
+	Tipo
+	Tamaño[S,M,L]
+	video_id		(FK)
+}
+
+Review{
+	id_review	(PK)
+	Puntuacion
+	Texto
+	guardian_id	(FK)
+	dueno_id	(FK)
+	estadia_id	(FK)
+}
+
+Reserva{
+	id_reserva		(PK)
+	isConfirmada 	(bool)
+	guardian_id		(FK)
+	dueno_id		(FK)
+	mascotas_id		(FK)
+	montoTotal (cant hrs * precio hr)
+	Fecha
+	pagos_id		(FK)
+	isPaga			(bool)
+}
+
+Pago{
+	id_pago		(PK)
+	reserva_id	(FK)
+	QR
+	email
+}
+
+Estadia/Alojamiento{
+	id_alojamiento	(PK)
+	reserva_id		(FK)
+}

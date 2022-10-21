@@ -17,23 +17,6 @@
         "tipoDeUsuario": 0
     },
     {
-        "firstName": "guardian",
-        "lastName": "guardian",
-        "dni": "89854456",
-        "adress": "-",
-        "telephone": "425",
-        "email": "guardian@com",
-        "password": "-",
-        "cuil": "74523699111",
-        "remuneracion": "1",
-        "reputacion": null,
-        "tamanoDeMascota": "-",
-        "disponibilidad": "Lunes Miercoles Sabado ",
-        "reservas": null,
-        "reviews": null,
-        "tipoDeUsuario": 2
-    },
-    {
         "firstName": "Pedro",
         "lastName": "Guarddd",
         "dni": "45612456",
@@ -97,6 +80,23 @@
         "reputacion": null,
         "tamanoDeMascota": "xl l m",
         "disponibilidad": "Martes Miercoles Jueves ",
+        "reservas": null,
+        "reviews": null,
+        "tipoDeUsuario": 2
+    },
+    {
+        "firstName": "guardian",
+        "lastName": "guardian",
+        "dni": "89854456",
+        "adress": "-",
+        "telephone": "425",
+        "email": "guardian@com",
+        "password": "-",
+        "cuil": "74523699111",
+        "remuneracion": "1",
+        "reputacion": null,
+        "tamanoDeMascota": "-",
+        "disponibilidad": "Lunes Miercoles Viernes ",
         "reservas": null,
         "reviews": null,
         "tipoDeUsuario": 2

@@ -38,11 +38,11 @@
         <?php } ?>
 
         <li class="nav-item">
-            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Home/LogInView">Log In</a>
+            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Login/LogInView">Log In</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Home/Logout">Log Out!</a>
+            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Login/Logout">Log Out!</a>
         </li>
 
     </ul>
