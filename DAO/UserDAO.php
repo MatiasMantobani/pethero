@@ -11,6 +11,47 @@ class UserDAO
     private $connection;
     private $tableUsers = "users";
 
+
+
+    public function ValidateUniqueCuit($cuit)    //true si hay repeticion
+    {
+        $query = "SELECT cuit FROM " . $this->tableUsers . " WHERE (cuit = :cuit)";
+        $parameters["cuit"] = $cuit;
+        $this->connection = Connection::GetInstance();
+        $resultado = $this->connection->Execute($query, $parameters);
+        if ($resultado) {
+            return true;   
+        }
+        return false;
+    }
+
+
+    public function ValidateUniqueDni($dni) //true si hay repeticion
+    {
+        $query = "SELECT dni FROM " . $this->tableUsers . " WHERE (dni = :dni)";
+        $parameters["dni"] = $dni;
+        $this->connection = Connection::GetInstance();
+        $resultado = $this->connection->Execute($query, $parameters);
+        if ($resultado) {
+            return true;    
+        }
+        return false;
+    }
+
+
+    public function ValidateUniqueEmail($email) //true si hay repeticion
+    {
+        $query = "SELECT email FROM " . $this->tableUsers . " WHERE (email = :email)";
+        $parameters["email"] = $email;
+        $this->connection = Connection::GetInstance();
+        $resultado = $this->connection->Execute($query, $parameters);
+        if ($resultado) {
+            return true;    
+        }
+        return false;
+    }
+
+
     public function Add(User $user)
     {
         try {
@@ -27,8 +68,8 @@ class UserDAO
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
-
         } catch (Exception $ex) {
+
             throw $ex;
         }
     }
@@ -116,8 +157,4 @@ class UserDAO
         }
         return $user;
     }
-
-
 }
-
-?>
