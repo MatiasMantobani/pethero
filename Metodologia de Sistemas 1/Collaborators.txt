@@ -1,5 +1,0 @@
-collaborators{
-	Juan Manuel Erreguerena: ErreguerenaJM
-	Brian D Aleo: nosilverbullets
-	Rodrigo Guiñazu: Rodrigo Guinazu
-}
