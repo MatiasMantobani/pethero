@@ -145,32 +145,32 @@ require_once('nav.php');
                 <h2 class="mb-4">Listado de Reservas</h2>
                 <table class="table bg-light-alpha">
                     <thead>
-                    <th>ReservaID</th>
-                    <th>Emisor</th>
-                    <th>Receptor</th>
-                    <th>isConfirmada</th>
-                    <th>MontoTotal</th>
-                    <th>PagoID</th>
-                    <th>isPaga</th>
-                    <th>isCompletada</th>
-                    <th>PetID</th>
-                    <th>Fecha</th>
+                        <th>ReservaID</th>
+                        <th>Emisor</th>
+                        <th>Receptor</th>
+                        <th>isConfirmada</th>
+                        <th>MontoTotal</th>
+                        <th>PagoID</th>
+                        <th>isPaga</th>
+                        <th>isCompletada</th>
+                        <th>PetID</th>
+                        <th>Fecha</th>
                     </thead>
                     <tbody>
-                    <?php
-                    // foreach ($reservaList as $reserva) {
+                        <?php
+                        // foreach ($reservaList as $reserva) {
+                            
+                        ?>
+                                <tr>
+                                    <td><?php echo "#" ?></td>
+                                
 
-                    ?>
-                    <tr>
-                        <td><?php echo "#" ?></td>
+                                </tr>
+                        <?php 
 
+                        //} ?>
 
-                    </tr>
-                    <?php
-
-                    //} ?>
-
-                    </tr>
+                        </tr>
                     </tbody>
                 </table>
 
