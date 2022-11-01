@@ -15,6 +15,10 @@ class ReserveController
         $this->reserveDAO = new ReserveDAO();
     }
 
+    public function showAddView(){
+        require_once(VIEWS_PATH."reserve-add.php");
+    }
+
     public function Add($reserveid, $transmitterid, $receiverid, $petid, $date, $amount, $isconfirmed, $paymentid, $ispayed, $iscompleted)
     {
         $reserve = new Reserve();
