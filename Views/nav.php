@@ -12,6 +12,10 @@
 
     <ul class="navbar-nav ml-auto">
 
+        <li class="nav-item">
+            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView">Crear Reserva</a>
+        </li>
+
         <?php if (!isset($_SESSION['userid'])) { ?>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/ShowAddView">Registro</a>
