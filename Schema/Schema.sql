@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2022 at 03:58 PM
+-- Generation Time: Nov 01, 2022 at 08:04 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -55,8 +55,8 @@ CREATE TABLE `adresses` (
 --
 
 INSERT INTO `adresses` (`userid`, `street`, `number`, `floor`, `department`, `postalcode`) VALUES
-(1, 'Marconi', '2050', '9', 'H', '7600'),
-(2, 'Colon', '4000', '', '', '7600'),
+(1, 'Jara', '2001', '11', '', '7600BY2'),
+(2, 'Champaña', '4000 w', 'en ', '...^*drop table', 'tu vieja'),
 (3, 'Colon', '7890', '9', 'A', '7600'),
 (5, 'San Luis', '2050', '', '', '7600'),
 (8, 'Salta', '2502', '9', 'K', '7600'),
@@ -81,14 +81,14 @@ CREATE TABLE `availabledates` (
 --
 
 INSERT INTO `availabledates` (`availabledatesid`, `userid`, `date`, `available`) VALUES
-(66, 2, '2022-11-19', 0),
-(67, 2, '2022-11-20', 0),
-(68, 2, '2022-11-21', 0),
-(69, 2, '2022-11-22', 0),
-(70, 2, '2022-11-23', 0),
-(71, 2, '2022-11-24', 0),
-(72, 2, '2022-11-25', 0),
-(73, 2, '2022-11-26', 0);
+(168, 2, '2022-11-04', 13),
+(169, 2, '2022-11-05', 1),
+(179, 2, '2022-11-01', 0),
+(180, 2, '2022-11-02', 0),
+(181, 2, '2022-11-03', 0),
+(182, 2, '2022-11-06', 0),
+(183, 2, '2022-11-07', 0),
+(184, 2, '2022-11-08', 0);
 
 -- --------------------------------------------------------
 
@@ -150,6 +150,25 @@ INSERT INTO `pet` (`petid`, `userid`, `status`, `breedid`, `name`, `observations
 (24, 1, 1, 13, 'Canitoli', 'No dispone'),
 (26, 1, 1, 4, 'Bolita', 'Toma medicacion'),
 (31, 1, 1, 15, 'Larita', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reserve`
+--
+
+CREATE TABLE `reserve` (
+  `reserveid` int(11) NOT NULL,
+  `transmitterid` int(11) NOT NULL,
+  `receiverid` int(11) NOT NULL,
+  `petid` int(11) NOT NULL,
+  `date` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `isconfirmed` int(11) DEFAULT NULL,
+  `paymentid` int(11) NOT NULL,
+  `ispayed` int(11) DEFAULT NULL,
+  `iscompleted` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -260,6 +279,12 @@ ALTER TABLE `pet`
   ADD PRIMARY KEY (`petid`);
 
 --
+-- Indexes for table `reserve`
+--
+ALTER TABLE `reserve`
+  ADD PRIMARY KEY (`reserveid`);
+
+--
 -- Indexes for table `sizes`
 --
 ALTER TABLE `sizes`
@@ -288,7 +313,7 @@ ALTER TABLE `user_images`
 -- AUTO_INCREMENT for table `availabledates`
 --
 ALTER TABLE `availabledates`
-  MODIFY `availabledatesid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `availabledatesid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
 
 --
 -- AUTO_INCREMENT for table `breed`
@@ -301,6 +326,12 @@ ALTER TABLE `breed`
 --
 ALTER TABLE `pet`
   MODIFY `petid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `reserve`
+--
+ALTER TABLE `reserve`
+  MODIFY `reserveid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
