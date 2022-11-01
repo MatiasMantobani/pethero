@@ -14,7 +14,7 @@ require_once('nav.php');
                             <label for="breedid">Raza de mascota</label>
                             <select class="form-control" id="breedid" name="breedid" required>
 
-                                <?php $breedList = $breedController->getAllByType($type); ?>
+<!--                                --><?php //$breedList = $breedController->getAllByType($type); ?>
                                 <?php if ($breedList != null) {
                                 foreach ($breedList as $breed) { ?>
                                     <option value="<?php echo $breed->getBreedid() ?>"><?php echo $breed->getName() ?></option>
