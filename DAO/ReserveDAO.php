@@ -4,7 +4,6 @@ namespace DAO;
 
 use DAO\Connection as Connection;
 use Models\Reserve as Reserve;
-use Models\User as User;
 
 class ReserveDAO
 {
