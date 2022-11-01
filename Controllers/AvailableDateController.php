@@ -66,4 +66,9 @@ class AvailableDateController
         $userController = new UserController();
         $userController->ShowProfileView();
     }
+
+    public function getAvailablesListByDatesAndBreed ($dateStart, $dateFinish, $breed)
+    {
+        return $this->availableDateDAO->GetAvailablesByRangeAndBreed($dateStart, $dateFinish, $breed);
+    }
 }

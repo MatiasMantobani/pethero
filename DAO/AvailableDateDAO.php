@@ -97,6 +97,48 @@ class AvailableDateDAO
         $this->connection->ExecuteNonQuery($query, $parameters);
     }
 
+    public function GetAvailablesByRangeAndBreed($dateStart, $dateFinish, $breed)
+    {
+        $query = "SELECT * FROM " . $this->tableAvailableDates . " WHERE ((date >= :date1 AND date <= :date2) AND (available = :available1 OR available = :available2))";
+
+        $parameters["date1"] =$dateStart;
+        $parameters["date2"] =$dateFinish;
+        $parameters["available1"] = $breed;
+        $parameters["available2"] = "0";
+
+        $resultado = array();
+//        $resultSet = array();
+
+        $this->connection = Connection::GetInstance();        
+        $resultSet = $this->connection->Execute($query, $parameters);
+       
+        //echo "RESULTSET <br>";
+        //var_dump($resultSet);
+       
+        foreach ($resultSet as $row) {
+            
+            $date = new AvailableDate();
+            $date->setAvailableDateId($row["availabledatesid"]);
+            $date->setUserid($row["userid"]);
+            $date->setDate($row["date"]);
+            $date->setAvailable($row["available"]);
+           
+           
+
+            array_push($resultado, $date);
+        }
+        print_r($resultado);
+        echo "<br>FIN<br>";
+       
+        if ($resultado) {
+            return $resultado;
+        } else
+        {
+            return null;
+        }
+        
+    }
+
     // Necesitamos función que devuelva Fechas posibles para los dueños
     // Seleccionar por fecha específica aquellos keepers que cuiden perros de la misma raza O que cuiden cualquier perro y que cuiden perros del tamaño buscado 
     // "SELECT userid FROM".$this->tableAvailableDates."WHERE
@@ -111,5 +153,8 @@ class AvailableDateDAO
     //TABLA DE DISPONIBILIDAD
     //chequear todas las fechas de todos los guardianes -> devolver los userid con las fechas disponible
     //chequiemos dates por user id
+
+
+    
 
 }
