@@ -76,6 +76,8 @@ require_once('nav.php');
 
                                 <hr class="mt-0 mb-4">
 
+                                <!-- GUARDIAN -->
+
                                 <?php if ($_SESSION['type'] == 'G') { ?>
                                     <?php if ($size) { ?>
                                         <h6>Tamaños aceptados: </h6>
@@ -89,11 +91,27 @@ require_once('nav.php');
                                                 ahora]</a></p>
                                     <?php } ?>
 
+
+                                    <!-- FECHAS DISPONIBLES -->
                                     <hr class="mt-0 mb-4">
 
                                     <h6>Fechas Disponibles:</h6>
                                     <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView/">[Modificar ahora]</a></p>
 
+                                    <hr class="mt-0 mb-4">
+
+
+
+
+                                <?php } ?>
+
+
+                                <!-- DUEÑO -->
+
+                                <?php if ($_SESSION['type'] == 'D') { ?>
+
+                                    <!-- REALIZAR RESERVAS -->
+                                    <p><a href="<?php echo FRONT_ROOT ?>#">[REALIZAR RESERVA]</a></p>
                                     <hr class="mt-0 mb-4">
 
                                 <?php } ?>
@@ -120,6 +138,7 @@ require_once('nav.php');
             </div>
 
             <br>
+
             <?php if ($_SESSION['type'] == 'D') { ?>
 
                 <h2 class="mb-4">Listado de mascotas</h2>
