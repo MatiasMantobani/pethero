@@ -3,7 +3,7 @@
 define("ROOT", dirname(__DIR__) . "/");
 //Path to your project's root folder
 // define("FRONT_ROOT", "/PRACTICOS/pethero/"); // Braian
-define("FRONT_ROOT", "/proyectos/pethero/"); // Braian
+define("FRONT_ROOT", "/proyectos/pethero/"); // Mati
 define("VIEWS_PATH", "Views/");
 define("CSS_PATH", FRONT_ROOT.VIEWS_PATH . "css/");
 define("JS_PATH", FRONT_ROOT.VIEWS_PATH . "js/");

@@ -26,7 +26,7 @@ class AvailableDateController
     }
 
 
-    public function GetById()
+    public function GetById()   //ACA
     {
         return $this->availableDateDAO->GetByUserid($_SESSION['userid']);
     }
@@ -46,8 +46,15 @@ class AvailableDateController
             $date->setDate($date1->format('y-m-d'));
             $date->setAvailable("0");
 
-            $this->availableDateDAO->Add($date);
+            //chequeamos si date existe y no la subimos
+            if($this->availableDateDAO->CheckDate($_SESSION['userid'],$date->getDate())){
+                //nada
+                echo "no se puede estar disponible en fechas ya reservadas<br>";
+            }else{
+                $this->availableDateDAO->Add($date);
+            }
             $date1->modify('+1 day');
+            
         }
     }
 

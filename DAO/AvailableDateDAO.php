@@ -39,12 +39,15 @@ class AvailableDateDAO
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
             foreach ($resultSet as $row) {
-                $date = new AvailableDate();
 
+                $date = new AvailableDate();
                 $date->setAvailableDateId($row["availabledatesid"]);
                 $date->setUserid($row["userid"]);
                 $date->setDate($row["date"]);
                 $date->setAvailable($row["available"]);
+
+                //
+
 
                 array_push($dateList, $date);
             }
@@ -55,6 +58,21 @@ class AvailableDateDAO
     }
 
 
+    //chequear si fecha existe
+    public function CheckDate($userid, $date)
+    {
+        $query = "SELECT date FROM " . $this->tableAvailableDates . " WHERE (userid = :userid AND date = :date)";
+        $parameters["userid"] = $userid;
+        $parameters["date"] = $date;
+        $this->connection = Connection::GetInstance();
+        $resultado = $this->connection->Execute($query, $parameters);
+        if ($resultado) {
+            return true;
+        }
+        return false;
+    }
+
+    //borra todas las reservas
     public function Remove($userid)
     {
         $query = "DELETE FROM " . $this->tableAvailableDates . " WHERE (userid = :userid)";
@@ -66,7 +84,7 @@ class AvailableDateDAO
         $this->connection->ExecuteNonQuery($query, $parameters);
     }
 
-
+    //borra por "userid" y "available == 0"
     public function RemoveAvailablesById($userid)
     {
         $query = "DELETE FROM " . $this->tableAvailableDates . " WHERE (userid = :userid AND available = :available)";

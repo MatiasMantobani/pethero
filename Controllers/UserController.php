@@ -66,7 +66,7 @@
                     $_SESSION['message'] .= "Para cuidar mascotas, primero debés cargar el tamaño que aceptas. ";
                 }
                 $availableDate = new AvailableDate();
-                $fechas = $availableDate->GetById();
+                $fechas = $availableDate->GetById();    //ACA
             }
 
             require_once(VIEWS_PATH."user-profile.php");
