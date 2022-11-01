@@ -1,0 +1,19 @@
+Primera revision:
+RF1 - Ingresando nuevo Owner en la aplicación. [OK]
+RF2 - Ingresando nueva mascota en la aplicación. [OK]
+RF3 - Consultando mi listado de mascotas (Owner). [OK]
+RF4 - Ingresar nuevo Keeper. [OK]
+RF5 - Un Keeper podrá indicar la disponibilidad de estadías. [OK]
+RF6 - Consultar listado de Keepers cómo Owner. [OK]
+Segunda revisión:
+RF7 - Consultando disponibilidad de Keepers en un rango de fechas
+RF8 - Generando nueva reserva desde un Owner a un Keeper
+RF9 - Consultando mis reservas programadas e históricas como Keeper
+RF10 - Confirmando reserva como Keeper. Se agrega la validación de la raza por estadía.
+RF11 - Ingresando nuevo gato (Owner) [OK]
+Tercera revisión:
+RF11 - Generando nuevo cupón de Pago para un Owner.
+RF12 - Simulación de pago de cupón (confirmación de reserva).
+Nuevos requisitos para entrega final
+RF13 - Chat entre Owner y Keeper.
+RF14 - Enviando cupón de pago por mail.

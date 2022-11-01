@@ -1,17 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600');
 
-html,
-body {
+html, body {
      height: 100%;
 }
-
 body {
      font-family: 'Montserrat', sans-serif;
      background: url(../img/bg.png) no-repeat center center fixed;
      -webkit-background-size: cover;
-     -moz-background-size: cover;
-     -o-background-size: cover;
-     background-size: cover;
+        -moz-background-size: cover;
+          -o-background-size: cover;
+             background-size: cover;
 }
 
 .height-100 {
@@ -19,11 +17,10 @@ body {
 }
 
 .bg-dark-alpha {
-     background-color: rgba(0, 0, 0, 0.2);
+     background-color: rgba(0,0,0,0.2);
 }
-
 .bg-light-alpha {
-     background-color: rgba(255, 255, 255, 0.2);
+     background-color: rgba(255,255,255,0.2);
 }
 
 .login-form {
@@ -31,43 +28,18 @@ body {
      border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
+.checkBoxSize {
+    width: 20px;
+    height: 20px;
+}
 
-/* PERFIL GUARDIAN  */
-.card{
-     width: 400px;
-     border: none;
-     border-radius: 10px;
-      
-     background-color: #fff;
-   }
-   
-   
-   
-   .stats{
-   
-         background: #f2f5f8 !important;
-   
-       color: #000 !important;
-   }
-   .articles{
-     font-size:10px;
-     color: #a1aab9;
-   }
-   .number1{
-     font-weight:500;
-   }
-   .followers{
-       font-size:10px;
-     color: #a1aab9;
-   
-   }
-   .number2{
-     font-weight:500;
-   }
-   .rating{
-       font-size:10px;
-     color: #a1aab9;
-   }
-   .number3{
-     font-weight:500;
-   }
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #f6d365;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
+}

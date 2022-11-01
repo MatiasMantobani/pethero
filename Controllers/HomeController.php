@@ -1,17 +1,14 @@
 <?php
+    namespace Controllers;
 
-namespace Controllers;
+    use Controllers\UserController as UserController;
 
-use Models\Guardian as Guardian;
-use DAO\GuardianDAO as GuardianDAO;
-use DAO\DuenoDAO as DuenoDAO;
-
-class HomeController
-{
-    public function Index($message = "")    //el nombre Index esta definido en framework: Config/Request.php
+    class HomeController
     {
-        require_once(VIEWS_PATH . "main.php");    //Vista por default de la pagina
-    }
+        public function Index($message = "")
+        {
+            require_once(VIEWS_PATH."index.php");
+        }
 
-   
-}
+    }
+?>

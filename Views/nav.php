@@ -1,49 +1,40 @@
 <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
 
-    <a href="<?php echo FRONT_ROOT ?>">
-        <img src="<?php echo FRONT_ROOT ?>Views/img/logo.png" height="65" alt="logo">
-    </a>
+    <?php if (!isset($_SESSION['userid'])) { ?>
+        <a href="<?php echo FRONT_ROOT ?>">
+            <img src="<?php echo FRONT_ROOT ?>Views/img/logo.png" height="65" alt="logo">
+        </a>
+    <?php } else { ?>
+        <a href="<?php echo FRONT_ROOT ?>User/ShowProfileView">
+            <img src="<?php echo FRONT_ROOT ?>Views/img/logo.png" height="65" alt="logo">
+        </a>
+    <?php } ?>
 
     <ul class="navbar-nav ml-auto">
 
-        <!-- traes el SESSIONS y chequeas vistas para cada tipo de usuario -->
-
-        <li class="nav-item">
-            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Dueno/ShowListView">Ver Todos Los Dueño</a>
-        </li>
-
-
-        <li class="nav-item">
-            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Mascota/ShowListView">Ver Todas Las Mascotas</a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Guardian/ShowListView">Ver Todos Los Guardianes</a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Mascota/ShowAddView">Crear Perfil Mascota</a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Person/AddPerson">Crear Perfil</a>
-        </li>
-
-        <?php if(isset($_SESSION['loggedUser'])) { ?>
-
-        <li class="nav-item">
-            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Person/ShowProfileView">Mi perfil</a>
-        </li>
-
+        <?php if (!isset($_SESSION['userid'])) { ?>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/ShowAddView">Registro</a>
+            </li>
         <?php } ?>
 
-        <li class="nav-item">
-            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Login/LogInView">Log In</a>
-        </li>
+        <?php if (isset($_SESSION['userid'])) { ?>
 
-        <li class="nav-item">
-            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Login/Logout">Log Out!</a>
-        </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/ShowProfileView">Inicio</a>
+            </li>
+
+            <?php if ($_SESSION['type'] == 'G') { ?>
+            <?php } ?>
+
+            <?php if ($_SESSION['type'] == 'D') { ?>
+            <?php } ?>
+
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Auth/Logout">Salir</a>
+            </li>
+
+        <?php } ?>
 
     </ul>
 </nav>
