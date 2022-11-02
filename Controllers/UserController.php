@@ -72,8 +72,7 @@ class UserController
         if ($_SESSION['type'] == 'D')
         {
             $availableDate2 = new AvailableDate();   //DOS
-            $consultaList = $availableDate2->getAvailablesListByDatesAndBreed("2022-11-20","2022-11-23",15);    //VALORES FIJOS TEST
-            //var_dump($consultaList[0]);
+            $consultaList = $availableDate2->getAvailablesListByDatesAndBreed(11,"2022-11-20","2022-11-23");    //VALORES FIJOS TEST
         }
 
         require_once(VIEWS_PATH . "user-profile.php");

@@ -152,6 +152,8 @@ require_once('nav.php');
                     </thead>
                     <tbody>
                     <?php
+                    if ($consultaList)
+                    {
                     foreach ($consultaList as $consulta) {
                         
                             ?>
@@ -163,6 +165,7 @@ require_once('nav.php');
 
                             </tr>
                         <?php 
+                    }
                     } ?>
                     </tr>
                     </tbody>
