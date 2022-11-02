@@ -41,7 +41,7 @@ require_once('nav.php');
 
                 <div class="col-lg-4">
                     <br>
-                    <button type="submit">Solicitar Reserva</button>
+                    <button type="submit" class="btn btn-primary">Solicitar Reserva</button>
                 </div>
 
             </form>
