@@ -12,16 +12,26 @@ require_once('nav.php');
                 <?php ;
                 $_SESSION['message'] = null;
             } ?>
-
-            <h2 class="mb-4">Estas viendo a <?php echo $pet->getName(); ?></h2>
+            <a href="<?php echo FRONT_ROOT ?>User/ShowProfileView">Volver</a>
+            <h2 class="mb-4">Estás viendo a <?php echo $pet->getName(); ?></h2>
 
             <div class="col col-lg-12 mb-4 mb-lg-0">
                 <div class="card mb-3" style="border-radius: .5rem; border: #856404">
                     <div class="row g-0">
                         <div class="col-md-4 gradient-custom text-center text-white"
                              style="border-radius: .5rem;">
-                            <img src="<?php echo FRONT_ROOT ?>Views/img/profile/profile_default.png"
-                                 alt="Profile img" class="img-fluid my-5 rounded" style="width: 100px;"/>
+
+
+                            <?php if ($petImage != null) { ?>
+
+                                <img src="<?php echo FRONT_ROOT . PET_UPLOADS_PATH . $petImage->getName() ?>" alt="Profile img" class="img-fluid my-5 rounded" style="width: 200px;" />
+                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>PetImage/ShowUploadView/<?php echo $pet->getPetid() ?>">[Cambiar foto]</a></p>
+                            <?php } else { ?>
+
+                                <img src="<?php echo FRONT_ROOT ?>Views/img/profile/profile_default.png" alt="Profile img" class="img-fluid my-5 rounded" style="width: 200px;" />
+                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>PetImage/ShowUploadView/<?php echo $pet->getPetid() ?>">[Subir foto]</a></p>
+                            <?php } ?>
+
                             <h5><?php echo $pet->getName(); ?></h5>
                             <p><?php switch ($breed->getType()) {
                                     case 1:
@@ -53,7 +63,18 @@ require_once('nav.php');
                                 <div class="row pt-1">
                                     <div class="col-6 mb-3">
                                         <h6>Carnet de vacunación</h6>
-                                        <p class="text-muted">No posee <a href="#"> [Cargar]</a></p>
+
+                                        <?php if ($vacunationImage != null) { ?>
+
+                                            <img src="<?php echo FRONT_ROOT . VACUNATION_UPLOADS_PATH . $vacunationImage->getName() ?>" alt="Profile img" class="img-fluid my-5 rounded" style="height: 50px;" />
+                                            <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>VacunationImage/ShowUploadView/<?php echo $pet->getPetid() ?>">[Renovar]</a></p>
+                                        <?php } else { ?>
+
+                                            <p class="text-muted">No posee <a href="<?php echo FRONT_ROOT ?>VacunationImage/ShowUploadView/<?php echo $pet->getPetid() ?>">[Subir certificado]</a></p>
+                                        <?php } ?>
+
+
+
                                     </div>
                                     <div class="col-6 mb-3">
                                         <h6>Quitar mascota</h6>

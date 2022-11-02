@@ -23,7 +23,7 @@ require_once('nav.php');
                             <?php if ($userImage != null) { ?>
 
                                 <img src="<?php echo FRONT_ROOT . USER_UPLOADS_PATH . $userImage->getName() ?>" alt="Profile img" class="img-fluid my-5 rounded" style="width: 200px;" />
-
+                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>UserImage/ShowUploadView">[Cambiar foto]</a></p>
                             <?php } else { ?>
 
                                 <img src="<?php echo FRONT_ROOT ?>Views/img/profile/profile_default.png" alt="Profile img" class="img-fluid my-5 rounded" style="width: 200px;" />
@@ -173,6 +173,9 @@ require_once('nav.php');
                         </tr>
                     </tbody>
                 </table>
+                <div class="col-md-12 text-right">
+                    <a href="" class="btn btn-secondary">Agregar reserva</a>
+                </div>
 
                 <h2 class="mb-4">Listado de mascotas</h2>
                 <table class="table bg-light-alpha">
@@ -212,7 +215,7 @@ require_once('nav.php');
                                             break;
                                     } ?></td>
                                 <td>
-                                    <a href="<?php echo FRONT_ROOT ?>Pet/ShowProfileView/<?php echo $pet->getPetid() ?>">Ver
+                                    <a href="<?php echo FRONT_ROOT ?>Pet/ShowProfileView/<?php echo $pet->getPetid() ?>" class="btn btn-primary btn-sm">Ver
                                         perfil</a>
                                 </td>
                             </tr>
@@ -222,7 +225,10 @@ require_once('nav.php');
                     </tbody>
                 </table>
 
-                <p><a href="<?php echo FRONT_ROOT ?>Pet/ShowPreAddView/">[Cargar nueva mascota ahora]</a></p>
+                <div class="col-md-12 text-right">
+                    <a href="<?php echo FRONT_ROOT ?>Pet/ShowPreAddView/" class="btn btn-secondary">Agregar mascota</a>
+                </div>
+
 
                 <h2 class="mb-4">Listado de guardianes</h2>
                 <table class="table bg-light-alpha">

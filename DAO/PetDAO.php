@@ -101,7 +101,5 @@ class PetDAO
         return $pet;
     }
 
-
-
 }
 ?>
