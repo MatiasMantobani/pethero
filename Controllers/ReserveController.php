@@ -25,11 +25,6 @@ class ReserveController
         require_once(VIEWS_PATH."reserve-add.php");
     }
 
-    public function showChooseKeeperView($petid, $daterange){
-        $pet = $this->petList->PetFinder($petid);
-        require_once(VIEWS_PATH."choose-keeper.php");
-    }
-
     public function Add($petid, $daterange)
     {
         $reserve = new Reserve();

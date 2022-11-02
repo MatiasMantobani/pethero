@@ -1,31 +1,32 @@
 <?php
 namespace Controllers;
 
-use DAO\UserImageDAO as UserImageDAO;
-use Models\UserImage as UserImage;
-use Controllers\UserController as UserController;
+use DAO\PetImageDAO as PetImageDAO;
+use Models\PetImage as PetImage;
+use Controllers\PetController as PetController;
 
-class UserImageController
+class PetImageController
 {
-    private $userImageDAO;
+    private $petImageDAO;
 
     public function __construct()
     {
-        $this->userImageDAO = new UserImageDAO();
+        $this->petImageDAO = new PetImageDAO();
     }
 
-    public function ShowUploadView()
+    public function ShowUploadView($petid)
     {
-        require_once(VIEWS_PATH."user-image-upload.php");
+        require_once(VIEWS_PATH."pet-image-upload.php");
     }
 
-    public function ShowImage($userid)
+    public function ShowImage($petid)
     {
-        return $this->userImageDAO->getByUserId($userid);
+        $petImage = $this->petImageDAO->GetByPetId($petid);
+        return $petImage;
 
     }
 
-    public function Upload($file)
+    public function Upload($file, $petid)
     {
         try
         {
@@ -33,7 +34,7 @@ class UserImageController
             $tempFileName = $file["tmp_name"];
             $type = $file["type"];
 
-            $filePath = USER_UPLOADS_PATH.basename($fileName);
+            $filePath = PET_UPLOADS_PATH.basename($fileName);
 
 
             $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
@@ -44,15 +45,17 @@ class UserImageController
             {
                 if (move_uploaded_file($tempFileName, $filePath))
                 {
-                    $image = new UserImage();
+                    $image = new PetImage();
                     $image->setName($fileName);
-                    $image->setUserid($_SESSION['userid']);
-                    if ($this->userImageDAO->GetByUserId($_SESSION['userid'])){
-                        $this->userImageDAO->Update($image);
-                    } else {
-                        $this->userImageDAO->Add($image);
-                    }
+                    $image->setPetid($petid);
 
+
+
+                    if ($this->petImageDAO->GetByPetId($petid)){
+                        $this->petImageDAO->Update($image);
+                    } else {
+                        $this->petImageDAO->Add($image);
+                    }
 
                     $message = "Imagen subida correctamente";
                 }
@@ -67,8 +70,8 @@ class UserImageController
             $message = $ex->getMessage();
         }
 
-        $userController = new UserController();
-        $userController->ShowProfileView();
+        $petController = new PetController();
+        $petController->ShowProfileView($petid);
     }
 }
 ?>

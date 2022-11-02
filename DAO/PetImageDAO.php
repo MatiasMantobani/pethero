@@ -2,20 +2,20 @@
 namespace DAO;
 
 use DAO\QueryType as QueryType;
-use Models\UserImage as UserImage;
+use Models\PetImage as PetImage;
 
-class UserImageDao 
+class PetImageDao
 {
-    private $tableName = "user_images";
+    private $tableName = "pet_images";
 
-    public function Add(UserImage $image)
+    public function Add(PetImage $image)
     {
         try
         {
-            $query = "CALL images_add(?,?);";
+            $query = "CALL pet_images_add(?,?);";
 
             $parameters["name"] = $image->getName();
-            $parameters["userid"] = $image->getUserid();
+            $parameters["petid"] = $image->getPetid();
 
             $this->connection = Connection::GetInstance();
 
@@ -27,14 +27,14 @@ class UserImageDao
         }
     }
 
-    public function Update(UserImage $image)
+    public function Update(PetImage $image)
     {
         try
         {
-            $query = "CALL images_update(?,?);";
+            $query = "CALL pet_images_update(?,?);";
 
             $parameters["name"] = $image->getName();
-            $parameters["userid"] = $image->getUserid();
+            $parameters["petid"] = $image->getPetid();
 
             $this->connection = Connection::GetInstance();
 
@@ -46,15 +46,15 @@ class UserImageDao
         }
     }
 
-    function GetByUserId($userid)
+    function GetByPetId($petid)
     {
         try
         {
             $image = null;
 
-            $query = "SELECT * FROM ".$this->tableName." WHERE userid = :userid";
+            $query = "SELECT * FROM ".$this->tableName." WHERE petid = :petid";
 
-            $parameters["userid"] = $userid;
+            $parameters["petid"] = $petid;
 
             $this->connection = Connection::GetInstance();
 
@@ -62,10 +62,10 @@ class UserImageDao
 
             foreach ($resultSet as $row)
             {
-                $image = new UserImage();
+                $image = new PetImage();
                 $image->setImageid($row["imageid"]);
                 $image->setName($row["name"]);
-                $image->setUserid($row["userid"]);
+                $image->setPetid($row["petid"]);
             }
 
             return $image;

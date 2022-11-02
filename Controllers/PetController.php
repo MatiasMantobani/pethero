@@ -5,23 +5,34 @@ use DAO\PetDAO as PetDAO;
 use Models\Pet as Pet;
 use Controllers\UserController as UserController;
 use Controllers\BreedController as BreedController;
+use Controllers\PetImageController as PetImageController;
+use Controllers\VacunationImageController as VacunationImageController;
 
 class PetController
 {
     private $petDAO;
     private $breedController;
+    private $petImageController;
+    private $vacunationImageController;
 
     public function __construct()
     {
         $this->petDAO = new PetDAO();
         $this->breedController = new BreedController();
+        $this->petImageController = new PetImageController();
+        $this->vacunationImageController = new VacunationImageController();
     }
 
     public function ShowProfileView($petid)
     {
         $pet = $this->petDAO->GetByPetId($petid);
+
         $breedid = $pet->getBreedid();
         $breed = $this->breedController->getByBreedId($breedid);
+
+        $petImage = $this->petImageController->ShowImage($pet->getPetid());
+        $vacunationImage = $this->vacunationImageController->ShowImage($pet->getPetid());
+
         require_once(VIEWS_PATH."pet-profile.php");
     }
 
