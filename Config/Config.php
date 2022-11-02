@@ -2,9 +2,13 @@
 
 define("ROOT", dirname(__DIR__) . "/");
 //Path to your project's root folder
-//define("FRONT_ROOT", "/PRACTICOS/pethero/"); // Braian
+
+// define("FRONT_ROOT", "/PRACTICOS/pethero/"); // Braian
 //define("FRONT_ROOT", "/proyectos/pethero/"); // Mati
- define("FRONT_ROOT", "/utn/pet-hero/"); // Rodri
+// define("FRONT_ROOT", "/utn/pet-hero/"); // Rodri
+define("FRONT_ROOT", "/LAB IV/pethero/"); // Juan
+
+
 define("VIEWS_PATH", "Views/");
 define("CSS_PATH", FRONT_ROOT.VIEWS_PATH . "css/");
 define("JS_PATH", FRONT_ROOT.VIEWS_PATH . "js/");

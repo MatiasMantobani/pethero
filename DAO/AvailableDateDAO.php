@@ -97,6 +97,46 @@ class AvailableDateDAO
         $this->connection->ExecuteNonQuery($query, $parameters);
     }
 
+    public function GetAvailablesByRangeAndBreed($breed,$dateStart,$dateFinish)
+    {   
+        $query = "SELECT sizes.userid, availabledates.date, availabledates.available, availabledates.availabledatesid FROM sizes INNER JOIN availabledates ON sizes.userid = availabledates.userid WHERE (IF((SELECT size FROM breed WHERE breedid = :raza) = 1, small = 1,IF((SELECT size FROM breed WHERE breedid = :raza) = 2, medium = 1, large = 1)) AND (availabledates.date >= :inicio AND availabledates.date <= :fin) AND (availabledates.available = 0 OR availabledates.available = :raza))";
+
+        $parameters["raza"]=$breed;
+        $parameters["inicio"] =$dateStart;
+        $parameters["fin"] =$dateFinish;
+        
+
+
+        $resultado = array();
+        $resultSet = array();
+
+        $this->connection = Connection::GetInstance(); 
+
+        $resultSet = $this->connection->Execute($query, $parameters);
+       
+       
+        foreach ($resultSet as $row) {
+            
+            $date = new AvailableDate();
+            $date->setAvailableDateId($row["availabledatesid"]);
+            $date->setUserid($row["userid"]);
+            $date->setDate($row["date"]);
+            $date->setAvailable($row["available"]);
+          
+
+            array_push($resultado, $date);
+        }
+        
+       
+        if ($resultado) {
+            return $resultado;
+        } else
+        {
+            return null;
+        }
+        
+    }
+
     // Necesitamos función que devuelva Fechas posibles para los dueños
     // Seleccionar por fecha específica aquellos keepers que cuiden perros de la misma raza O que cuiden cualquier perro y que cuiden perros del tamaño buscado 
     // "SELECT userid FROM".$this->tableAvailableDates."WHERE
@@ -111,5 +151,8 @@ class AvailableDateDAO
     //TABLA DE DISPONIBILIDAD
     //chequear todas las fechas de todos los guardianes -> devolver los userid con las fechas disponible
     //chequiemos dates por user id
+
+
+    
 
 }

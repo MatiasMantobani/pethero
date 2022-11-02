@@ -138,9 +138,38 @@ require_once('nav.php');
             </div>
 
             <br>
-
+            
             <?php if ($_SESSION['type'] == 'D') { ?>
+                                <!-- LISTADO DE FECHAS Y ALGO MAS -->
 
+                <h2 class="mb-4">LISTADO DE FECHAS Y ALGO MAS</h2>
+                <table class="table bg-light-alpha">
+                    <thead>
+                    <th>ADateId</th>
+                    <th>UserId</th>
+                    <th>Breed</th>
+                    <th>Fecha</th>
+                    </thead>
+                    <tbody>
+                    <?php
+                    if ($consultaList)
+                    {
+                    foreach ($consultaList as $consulta) {
+                        
+                            ?>
+                            <tr>
+                            <td><?php echo $consulta->getAvailableDateId() ?></td>
+                            <td><?php echo $consulta->getUserid() ?></td>
+                            <td><?php echo $consulta->getAvailable() ?></td>
+                            <td><?php echo $consulta->getDate() ?></td>
+
+                            </tr>
+                        <?php 
+                    }
+                    } ?>
+                    </tr>
+                    </tbody>
+                </table>
                 <!-- LISTADO DE RESERVAS -->
                 <h2 class="mb-4">Listado de Reservas</h2>
                 <table class="table bg-light-alpha">
