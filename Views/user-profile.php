@@ -111,7 +111,7 @@ require_once('nav.php');
                                 <?php if ($_SESSION['type'] == 'D') { ?>
 
                                     <!-- REALIZAR RESERVAS -->
-                                    <p><a href="<?php echo FRONT_ROOT ?>#">[REALIZAR RESERVA]</a></p>
+                                    <p><a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView">[REALIZAR RESERVA]</a></p>
                                     <hr class="mt-0 mb-4">
 
                                 <?php } ?>
