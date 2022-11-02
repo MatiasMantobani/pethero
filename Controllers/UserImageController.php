@@ -1,6 +1,7 @@
 <?php
 namespace Controllers;
 
+use \Exception as Exception;
 use DAO\UserImageDAO as UserImageDAO;
 use Models\UserImage as UserImage;
 use Controllers\UserController as UserController;

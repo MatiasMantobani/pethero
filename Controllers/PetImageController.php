@@ -1,6 +1,7 @@
 <?php
 namespace Controllers;
 
+use \Exception as Exception;
 use DAO\PetImageDAO as PetImageDAO;
 use Models\PetImage as PetImage;
 use Controllers\PetController as PetController;

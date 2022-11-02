@@ -10,6 +10,7 @@ class PetDAO
     private $connection;
     private $tablePets = "pet";
 
+
     public function Add(Pet $pet)
     {
         try
@@ -75,7 +76,7 @@ class PetDAO
         }
     }
 
-    public function GetByPetId($petid)
+    public function GetByPetId($petid)  //retorna 1 mascota
     {
         $pet = null;
 

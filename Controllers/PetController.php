@@ -1,4 +1,5 @@
 <?php
+
 namespace Controllers;
 
 use DAO\PetDAO as PetDAO;
@@ -23,6 +24,10 @@ class PetController
         $this->vacunationImageController = new VacunationImageController();
     }
 
+
+
+  
+
     public function ShowProfileView($petid)
     {
         $pet = $this->petDAO->GetByPetId($petid);
@@ -33,30 +38,30 @@ class PetController
         $petImage = $this->petImageController->ShowImage($pet->getPetid());
         $vacunationImage = $this->vacunationImageController->ShowImage($pet->getPetid());
 
-        require_once(VIEWS_PATH."pet-profile.php");
+        require_once(VIEWS_PATH . "pet-profile.php");
     }
 
     public function ShowAddView($name, $type, $observations)
     {
         $breedList = $this->breedController->getAllByType($type);
-        require_once(VIEWS_PATH."pet-add.php");
+        require_once(VIEWS_PATH . "pet-add.php");
     }
 
     public function ShowPreAddView()
     {
-        require_once(VIEWS_PATH."pet-preadd.php");
+        require_once(VIEWS_PATH . "pet-preadd.php");
     }
 
     public function ShowUpdateView($petid)
     {
         $pet = $this->petDAO->GetByPetId($petid);
-        require_once(VIEWS_PATH."pet-update.php");
+        require_once(VIEWS_PATH . "pet-update.php");
     }
 
     public function ShowListView()
     {
         $petList = $this->petDAO->GetByUserid($_SESSION['userid']);
-        require_once(VIEWS_PATH."pet-list.php");
+        require_once(VIEWS_PATH . "pet-list.php");
     }
 
     public function Add($breedid, $name, $observations)
@@ -76,26 +81,30 @@ class PetController
         $userController->ShowProfileView();
     }
 
-    public function Update($petid, $breedid, $name, $observations){
+    public function Update($petid, $breedid, $name, $observations)
+    {
 
         $this->petDAO->Remove($petid);
         $this->Add($breedid, $name, $observations);
     }
 
-    public function PetFinder($petid){
+    public function PetFinder($petid)   //retorna 1 mascota
+    {
         return $this->petDAO->GetByPetId($petid);
     }
 
-    public function GetByUserId($userid){
+    public function GetByUserId($userid)
+    {
         $petList = $this->petDAO->GetByUserId($userid);
-        if ($petList){
+        if ($petList) {
             return $petList;
-        }else{
+        } else {
             return null;
         }
     }
 
-    public function Remove($petid){
+    public function Remove($petid)
+    {
         $this->petDAO->Remove($petid);
 
         $_SESSION['message'] = "Mascota quitada con exito";
@@ -103,6 +112,4 @@ class PetController
         $userController = new UserController();
         $userController->ShowProfileView();
     }
-
 }
-?>

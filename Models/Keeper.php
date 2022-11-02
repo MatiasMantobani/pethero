@@ -3,8 +3,10 @@ namespace Models;
 
 class Keeper
 {
+    private $keeperid;
     private $pricing;
     private $rating;
+    private $userid;
 
     /**
      * @return mixed

@@ -99,21 +99,18 @@ class AvailableDateDAO
 
     public function GetAvailablesByRangeAndBreed($breed,$dateStart,$dateFinish)
     {   
-        $query = "SELECT sizes.userid, availabledates.date, availabledates.available, availabledates.availabledatesid FROM sizes INNER JOIN availabledates ON sizes.userid = availabledates.userid WHERE (IF((SELECT size FROM breed WHERE breedid = :raza) = 1, small = 1,IF((SELECT size FROM breed WHERE breedid = :raza) = 2, medium = 1, large = 1)) AND (availabledates.date >= :inicio AND availabledates.date <= :fin) AND (availabledates.available = 0 OR availabledates.available = :raza))";
+        $query = "SELECT sizes.userid, availabledates.date, availabledates.available, availabledates.availabledatesid FROM sizes INNER JOIN availabledates ON sizes.userid = availabledates.userid WHERE (IF((SELECT size FROM breed WHERE breedid = :raza) = 1, small = 1,IF((SELECT size FROM breed WHERE breedid = :raza) = 2, medium = 1, large = 1)) AND (availabledates.date >= :inicio AND availabledates.date <= :fin) AND (availabledates.available = 0 OR availabledates.available = :raza)) order by date";
 
         $parameters["raza"]=$breed;
         $parameters["inicio"] =$dateStart;
         $parameters["fin"] =$dateFinish;
         
-
-
         $resultado = array();
         $resultSet = array();
 
         $this->connection = Connection::GetInstance(); 
 
         $resultSet = $this->connection->Execute($query, $parameters);
-       
        
         foreach ($resultSet as $row) {
             
@@ -123,11 +120,9 @@ class AvailableDateDAO
             $date->setDate($row["date"]);
             $date->setAvailable($row["available"]);
           
-
             array_push($resultado, $date);
         }
         
-       
         if ($resultado) {
             return $resultado;
         } else

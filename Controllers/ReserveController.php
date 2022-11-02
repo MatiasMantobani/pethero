@@ -8,26 +8,47 @@ use Models\Reserve as Reserve;
 use DateInterval;
 use DateTime;
 use Cassandra\Date;
+use Controllers\AvailableDateController as AvailableDateController;
+use Models\AvailableDate;
+use Controllers\UserController as UserController;
 
 class ReserveController
 {
     private $reserveDAO;
-    private $petList;
+    private $petDAO;
 
     public function __construct()
     {
         $this->reserveDAO = new ReserveDAO();
-        $this->petList = new PetController();
+        $this->petController = new PetController();
     }
 
-    public function showAddView(){
-        $listadoMascotas = $this->petList->GetByUserId($_SESSION['userid']);
-        require_once(VIEWS_PATH."reserve-add.php");
+    public function showAddView()
+    {
+        $listadoMascotas = $this->petController->GetByUserId($_SESSION['userid']);
+        require_once(VIEWS_PATH . "reserve-add.php");
     }
 
-    public function showChooseKeeperView($petid, $daterange){
-        $pet = $this->petList->PetFinder($petid);
-        require_once(VIEWS_PATH."choose-keeper.php");
+    public function showChooseKeeperView($petid, $daterange)
+    {
+        $pet = $this->petController->PetFinder($petid);
+        // var_dump($pet);
+        // echo "<br>";
+
+        $breed = $pet->getBreedId();
+        // var_dump($breed);
+        // echo "<br>";
+
+        //parsear atributos
+        $dateArray = explode(",", $daterange);
+        $dateStart = new DateTime($dateArray[0]);
+        $dateFinish = new DateTime($dateArray[1]);
+        
+        $AvailableDateController = new AvailableDateController();
+        $AvailableDates = $AvailableDateController->getAvailablesListByDatesAndBreed($breed, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));
+       
+        //pasar los datos a la vista
+        require_once(VIEWS_PATH . "choose-keeper.php");
     }
 
     public function Add($petid, $daterange)

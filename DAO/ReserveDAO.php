@@ -4,6 +4,7 @@ namespace DAO;
 
 use DAO\Connection as Connection;
 use Models\Reserve as Reserve;
+use \Exception as Exception;
 
 class ReserveDAO
 {
