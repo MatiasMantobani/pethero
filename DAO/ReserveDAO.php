@@ -47,18 +47,12 @@ class ReserveDAO
     {
         try
         {
-        $query = "INSERT INTO ".$this->tableReserve." (reserveid, transmitterid, receiverid, petid, date, amount, isconfirmed, paymentid, ispayed, iscompleted) VALUES (:reserveid, :transmitterid, :receiverid, :petid, :date, :amount, :isconfirmed, :paymentid, :ispayed, :iscompleted);";
+        $query = "INSERT INTO ".$this->tableReserve." (transmitterid, receiverid, petid, amount) VALUES (:transmitterid, :receiverid, :petid, :amount);";
 
-        $parameters["reserveid"] = $reserve->getReserveid();
         $parameters["transmitterid"] = $reserve->getTransmitterid();
         $parameters["receiverid"] = $reserve->getReceiverid();
         $parameters["petid"] = $reserve->getPetid();
-        $parameters["date"] = $reserve->getDate();
         $parameters["amount"] = $reserve->getAmount();
-        $parameters["isconfirmed"] = $reserve->getIsconfirmed();
-        $parameters["paymentid"] = $reserve->getPaymentid();
-        $parameters["ispayed"] = $reserve->getIspayed();
-        $parameters["iscompleted"] = $reserve->getIscompleted();
 
         $this->connection = Connection::GetInstance();
         $this->connection->ExecuteNonQuery($query, $parameters);

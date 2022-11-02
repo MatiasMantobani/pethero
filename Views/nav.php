@@ -28,6 +28,11 @@
             <?php } ?>
 
             <?php if ($_SESSION['type'] == 'D') { ?>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView">Crear Reserva</a>
+                </li>
+
             <?php } ?>
 
             <li class="nav-item">

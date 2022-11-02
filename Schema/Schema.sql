@@ -2,9 +2,9 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 01, 2022 at 08:04 PM
--- Server version: 10.4.24-MariaDB
+-- Host: localhost
+-- Generation Time: Nov 02, 2022 at 07:10 PM
+-- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -33,6 +33,42 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `images_add` (IN `Name` VARCHAR(100)
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `images_update` (IN `Name` VARCHAR(100), IN `Userid` INT(11))   BEGIN
+    UPDATE user_images
+    SET	name=Name
+	WHERE
+		userid=Userid;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pet_images_add` (IN `Name` VARCHAR(100), IN `Petid` INT(11))   BEGIN
+INSERT INTO pet_images
+(name, petid)
+VALUES
+(Name, Petid);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pet_images_update` (IN `Name` VARCHAR(100), IN `Petid` INT(11))   BEGIN
+UPDATE pet_images
+SET name=Name
+WHERE
+petid=Petid;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `vacunation_images_add` (IN `Name` VARCHAR(50), IN `Petid` INT(11))   BEGIN
+INSERT INTO vacunation_images
+(name, petid)
+VALUES
+(Name, Petid);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `vacunation_images_update` (IN `Name` VARCHAR(100), IN `Petid` INT(11))   BEGIN
+UPDATE vacunation_images
+SET name=Name
+WHERE
+petid=Petid;
+END$$
+
 DELIMITER ;
 
 
@@ -57,8 +93,8 @@ CREATE TABLE `adresses` (
 --
 
 INSERT INTO `adresses` (`userid`, `street`, `number`, `floor`, `department`, `postalcode`) VALUES
-(1, 'Jara', '2001', '11', '', '7600BY2'),
-(2, 'Champaña', '4000 w', 'en ', '...^*drop table', 'tu vieja'),
+(1, 'Marconi', '2050', '9', 'H', '7600'),
+(2, 'Colon', '4000', '', '', '7600'),
 (3, 'Colon', '7890', '9', 'A', '7600'),
 (5, 'San Luis', '2050', '', '', '7600'),
 (8, 'Salta', '2502', '9', 'K', '7600'),
@@ -83,14 +119,7 @@ CREATE TABLE `availabledates` (
 --
 
 INSERT INTO `availabledates` (`availabledatesid`, `userid`, `date`, `available`) VALUES
-(168, 2, '2022-11-04', 13),
-(169, 2, '2022-11-05', 1),
-(179, 2, '2022-11-01', 0),
-(180, 2, '2022-11-02', 0),
-(181, 2, '2022-11-03', 0),
-(182, 2, '2022-11-06', 0),
-(183, 2, '2022-11-07', 0),
-(184, 2, '2022-11-08', 0);
+(128, 2, '2022-11-10', 0);
 
 -- --------------------------------------------------------
 
@@ -148,10 +177,30 @@ CREATE TABLE `pet` (
 --
 
 INSERT INTO `pet` (`petid`, `userid`, `status`, `breedid`, `name`, `observations`) VALUES
-(21, 1, 1, 1, 'Mishi', ''),
-(24, 1, 1, 13, 'Canitoli', 'No dispone'),
 (26, 1, 1, 4, 'Bolita', 'Toma medicacion'),
-(31, 1, 1, 15, 'Larita', '');
+(34, 1, 1, 17, 'Roco', ''),
+(36, 1, 1, 5, 'Luna', 'Le gusta el pescado');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pet_images`
+--
+
+CREATE TABLE `pet_images` (
+  `imageid` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `petid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pet_images`
+--
+
+INSERT INTO `pet_images` (`imageid`, `name`, `petid`) VALUES
+(8, 'pexels-pixabay-160722.jpg', 26),
+(9, 'pexels-apunto-group-agencia-de-publicidad-7752793.jpg', 34),
+(10, 'pexels-craig-adderley-1715092.jpg', 35);
 
 -- --------------------------------------------------------
 
@@ -245,12 +294,28 @@ CREATE TABLE `user_images` (
 --
 
 INSERT INTO `user_images` (`imageid`, `name`, `userid`) VALUES
-(1, 'pic.png', 1),
-(2, 'Mute_OPENING-TKT-960x400px.png', 2),
-(3, 'pic.png', 3),
-(4, 'john-towner-JgOeRuGD_Y4-unsplash.jpg', 4),
-(5, 'john-towner-JgOeRuGD_Y4-unsplash.jpg', 4),
-(6, '24275813_350.png', 5);
+(9, 'pexels-yuri-manei-3211476.jpg', 1),
+(10, 'pexels-da-capture-14036568.jpg', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vacunation_images`
+--
+
+CREATE TABLE `vacunation_images` (
+  `imageid` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `petid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `vacunation_images`
+--
+
+INSERT INTO `vacunation_images` (`imageid`, `name`, `petid`) VALUES
+(2, 'carnetVacunacion.jpg', 26),
+(3, 'carnetVacunacion.jpg', 35);
 
 --
 -- Indexes for dumped tables
@@ -281,6 +346,12 @@ ALTER TABLE `pet`
   ADD PRIMARY KEY (`petid`);
 
 --
+-- Indexes for table `pet_images`
+--
+ALTER TABLE `pet_images`
+  ADD PRIMARY KEY (`imageid`);
+
+--
 -- Indexes for table `reserve`
 --
 ALTER TABLE `reserve`
@@ -308,6 +379,12 @@ ALTER TABLE `user_images`
   ADD PRIMARY KEY (`imageid`);
 
 --
+-- Indexes for table `vacunation_images`
+--
+ALTER TABLE `vacunation_images`
+  ADD PRIMARY KEY (`imageid`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -315,7 +392,7 @@ ALTER TABLE `user_images`
 -- AUTO_INCREMENT for table `availabledates`
 --
 ALTER TABLE `availabledates`
-  MODIFY `availabledatesid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
+  MODIFY `availabledatesid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT for table `breed`
@@ -327,7 +404,13 @@ ALTER TABLE `breed`
 -- AUTO_INCREMENT for table `pet`
 --
 ALTER TABLE `pet`
-  MODIFY `petid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `petid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT for table `pet_images`
+--
+ALTER TABLE `pet_images`
+  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `reserve`
@@ -345,7 +428,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_images`
 --
 ALTER TABLE `user_images`
-  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `vacunation_images`
+--
+ALTER TABLE `vacunation_images`
+  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
