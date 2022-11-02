@@ -6,7 +6,7 @@ require_once('nav.php');
     <section id="listado" class="mb-5">
         <div class="container">
 
-            <form action="<?php echo FRONT_ROOT ?>Reserve/Add" method="post" class="bg-light-alpha p-5">
+            <form action="<?php echo FRONT_ROOT ?>Reserve/showChooseKeeperView" method="post" class="bg-light-alpha p-5">
 <!--                Desplegable de mascotas-->
                 <div class="col-lg-4">
                     <div class="form-group">
