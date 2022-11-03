@@ -7,7 +7,8 @@ require_once('nav.php');
         <div class="container">
 
             <form action="<?php echo FRONT_ROOT ?>Reserve/showChooseKeeperView" method="post" class="bg-light-alpha p-5">
-<!--                Desplegable de mascotas-->
+
+                <!--                Desplegable de mascotas-->
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="petid">Selecciona tu mascota</label>
@@ -15,12 +16,13 @@ require_once('nav.php');
                             <?php if ($listadoMascotas != null) {
                                 foreach ($listadoMascotas as $pet) { ?>
                                     <option value="<?php echo $pet->getPetid() ?>"><?php echo $pet->getName() ?></option>
-                                <?php } } ?>
+                            <?php }
+                            } ?>
                         </select>
                     </div>
                 </div>
 
-<!--                calendario-->
+                <!--                calendario-->
                 <div class="col-lg-5">
                     <label for="daterange">Selecciona el rango de fechas que necesita</label>
                     <script>

@@ -21,34 +21,33 @@ use Controllers\UserController as UserController;
                         <th>Email</th>
                         <th>Precio</th>
                         <th>Rating</th>
-                        <th>Fecha Disponible</th>
-
+                        <th>Fechas Disponibles</th>
                         <th>Contratar</th>
+
                     </thead>
                     <tbody>
                         <?php
+                        // print_r($AvailableKeepers);
                         $UserController = new UserController();
-                        foreach ($AvailableDates as $availableDate) {
+                        foreach ($AvailableKeepers as $keeper) {
+
                         ?>
-                            <?php
-                            //crear los usuarios y guardianes por availableDate->userid
-                            $user = $UserController->GetUserById($availableDate->getUserid());
-                            ?>
+
                             <tr>
 
-                                <td><?php echo $user->getName()
+                                <td><?php echo $keeper->getName()
                                     ?>
                                 </td>
 
-                                <td><?php echo $user->getSurname()
+                                <td><?php echo $keeper->getSurname()
                                     ?>
                                 </td>
 
-                                <td><?php echo $user->getPhone()
+                                <td><?php echo $keeper->getPhone()
                                     ?>
                                 </td>
 
-                                <td><?php echo $user->getEmail()
+                                <td><?php echo $keeper->getEmail()
                                     ?>
                                 </td>
 
@@ -60,11 +59,19 @@ use Controllers\UserController as UserController;
                                     ?>
                                 </td>
 
-                                <td><?php echo $availableDate->getDate()
-                                    ?>
+
+                                <!--                Desplegable de fechas-->
+                                <td>
+                                    <select class="form-control" name="date" required>
+                                        <?php if ($AvailableDates != null) {
+                                            foreach ($AvailableDates as $date) { ?>
+                                                <option value="<?php echo $date->getDate() ?>"><?php echo $date->getDate() ?></option>
+                                        <?php }
+                                        } ?>
+                                    </select>
                                 </td>
 
-                                <td>Accion ID<?php echo $availableDate->getUserid()
+                                <td>Accion ID<?php echo $keeper->getUserId()
                                                 ?>
                                 </td>
 

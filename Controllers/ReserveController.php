@@ -34,45 +34,35 @@ class ReserveController
     public function showChooseKeeperView($petid, $daterange)
     {
         $pet = $this->petController->PetFinder($petid);
-        // var_dump($pet);
-        // echo "<br>";
 
         $breed = $pet->getBreedId();
-        // var_dump($breed);
-        // echo "<br>";
-
+    
         //parsear atributos
         $dateArray = explode(",", $daterange);
         $dateStart = new DateTime($dateArray[0]);
         $dateFinish = new DateTime($dateArray[1]);
-        
+
         $AvailableDateController = new AvailableDateController();
         $AvailableDates = $AvailableDateController->getAvailablesListByDatesAndBreed($breed, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));
 
-        /** Esta logica filtra los guardianes repetidos.
-            Podemos usar esto para no mostrar en la tabal choose-keeper.php al mismo guardian varias veces con distintas fechas.
-            Con esto listamos a cada guardian solo una vez, y que el owner seleccione una fecha desde un desplegable que agregaremos a la tabla
-         */
         $AvailableKeepers = array();
         $flag = 0;
-        foreach($AvailableDates as $keeper){
+        foreach ($AvailableDates as $keeper) {
             $flag = 0;
-            foreach ($AvailableKeepers as $keeper2){
-                // while($flag == 0){
-                if($flag == 0){
-                    if($keeper->getUserid() == $keeper2->getUserid()){
-                        $flag = 1;
-                    }
-                    echo","; //falta condicion de corte de while
+
+            foreach ($AvailableKeepers as $keeper2) {
+                if ($keeper->getUserid() == $keeper2->getUserid()) {
+                    $flag = 1;
                 }
             }
-            if($flag == 0){
+            if ($flag == 0) {
                 array_push($AvailableKeepers, $this->UserController->GetUserById($keeper->getUserid()));
+                echo ("Keeper: " . ($this->UserController->GetUserById($keeper->getUserid()))->getName() . "<br>");
             }
         }
-        /** */
-       
-        //pasar los datos a la vista
+
+        
+
         require_once(VIEWS_PATH . "choose-keeper.php");
     }
 
