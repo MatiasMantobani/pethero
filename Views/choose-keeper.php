@@ -21,18 +21,15 @@ use Controllers\UserController as UserController;
                         <th>Email</th>
                         <th>Precio</th>
                         <th>Rating</th>
-                        <th>Fechas Disponibles</th>
                         <th>Contratar</th>
 
                     </thead>
                     <tbody>
                         <?php
                         // print_r($AvailableKeepers);
-                        $UserController = new UserController();
                         foreach ($AvailableKeepers as $keeper) {
 
                         ?>
-
                             <tr>
 
                                 <td><?php echo $keeper->getName()
@@ -59,18 +56,6 @@ use Controllers\UserController as UserController;
                                     ?>
                                 </td>
 
-
-                                <!--                Desplegable de fechas-->
-                                <td>
-                                    <select class="form-control" name="date" required>
-                                        <?php if ($AvailableDates != null) {
-                                            foreach ($AvailableDates as $date) { ?>
-                                                <option value="<?php echo $date->getDate() ?>"><?php echo $date->getDate() ?></option>
-                                        <?php }
-                                        } ?>
-                                    </select>
-                                </td>
-
                                 <td>Accion ID<?php echo $keeper->getUserId()
                                                 ?>
                                 </td>
@@ -91,9 +76,6 @@ use Controllers\UserController as UserController;
                 <br>
                 <img src="<?php echo FRONT_ROOT ?>Views/img/keeper-no-disponible.png" class="rounded mx-auto d-block" alt="sad-dog">
             <?php } ?>
-
-
-
         </div>
     </section>
 </main>

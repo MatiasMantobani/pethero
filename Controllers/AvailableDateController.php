@@ -13,7 +13,7 @@ class AvailableDateController
 {
     private $availableDateDAO;
 
-    
+
     public function __construct()
     {
         $this->availableDateDAO = new AvailableDateDAO();
@@ -31,7 +31,12 @@ class AvailableDateController
         return $this->availableDateDAO->GetByUserid($_SESSION['userid']);
     }
 
-    
+    public function CheckDate($userid, $date)
+    {
+        return $this->availableDateDAO->CheckDate($userid, $date);
+    }
+
+
     public function AddMany($daterange)
     {
         $dateArray = explode(",", $daterange);
@@ -47,14 +52,13 @@ class AvailableDateController
             $date->setAvailable("0");
 
             //chequeamos si date existe y no la subimos
-            if($this->availableDateDAO->CheckDate($_SESSION['userid'],$date->getDate())){
+            if ($this->availableDateDAO->CheckDate($_SESSION['userid'], $date->getDate())) {
                 //nada
                 echo "no se puede estar disponible en fechas ya reservadas<br>";
-            }else{
+            } else {
                 $this->availableDateDAO->Add($date);
             }
             $date1->modify('+1 day');
-            
         }
     }
 
@@ -67,8 +71,8 @@ class AvailableDateController
         $userController->ShowProfileView();
     }
 
-    public function getAvailablesListByDatesAndBreed ($breed,$dateStart,$dateFinish)
+    public function getAvailablesListByDatesAndBreed($breed, $dateStart, $dateFinish)
     {
-        return $this->availableDateDAO->GetAvailablesByRangeAndBreed($breed,$dateStart,$dateFinish);
+        return $this->availableDateDAO->GetAvailablesByRangeAndBreed($breed, $dateStart, $dateFinish);
     }
 }

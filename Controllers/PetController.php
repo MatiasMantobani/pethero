@@ -85,6 +85,8 @@ class PetController
         $userController->ShowProfileView();
     }
 
+    //la excepcion de DAO se debe manejhar aca con try-catch
+
     public function Update($petid, $breedid, $name, $observations)
     {
 

@@ -97,39 +97,39 @@ class AvailableDateDAO
         $this->connection->ExecuteNonQuery($query, $parameters);
     }
 
-    public function GetAvailablesByRangeAndBreed($breed,$dateStart,$dateFinish)
-    {   
+
+
+    public function GetAvailablesByRangeAndBreed($breed, $dateStart, $dateFinish) //devuelve todas las availableDates en rango de fechas
+    {
         $query = "SELECT sizes.userid, availabledates.date, availabledates.available, availabledates.availabledatesid FROM sizes INNER JOIN availabledates ON sizes.userid = availabledates.userid WHERE (IF((SELECT size FROM breed WHERE breedid = :raza) = 1, small = 1,IF((SELECT size FROM breed WHERE breedid = :raza) = 2, medium = 1, large = 1)) AND (availabledates.date >= :inicio AND availabledates.date <= :fin) AND (availabledates.available = 0 OR availabledates.available = :raza)) order by date";
 
-        $parameters["raza"]=$breed;
-        $parameters["inicio"] =$dateStart;
-        $parameters["fin"] =$dateFinish;
-        
+        $parameters["raza"] = $breed;
+        $parameters["inicio"] = $dateStart;
+        $parameters["fin"] = $dateFinish;
+
         $resultado = array();
         $resultSet = array();
 
-        $this->connection = Connection::GetInstance(); 
+        $this->connection = Connection::GetInstance();
 
         $resultSet = $this->connection->Execute($query, $parameters);
-       
+
         foreach ($resultSet as $row) {
-            
+
             $date = new AvailableDate();
             $date->setAvailableDateId($row["availabledatesid"]);
             $date->setUserid($row["userid"]);
             $date->setDate($row["date"]);
             $date->setAvailable($row["available"]);
-          
+
             array_push($resultado, $date);
         }
-        
+
         if ($resultado) {
             return $resultado;
-        } else
-        {
+        } else {
             return null;
         }
-        
     }
 
     // Necesitamos función que devuelva Fechas posibles para los dueños
@@ -148,6 +148,6 @@ class AvailableDateDAO
     //chequiemos dates por user id
 
 
-    
+
 
 }

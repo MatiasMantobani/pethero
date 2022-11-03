@@ -17,12 +17,14 @@ class ReserveController
     private $reserveDAO;
     private $petDAO;
     private $UserController;
+    private $AvailableDateController;
 
     public function __construct()
     {
         $this->reserveDAO = new ReserveDAO();
         $this->petController = new PetController();
         $this->UserController = new UserController();
+        $this->AvailableDateController = new AvailableDateController();
     }
 
     public function showAddView()
@@ -36,32 +38,57 @@ class ReserveController
         $pet = $this->petController->PetFinder($petid);
 
         $breed = $pet->getBreedId();
-    
-        //parsear atributos
+
+        //parseo atributos
         $dateArray = explode(",", $daterange);
         $dateStart = new DateTime($dateArray[0]);
         $dateFinish = new DateTime($dateArray[1]);
 
-        $AvailableDateController = new AvailableDateController();
-        $AvailableDates = $AvailableDateController->getAvailablesListByDatesAndBreed($breed, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));
-
-        $AvailableKeepers = array();
+        //obtenemos ids de guardianes "disponibles" (aquellos que tienen al menos una fecha en el rango del dueño)
+        $AvailableDates = $this->AvailableDateController->getAvailablesListByDatesAndBreed($breed, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));
+        $PseudoAvailableKeepers = array();
         $flag = 0;
         foreach ($AvailableDates as $keeper) {
             $flag = 0;
-
-            foreach ($AvailableKeepers as $keeper2) {
+            foreach ($PseudoAvailableKeepers as $keeper2) {
                 if ($keeper->getUserid() == $keeper2->getUserid()) {
                     $flag = 1;
                 }
             }
             if ($flag == 0) {
-                array_push($AvailableKeepers, $this->UserController->GetUserById($keeper->getUserid()));
-                echo ("Keeper: " . ($this->UserController->GetUserById($keeper->getUserid()))->getName() . "<br>");
+                array_push($PseudoAvailableKeepers, $this->UserController->GetUserById($keeper->getUserid()));
+                // echo ("Keeper: " . ($this->UserController->GetUserById($keeper->getUserid()))->getName() . "<br>");
             }
         }
+        // var_dump($PseudoAvailableKeepers);
 
-        
+
+        //obtenemos todos los dias marcados por el dueño
+        $availables = array();
+        while ($dateStart <= $dateFinish) {
+            $date1 = new DateTime();
+            $date1 = $dateStart;
+            $date2 = $date1->format('Y-m-d');
+            array_push($availables, $date2);
+            $dateStart->modify('+1 day');
+        }
+        // var_dump($availables);
+
+        //se guardan los ids de los keepers
+        $AvailableKeepers = array();
+        foreach ($PseudoAvailableKeepers as $keeper) {
+            $flag = 0;
+            foreach ($availables as $date) {
+
+                if (!($this->AvailableDateController->CheckDate($keeper->getUserid(), $date))) {
+                    $flag = 1;
+                }
+            }
+            if ($flag == 0) {
+                array_push($AvailableKeepers, $keeper);
+            }
+        }
+        // var_dump($AvailableKeepers);
 
         require_once(VIEWS_PATH . "choose-keeper.php");
     }

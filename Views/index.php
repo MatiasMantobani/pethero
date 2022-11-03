@@ -41,12 +41,19 @@ require_once('nav.php');
             <br>
             <h2 class="mb-4">Credenciales de prueba:</h2>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <p><b>usuario1@gmail.com -dueño- 123456</b></p>
                 </div>
-                <div class="col-lg-6">
+
+                <div class="col-lg-4">
                     <p><b>usuario2@gmail.com -guardian- 123456</b></p>
                 </div>
+
+                <div class="col-lg-4">
+                    <p><b>usuario3@gmail.com -guardian- 123456</b></p>
+                </div>
+
+
             </div>
 
         </div>
