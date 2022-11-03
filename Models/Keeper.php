@@ -42,4 +42,44 @@ class Keeper
 
 
 
+
+    /**
+     * Get the value of keeperid
+     */ 
+    public function getKeeperid()
+    {
+        return $this->keeperid;
+    }
+
+    /**
+     * Set the value of keeperid
+     *
+     * @return  self
+     */ 
+    public function setKeeperid($keeperid)
+    {
+        $this->keeperid = $keeperid;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of userid
+     */ 
+    public function getUserid()
+    {
+        return $this->userid;
+    }
+
+    /**
+     * Set the value of userid
+     *
+     * @return  self
+     */ 
+    public function setUserid($userid)
+    {
+        $this->userid = $userid;
+
+        return $this;
+    }
 }

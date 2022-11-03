@@ -58,10 +58,12 @@ class ReserveController
         foreach($AvailableDates as $keeper){
             $flag = 0;
             foreach ($AvailableKeepers as $keeper2){
-                while($flag == 0){
+                // while($flag == 0){
+                if($flag == 0){
                     if($keeper->getUserid() == $keeper2->getUserid()){
                         $flag = 1;
                     }
+                    echo","; //falta condicion de corte de while
                 }
             }
             if($flag == 0){
