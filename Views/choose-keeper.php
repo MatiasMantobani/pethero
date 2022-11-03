@@ -8,7 +8,7 @@ use Controllers\UserController as UserController;
     <section id="listado" class="mb-5">
         <div class="container">
 
-            <?php if ($AvailableDates != null) { ?>
+            <?php if ($AvailableKeepers != null) { ?>
                 <h2>Los siguientes Guardianes estan disponibles para cuidar a <?php echo $pet->getName() ?> </h2>
                 <br>
 
