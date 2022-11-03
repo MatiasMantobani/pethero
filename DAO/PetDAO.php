@@ -32,13 +32,40 @@ class PetDAO
         }
     }
 
+    public function Update(Pet $pet)
+    {
+        try
+        {
+            $query = "CALL pet_update(?,?,?);";
+
+            $parameters["petid"] = $pet->getPetid();
+            $parameters["name"] = $pet->getName();
+            $parameters["observations"] = $pet->getObservations();
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
     public function Remove($petid)
     {
-        $query = "DELETE FROM ".$this->tablePets." WHERE (petid = :petid)";
-        $parameters["petid"] =  $petid;
+        try
+        {
+            $query = "CALL pet_delete(?);";
 
-        $this->connection = Connection::GetInstance();
-        $this->connection->ExecuteNonQuery($query, $parameters);
+            $parameters["petid"] = $petid;
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
     }
 
     public function GetByUserId($userid)

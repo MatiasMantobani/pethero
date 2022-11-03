@@ -45,8 +45,12 @@
 
         public function Update($street, $number, $floor, $department, $postalcode){
             if($this->AdressFinder($_SESSION['userid'])){
-                $this->adressDAO->Remove($_SESSION['userid']);
-                $this->Add($street, $number, $floor, $department, $postalcode);
+                $this->adressDAO->Update($_SESSION['userid'], $street, $number, $floor, $department, $postalcode);
+
+                $_SESSION['message'] = "Domicilio modificado con exito";
+
+                $controller = new UserController();
+                $controller->ShowProfileView();
             } else {
                 $this->Add($street, $number, $floor, $department, $postalcode);
             }
