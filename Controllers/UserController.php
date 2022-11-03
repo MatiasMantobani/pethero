@@ -53,7 +53,6 @@ class UserController
             }
         }
 
-
         if ($_SESSION['userid']) {
             if ($adress == null) {
                 $_SESSION['message'] .= "Para comenzar, debés ingresar tu domicilio. ";
@@ -77,7 +76,6 @@ class UserController
 
         require_once(VIEWS_PATH . "user-profile.php");
     }
-
 
     public function Add($email, $password, $type, $dni, $cuit, $name, $surname, $phone)
     {

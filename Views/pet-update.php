@@ -4,8 +4,9 @@ require_once('nav.php');
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-            <h2 class="mb-4">Registro de mascota</h2>
-            <p>Completa todos los campos del formulario</p>
+            <a href="<?php echo FRONT_ROOT ?>Pet/ShowProfileView/<?php echo $pet->getPetid() ?>">Volver</a>
+            <h2 class="mb-4">Cambio de datos</h2>
+            <p>Completa los campos del formulario</p>
             <form action="<?php echo FRONT_ROOT ?>Pet/Update" method="post" class="bg-light-alpha p-5">
                 <div class="row">
 

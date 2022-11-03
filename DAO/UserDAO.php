@@ -25,7 +25,6 @@ class UserDAO
         return false;
     }
 
-
     public function ValidateUniqueDni($dni) //true si hay repeticion
     {
         $query = "SELECT dni FROM " . $this->tableUsers . " WHERE (dni = :dni)";
@@ -38,7 +37,6 @@ class UserDAO
         return false;
     }
 
-
     public function ValidateUniqueEmail($email) //true si hay repeticion
     {
         $query = "SELECT email FROM " . $this->tableUsers . " WHERE (email = :email)";
@@ -50,7 +48,6 @@ class UserDAO
         }
         return false;
     }
-
 
     public function Add(User $user)
     {

@@ -24,10 +24,6 @@ class PetController
         $this->vacunationImageController = new VacunationImageController();
     }
 
-
-
-  
-
     public function ShowProfileView($petid)
     {
         $pet = $this->petDAO->GetByPetId($petid);
@@ -37,6 +33,14 @@ class PetController
 
         $petImage = $this->petImageController->ShowImage($pet->getPetid());
         $vacunationImage = $this->vacunationImageController->ShowImage($pet->getPetid());
+
+        if (!$petImage){
+            $_SESSION['message'] .= "Para comenzar, podés subir mi foto. ";
+        }
+
+        if (!$vacunationImage){
+            $_SESSION['message'] .= "Subí mi carnet de vacunación. ";
+        }
 
         require_once(VIEWS_PATH . "pet-profile.php");
     }
@@ -75,7 +79,7 @@ class PetController
 
         $this->petDAO->Add($pet);
 
-        $_SESSION['message'] = "Mascota modificada con exito";
+        $_SESSION['message'] = "Mascota cargada con exito";
 
         $userController = new UserController();
         $userController->ShowProfileView();
@@ -84,8 +88,19 @@ class PetController
     public function Update($petid, $breedid, $name, $observations)
     {
 
-        $this->petDAO->Remove($petid);
-        $this->Add($breedid, $name, $observations);
+        // $this->petDAO->Remove($petid);
+        // $this->Add($breedid, $name, $observations);
+
+        $pet = new Pet();
+        $pet->setPetid($petid);
+        $pet->setBreedid($breedid);
+        $pet->setName($name);
+        $pet->setObservations($observations);
+
+        $_SESSION['message'] = "Mascota modificada con exito";
+
+        $this->petDAO->Update($pet);
+        $this->ShowProfileView($pet->getPetid());
     }
 
     public function PetFinder($petid)   //retorna 1 mascota

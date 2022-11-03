@@ -218,7 +218,7 @@ require_once('nav.php');
                     </thead>
                     <tbody>
                     <?php if ($petList != null) {
-                        foreach ($petList as $pet) { ?>
+                        foreach ($petList as $pet) { if ($pet->getStatus() == 1) { ?>
                             <?php $breed = $breedController->getByBreedId($pet->getBreedid()); ?>
                             <tr>
                                 <td><?php echo $pet->getPetid() ?></td>
@@ -248,7 +248,7 @@ require_once('nav.php');
                                         perfil</a>
                                 </td>
                             </tr>
-                        <?php }
+                        <?php } }
                     } ?>
                     </tr>
                     </tbody>

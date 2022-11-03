@@ -34,6 +34,28 @@ class AdressDAO
         }
     }
 
+    public function Update($userid, $street, $number, $floor, $department, $postalcode)
+    {
+        try
+        {
+            $query = "CALL adress_update(?,?,?,?,?,?);";
+
+            $parameters["userid"] = $userid;
+            $parameters["street"] = $street;
+            $parameters["number"] = $number;
+            $parameters["floor"] = $floor;
+            $parameters["department"] = $department;
+            $parameters["postalcode"] = $postalcode;
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
     public function Remove($userid)
     {
         $query = "DELETE FROM ".$this->tableAdresses." WHERE (userid = :userid)";
