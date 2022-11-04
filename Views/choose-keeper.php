@@ -7,7 +7,7 @@ use Controllers\UserController as UserController;
     <section id="listado" class="mb-5">
         <div class="container">
 
-            <?php if ($AvailableKeepers != null) { ?>
+            <?php if ($AvailableUsers != null) { ?>
                 <h2>Los siguientes Guardianes estan disponibles para cuidar a <?php echo $pet->getName() ?> </h2>
                 <br>
 
@@ -29,24 +29,24 @@ use Controllers\UserController as UserController;
                         //debe recibir la data de keeper desde ReserveController
 
                         // print_r($AvailableKeepers);
-                        foreach ($AvailableKeepers as $keeper) {
+                        foreach ($AvailableUsers as $user) {
 
                         ?>
                             <tr>
 
-                                <td><?php echo $keeper->getName()
+                                <td><?php echo $user->getName()
                                     ?>
                                 </td>
 
-                                <td><?php echo $keeper->getSurname()
+                                <td><?php echo $user->getSurname()
                                     ?>
                                 </td>
 
-                                <td><?php echo $keeper->getPhone()
+                                <td><?php echo $user->getPhone()
                                     ?>
                                 </td>
 
-                                <td><?php echo $keeper->getEmail()
+                                <td><?php echo $user->getEmail()
                                     ?>
                                 </td>
 

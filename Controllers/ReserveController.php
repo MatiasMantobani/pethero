@@ -47,20 +47,20 @@ class ReserveController
         $dateStart = new DateTime($dateArray[0]);
         $dateFinish = new DateTime($dateArray[1]);
 
-        //obtenemos ids de guardianes "disponibles" (aquellos que tienen al menos una fecha en el rango del dueño)
+        //obtenemos ids de los "disponibles" (aquellos que tienen al menos una fecha en el rango del dueño)
         $AvailableDates = $this->AvailableDateController->getAvailablesListByDatesAndBreed($breed, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));
-        $PseudoAvailableKeepers = array();
+        $pseudoAvailableUsers = array();
         $flag = 0;
         if ($AvailableDates != null) {
             foreach ($AvailableDates as $keeper) {
                 $flag = 0;
-                foreach ($PseudoAvailableKeepers as $keeper2) {
+                foreach ($pseudoAvailableUsers as $keeper2) {
                     if ($keeper->getUserid() == $keeper2->getUserid()) {
                         $flag = 1;
                     }
                 }
                 if ($flag == 0) {
-                    array_push($PseudoAvailableKeepers, $this->UserController->GetUserById($keeper->getUserid()));
+                    array_push($pseudoAvailableUsers, $this->UserController->GetUserById($keeper->getUserid()));
                 }
             }
         }
@@ -75,9 +75,9 @@ class ReserveController
             $dateStart->modify('+1 day');
         }
 
-        //se guardan los ids de los keepers
-        $AvailableKeepers = array();
-        foreach ($PseudoAvailableKeepers as $keeper) {
+        //se guardan los users
+        $AvailableUsers = array();
+        foreach ($pseudoAvailableUsers as $keeper) {
             $flag = 0;
             foreach ($availables as $date) {
 
@@ -86,9 +86,11 @@ class ReserveController
                 }
             }
             if ($flag == 0) {
-                array_push($AvailableKeepers, $keeper);
+                array_push($AvailableUsers, $keeper);
             }
         }
+
+        //pasarle el keeper correspondiente a vista
 
         require_once(VIEWS_PATH . "choose-keeper.php");
     }
@@ -106,7 +108,7 @@ class ReserveController
         var_dump($interval);
 
         // $duration = new \DateInterval('P1Y');
-        $intervalInSeconds = (new DateTime())->setTimeStamp(0)->add($interval)->getTimeStamp();
+        $intervalInSeconds = (new DateTime())->setTimeStamp(0)->add($interval)->getTimeStamp(); //chequear 
         $intervalInDays = $intervalInSeconds/86400; 
         echo $intervalInDays;
 
