@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2022 at 05:16 PM
+-- Generation Time: Nov 04, 2022 at 07:37 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -138,7 +138,22 @@ CREATE TABLE `availabledates` (
 --
 
 INSERT INTO `availabledates` (`availabledatesid`, `userid`, `date`, `available`) VALUES
-(128, 2, '2022-11-10', 0);
+(137, 2, '2022-11-04', 0),
+(138, 2, '2022-11-05', 0),
+(139, 2, '2022-11-06', 0),
+(140, 2, '2022-11-07', 0),
+(141, 2, '2022-11-08', 0),
+(142, 2, '2022-11-09', 0),
+(143, 2, '2022-11-10', 0),
+(144, 2, '2022-11-11', 0),
+(145, 3, '2022-11-04', 0),
+(146, 3, '2022-11-05', 0),
+(147, 3, '2022-11-06', 0),
+(148, 3, '2022-11-07', 0),
+(149, 3, '2022-11-08', 0),
+(150, 3, '2022-11-09', 0),
+(151, 3, '2022-11-10', 0),
+(152, 3, '2022-11-11', 0);
 
 -- --------------------------------------------------------
 
@@ -201,6 +216,14 @@ CREATE TABLE `keepers` (
   `rating` double NOT NULL,
   `pricing` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `keepers`
+--
+
+INSERT INTO `keepers` (`keeperid`, `userid`, `rating`, `pricing`) VALUES
+(1, 2, 4.7, 10),
+(2, 3, 3.9, 22);
 
 -- --------------------------------------------------------
 
@@ -304,6 +327,21 @@ CREATE TABLE `reserve` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `review`
+--
+
+CREATE TABLE `review` (
+  `reviewid` int(11) NOT NULL,
+  `emitterid` int(11) NOT NULL,
+  `receptorid` int(11) NOT NULL,
+  `reserveid` int(11) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `comment` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sizes`
 --
 
@@ -319,7 +357,8 @@ CREATE TABLE `sizes` (
 --
 
 INSERT INTO `sizes` (`userid`, `small`, `medium`, `large`) VALUES
-(2, 0, 1, 0),
+(2, 1, 1, 1),
+(3, 1, 1, 1),
 (4, 1, 0, 1),
 (10, 0, 1, 0),
 (11, 1, 0, 1);
@@ -465,6 +504,12 @@ ALTER TABLE `reserve`
   ADD PRIMARY KEY (`reserveid`);
 
 --
+-- Indexes for table `review`
+--
+ALTER TABLE `review`
+  ADD PRIMARY KEY (`reviewid`);
+
+--
 -- Indexes for table `sizes`
 --
 ALTER TABLE `sizes`
@@ -499,7 +544,7 @@ ALTER TABLE `vacunation_images`
 -- AUTO_INCREMENT for table `availabledates`
 --
 ALTER TABLE `availabledates`
-  MODIFY `availabledatesid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `availabledatesid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 
 --
 -- AUTO_INCREMENT for table `breed`
@@ -517,7 +562,7 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT for table `keepers`
 --
 ALTER TABLE `keepers`
-  MODIFY `keeperid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `keeperid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `message`
@@ -548,6 +593,12 @@ ALTER TABLE `pet_images`
 --
 ALTER TABLE `reserve`
   MODIFY `reserveid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `review`
+--
+ALTER TABLE `review`
+  MODIFY `reviewid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
