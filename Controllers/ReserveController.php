@@ -52,15 +52,15 @@ class ReserveController
         $pseudoAvailableUsers = array();
         $flag = 0;
         if ($AvailableDates != null) {
-            foreach ($AvailableDates as $keeper) {
+            foreach ($AvailableDates as $user) {
                 $flag = 0;
-                foreach ($pseudoAvailableUsers as $keeper2) {
-                    if ($keeper->getUserid() == $keeper2->getUserid()) {
+                foreach ($pseudoAvailableUsers as $user2) {
+                    if ($user->getUserid() == $user2->getUserid()) {
                         $flag = 1;
                     }
                 }
                 if ($flag == 0) {
-                    array_push($pseudoAvailableUsers, $this->UserController->GetUserById($keeper->getUserid()));
+                    array_push($pseudoAvailableUsers, $this->UserController->GetUserById($user->getUserid()));
                 }
             }
         }
@@ -77,16 +77,25 @@ class ReserveController
 
         //se guardan los users
         $AvailableUsers = array();
-        foreach ($pseudoAvailableUsers as $keeper) {
+        $AvailableKeepers = array();
+        foreach ($pseudoAvailableUsers as $user) {
             $flag = 0;
             foreach ($availables as $date) {
 
-                if (!($this->AvailableDateController->CheckDate($keeper->getUserid(), $date))) {
+                if (!($this->AvailableDateController->CheckDate($user->getUserid(), $date))) {
                     $flag = 1;
                 }
             }
             if ($flag == 0) {
-                array_push($AvailableUsers, $keeper);
+                array_push($AvailableUsers, $user);
+
+                //get keeper by id
+                $keeper = $this->KeeperController->KeeperFinder($user->getUserid()); //da warnings de undefined geters
+                var_dump($this->KeeperController->KeeperFinder($user->getUserid()));
+                // var_dump($user->getUserid());
+                // var_dump($keeper);
+                array_push($AvailableKeepers, $keeper);
+
             }
         }
 
@@ -138,8 +147,8 @@ class ReserveController
         $reserve->setPetid($petid);
         $reserve->setFirstdate($firstdate);
         $reserve->setLastdate($lastdate);
-        // $reserve->setAmount(100);
-        $reserve->setAmount($this->totalAmount($daterange, $userid));
+        $reserve->setAmount(100);
+        // $reserve->setAmount($this->totalAmount($daterange, $userid));
 
         $this->reserveDAO->Add($reserve);
     }

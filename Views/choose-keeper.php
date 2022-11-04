@@ -27,7 +27,7 @@ use Controllers\UserController as UserController;
                         <?php
 
                         //debe recibir la data de keeper desde ReserveController
-
+                        // print_r($AvailableKeepers);
                         // print_r($AvailableKeepers);
                         foreach ($AvailableUsers as $user) {
 

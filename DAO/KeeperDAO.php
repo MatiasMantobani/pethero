@@ -49,21 +49,24 @@ class KeeperDAO
     {
         $keeper = null;
 
-        $query = "SELECT keeperid, pricing, rating, userid FROM ". $this->tableKeepers." WHERE (userid = :userid)";
+        $query = "SELECT * FROM ". $this->tableKeepers." WHERE (userid = :userid)";
 
         $parameters["userid"] = $userid;
 
         $this->connection = Connection::GetInstance();
 
         $results = $this->connection->Execute($query, $parameters);
-
+        // var_dump($results);
         if ($results)
         {
             $keeper = new Keeper();
             $keeper->setKeeperid($results["keeperid"]);
-            $keeper->setPricing($results["pricing"]);
+            $keeper->setUserid($results["userid"]);
             $keeper->setRating($results["rating"]);
-            $keeper->setUserid($results["floor"]);
+            $keeper->setPricing($results["pricing"]);
+            
+            var_dump($keeper);
+            echo "LALALALALALLLALALALA";
         }
         return $keeper;
     }
