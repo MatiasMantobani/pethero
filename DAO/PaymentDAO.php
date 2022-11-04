@@ -7,7 +7,7 @@ use DAO\Connection as Connection;
 
 use Models\Payment as Payment;
 
-class PeymentDAO
+class PaymentDAO
 {
     private $connection;
     private $tablePayments = "payments";
