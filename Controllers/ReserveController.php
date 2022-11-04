@@ -11,6 +11,7 @@ use Cassandra\Date;
 use Controllers\AvailableDateController as AvailableDateController;
 use Models\AvailableDate;
 use Controllers\UserController as UserController;
+use Controllers\KeeperController as KeeperController;
 
 class ReserveController
 {
@@ -18,6 +19,7 @@ class ReserveController
     private $petDAO;
     private $UserController;
     private $AvailableDateController;
+    private $KeeperController;
 
     public function __construct()
     {
@@ -25,6 +27,7 @@ class ReserveController
         $this->petController = new PetController();
         $this->UserController = new UserController();
         $this->AvailableDateController = new AvailableDateController();
+        $this->KeeperController = new KeeperController();
     }
 
     public function showAddView()
@@ -91,33 +94,50 @@ class ReserveController
     }
 
 
-    public function totalAmount($daterange, $keeperid)
+    public function totalAmount($daterange, $userid)
     {
         //se cuentan cuantos dias hay en daterange
-        //se trae el keeper por id
+        $dateArray = explode(",", $daterange);
+        $firstdate = new DateTime($dateArray[0]);
+        $lastdate = new DateTime($dateArray[1]);
+
+        $interval = $firstdate->diff($lastdate);
+        // echo "difference " . $interval->y . " years, " . $interval->m." months, ".$interval->d." days "; 
+        var_dump($interval);
+
+        // $duration = new \DateInterval('P1Y');
+        $intervalInSeconds = (new DateTime())->setTimeStamp(0)->add($interval)->getTimeStamp();
+        $intervalInDays = $intervalInSeconds/86400; 
+        echo $intervalInDays;
+
+        //obtiene keeper por userid
+        $keeper = $this->KeeperController->KeeperFinder($userid);
+
         //se le extrae el precio al keeper
+        $valorxDia = $keeper->getPricing();
+
         //se multiplica cant dias * precio keeper
+        $total = $valorxDia *  $intervalInDays;
+
         //se retorna cantidad total
+        return $total;
     }
 
-
-
-    public function Add($petid, $daterange, $keeperid)
+    public function Add($petid, $daterange, $userid)
     {
         $dateArray = explode(",", $daterange);
         $firstdate = new DateTime($dateArray[0]);
         $lastdate = new DateTime($dateArray[1]);
 
-        // $reserve->setAmount(totalAmount($daterange, $keeperid));
-
         $reserve = new Reserve();
 
         $reserve->setTransmitterid($_SESSION['userid']);
-        $reserve->setReceiverid($keeperid);
+        $reserve->setReceiverid($userid);
         $reserve->setPetid($petid);
         $reserve->setFirstdate($firstdate);
         $reserve->setLastdate($lastdate);
-        $reserve->setAmount(100);
+        // $reserve->setAmount(100);
+        $reserve->setAmount($this->totalAmount($daterange, $userid));
 
         $this->reserveDAO->Add($reserve);
     }

@@ -42,7 +42,7 @@ class KeeperController
 
     }
 
-    public function KeeperFinder ($userid)
+    public function KeeperFinder($userid)
     {
         return $this->keeperDAO->GetByUserid($userid);
     }
