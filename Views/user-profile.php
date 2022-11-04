@@ -162,8 +162,29 @@ require_once('nav.php');
 
                         ?>
                         <tr>
-                            <td><?php echo "#" ?></td>
+                            <td><?php //echo $reserva->getReserveid 
+                                ?></td>
+                            <td><?php //echo $pago->getTransmitterid() 
+                                ?></td>
+                            <td><?php //echo $fecha->getReceiverid() 
+                                ?></td>
+                            <td><?php //echo $fecha->getPetid() 
+                                ?></td>
+                            <td><?php //echo $fecha->getFirstdate() 
+                                ?></td>
+                            <td><?php //echo $fecha->getLastdate() 
+                                ?></td>
+                            <td><?php //echo $fecha->getAmount() 
+                                ?></td>
 
+                            <td><?php //echo $fecha->getIsconfirmed() 
+                                ?></td>
+                            <td><?php //echo $fecha->getPaymentid() 
+                                ?></td>
+                            <td><?php //echo $fecha->getIspayed() 
+                                ?></td>
+                            <td><?php //echo $fecha->getIscompleted() 
+                                ?></td>
 
                         </tr>
                         <?php
@@ -231,10 +252,6 @@ require_once('nav.php');
                 <div class="col-md-12 text-right">
                     <a href="<?php echo FRONT_ROOT ?>Pet/ShowPreAddView/" class="btn btn-secondary">Agregar mascota</a>
                 </div>
-
-
-
-
 
                 <h2 class="mb-4">Listado de guardianes</h2>
                 <table class="table bg-light-alpha">
@@ -316,15 +333,21 @@ require_once('nav.php');
                     // foreach ($pagos as $pago) {
 
                     ?>
-                        <tr>
-                            <td><?php //echo $pago->getPaymentid() ?></td>
-                            <td><?php //echo $fecha->getTransmitterid() ?></td>
-                            <td><?php //echo $fecha->getReceiverid() ?></td>
-                            <td><?php //echo $fecha->getReserveid() ?></td>
-                            <td><?php //echo $fecha->getMonto() ?></td>
-                            <td><?php //echo $fecha->getQr() ?></td>
+                    <tr>
+                        <td><?php //echo $pago->getPaymentid() 
+                            ?></td>
+                        <td><?php //echo $fecha->getTransmitterid() 
+                            ?></td>
+                        <td><?php //echo $fecha->getReceiverid() 
+                            ?></td>
+                        <td><?php //echo $fecha->getReserveid() 
+                            ?></td>
+                        <td><?php //echo $fecha->getMonto() 
+                            ?></td>
+                        <td><?php //echo $fecha->getQr() 
+                            ?></td>
 
-                        </tr>
+                    </tr>
                     <?php //}
                     ?>
                     </tr>
