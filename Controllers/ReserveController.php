@@ -48,7 +48,7 @@ class ReserveController
         $AvailableDates = $this->AvailableDateController->getAvailablesListByDatesAndBreed($breed, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));
         $PseudoAvailableKeepers = array();
         $flag = 0;
-        if($AvailableDates != null){
+        if ($AvailableDates != null) {
             foreach ($AvailableDates as $keeper) {
                 $flag = 0;
                 foreach ($PseudoAvailableKeepers as $keeper2) {
@@ -90,13 +90,25 @@ class ReserveController
         require_once(VIEWS_PATH . "choose-keeper.php");
     }
 
+
+    public function totalAmount($daterange, $keeperid)
+    {
+        //se cuentan cuantos dias hay en daterange
+        //se trae el keeper por id
+        //se le extrae el precio al keeper
+        //se multiplica cant dias * precio keeper
+        //se retorna cantidad total
+    }
+
+
+
     public function Add($petid, $daterange, $keeperid)
     {
         $dateArray = explode(",", $daterange);
         $firstdate = new DateTime($dateArray[0]);
         $lastdate = new DateTime($dateArray[1]);
 
-        // aca va la busqueda del keeper segun su id para poder recuperar su precio
+        // $reserve->setAmount(totalAmount($daterange, $keeperid));
 
         $reserve = new Reserve();
 
