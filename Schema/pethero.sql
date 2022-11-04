@@ -2,9 +2,9 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 04, 2022 at 05:15 AM
--- Server version: 10.4.21-MariaDB
+-- Host: 127.0.0.1
+-- Generation Time: Nov 04, 2022 at 05:16 PM
+-- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -192,6 +192,19 @@ CREATE TABLE `chat` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `keepers`
+--
+
+CREATE TABLE `keepers` (
+  `keeperid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `rating` double NOT NULL,
+  `pricing` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `message`
 --
 
@@ -202,6 +215,21 @@ CREATE TABLE `message` (
   `read` int(11) NOT NULL DEFAULT 0,
   `time` datetime NOT NULL DEFAULT current_timestamp(),
   `sender` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment`
+--
+
+CREATE TABLE `payment` (
+  `paymentid` int(11) NOT NULL,
+  `transmitterid` int(11) NOT NULL,
+  `receiverid` int(11) NOT NULL,
+  `reserveid` int(11) NOT NULL,
+  `monto` float NOT NULL,
+  `qr` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -401,10 +429,22 @@ ALTER TABLE `chat`
   ADD PRIMARY KEY (`idchat`);
 
 --
+-- Indexes for table `keepers`
+--
+ALTER TABLE `keepers`
+  ADD PRIMARY KEY (`keeperid`);
+
+--
 -- Indexes for table `message`
 --
 ALTER TABLE `message`
   ADD PRIMARY KEY (`idmessage`);
+
+--
+-- Indexes for table `payment`
+--
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`paymentid`);
 
 --
 -- Indexes for table `pet`
@@ -474,10 +514,22 @@ ALTER TABLE `chat`
   MODIFY `idchat` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `keepers`
+--
+ALTER TABLE `keepers`
+  MODIFY `keeperid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
   MODIFY `idmessage` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `paymentid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pet`
