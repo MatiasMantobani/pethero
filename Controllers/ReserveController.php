@@ -115,7 +115,7 @@ class ReserveController
                 array_push($AvailableUsers, $user);
 
                 //se guardan los keepers (que son el mismo usuario)
-                $keeper = $this->KeeperController->KeeperFinder($user->getUserid());
+                $keeper = $this->KeeperController->KeeperFinderByUserId($user->getUserid());
                 array_push($AvailableKeepers, $keeper);
 
             }
@@ -147,7 +147,7 @@ class ReserveController
         // echo $intervalInDays;
 
         //obtiene keeper por userid
-        $keeper = $this->KeeperController->KeeperFinder($userid);
+        $keeper = $this->KeeperController->KeeperFinderByUserId($userid);
 
         //se le extrae el precio al keeper
         $valorxDia = $keeper->getPricing();
