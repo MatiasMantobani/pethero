@@ -2,7 +2,9 @@
 
 namespace DAO;
 
-use \Exception as Exception;
+use DAO\QueryType as QueryType;
+use Exception as Exception;
+use Models\PetImage as PetImage;
 use Models\User as User;
 use DAO\Connection as Connection;
 
@@ -10,8 +12,6 @@ class UserDAO
 {
     private $connection;
     private $tableUsers = "users";
-
-
 
     public function ValidateUniqueCuit($cuit)    //true si hay repeticion
     {
@@ -154,4 +154,25 @@ class UserDAO
         }
         return $user;
     }
+
+    public function Update(User $user)
+    {
+        try
+        {
+            $query = "CALL user_update(?,?,?,?);";
+
+            $parameters["userid"] = $user->getUserid();
+            $parameters["name"] = $user->getName();
+            $parameters["surname"] = $user->getSurname();
+            $parameters["phone"] = $user->getPhone();
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
 }

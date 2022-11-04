@@ -11,14 +11,17 @@ use Controllers\PetController as PetController;
 use Controllers\BreedController as BreedController;
 use Controllers\UserImageController as UserImageController;
 use Controllers\AvailableDateController as AvailableDate;
+use Controllers\KeeperController as KeeperController;
 
 class UserController
 {
     private $userDAO;
+    private $keeperController;
 
     public function __construct()
     {
         $this->userDAO = new UserDAO();
+        $this->keeperController = new KeeperController();
     }
 
     public function ShowAddView()
@@ -82,9 +85,6 @@ class UserController
         //llamar al controlador de keeper
         //que cree la tabla keeper con datos de este user
         //despeus agregar boton de modicicar datos en perfil (datos keeper + datos no sensibles)
-        
-
-
 
         $user = new User();
 
@@ -97,7 +97,6 @@ class UserController
         $user->setSurname($surname);
         $user->setPhone($phone);
 
-
         //validar que no haya repeticiones de atributos UNIQUE
         if ($this->userDAO->ValidateUniqueEmail($email) || $this->userDAO->ValidateUniqueDni($dni) || $this->userDAO->ValidateUniqueCuit($cuit)) {
             require_once(VIEWS_PATH . "user-add.php");  //deberia ir al show add view con mensaje lindo de datps repetidos
@@ -106,8 +105,39 @@ class UserController
             $this->userDAO->Add($user);
         }
 
+        if ($user->getType() == "G"){
+            $keeper = $this->userDAO->GetByEmail($email);
+            if ($keeper != null){
+                $this->keeperController->Add($keeper->getEmail());
+            }
+        }
+
         $controller = new AuthController();
         $controller->Login($email, $password);
+    }
+
+    public function ShowUpdateView(){
+        $user = new User();
+        $user = $this->GetUserById($_SESSION['userid']);
+        if ($user != null){
+            require_once (VIEWS_PATH . "user-update.php");
+        }
+    }
+
+    public function Update($name, $surname, $phone){
+        $user = new User();
+        $user->setUserid($_SESSION['userid']);
+        $user->setName($name);
+        $user->setSurname($surname);
+        $user->setPhone($phone);
+        if ($user != null){
+            $this->userDAO->Update($user);
+            $this->ShowProfileView();
+        } else {
+            $_SESSION['message'] = "Error al actualizar datos";
+            $this->ShowProfileView();
+        }
+
     }
 
     public function GetUserById($userid)

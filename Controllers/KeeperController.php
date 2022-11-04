@@ -28,23 +28,37 @@ class KeeperController
     }
     public function UpdatePricing($pricing)
     {
-        $this->keeperDAO->UpdatePricing($pricing, $_SESSION['userid']);
+        $keeper = new Keeper();
+        $keeper->setUserid($_SESSION['userid']);
+        $keeper->setPricing($pricing);
+
+        $this->keeperDAO->UpdatePricing($keeper);
 
         $_SESSION['message'] = "Tarifa modificada con éxito";
-
-        $controller = new UserController(); // OVERLAP ???
-        $controller->ShowProfileView(); //OVERLAP ??? 
+        $controller = new UserController();
+        $controller->ShowProfileView();
 
     }
+
     public function UpdateRating()
     {
         echo "<br><br>NO IMPLEMENTADA EN KEEPERDAO <br><br>";
 
     }
 
-    public function KeeperFinder($userid)
+    public function KeeperFinderByUserId($userid)
     {
-        return $this->keeperDAO->GetByUserid($userid);
+        return $this->keeperDAO->GetByUserId($userid);
+    }
+
+    public function KeeperFinderByKeeperId($keeperid)
+    {
+        return $this->keeperDAO->GetByKeeperId($keeperid);
+    }
+
+    public function GetAll()
+    {
+        return $this->keeperDAO->GetAll();
     }
 }
 

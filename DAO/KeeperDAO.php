@@ -2,6 +2,7 @@
 
 namespace DAO;
 
+use DAO\QueryType as QueryType;
 use \Exception as Exception;
 use Models\Keeper as Keeper;
 use DAO\Connection as Connection;
@@ -9,17 +10,16 @@ use DAO\Connection as Connection;
 class KeeperDAO
 {
     private $connection;
-    private $tableKeepers = "keepers";
+    private $tableUsers = "keepers";
 
     public function Add(Keeper $keeper)
     {
         try {
-            $query = "INSERT INTO " . $this->tableKeepers . "(keeperid, pricing, rating, userid) VALUES (:keeperid, :pricing, :rating, :userid);";
+            $query = "INSERT INTO " . $this->tableUsers . " (userid, rating, pricing) VALUES (:userid, :rating, :pricing);";
 
-            $parameters["keeperid"] = $keeper->getKeeperid();
-            $parameters["pricing"] = $keeper->getPricing();
-            $parameters["rating"] = $keeper->getRating();
             $parameters["userid"] = $keeper->getUserid();
+            $parameters["userid"] = $keeper->getRating();
+            $parameters["userid"] = $keeper->getPricing();
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
@@ -27,39 +27,96 @@ class KeeperDAO
             throw $ex;
         }
     }
-    public function UpdatePricing($pricing, $userid)
-    {
-        $query = "UPDATE " . $this->tableKeepers . " (pricing = :pricing) WHERE (userid = :userid)";
 
-        $parameters["pricing"] =  $pricing;
-        $parameters["userid"] =  $userid;
-
-        $this->connection = Connection::GetInstance();
-        $this->connection->ExecuteNonQuery($query, $parameters);
-    }
-    public function UpdateRating($rating, $userid)
+    public function GetAll()
     {
+        try {
+            $keeperList = array();
+
+            $query = "SELECT * FROM " . $this->tableUsers;
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+
+            foreach ($resultSet as $row) {
+                $keeper = new Keeper();
+
+                $keeper->setKeeperid($row["keeperid"]);
+                $keeper->setUserid($row["userid"]);
+                $keeper->setRating($row["rating"]);
+                $keeper->setPricing($row["pricing"]);
+
+                array_push($keeperList, $keeper);
+            }
+
+            return $keeperList;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
-    public function GetByUserid($userid)
+
+    public function GetByKeeperId($keeperid)
     {
         $keeper = null;
 
-        $query = "SELECT * FROM " . $this->tableKeepers . " WHERE (userid = :userid)";
+        $query = "SELECT keeperid, userid, rating, pricing FROM " . $this->tableUsers . " WHERE (keeperid = :keeperid)";
+
+        $parameters["keeperid"] = $keeperid;
+
+        $this->connection = Connection::GetInstance();
+
+        $results = $this->connection->Execute($query, $parameters);
+
+        foreach ($results as $row) {
+            $keeper = new Keeper();
+            $keeper->setKeeperid($row["keeperid"]);
+            $keeper->setUserid($row["userid"]);
+            $keeper->setRating($row["rating"]);
+            $keeper->setPricing($row["pricing"]);
+
+        }
+        return $keeper;
+    }
+
+    public function GetByUserId($userid)
+    {
+        $keeper = null;
+
+        $query = "SELECT keeperid, userid, rating, pricing FROM " . $this->tableUsers . " WHERE (userid = :userid)";
 
         $parameters["userid"] = $userid;
 
         $this->connection = Connection::GetInstance();
 
         $results = $this->connection->Execute($query, $parameters);
-        // var_dump($results);
-        if ($results) {
 
+        foreach ($results as $row) {
             $keeper = new Keeper();
-            $keeper->setKeeperid($results[0]["keeperid"]);
-            $keeper->setUserid($results[0]["userid"]);
-            $keeper->setRating($results[0]["rating"]);
-            $keeper->setPricing($results[0]["pricing"]);
+            $keeper->setKeeperid($row["keeperid"]);
+            $keeper->setUserid($row["userid"]);
+            $keeper->setRating($row["rating"]);
+            $keeper->setPricing($row["pricing"]);
+
         }
         return $keeper;
     }
+
+    public function UpdatePricing(Keeper $keeper)
+    {
+        try
+        {
+            $query = "CALL keeper_update(?,?);";
+
+            $parameters["userid"] = $keeper->getUserid();
+            $parameters["pricing"] = $keeper->getPricing();
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
 }
