@@ -8,7 +8,8 @@ class Reserve
     private $transmitterid;
     private $receiverid;
     private $petid;
-    private $date;
+    private $firstdate;
+    private $lastdate;
     private $amount;
     private $isconfirmed;
     private $paymentid;
@@ -82,17 +83,33 @@ class Reserve
     /**
      * @return mixed
      */
-    public function getDate()
+    public function getFirstdate()
     {
-        return $this->date;
+        return $this->firstdate;
     }
 
     /**
-     * @param mixed $date
+     * @param mixed $firstdate
      */
-    public function setDate($date)
+    public function setFirstdate($firstdate)
     {
-        $this->date = $date;
+        $this->firstdate = $firstdate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastdate()
+    {
+        return $this->lastdate;
+    }
+
+    /**
+     * @param mixed $lastdate
+     */
+    public function setLastdate($lastdate)
+    {
+        $this->lastdate = $lastdate;
     }
 
     /**
@@ -174,5 +191,6 @@ class Reserve
     {
         $this->iscompleted = $iscompleted;
     }
+
 
 }

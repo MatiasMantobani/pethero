@@ -28,7 +28,8 @@ class ReserveDAO
                 $reserve->setTransmitterid($row["transmitterid"]);
                 $reserve->setReceiverid($row["receiverid"]);
                 $reserve->setPetid($row["petid"]);
-                $reserve->setDate($row["date"]);
+                $reserve->setFirstdate($row["firstdate"]);
+                $reserve->setLastdate($row["lastdate"]);
                 $reserve->setAmount($row["amount"]);
                 $reserve->setIsconfirmed($row["isconfirmed"]);
                 $reserve->setPaymentid($row["paymentid"]);
@@ -48,11 +49,13 @@ class ReserveDAO
     {
         try
         {
-        $query = "INSERT INTO ".$this->tableReserve." (transmitterid, receiverid, petid, amount) VALUES (:transmitterid, :receiverid, :petid, :amount);";
+        $query = "INSERT INTO ".$this->tableReserve." (transmitterid, receiverid, petid, firstdate, lastdate, amount) VALUES (:transmitterid, :receiverid, :petid, :firstdate, :lastdate :amount);";
 
         $parameters["transmitterid"] = $reserve->getTransmitterid();
         $parameters["receiverid"] = $reserve->getReceiverid();
         $parameters["petid"] = $reserve->getPetid();
+        $parameters["firstdate"] = $reserve->getFirstdate();
+        $parameters["lastdate"] = $reserve->getLastdate();
         $parameters["amount"] = $reserve->getAmount();
 
         $this->connection = Connection::GetInstance();

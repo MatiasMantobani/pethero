@@ -48,20 +48,19 @@ class ReserveController
         $AvailableDates = $this->AvailableDateController->getAvailablesListByDatesAndBreed($breed, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));
         $PseudoAvailableKeepers = array();
         $flag = 0;
-        foreach ($AvailableDates as $keeper) {
-            $flag = 0;
-            foreach ($PseudoAvailableKeepers as $keeper2) {
-                if ($keeper->getUserid() == $keeper2->getUserid()) {
-                    $flag = 1;
+        if($AvailableDates != null){
+            foreach ($AvailableDates as $keeper) {
+                $flag = 0;
+                foreach ($PseudoAvailableKeepers as $keeper2) {
+                    if ($keeper->getUserid() == $keeper2->getUserid()) {
+                        $flag = 1;
+                    }
+                }
+                if ($flag == 0) {
+                    array_push($PseudoAvailableKeepers, $this->UserController->GetUserById($keeper->getUserid()));
                 }
             }
-            if ($flag == 0) {
-                array_push($PseudoAvailableKeepers, $this->UserController->GetUserById($keeper->getUserid()));
-                // echo ("Keeper: " . ($this->UserController->GetUserById($keeper->getUserid()))->getName() . "<br>");
-            }
         }
-        // var_dump($PseudoAvailableKeepers);
-
 
         //obtenemos todos los dias marcados por el dueño
         $availables = array();
@@ -72,7 +71,6 @@ class ReserveController
             array_push($availables, $date2);
             $dateStart->modify('+1 day');
         }
-        // var_dump($availables);
 
         //se guardan los ids de los keepers
         $AvailableKeepers = array();
@@ -88,19 +86,26 @@ class ReserveController
                 array_push($AvailableKeepers, $keeper);
             }
         }
-        // var_dump($AvailableKeepers);
 
         require_once(VIEWS_PATH . "choose-keeper.php");
     }
 
-    public function Add($petid, $daterange)
+    public function Add($petid, $daterange, $keeperid)
     {
+        $dateArray = explode(",", $daterange);
+        $firstdate = new DateTime($dateArray[0]);
+        $lastdate = new DateTime($dateArray[1]);
+
+        // aca va la busqueda del keeper segun su id para poder recuperar su precio
+
         $reserve = new Reserve();
 
-        $reserve->setTransmitterid($_SESSION['userid']); // id del dueno?
-        $reserve->setReceiverid(2); // id del guardian seleccionado?
+        $reserve->setTransmitterid($_SESSION['userid']);
+        $reserve->setReceiverid($keeperid);
         $reserve->setPetid($petid);
-        $reserve->setAmount(100); // varia segun el guardian?
+        $reserve->setFirstdate($firstdate);
+        $reserve->setLastdate($lastdate);
+        $reserve->setAmount(100);
 
         $this->reserveDAO->Add($reserve);
     }
