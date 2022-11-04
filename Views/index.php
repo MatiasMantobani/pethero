@@ -41,33 +41,24 @@ require_once('nav.php');
             <br>
             <h2 class="mb-4">Credenciales de prueba:</h2>
 
+            
+                    <h2><b>123456</b></h2>
+                    <div class="container">
+                    <div class="row">
+                    <div class="col">
+                    <h2>Dueños</h2>
+                    <p><b>usuario1@gmail.com</p>
+                    <p><b>usuario1@gmail.com</b></p>
+                    <p><b>usuario5@gmail.com</b></p>
+                    </div>
+                    <div class="col">
+                    <h2>Guardianes</h2>
+                    <p><b>usuario2@gmail.com</b></p>
+                    <p><b>usuario3@gmail.com</b></p>
+                    <p><b>usuario4@gmail.com</b></p>
+                    </div>
+                    </div>
 
-            <div class="row">
-                <div class="col-lg-4">
-                    <p><b>usuario1@gmail.com -dueño- 123456</b></p>
-                </div>
-
-                <div class="col-lg-4">
-                    <p><b>usuario2@gmail.com -guardian- 123456</b></p>
-                </div>
-
-                <div class="col-lg-4">
-                    <p><b>usuario3@gmail.com -guardian- 123456</b></p>
-                </div>
-            </div>
-
-            <div class="row">
-
-            <div class="col-lg-4">
-                    <p><b>usuario5@gmail.com -dueño- 123456</b></p>
-                </div>
-
-                <div class="col-lg-4">
-                    <p><b>usuario4@gmail.com -guardian- 123456</b></p>
-                </div>
-
-
-            </div>
 
         </div>
     </section>
