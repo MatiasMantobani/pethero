@@ -58,7 +58,7 @@ use Controllers\UserController as UserController;
                                 <td>
                                     <form action="<?php echo FRONT_ROOT ?>Reserve/Add/" method="post">
 <!--                                        con etiquetas hidden tendriamos que enviar al metodo Add la info del keeper que seleccione-->
-                                        <input type="hidden" name="petid" value= <?php $pet->getId() ?> >
+                                        <input type="hidden" name="petid" value= <?php $pet->getPetid() ?> >
                                         <input type="hidden" name="daterange" value= <?php $daterange ?> >
 <!--                                        <input type="hidden" name="keeperid" value= --><?php //$keeper->getId() ?><!-- >-->
                                         <button type="submit" class="btn btn-success">Solicitar Reserva</button>
