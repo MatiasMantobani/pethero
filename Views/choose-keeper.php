@@ -25,6 +25,10 @@ use Controllers\UserController as UserController;
                     </thead>
                     <tbody>
                         <?php
+
+                            //debe recibir la data de keeper desde ReserveController
+
+
                         // print_r($AvailableKeepers);
                         foreach ($AvailableKeepers as $keeper) {
 

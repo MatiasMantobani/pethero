@@ -66,12 +66,11 @@ class UserController
                 $_SESSION['message'] .= "Para cuidar mascotas, primero debés cargar el tamaño que aceptas. ";
             }
             $availableDate = new AvailableDate();
-            $fechas = $availableDate->GetById();    //ACA
+            $fechas = $availableDate->GetById();
         }
-        if ($_SESSION['type'] == 'D')
-        {
-            $availableDate2 = new AvailableDate();   //DOS
-            $consultaList = $availableDate2->getAvailablesListByDatesAndBreed(11,"2022-11-20","2022-11-23");    //VALORES FIJOS TEST
+        if ($_SESSION['type'] == 'D') {
+            $availableDate2 = new AvailableDate();
+            $consultaList = $availableDate2->getAvailablesListByDatesAndBreed(11, "2022-11-20", "2022-11-23");    //VALORES FIJOS TEST
         }
 
         require_once(VIEWS_PATH . "user-profile.php");
@@ -79,6 +78,14 @@ class UserController
 
     public function Add($email, $password, $type, $dni, $cuit, $name, $surname, $phone)
     {
+
+        //llamar al controlador de keeper
+        //que cree la tabla keeper con datos de este user
+        //despeus agregar boton de modicicar datos en perfil (datos keeper + datos no sensibles)
+        
+
+
+
         $user = new User();
 
         $user->setEmail($email);    //es unique
@@ -93,14 +100,9 @@ class UserController
 
         //validar que no haya repeticiones de atributos UNIQUE
         if ($this->userDAO->ValidateUniqueEmail($email) || $this->userDAO->ValidateUniqueDni($dni) || $this->userDAO->ValidateUniqueCuit($cuit)) {
-            //hay repeticiones
-            //no se puede madnar a BD
-            //lo mandas a formulario devuelta
             require_once(VIEWS_PATH . "user-add.php");  //deberia ir al show add view con mensaje lindo de datps repetidos
-            
         } else {
-            //no hay repets
-            //se puede mandar a BD
+
             $this->userDAO->Add($user);
         }
 
