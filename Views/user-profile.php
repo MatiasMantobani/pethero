@@ -246,7 +246,8 @@ require_once('nav.php');
                                             perfil</a>
                                     </td>
                                     <td>
-                                        <a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView" class="btn btn-primary btn-sm">Reservar</a>
+                                        
+                                        <a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView/<?php echo $pet->getPetid() ?>" class="btn btn-primary btn-sm">Reservar</a>
                                     </td>
                                 </tr>
                             <?php }

@@ -59,16 +59,9 @@ use Controllers\UserController as UserController;
                                 <td>
 
                                     <form action="<?php echo FRONT_ROOT ?>Reserve/Add" method="post">
-
-                                        <input type="hidden" name="petid" value=<?php echo $pet->getPetid() ?> >
-                                        
-                                        <?php var_dump($pet->getPetid()) ?> 
-                                        
-                                        <input type="hidden" name="daterange" value=<?php echo $daterange ?> >   
-                                        <?php var_dump($daterange) ?> 
-                                        
-                                        <input type="hidden" name="userid" value=<?php echo $AvailableUsers[$i]->getUserid() ?> >
-                                        <?php var_dump($AvailableUsers[$i]->getUserid()) ?> 
+                                        <input type="hidden" name="petid" value=<?php echo $pet->getPetid() ?>>
+                                        <input type="hidden" name="daterange" value=<?php echo $daterange ?>>
+                                        <input type="hidden" name="userid" value=<?php echo $AvailableUsers[$i]->getUserid() ?>>
 
                                         <button type="submit" class="btn btn-success">Solicitar Reserva</button>
                                     </form>

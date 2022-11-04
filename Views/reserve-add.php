@@ -12,11 +12,24 @@ require_once('nav.php');
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="petid">Selecciona tu mascota</label>
+
+                        
+
                         <select class="form-control" id="petid" name="petid" required>
+
                             <?php if ($listadoMascotas != null) {
-                                foreach ($listadoMascotas as $pet) { ?>
-                                    <option value="<?php echo $pet->getPetid() ?>"><?php echo $pet->getName() ?></option>
-                            <?php }
+
+                                if($choosePet){
+                                    ?> <option value="<?php echo $choosePet->getPetid() ?>"><?php echo $choosePet->getName() ?></option>
+                                    
+                                    <?php
+                                }else{
+                                    foreach ($listadoMascotas as $pet) { ?>
+                                        <option value="<?php echo $pet->getPetid() ?>"><?php echo $pet->getName() ?></option>
+                                <?php }
+                                }
+
+                                
                             } ?>
                         </select>
                     </div>

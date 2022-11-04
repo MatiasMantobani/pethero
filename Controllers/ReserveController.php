@@ -12,19 +12,21 @@ use Controllers\AvailableDateController as AvailableDateController;
 use Models\AvailableDate;
 use Controllers\UserController as UserController;
 use Controllers\KeeperController as KeeperController;
+use Controllers\PetController as PetController;
 
 class ReserveController
 {
     private $reserveDAO;
-    private $petDAO;
+    
     private $UserController;
     private $AvailableDateController;
     private $KeeperController;
+    private $PetController;
 
     public function __construct()
     {
         $this->reserveDAO = new ReserveDAO();
-        $this->petController = new PetController();
+        $this->PetController = new PetController();
         $this->UserController = new UserController();
         $this->AvailableDateController = new AvailableDateController();
         $this->KeeperController = new KeeperController();
@@ -54,16 +56,17 @@ class ReserveController
     }
 
 
-    public function showAddView()
+    public function showAddView($choosePetid=null)  //parametro entra de reserve-add (por si selecciona reservar desde la mascota)
     {
-        $listadoMascotas = $this->petController->GetByUserId($_SESSION['userid']);
+        $listadoMascotas = $this->PetController->GetByUserId($_SESSION['userid']);
+        $choosePet = $this->PetController->PetFinder($choosePetid);
         require_once(VIEWS_PATH . "reserve-add.php");
     }
 
 
     public function showChooseKeeperView($petid, $daterange)
     {
-        $pet = $this->petController->PetFinder($petid);
+        $pet = $this->PetController->PetFinder($petid);
 
         $breed = $pet->getBreedId();
 
