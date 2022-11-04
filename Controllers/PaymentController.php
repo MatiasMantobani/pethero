@@ -2,7 +2,7 @@
     namespace Controllers;
 
     use Models\Payment as Payment;
-    use DAO\PeymentDAO as paymentDAO;
+    use DAO\PaymentDAO as paymentDAO;
 
     class PaymentController
     {
@@ -12,7 +12,6 @@
         {
             $this->paymentDAO = new PaymentDAO();
         }
-
 
         public function Add($payment){
             return $this->paymentDAO->Add($payment);
@@ -26,4 +25,3 @@
 
 
     }
-?>

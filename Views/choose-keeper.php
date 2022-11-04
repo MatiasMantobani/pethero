@@ -26,11 +26,7 @@ use Controllers\UserController as UserController;
                     <tbody>
                         <?php
 
-                        //debe recibir la data de keeper desde ReserveController
-                        // print_r($AvailableKeepers);
-                        // print_r($AvailableKeepers);
-                        // foreach ($AvailableUsers as $user) {
-
+                        //recibe AvailableUsers y AvailableKeepers desde reserve contoller metodo showAddView()
                         for ($i = 0; $i < count($AvailableUsers); $i++) {
 
                         ?>
@@ -61,13 +57,19 @@ use Controllers\UserController as UserController;
                                 </td>
 
                                 <td>
-                                    <form action="<?php echo FRONT_ROOT ?>Reserve/Add/" method="post">
-                                        <!--                                        con etiquetas hidden tendriamos que enviar al metodo Add la info del keeper que seleccione-->
-                                        <input type="hidden" name="petid" value=<?php $pet->getPetid() ?>>
-                                        <input type="hidden" name="daterange" value=<?php $daterange ?>>
-                                        <!--                                        <input type="hidden" name="keeperid" value= --><?php //$keeper->getId() 
-                                                                                                                                    ?>
-                                        <!-- >-->
+
+                                    <form action="<?php echo FRONT_ROOT ?>Reserve/Add" method="post">
+
+                                        <input type="hidden" name="petid" value=<?php echo $pet->getPetid() ?> >
+                                        
+                                        <?php var_dump($pet->getPetid()) ?> 
+                                        
+                                        <input type="hidden" name="daterange" value=<?php echo $daterange ?> >   
+                                        <?php var_dump($daterange) ?> 
+                                        
+                                        <input type="hidden" name="userid" value=<?php echo $AvailableUsers[$i]->getUserid() ?> >
+                                        <?php var_dump($AvailableUsers[$i]->getUserid()) ?> 
+
                                         <button type="submit" class="btn btn-success">Solicitar Reserva</button>
                                     </form>
                                 </td>

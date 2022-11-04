@@ -30,11 +30,36 @@ class ReserveController
         $this->KeeperController = new KeeperController();
     }
 
+    public function Add($petid, $daterange, $userid)
+    {
+        var_dump($petid);
+        var_dump($daterange);
+        var_dump($userid);
+
+        $dateArray = explode(",", $daterange);
+        $firstdate = new DateTime($dateArray[0]);
+        $lastdate = new DateTime($dateArray[1]);
+      
+        $reserve = new Reserve();
+
+        $reserve->setTransmitterid($_SESSION['userid']);
+        $reserve->setReceiverid($userid);
+        $reserve->setPetid($petid);
+        $reserve->setFirstdate($firstdate->format('y-m-d'));
+        $reserve->setLastdate($lastdate->format('y-m-d'));
+        $reserve->setAmount(100);
+        // $reserve->setAmount($this->totalAmount($daterange, $userid));
+
+        $this->reserveDAO->Add($reserve);
+    }
+
+
     public function showAddView()
     {
         $listadoMascotas = $this->petController->GetByUserId($_SESSION['userid']);
         require_once(VIEWS_PATH . "reserve-add.php");
     }
+
 
     public function showChooseKeeperView($petid, $daterange)
     {
@@ -96,7 +121,10 @@ class ReserveController
             }
         }
 
-        //pasarle el keeper correspondiente a vista
+        // var_dump($pet);
+        // var_dump($daterange);
+        // $mascota = $pet;
+        // $fecha = $daterange;
 
         require_once(VIEWS_PATH . "choose-keeper.php");
     }
@@ -131,22 +159,5 @@ class ReserveController
         return $total;
     }
 
-    public function Add($petid, $daterange, $userid)
-    {
-        $dateArray = explode(",", $daterange);
-        $firstdate = new DateTime($dateArray[0]);
-        $lastdate = new DateTime($dateArray[1]);
-
-        $reserve = new Reserve();
-
-        $reserve->setTransmitterid($_SESSION['userid']);
-        $reserve->setReceiverid($userid);
-        $reserve->setPetid($petid);
-        $reserve->setFirstdate($firstdate);
-        $reserve->setLastdate($lastdate);
-        $reserve->setAmount(100);
-        // $reserve->setAmount($this->totalAmount($daterange, $userid));
-
-        $this->reserveDAO->Add($reserve);
-    }
+   
 }
