@@ -45,32 +45,29 @@ class ReserveDAO
         }
     }
 
+
     public function Add(Reserve $reserve)
     {
-        try
-        {
-        $query = "INSERT INTO ".$this->tableReserve." (transmitterid, receiverid, petid, firstdate, lastdate, amount) VALUES (:transmitterid, :receiverid, :petid, :firstdate, :lastdate :amount);";
+        try {
+            $query = "INSERT INTO " . $this->tableReserve . "(transmitterid, receiverid, petid, firstdate, lastdate, amount) VALUES (:transmitterid, :receiverid, :petid, :firstdate, :lastdate, :amount);";
 
-        $parameters["transmitterid"] = $reserve->getTransmitterid();
-        $parameters["receiverid"] = $reserve->getReceiverid();
-        $parameters["petid"] = $reserve->getPetid();
-        $parameters["firstdate"] = $reserve->getFirstdate();
-        $parameters["lastdate"] = $reserve->getLastdate();
-        $parameters["amount"] = $reserve->getAmount();
+            $parameters["transmitterid"] = $reserve->getTransmitterid();
+            $parameters["receiverid"] = $reserve->getReceiverid();
+            $parameters["petid"] = $reserve->getPetid();
+            $parameters["firstdate"] = $reserve->getFirstdate();
+            $parameters["lastdate"] = $reserve->getLastdate();
+            $parameters["amount"] = $reserve->getAmount();
 
-        $this->connection = Connection::GetInstance();
-        $this->connection->ExecuteNonQuery($query, $parameters);
-
-        }
-        catch(Exception $ex)
-        {
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
     public function Remove($reserveid)
     {
-        $query = "DELETE FROM ".$this->tableReserve." WHERE (reserveid = :reserveid)";
+        $query = "DELETE FROM " . $this->tableReserve . " WHERE (reserveid = :reserveid)";
         $parameters["reserveid"] =  $reserveid;
 
         $this->connection = Connection::GetInstance();
