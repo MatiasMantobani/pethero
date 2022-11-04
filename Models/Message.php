@@ -4,10 +4,44 @@ namespace Models;
 
 class Message
 {
+    private $idmessage;
+    private $chatidentifier; // ver como hacer la relacion de las tablas en SQL
     private $text;
     private $read;
     private $time;
     private $sender;
+
+    /**
+     * @return mixed
+     */
+    public function getIdmessage()
+    {
+        return $this->idmessage;
+    }
+
+    /**
+     * @param mixed $idmessage
+     */
+    public function setIdmessage($idmessage)
+    {
+        $this->idmessage = $idmessage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChatidentifier()
+    {
+        return $this->chatidentifier;
+    }
+
+    /**
+     * @param mixed $chatidentifier
+     */
+    public function setChatidentifier($chatidentifier)
+    {
+        $this->chatidentifier = $chatidentifier;
+    }
 
     /**
      * @return mixed

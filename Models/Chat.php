@@ -4,9 +4,26 @@ namespace Models;
 
 class Chat
 {
+    private $idchat;
     private $sender;
     private $receiver;
     private $messages;
+
+    /**
+     * @return mixed
+     */
+    public function getIdchat()
+    {
+        return $this->idchat;
+    }
+
+    /**
+     * @param mixed $idchat
+     */
+    public function setIdchat($idchat)
+    {
+        $this->idchat = $idchat;
+    }
 
     /**
      * @return mixed

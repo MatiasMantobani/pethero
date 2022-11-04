@@ -23,6 +23,8 @@ class MessageDAO
             foreach ($resultSet as $row) {
                 $message = new Message();
 
+                $message->setIdmessage($row["idmessage"]);
+                $message->setChatidentifier($row["chatidentifier"]);
                 $message->setText($row["text"]);
                 $message->setRead($row["read"]);
                 $message->setReceiverid($row["time"]);
@@ -41,16 +43,33 @@ class MessageDAO
     {
         try
         {
-            $query = "INSERT INTO ".$this->tableMessage." (text, read, time, sender) VALUES (:text, :read, :time, :sender);";
+            $query = "INSERT INTO ".$this->tableMessage." (chatidentifier, text, sender) VALUES (:chatidentifier, :text, :sender);"; // no hace falta agregar ni time ni read porque se setean automaticamente en la bd?
 
+            $parameters["chatidentifier"] = $message->getChatidentifier();
             $parameters["text"] = $message->getText();
-            $parameters["read"] = $message->getRead();
-            $parameters["time"] = $message->getTime();
+            //$parameters["read"] = $message->getRead();
+            //$parameters["time"] = $message->getTime();
             $parameters["sender"] = $message->getSender();
 
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
+
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
+    public function markAsRead()
+    {
+        try
+        {
+            $query = "INSERT INTO ".$this->tableMessage." (read) VALUES (1);"; // es valido esto para modificar el atributo read de la tabla message?
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters); // problema con $parameters, puede no llevar?
 
         }
         catch(Exception $ex)

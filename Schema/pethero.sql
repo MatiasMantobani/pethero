@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 04, 2022 at 01:51 AM
+-- Generation Time: Nov 04, 2022 at 05:15 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -183,6 +183,7 @@ INSERT INTO `breed` (`breedid`, `name`, `size`, `type`) VALUES
 --
 
 CREATE TABLE `chat` (
+  `idchat` int(11) NOT NULL,
   `sender` int(11) NOT NULL,
   `receiver` int(11) NOT NULL,
   `messages` int(11) NOT NULL
@@ -195,6 +196,8 @@ CREATE TABLE `chat` (
 --
 
 CREATE TABLE `message` (
+  `idmessage` int(11) NOT NULL,
+  `chatidentifier` int(11) NOT NULL,
   `text` varchar(280) NOT NULL,
   `read` int(11) NOT NULL DEFAULT 0,
   `time` datetime NOT NULL DEFAULT current_timestamp(),
@@ -392,6 +395,18 @@ ALTER TABLE `breed`
   ADD PRIMARY KEY (`breedid`);
 
 --
+-- Indexes for table `chat`
+--
+ALTER TABLE `chat`
+  ADD PRIMARY KEY (`idchat`);
+
+--
+-- Indexes for table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`idmessage`);
+
+--
 -- Indexes for table `pet`
 --
 ALTER TABLE `pet`
@@ -451,6 +466,18 @@ ALTER TABLE `availabledates`
 --
 ALTER TABLE `breed`
   MODIFY `breedid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `idchat` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `message`
+--
+ALTER TABLE `message`
+  MODIFY `idmessage` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pet`

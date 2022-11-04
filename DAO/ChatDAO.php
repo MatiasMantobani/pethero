@@ -23,6 +23,7 @@ class ChatDAO
             foreach ($resultSet as $row) {
                 $chat = new Chat();
 
+                $chat->setIdchat($row["idchat"]);
                 $chat->setSender($row["sender"]);
                 $chat->setReceiver($row["receiver"]);
                 $chat->setMessages($row["messages"]);
@@ -31,6 +32,15 @@ class ChatDAO
             }
 
             return $chatList;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function getSpecificChat($chatId)
+    {
+        try {
+            // filtrar el chat segun el id que le llegue
         } catch (Exception $ex) {
             throw $ex;
         }
