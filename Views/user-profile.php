@@ -9,7 +9,7 @@ require_once('nav.php');
                 <div class="alert alert-primary" role="alert">
                     <?php echo $_SESSION['message'] ?>
                 </div>
-                <?php
+            <?php
                 $_SESSION['message'] = null;
             } ?>
 
@@ -82,8 +82,8 @@ require_once('nav.php');
                                     <?php if ($size) { ?>
                                         <h6>Tamaños aceptados: </h6>
                                         <p class="text-muted"><?php if ($size->getSmall() == true) echo "[Pequeños]";
-                                            if ($size->getMedium() == true) echo "[Medianos] ";
-                                            if ($size->getLarge() == true) echo "[Grandes] "; ?> <a href="<?php echo FRONT_ROOT ?>Size/ShowAddView">[Editar]</a></p>
+                                                                if ($size->getMedium() == true) echo "[Medianos] ";
+                                                                if ($size->getLarge() == true) echo "[Grandes] "; ?> <a href="<?php echo FRONT_ROOT ?>Size/ShowAddView">[Editar]</a></p>
 
                                     <?php } else { ?>
                                         <h6>Tamaños aceptados: </h6>
@@ -138,38 +138,9 @@ require_once('nav.php');
             </div>
 
             <br>
-            
+
             <?php if ($_SESSION['type'] == 'D') { ?>
-                                <!-- LISTADO DE FECHAS Y ALGO MAS -->
 
-                <h2 class="mb-4">LISTADO DE FECHAS Y ALGO MAS</h2>
-                <table class="table bg-light-alpha">
-                    <thead>
-                    <th>ADateId</th>
-                    <th>UserId</th>
-                    <th>Breed</th>
-                    <th>Fecha</th>
-                    </thead>
-                    <tbody>
-                    <?php
-                    if ($consultaList)
-                    {
-                    foreach ($consultaList as $consulta) {
-                        
-                            ?>
-                            <tr>
-                            <td><?php echo $consulta->getAvailableDateId() ?></td>
-                            <td><?php echo $consulta->getUserid() ?></td>
-                            <td><?php echo $consulta->getAvailable() ?></td>
-                            <td><?php echo $consulta->getDate() ?></td>
-
-                            </tr>
-                        <?php 
-                    }
-                    } ?>
-                    </tr>
-                    </tbody>
-                </table>
                 <!-- LISTADO DE RESERVAS -->
                 <h2 class="mb-4">Listado de Reservas</h2>
                 <table class="table bg-light-alpha">
@@ -188,16 +159,17 @@ require_once('nav.php');
                     <tbody>
                         <?php
                         // foreach ($reservaList as $reserva) {
-                            
+
                         ?>
-                                <tr>
-                                    <td><?php echo "#" ?></td>
-                                
+                        <tr>
+                            <td><?php echo "#" ?></td>
 
-                                </tr>
-                        <?php 
 
-                        //} ?>
+                        </tr>
+                        <?php
+
+                        //} 
+                        ?>
 
                         </tr>
                     </tbody>
@@ -209,48 +181,50 @@ require_once('nav.php');
                 <h2 class="mb-4">Listado de mascotas</h2>
                 <table class="table bg-light-alpha">
                     <thead>
-                    <th>ID</th>
-                    <th>Tipo</th>
-                    <th>Raza</th>
-                    <th>Nombre</th>
-                    <th>Tamaño</th>
-                    <th>Perfil</th>
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Raza</th>
+                        <th>Nombre</th>
+                        <th>Tamaño</th>
+                        <th>Perfil</th>
                     </thead>
                     <tbody>
-                    <?php if ($petList != null) {
-                        foreach ($petList as $pet) { if ($pet->getStatus() == 1) { ?>
-                            <?php $breed = $breedController->getByBreedId($pet->getBreedid()); ?>
-                            <tr>
-                                <td><?php echo $pet->getPetid() ?></td>
-                                <td><?php switch ($breed->getType()) {
-                                        case 1:
-                                            echo "Gato";
-                                            break;
-                                        case "2":
-                                            echo "Perro";
-                                            break;
-                                    } ?></td>
-                                <td><?php echo $breed->getName() ?></td>
-                                <td><?php echo $pet->getName() ?></td>
-                                <td><?php switch ($breed->getSize()) {
-                                        case 1:
-                                            echo "Pequeño";
-                                            break;
-                                        case 2:
-                                            echo "Mediano";
-                                            break;
-                                        case 3:
-                                            echo "Grande";
-                                            break;
-                                    } ?></td>
-                                <td>
-                                    <a href="<?php echo FRONT_ROOT ?>Pet/ShowProfileView/<?php echo $pet->getPetid() ?>" class="btn btn-primary btn-sm">Ver
-                                        perfil</a>
-                                </td>
-                            </tr>
-                        <?php } }
-                    } ?>
-                    </tr>
+                        <?php if ($petList != null) {
+                            foreach ($petList as $pet) {
+                                if ($pet->getStatus() == 1) { ?>
+                                    <?php $breed = $breedController->getByBreedId($pet->getBreedid()); ?>
+                                    <tr>
+                                        <td><?php echo $pet->getPetid() ?></td>
+                                        <td><?php switch ($breed->getType()) {
+                                                case 1:
+                                                    echo "Gato";
+                                                    break;
+                                                case "2":
+                                                    echo "Perro";
+                                                    break;
+                                            } ?></td>
+                                        <td><?php echo $breed->getName() ?></td>
+                                        <td><?php echo $pet->getName() ?></td>
+                                        <td><?php switch ($breed->getSize()) {
+                                                case 1:
+                                                    echo "Pequeño";
+                                                    break;
+                                                case 2:
+                                                    echo "Mediano";
+                                                    break;
+                                                case 3:
+                                                    echo "Grande";
+                                                    break;
+                                            } ?></td>
+                                        <td>
+                                            <a href="<?php echo FRONT_ROOT ?>Pet/ShowProfileView/<?php echo $pet->getPetid() ?>" class="btn btn-primary btn-sm">Ver
+                                                perfil</a>
+                                        </td>
+                                    </tr>
+                        <?php }
+                            }
+                        } ?>
+                        </tr>
                     </tbody>
                 </table>
 
@@ -259,31 +233,34 @@ require_once('nav.php');
                 </div>
 
 
+
+
+
                 <h2 class="mb-4">Listado de guardianes</h2>
                 <table class="table bg-light-alpha">
                     <thead>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Telefono</th>
-                    <th>Email</th>
-                    <th>Contratar</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th>Contratar</th>
                     </thead>
                     <tbody>
-                    <?php
-                    foreach ($userList as $user) {
-                        if ($user->getType() == "G") {
-                            ?>
-                            <tr>
-                                <td><?php echo $user->getName() ?></td>
-                                <td><?php echo $user->getSurname() ?></td>
-                                <td><?php echo $user->getPhone() ?></td>
-                                <td><?php echo $user->getEmail() ?></td>
-                                <td>Accion ID <?php echo $user->getUserid() ?></td>
+                        <?php
+                        foreach ($userList as $user) {
+                            if ($user->getType() == "G") {
+                        ?>
+                                <tr>
+                                    <td><?php echo $user->getName() ?></td>
+                                    <td><?php echo $user->getSurname() ?></td>
+                                    <td><?php echo $user->getPhone() ?></td>
+                                    <td><?php echo $user->getEmail() ?></td>
+                                    <td>Accion ID <?php echo $user->getUserid() ?></td>
 
-                            </tr>
+                                </tr>
                         <?php }
-                    } ?>
-                    </tr>
+                        } ?>
+                        </tr>
                     </tbody>
                 </table>
 
@@ -295,32 +272,66 @@ require_once('nav.php');
 
                 <table class="table bg-light-alpha">
                     <thead>
-                    <th>Available Dates Id</th>
-                    <th>User Id</th>
-                    <th>Available</th>
-                    <th>Fecha</th>
+                        <th>Available Dates Id</th>
+                        <th>User Id</th>
+                        <th>Available</th>
+                        <th>Fecha</th>
 
                     </thead>
                     <tbody>
-                    <?php
-                    foreach ($fechas as $fecha) {
-
+                        <?php
+                        foreach ($fechas as $fecha) {
                         ?>
-                        <tr>
-                            <td><?php echo $fecha->getAvailableDateId() ?></td>
-                            <td><?php echo $fecha->getUserid() ?></td>
-                            <td><?php echo $fecha->getAvailable() ?></td>
-                            <td><?php echo $fecha->getDate() ?></td>
+                            <tr>
+                                <td><?php echo $fecha->getAvailableDateId() ?></td>
+                                <td><?php echo $fecha->getUserid() ?></td>
+                                <td><?php echo $fecha->getAvailable() ?></td>
+                                <td><?php echo $fecha->getDate() ?></td>
 
+                            </tr>
+                        <?php }
+                        ?>
                         </tr>
-                    <?php }
-                    ?>
-                    </tr>
                     </tbody>
                 </table>
 
 
             <?php } ?>
+
+
+            <h2 class="mb-4">Tus Pagos</h2>
+            <table class="table bg-light-alpha">
+                <thead>
+                    <th>Pago ID</th>
+                    <th>Emisor ID</th>
+                    <th>Receptor ID</th>
+                    <th>Reserva ID</th>
+                    <th>Monto</th>
+                    <th>QR</th>
+
+                </thead>
+                <tbody>
+                    <?php
+
+                    // foreach ($pagos as $pago) {
+
+                    ?>
+                        <tr>
+                            <td><?php //echo $pago->getPaymentid() ?></td>
+                            <td><?php //echo $fecha->getTransmitterid() ?></td>
+                            <td><?php //echo $fecha->getReceiverid() ?></td>
+                            <td><?php //echo $fecha->getReserveid() ?></td>
+                            <td><?php //echo $fecha->getMonto() ?></td>
+                            <td><?php //echo $fecha->getQr() ?></td>
+
+                        </tr>
+                    <?php //}
+                    ?>
+                    </tr>
+                </tbody>
+            </table>
+
+
 
         </div>
     </section>
