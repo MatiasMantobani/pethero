@@ -2,8 +2,20 @@
 
 namespace Controllers;
 
+use DAO\ChatDAO;
+use DAO\MessageDAO;
+
 class ChatController
 {
+    private $chatDAO;
+    private $messageDAO;
+
+    public function __construct()
+    {
+        $this->chatDAO = new ChatDAO();
+        $this->messageDAO = new MessageDAO();
+    }
+
     public function ShowAddView(){
         // enviar todos los chats que le pertenecen al usuario logueado
         require_once(VIEWS_PATH."chat.php");
