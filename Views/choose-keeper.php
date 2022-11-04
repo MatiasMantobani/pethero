@@ -29,32 +29,34 @@ use Controllers\UserController as UserController;
                         //debe recibir la data de keeper desde ReserveController
                         // print_r($AvailableKeepers);
                         // print_r($AvailableKeepers);
-                        foreach ($AvailableUsers as $user) {
+                        // foreach ($AvailableUsers as $user) {
+
+                        for ($i = 0; $i < count($AvailableUsers); $i++) {
 
                         ?>
                             <tr>
 
-                                <td><?php echo $user->getName()
+                                <td><?php echo $AvailableUsers[$i]->getName()
                                     ?>
                                 </td>
 
-                                <td><?php echo $user->getSurname()
+                                <td><?php echo $AvailableUsers[$i]->getSurname()
                                     ?>
                                 </td>
 
-                                <td><?php echo $user->getPhone()
+                                <td><?php echo $AvailableUsers[$i]->getPhone()
                                     ?>
                                 </td>
 
-                                <td><?php echo $user->getEmail()
+                                <td><?php echo $AvailableUsers[$i]->getEmail()
                                     ?>
                                 </td>
 
-                                <td><?php //echo $keeper->getPrecio()   //de keeper
+                                <td><?php echo $AvailableKeepers[$i]->getPricing()
                                     ?>
                                 </td>
 
-                                <td><?php //echo $keeper->getRating()   //de keeper
+                                <td><?php echo $AvailableKeepers[$i]->getRating()
                                     ?>
                                 </td>
 

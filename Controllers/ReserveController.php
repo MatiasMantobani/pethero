@@ -89,11 +89,8 @@ class ReserveController
             if ($flag == 0) {
                 array_push($AvailableUsers, $user);
 
-                //get keeper by id
-                $keeper = $this->KeeperController->KeeperFinder($user->getUserid()); //da warnings de undefined geters
-                var_dump($this->KeeperController->KeeperFinder($user->getUserid()));
-                // var_dump($user->getUserid());
-                // var_dump($keeper);
+                //se guardan los keepers (que son el mismo usuario)
+                $keeper = $this->KeeperController->KeeperFinder($user->getUserid());
                 array_push($AvailableKeepers, $keeper);
 
             }
@@ -114,12 +111,12 @@ class ReserveController
 
         $interval = $firstdate->diff($lastdate);
         // echo "difference " . $interval->y . " years, " . $interval->m." months, ".$interval->d." days "; 
-        var_dump($interval);
+        // var_dump($interval);
 
         // $duration = new \DateInterval('P1Y');
         $intervalInSeconds = (new DateTime())->setTimeStamp(0)->add($interval)->getTimeStamp(); //chequear 
         $intervalInDays = $intervalInSeconds/86400; 
-        echo $intervalInDays;
+        // echo $intervalInDays;
 
         //obtiene keeper por userid
         $keeper = $this->KeeperController->KeeperFinder($userid);
