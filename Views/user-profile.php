@@ -164,26 +164,26 @@ require_once('nav.php');
                         <tr>
                             <td><?php //echo $reserva->getReserveid 
                                 ?></td>
-                            <td><?php //echo $pago->getTransmitterid() 
+                            <td><?php //echo $reserva->getTransmitterid() 
                                 ?></td>
-                            <td><?php //echo $fecha->getReceiverid() 
+                            <td><?php //echo $reserva->getReceiverid() 
                                 ?></td>
-                            <td><?php //echo $fecha->getPetid() 
+                            <td><?php //echo $reserva->getPetid() 
                                 ?></td>
-                            <td><?php //echo $fecha->getFirstdate() 
+                            <td><?php //echo $reserva->getFirstdate() 
                                 ?></td>
-                            <td><?php //echo $fecha->getLastdate() 
+                            <td><?php //echo $reserva->getLastdate() 
                                 ?></td>
-                            <td><?php //echo $fecha->getAmount() 
+                            <td><?php //echo $reserva->getAmount() 
                                 ?></td>
 
-                            <td><?php //echo $fecha->getIsconfirmed() 
+                            <td><?php //echo $reserva->getIsconfirmed() 
                                 ?></td>
-                            <td><?php //echo $fecha->getPaymentid() 
+                            <td><?php //echo $reserva->getPaymentid() 
                                 ?></td>
-                            <td><?php //echo $fecha->getIspayed() 
+                            <td><?php //echo $reserva->getIspayed() 
                                 ?></td>
-                            <td><?php //echo $fecha->getIscompleted() 
+                            <td><?php //echo $reserva->getIscompleted() 
                                 ?></td>
 
                         </tr>
