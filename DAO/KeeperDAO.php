@@ -18,8 +18,8 @@ class KeeperDAO
             $query = "INSERT INTO " . $this->tableUsers . " (userid, rating, pricing) VALUES (:userid, :rating, :pricing);";
 
             $parameters["userid"] = $keeper->getUserid();
-            $parameters["userid"] = $keeper->getRating();
-            $parameters["userid"] = $keeper->getPricing();
+            $parameters["rating"] = $keeper->getRating();
+            $parameters["pricing"] = $keeper->getPricing();
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);

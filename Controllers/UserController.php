@@ -82,10 +82,6 @@ class UserController
     public function Add($email, $password, $type, $dni, $cuit, $name, $surname, $phone)
     {
 
-        //llamar al controlador de keeper
-        //que cree la tabla keeper con datos de este user
-        //despeus agregar boton de modicicar datos en perfil (datos keeper + datos no sensibles)
-
         $user = new User();
 
         $user->setEmail($email);    //es unique
@@ -99,9 +95,13 @@ class UserController
 
         //validar que no haya repeticiones de atributos UNIQUE
         if ($this->userDAO->ValidateUniqueEmail($email) || $this->userDAO->ValidateUniqueDni($dni) || $this->userDAO->ValidateUniqueCuit($cuit)) {
-            require_once(VIEWS_PATH . "user-add.php");  //deberia ir al show add view con mensaje lindo de datps repetidos
-        } else {
 
+            $controller = new HomeController();
+            $controller->Index("Algunos de los datos ya estan en uso por otro usuario");
+
+
+            // require_once(VIEWS_PATH . "user-add.php");  //deberia ir al show add view con mensaje lindo de datps repetidos
+        } else {
             $this->userDAO->Add($user);
         }
 

@@ -22,7 +22,7 @@ class KeeperController
         $keeper->setPricing(0);
         $keeper->setRating(0);
 
-        $this->KeeperDAO->Add($keeper);
+        $this->keeperDAO->Add($keeper);
 
 
     }

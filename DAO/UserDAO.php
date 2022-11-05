@@ -13,7 +13,7 @@ class UserDAO
     private $connection;
     private $tableUsers = "users";
 
-    public function ValidateUniqueCuit($cuit)    //true si hay repeticion
+    public function ValidateUniqueCuit($cuit)    // true si hay repeticion
     {
         $query = "SELECT cuit FROM " . $this->tableUsers . " WHERE (cuit = :cuit)";
         $parameters["cuit"] = $cuit;
@@ -25,7 +25,7 @@ class UserDAO
         return false;
     }
 
-    public function ValidateUniqueDni($dni) //true si hay repeticion
+    public function ValidateUniqueDni($dni) // true si hay repeticion
     {
         $query = "SELECT dni FROM " . $this->tableUsers . " WHERE (dni = :dni)";
         $parameters["dni"] = $dni;
@@ -37,7 +37,7 @@ class UserDAO
         return false;
     }
 
-    public function ValidateUniqueEmail($email) //true si hay repeticion
+    public function ValidateUniqueEmail($email) // true si hay repeticion
     {
         $query = "SELECT email FROM " . $this->tableUsers . " WHERE (email = :email)";
         $parameters["email"] = $email;
