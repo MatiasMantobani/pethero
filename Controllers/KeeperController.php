@@ -32,18 +32,24 @@ class KeeperController
 
     public function UpdatePricing($pricing)
     {
-
-        $keeper = new Keeper();
-        $keeper->setUserid($_SESSION['userid']);
-        $keeper->setPricing($pricing);
-
-        $this->keeperDAO->UpdatePricing($keeper);
-        
-        $this->UpdateStatus(1);
-
-        $_SESSION['message'] = "Tarifa modificada con éxito";
         $controller = new UserController();
-        $controller->ShowProfileView();
+
+        if($pricing > 0){
+            $keeper = new Keeper();
+            $keeper->setUserid($_SESSION['userid']);
+            $keeper->setPricing($pricing);
+
+            $this->keeperDAO->UpdatePricing($keeper);
+
+            $this->UpdateStatus(1);
+
+            $_SESSION['message'] = "Tarifa modificada con éxito";
+            $controller->ShowProfileView();
+        } else {
+            $_SESSION['message'] = "Tarifa: ingrese un importe mayor";
+            $controller->ShowProfileView();
+        }
+
 
     }
 
