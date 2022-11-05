@@ -117,13 +117,13 @@ class UserController
             $controller->Index("Algunos de los datos ya estan en uso por otro usuario");
         } else {
             $this->userDAO->Add($user);
+        }
 
-            if ($user->getType() == "G") {
-                $keeper = $this->userDAO->GetByEmail($email);
-                if ($keeper != null) {
-                    var_dump($keeper->getEmail());
-                    $this->keeperController->Add($keeper->getEmail());  //$keeper->getEmail() (?)
-                }
+        if ($user->getType() == "G") {
+            $keeper = $this->userDAO->GetByEmail($email);
+            if ($keeper != null) {
+                var_dump($keeper->getEmail());
+                $this->keeperController->Add($keeper->getEmail());
             }
         }
 
