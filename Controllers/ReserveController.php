@@ -32,11 +32,20 @@ class ReserveController
         $this->KeeperController = new KeeperController();
     }
 
+
+
+
+
+    public function getGuardianReserve()
+    {
+        return $this->reserveDAO->getMyReserves($_SESSION['userid']);
+    }
+
+
+
     public function Add($petid, $daterange, $userid)
     {
-        var_dump($petid);
-        var_dump($daterange);
-        var_dump($userid);
+       
 
         $dateArray = explode(",", $daterange);
         $firstdate = new DateTime($dateArray[0]);
@@ -49,12 +58,12 @@ class ReserveController
         $reserve->setPetid($petid);
         $reserve->setFirstdate($firstdate->format('y-m-d'));
         $reserve->setLastdate($lastdate->format('y-m-d'));
-        // $reserve->setAmount(100);
         $reserve->setAmount($this->totalAmount($daterange, $userid));
 
         $this->reserveDAO->Add($reserve);
 
         //enviar a vista perfil
+        $this->UserController->ShowProfileView();
 
     }
 
@@ -71,7 +80,7 @@ class ReserveController
         // var_dump($interval);
 
         // $duration = new \DateInterval('P1Y');
-        $intervalInSeconds = (new DateTime())->setTimeStamp(0)->add($interval)->getTimeStamp(); //chequear 
+        $intervalInSeconds = (new DateTime())->setTimeStamp(0)->add($interval)->getTimeStamp();
         $intervalInDays = $intervalInSeconds/86400; 
         // echo $intervalInDays;
 

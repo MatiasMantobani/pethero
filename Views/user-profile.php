@@ -155,51 +155,10 @@ require_once('nav.php');
 
             <br>
 
+            <!-- SI ES DUEÑO -->
             <?php if ($_SESSION['type'] == 'D') { ?>
 
-                <!-- LISTADO DE RESERVAS -->
-                <h2 class="mb-4">Listado de Reservas</h2>
-                <table class="table bg-light-alpha">
-                    <thead>
-                    <th>ReservaID</th>
-                    <th>Emisor</th>
-                    <th>Receptor</th>
-                    <th>isConfirmada</th>
-                    <th>MontoTotal</th>
-                    <th>PagoID</th>
-                    <th>isPaga</th>
-                    <th>isCompletada</th>
-                    <th>PetID</th>
-                    <th>Fecha</th>
-                    </thead>
-                    <tbody>
-                    <?php
-                    // foreach ($reservaList as $reserva) {
-
-                    ?>
-                    <tr>
-                        <td><?php //echo $reserva->getReserveid ?></td>
-                        <td><?php //echo $reserva->getTransmitterid() ?></td>
-                        <td><?php //echo $reserva->getReceiverid() ?></td>
-                        <td><?php //echo $reserva->getPetid() ?></td>
-                        <td><?php //echo $reserva->getFirstdate() ?></td>
-                        <td><?php //echo $reserva->getLastdate() ?></td>
-                        <td><?php //echo $reserva->getAmount() ?></td>
-                        <td><?php //echo $reserva->getIsconfirmed() ?></td>
-                        <td><?php //echo $reserva->getPaymentid() ?></td>
-                        <td><?php //echo $reserva->getIspayed() ?></td>
-                        <td><?php //echo $reserva->getIscompleted() ?></td>
-                    </tr>
-                    <?php
-                    //}
-                    ?>
-
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="col-md-12 text-right">
-                    <a href="" class="btn btn-secondary">Agregar reserva</a>
-                </div>
+               
 
                 <h2 class="mb-4">Listado de mascotas</h2>
                 <table class="table bg-light-alpha">
@@ -292,6 +251,7 @@ require_once('nav.php');
 
             <?php } ?>
 
+            <!-- SI ES GUARDIAN -->
             <?php if ($_SESSION['type'] == 'G') { ?>
                 <h2 class="mb-4">Tus Fechas Disponibles</h2>
 
@@ -323,6 +283,53 @@ require_once('nav.php');
 
             <?php } ?>
 
+
+            <!-- PARA GUARDIANES Y DUEÑOS -->
+
+             <!-- LISTADO DE RESERVAS -->
+             <h2 class="mb-4">Listado de Reservas</h2>
+                <table class="table bg-light-alpha">
+                    <thead>
+                    <th>ReservaID</th>
+                    <th>Emisor</th>
+                    <th>Receptor</th>
+                    <th>isConfirmada</th>
+                    <th>MontoTotal</th>
+                    <th>PagoID</th>
+                    <th>isPaga</th>
+                    <th>isCompletada</th>
+                    <th>PetID</th>
+                    <th>Fecha</th>
+                    </thead>
+                    <tbody>
+                    <?php
+                    // foreach ($reservaList as $reserva) {
+
+                    ?>
+                    <tr>
+                        <td><?php //echo $reserva->getReserveid ?></td>
+                        <td><?php //echo $reserva->getTransmitterid() ?></td>
+                        <td><?php //echo $reserva->getReceiverid() ?></td>
+                        <td><?php //echo $reserva->getPetid() ?></td>
+                        <td><?php //echo $reserva->getFirstdate() ?></td>
+                        <td><?php //echo $reserva->getLastdate() ?></td>
+                        <td><?php //echo $reserva->getAmount() ?></td>
+                        <td><?php //echo $reserva->getIsconfirmed() ?></td>
+                        <td><?php //echo $reserva->getPaymentid() ?></td>
+                        <td><?php //echo $reserva->getIspayed() ?></td>
+                        <td><?php //echo $reserva->getIscompleted() ?></td>
+                    </tr>
+                    <?php
+                    //}
+                    ?>
+
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="col-md-12 text-right">
+                    <a href="" class="btn btn-secondary">Agregar reserva</a>
+                </div>
 
             <h2 class="mb-4">Tus Pagos</h2>
             <table class="table bg-light-alpha">

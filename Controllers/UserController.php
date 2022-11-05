@@ -12,16 +12,19 @@ use Controllers\BreedController as BreedController;
 use Controllers\UserImageController as UserImageController;
 use Controllers\AvailableDateController as AvailableDate;
 use Controllers\KeeperController as KeeperController;
+use Controllers\ReserveController as ReserveController;
 
 class UserController
 {
     private $userDAO;
     private $keeperController;
+    private $reserveController;
 
     public function __construct()
     {
         $this->userDAO = new UserDAO();
         $this->keeperController = new KeeperController();
+        $this->reserveController = new ReserveController();
     }
 
     public function ShowAddView()
@@ -35,6 +38,7 @@ class UserController
         require_once(VIEWS_PATH . "user-list.php");
     }
 
+    //Mostrar perfil de usuario
     public function ShowProfileView()
     {
         $userList = $this->userDAO->GetAll();
@@ -62,6 +66,13 @@ class UserController
             }
         }
 
+        // Conseguir todas las reservas del dueño
+        if ($_SESSION['type'] == 'D' ) {
+
+            $reservas = $this->reserveController->getMyReserves();
+        }
+
+        //si es Guardian
         if ($_SESSION['type'] == 'G') {
             $SizeController = new SizeController();
             $size = $SizeController->getByUserId($_SESSION['userid']);
@@ -71,9 +82,11 @@ class UserController
             $availableDate = new AvailableDate();
             $fechas = $availableDate->GetById();
         }
+
+
         if ($_SESSION['type'] == 'D') {
             $availableDate2 = new AvailableDate();
-            $consultaList = $availableDate2->getAvailablesListByDatesAndBreed(11, "2022-11-20", "2022-11-23");    //VALORES FIJOS TEST
+            $consultaList = $availableDate2->getAvailablesListByDatesAndBreed(11, "2022-11-20", "2022-11-23");    //VALORES FIJOS TEST //VER SI TODAVIA SE USA
         }
 
         require_once(VIEWS_PATH . "user-profile.php");
