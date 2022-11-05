@@ -30,11 +30,11 @@ class AuthController
                 $userController->ShowProfileView();
             } else {
                 $homeController = new HomeController();
-                $homeController->Index("Usuario y/o clave incorrectas");
+                $homeController->Index("Usuario y/o clave incorrectas<br>");
             }
         } else {
             $homeController = new HomeController();
-            $homeController->Index("Usuario y/o clave incorrectas");
+            $homeController->Index("Usuario y/o clave incorrectas<br>");
         }
     }
 
@@ -46,7 +46,7 @@ class AuthController
         session_destroy();
 
         $controll = new HomeController();
-        $controll->Index("Cierre de sesión correcto");
+        $controll->Index("Cierre de sesión correcto<br>");
 
     }
 }

@@ -31,11 +31,15 @@ class AvailableDateController
         return $this->availableDateDAO->GetByUserid($_SESSION['userid']);
     }
 
+    public function GetByUserId($userid)
+    {
+        return $this->availableDateDAO->GetByUserid($userid);
+    }
+
     public function CheckDate($userid, $date)
     {
         return $this->availableDateDAO->CheckDate($userid, $date);
     }
-
 
     public function AddMany($daterange)
     {

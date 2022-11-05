@@ -47,7 +47,7 @@
             if($this->AdressFinder($_SESSION['userid'])){
                 $this->adressDAO->Update($_SESSION['userid'], $street, $number, $floor, $department, $postalcode);
 
-                $_SESSION['message'] = "Domicilio modificado con exito";
+                $_SESSION['message'] = "Domicilio modificado con exito<br>";
 
                 $controller = new UserController();
                 $controller->ShowProfileView();
