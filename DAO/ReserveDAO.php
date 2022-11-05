@@ -12,6 +12,76 @@ class ReserveDAO
     private $tableReserve = "reserve";
 
 
+    public function getOwnerReserves($userid)
+    {
+        try {
+            $reserveList = array();
+
+            $query = "SELECT * FROM " . $this->tableReserve . " WHERE (transmitterid = :transmitterid)";
+
+            $parameters["transmitterid"] = $userid;
+
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $reserve = new Reserve();
+
+                $reserve->setReserveid($row["reserveid"]);
+                $reserve->setTransmitterid($row["transmitterid"]);
+                $reserve->setReceiverid($row["receiverid"]);
+                $reserve->setPetid($row["petid"]);
+                $reserve->setFirstdate($row["firstdate"]);
+                $reserve->setLastdate($row["lastdate"]);
+                $reserve->setAmount($row["amount"]);
+                $reserve->setIsconfirmed($row["isconfirmed"]);
+                $reserve->setPaymentid($row["paymentid"]);
+                $reserve->setIspayed($row["ispayed"]);
+                $reserve->setIscompleted($row["iscompleted"]);
+
+                array_push($reserveList, $reserve);
+            }
+            return $reserveList;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function getKeeperReserves($userid)
+    {
+        try {
+            $reserveList = array();
+
+            $query = "SELECT * FROM " . $this->tableReserve . " WHERE (receiverid = :receiverid)";
+
+            $parameters["receiverid"] = $userid;
+
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $reserve = new Reserve();
+
+                $reserve->setReserveid($row["reserveid"]);
+                $reserve->setTransmitterid($row["transmitterid"]);
+                $reserve->setReceiverid($row["receiverid"]);
+                $reserve->setPetid($row["petid"]);
+                $reserve->setFirstdate($row["firstdate"]);
+                $reserve->setLastdate($row["lastdate"]);
+                $reserve->setAmount($row["amount"]);
+                $reserve->setIsconfirmed($row["isconfirmed"]);
+                $reserve->setPaymentid($row["paymentid"]);
+                $reserve->setIspayed($row["ispayed"]);
+                $reserve->setIscompleted($row["iscompleted"]);
+
+                array_push($reserveList, $reserve);
+            }
+            return $reserveList;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
 
 
     public function getAll()

@@ -17,7 +17,7 @@ use Controllers\PetController as PetController;
 class ReserveController
 {
     private $reserveDAO;
-    
+
     private $UserController;
     private $AvailableDateController;
     private $KeeperController;
@@ -34,23 +34,29 @@ class ReserveController
 
 
 
-
-
-    public function getGuardianReserve()
+    //ESTE
+    public function getMyReserves()
     {
-        return $this->reserveDAO->getMyReserves($_SESSION['userid']);
+        if ($_SESSION["type"] == "D") {
+            return $this->reserveDAO->getOwnerReserves($_SESSION['userid']);
+        }else if($_SESSION["type"] == "G"){
+            return $this->reserveDAO->getKeeperReserves($_SESSION['userid']);
+        }else{
+            echo "admin";
+        }
+        
     }
 
 
 
     public function Add($petid, $daterange, $userid)
     {
-       
+
 
         $dateArray = explode(",", $daterange);
         $firstdate = new DateTime($dateArray[0]);
         $lastdate = new DateTime($dateArray[1]);
-      
+
         $reserve = new Reserve();
 
         $reserve->setTransmitterid($_SESSION['userid']);
@@ -64,10 +70,9 @@ class ReserveController
 
         //enviar a vista perfil
         $this->UserController->ShowProfileView();
-
     }
 
-    
+
     public function totalAmount($daterange, $userid)
     {
         //se cuentan cuantos dias hay en daterange
@@ -81,7 +86,7 @@ class ReserveController
 
         // $duration = new \DateInterval('P1Y');
         $intervalInSeconds = (new DateTime())->setTimeStamp(0)->add($interval)->getTimeStamp();
-        $intervalInDays = $intervalInSeconds/86400; 
+        $intervalInDays = $intervalInSeconds / 86400;
         // echo $intervalInDays;
 
         //obtiene keeper por userid
@@ -98,7 +103,7 @@ class ReserveController
     }
 
 
-    public function showAddView($choosePetid=null)  //parametro entra de reserve-add (por si selecciona reservar desde la mascota)
+    public function showAddView($choosePetid = null)  //parametro entra de reserve-add (por si selecciona reservar desde la mascota)
     {
         $listadoMascotas = $this->PetController->GetByUserId($_SESSION['userid']);
         $choosePet = $this->PetController->PetFinder($choosePetid);
@@ -162,14 +167,9 @@ class ReserveController
                 //se guardan los keepers (que son el mismo usuario)
                 $keeper = $this->KeeperController->KeeperFinderByUserId($user->getUserid());
                 array_push($AvailableKeepers, $keeper);
-
             }
         }
 
         require_once(VIEWS_PATH . "choose-keeper.php");
     }
-
-
-
-   
 }

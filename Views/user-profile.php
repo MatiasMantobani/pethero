@@ -293,34 +293,35 @@ require_once('nav.php');
                     <th>ReservaID</th>
                     <th>Emisor</th>
                     <th>Receptor</th>
-                    <th>isConfirmada</th>
+                    <th>PetID</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
                     <th>MontoTotal</th>
+                    <th>isConfirmada</th>
                     <th>PagoID</th>
                     <th>isPaga</th>
                     <th>isCompletada</th>
-                    <th>PetID</th>
-                    <th>Fecha</th>
                     </thead>
                     <tbody>
                     <?php
-                    // foreach ($reservaList as $reserva) {
+                     foreach ($reserveList as $reserva) {
 
                     ?>
                     <tr>
-                        <td><?php //echo $reserva->getReserveid ?></td>
-                        <td><?php //echo $reserva->getTransmitterid() ?></td>
-                        <td><?php //echo $reserva->getReceiverid() ?></td>
-                        <td><?php //echo $reserva->getPetid() ?></td>
-                        <td><?php //echo $reserva->getFirstdate() ?></td>
-                        <td><?php //echo $reserva->getLastdate() ?></td>
-                        <td><?php //echo $reserva->getAmount() ?></td>
-                        <td><?php //echo $reserva->getIsconfirmed() ?></td>
-                        <td><?php //echo $reserva->getPaymentid() ?></td>
-                        <td><?php //echo $reserva->getIspayed() ?></td>
-                        <td><?php //echo $reserva->getIscompleted() ?></td>
+                        <td><?php echo $reserva->getReserveid() ?></td>
+                        <td><?php echo $reserva->getTransmitterid() ?></td>
+                        <td><?php echo $reserva->getReceiverid() ?></td>
+                        <td><?php echo $reserva->getPetid() ?></td>
+                        <td><?php echo $reserva->getFirstdate() ?></td>
+                        <td><?php echo $reserva->getLastdate() ?></td>
+                        <td><?php echo $reserva->getAmount() ?></td>
+                        <td><?php echo $reserva->getIsconfirmed() ?></td>
+                        <td><?php echo $reserva->getPaymentid() ?></td>
+                        <td><?php echo $reserva->getIspayed() ?></td>
+                        <td><?php echo $reserva->getIscompleted() ?></td>
                     </tr>
                     <?php
-                    //}
+                    }
                     ?>
 
                     </tr>

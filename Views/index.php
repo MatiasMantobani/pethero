@@ -48,8 +48,8 @@ require_once('nav.php');
                     <div class="col">
                     <h2>Dueños</h2>
                     <p><b>usuario1@gmail.com</p>
-                    <p><b>usuario1@gmail.com</b></p>
                     <p><b>usuario5@gmail.com</b></p>
+                    <p><b>usuario7@gmail.com</b></p>
                     </div>
                     <div class="col">
                     <h2>Guardianes</h2>

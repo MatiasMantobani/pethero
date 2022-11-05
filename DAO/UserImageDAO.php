@@ -3,6 +3,7 @@ namespace DAO;
 
 use DAO\QueryType as QueryType;
 use Models\UserImage as UserImage;
+use \Exception as Exception;
 
 class UserImageDao 
 {

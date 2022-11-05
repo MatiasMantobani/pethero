@@ -18,13 +18,13 @@ class UserController
 {
     private $userDAO;
     private $keeperController;
-    private $reserveController;
+    // private $reserveController;
 
     public function __construct()
     {
         $this->userDAO = new UserDAO();
         $this->keeperController = new KeeperController();
-        $this->reserveController = new ReserveController();
+        // $this->reserveController = new ReserveController();  //Rompe
     }
 
     public function ShowAddView()
@@ -66,12 +66,6 @@ class UserController
             }
         }
 
-        // Conseguir todas las reservas del dueño
-        if ($_SESSION['type'] == 'D' ) {
-
-            $reservas = $this->reserveController->getMyReserves();
-        }
-
         //si es Guardian
         if ($_SESSION['type'] == 'G') {
             $SizeController = new SizeController();
@@ -87,6 +81,16 @@ class UserController
         if ($_SESSION['type'] == 'D') {
             $availableDate2 = new AvailableDate();
             $consultaList = $availableDate2->getAvailablesListByDatesAndBreed(11, "2022-11-20", "2022-11-23");    //VALORES FIJOS TEST //VER SI TODAVIA SE USA
+        }
+
+        //ESTE
+        // Conseguir todas las reservas
+        if ($_SESSION['userid']) {
+            $reserveController = new ReserveController();
+            $reserveList = $reserveController->getMyReserves();
+            // foreach($reserveList as $reserva){
+            //     // echo $reserva->getReserveid(). "<br>";
+            // }
         }
 
         require_once(VIEWS_PATH . "user-profile.php");
