@@ -13,6 +13,7 @@ use Controllers\UserImageController as UserImageController;
 use Controllers\AvailableDateController as AvailableDate;
 use Controllers\KeeperController as KeeperController;
 use Controllers\ReserveController as ReserveController;
+use Controllers\HomeController as HomeController;
 
 class UserController
 {
@@ -75,6 +76,16 @@ class UserController
             }
             $availableDate = new AvailableDate();
             $fechas = $availableDate->GetById();
+
+        }
+
+        // Manda keeper al perfil
+        if ($_SESSION['type'] == 'G') {
+            $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
+            if ($keeper == null){
+                $this->keeperController->Add($_SESSION['userid']);
+            }
+
         }
 
 
@@ -82,7 +93,6 @@ class UserController
             $availableDate2 = new AvailableDate();
             $consultaList = $availableDate2->getAvailablesListByDatesAndBreed(11, "2022-11-20", "2022-11-23");    //VALORES FIJOS TEST //VER SI TODAVIA SE USA
         }
-
 
         // Conseguir todas las reservas
         if ($_SESSION['userid']) {
@@ -110,27 +120,15 @@ class UserController
         $user->setSurname($surname);
         $user->setPhone($phone);
 
+        $controller = new HomeController();
         //validar que no haya repeticiones de atributos UNIQUE
         if ($this->userDAO->ValidateUniqueEmail($email) || $this->userDAO->ValidateUniqueDni($dni) || $this->userDAO->ValidateUniqueCuit($cuit)) {
-
-            $controller = new HomeController();
             $controller->Index("Algunos de los datos ya estan en uso por otro usuario");
         } else {
             $this->userDAO->Add($user);
+            $controller->Index("Usuario registrado con exito");
         }
 
-        if ($user->getType() == "G") {
-            $keeper = $this->userDAO->GetByEmail($email);
-            if ($keeper != null) {
-                var_dump($keeper->getEmail());
-                $this->keeperController->Add($keeper->getEmail());
-            }
-        }
-
-
-
-        $controller = new AuthController();
-        $controller->Login($email, $password);
     }
 
     public function ShowUpdateView()

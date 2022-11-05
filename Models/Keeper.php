@@ -7,6 +7,7 @@ class Keeper
     private $pricing;
     private $rating;
     private $userid;
+    private $status;
 
     /**
      * @return mixed
@@ -82,4 +83,23 @@ class Keeper
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+
+
 }

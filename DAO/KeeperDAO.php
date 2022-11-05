@@ -15,13 +15,10 @@ class KeeperDAO
 
     public function Add(Keeper $keeper)
     {
-        var_dump($keeper);
         try {
-            $query = "INSERT INTO " . $this->tableUsers . " (userid, rating, pricing) VALUES (:userid, :rating, :pricing);";
+            $query = "INSERT INTO " . $this->tableUsers . " (userid) VALUES (:userid);";
 
             $parameters["userid"] = $keeper->getUserid();
-            $parameters["rating"] = $keeper->getRating();
-            $parameters["pricing"] = $keeper->getPricing();
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
@@ -47,6 +44,7 @@ class KeeperDAO
                 $keeper->setUserid($row["userid"]);
                 $keeper->setRating($row["rating"]);
                 $keeper->setPricing($row["pricing"]);
+                $keeper->setStatus($row["status"]);
 
                 array_push($keeperList, $keeper);
             }
@@ -61,7 +59,7 @@ class KeeperDAO
     {
         $keeper = null;
 
-        $query = "SELECT keeperid, userid, rating, pricing FROM " . $this->tableUsers . " WHERE (keeperid = :keeperid)";
+        $query = "SELECT keeperid, userid, rating, pricing, status FROM " . $this->tableUsers . " WHERE (keeperid = :keeperid)";
 
         $parameters["keeperid"] = $keeperid;
 
@@ -75,6 +73,7 @@ class KeeperDAO
             $keeper->setUserid($row["userid"]);
             $keeper->setRating($row["rating"]);
             $keeper->setPricing($row["pricing"]);
+            $keeper->setStatus($row["status"]);
 
         }
         return $keeper;
@@ -84,7 +83,7 @@ class KeeperDAO
     {
         $keeper = null;
 
-        $query = "SELECT keeperid, userid, rating, pricing FROM " . $this->tableUsers . " WHERE (userid = :userid)";
+        $query = "SELECT keeperid, userid, rating, pricing, status FROM " . $this->tableUsers . " WHERE (userid = :userid)";
 
         $parameters["userid"] = $userid;
 
@@ -98,7 +97,7 @@ class KeeperDAO
             $keeper->setUserid($row["userid"]);
             $keeper->setRating($row["rating"]);
             $keeper->setPricing($row["pricing"]);
-
+            $keeper->setStatus($row["status"]);
         }
         return $keeper;
     }
@@ -107,10 +106,28 @@ class KeeperDAO
     {
         try
         {
-            $query = "CALL keeper_update(?,?);";
+            $query = "CALL keeper_pricing_update(?,?);";
 
             $parameters["userid"] = $keeper->getUserid();
             $parameters["pricing"] = $keeper->getPricing();
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
+    public function UpdateStatus(Keeper $keeper)
+    {
+        try
+        {
+            $query = "CALL keeper_status_update(?,?);";
+
+            $parameters["userid"] = $keeper->getUserid();
+            $parameters["status"] = $keeper->getStatus();
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);

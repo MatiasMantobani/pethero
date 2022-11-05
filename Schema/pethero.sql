@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-11-2022 a las 02:13:51
+-- Tiempo de generación: 05-11-2022 a las 18:40:36
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -48,9 +48,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `images_update` (IN `Name` VARCHAR(1
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `keeper_update` (IN `Userid` INT(11), IN `Pricing` INT(11))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `keeper_pricing_update` (IN `Userid` INT(11), IN `Pricing` INT(11))   BEGIN
 UPDATE keepers
 SET	pricing=Pricing
+WHERE
+        keepers.userid=Userid;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `keeper_status_update` (IN `Userid` INT(11), IN `Status` INT(11))   BEGIN
+UPDATE keepers
+SET	status=Status
 WHERE
         keepers.userid=Userid;
 END$$
@@ -212,9 +219,17 @@ CREATE TABLE `chat` (
 CREATE TABLE `keepers` (
   `keeperid` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
-  `rating` double NOT NULL,
-  `pricing` int(11) NOT NULL
+  `rating` double NOT NULL DEFAULT 0,
+  `pricing` int(11) NOT NULL DEFAULT 0,
+  `status` int(11) NOT NULL DEFAULT 0 COMMENT 'Se crea por defecto en 0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `keepers`
+--
+
+INSERT INTO `keepers` (`keeperid`, `userid`, `rating`, `pricing`, `status`) VALUES
+(1, 2, 0, 700, 1);
 
 -- --------------------------------------------------------
 
@@ -384,7 +399,8 @@ INSERT INTO `users` (`userid`, `email`, `password`, `type`, `dni`, `cuit`, `name
 (8, 'usuario6@gmail.com', '123456', 'G', '32645987', '20326459874', 'Matias', 'Mantovani', '4802556'),
 (9, 'usuario7@gmail.com', '123456', 'D', '23456123', '20234561236', 'Juan', 'Gomez', '4805549'),
 (10, 'usuario10@gmail.com', '123456', 'G', '32885331', '20328853318', 'Julian', 'Moreno', '4557896'),
-(11, 'usuario11@gmail.com', '123456', 'G', '24456123', '23244561239', 'Ricardo', 'Montalbano', '2235820559');
+(11, 'usuario11@gmail.com', '123456', 'G', '24456123', '23244561239', 'Ricardo', 'Montalbano', '2235820559'),
+(13, 'asddd@gmail.com', '123456', 'D', '12345678', '20123456785', 'hkljhkjhkjh', 'kjhkjhjkhkjh', '456789');
 
 -- --------------------------------------------------------
 
@@ -552,7 +568,7 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT de la tabla `keepers`
 --
 ALTER TABLE `keepers`
-  MODIFY `keeperid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `keeperid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `message`
@@ -594,7 +610,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'user id', AUTO_INCREMENT=13;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'user id', AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `user_images`

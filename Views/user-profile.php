@@ -89,11 +89,19 @@ require_once('nav.php');
                                 <div class="row pt-1">
                                     <div class="col-6 mb-3">
                                         <h6>Remuneración: </h6>
-                                        <p class="text-muted"><a href="">$9500 [Cargar]</a></p>
+                                        <?php if($keeper != null) { ?>
+                                        <p class="text-muted"><?php echo $keeper->getPricing(); ?><a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView"> [Cambiar]</a></p>
+                                        <?php } else { ?>
+                                        <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView">[Cargar tarifa]</a></p>
+                                        <?php } ?>
                                     </div>
                                     <div class="col-6 mb-3">
                                         <h6>Valoración:</h6>
-                                        <p class="text-muted">3 de 5 estrellas</p>
+                                        <?php if($keeper != null) { ?>
+                                            <p class="text-muted">Comunidad: <?php echo $keeper->getRating(); ?></p>
+                                        <?php } else { ?>
+                                            <p class="text-muted">Error cargando reputación</p>
+                                        <?php } ?>
                                     </div>
                                 </div>
 

@@ -32,9 +32,6 @@ class ReserveController
         $this->KeeperController = new KeeperController();
     }
 
-
-
-    //ESTE
     public function getMyReserves()
     {
         if ($_SESSION["type"] == "D") {
@@ -46,8 +43,6 @@ class ReserveController
         }
         
     }
-
-
 
     public function Add($petid, $daterange, $userid)
     {
@@ -90,7 +85,7 @@ class ReserveController
         // echo $intervalInDays;
 
         //obtiene keeper por userid
-        $keeper = $this->KeeperController->KeeperFinderByUserId($userid);
+        $keeper = $this->KeeperController->getByUserId($userid);
 
         //se le extrae el precio al keeper
         $valorxDia = $keeper->getPricing();
@@ -165,7 +160,7 @@ class ReserveController
                 array_push($AvailableUsers, $user);
 
                 //se guardan los keepers (que son el mismo usuario)
-                $keeper = $this->KeeperController->KeeperFinderByUserId($user->getUserid());
+                $keeper = $this->KeeperController->getByUserId($user->getUserid());
                 array_push($AvailableKeepers, $keeper);
             }
         }
