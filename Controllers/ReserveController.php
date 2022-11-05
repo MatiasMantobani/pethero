@@ -49,10 +49,43 @@ class ReserveController
         $reserve->setPetid($petid);
         $reserve->setFirstdate($firstdate->format('y-m-d'));
         $reserve->setLastdate($lastdate->format('y-m-d'));
-        $reserve->setAmount(100);
-        // $reserve->setAmount($this->totalAmount($daterange, $userid));
+        // $reserve->setAmount(100);
+        $reserve->setAmount($this->totalAmount($daterange, $userid));
 
         $this->reserveDAO->Add($reserve);
+
+        //enviar a vista perfil
+
+    }
+
+    
+    public function totalAmount($daterange, $userid)
+    {
+        //se cuentan cuantos dias hay en daterange
+        $dateArray = explode(",", $daterange);
+        $firstdate = new DateTime($dateArray[0]);
+        $lastdate = new DateTime($dateArray[1]);
+
+        $interval = $firstdate->diff($lastdate);
+        // echo "difference " . $interval->y . " years, " . $interval->m." months, ".$interval->d." days "; 
+        // var_dump($interval);
+
+        // $duration = new \DateInterval('P1Y');
+        $intervalInSeconds = (new DateTime())->setTimeStamp(0)->add($interval)->getTimeStamp(); //chequear 
+        $intervalInDays = $intervalInSeconds/86400; 
+        // echo $intervalInDays;
+
+        //obtiene keeper por userid
+        $keeper = $this->KeeperController->KeeperFinderByUserId($userid);
+
+        //se le extrae el precio al keeper
+        $valorxDia = $keeper->getPricing();
+
+        //se multiplica cant dias * precio keeper
+        $total = $valorxDia *  $intervalInDays;
+
+        //se retorna cantidad total
+        return $total;
     }
 
 
@@ -124,43 +157,10 @@ class ReserveController
             }
         }
 
-        // var_dump($pet);
-        // var_dump($daterange);
-        // $mascota = $pet;
-        // $fecha = $daterange;
-
         require_once(VIEWS_PATH . "choose-keeper.php");
     }
 
 
-    public function totalAmount($daterange, $userid)
-    {
-        //se cuentan cuantos dias hay en daterange
-        $dateArray = explode(",", $daterange);
-        $firstdate = new DateTime($dateArray[0]);
-        $lastdate = new DateTime($dateArray[1]);
-
-        $interval = $firstdate->diff($lastdate);
-        // echo "difference " . $interval->y . " years, " . $interval->m." months, ".$interval->d." days "; 
-        // var_dump($interval);
-
-        // $duration = new \DateInterval('P1Y');
-        $intervalInSeconds = (new DateTime())->setTimeStamp(0)->add($interval)->getTimeStamp(); //chequear 
-        $intervalInDays = $intervalInSeconds/86400; 
-        // echo $intervalInDays;
-
-        //obtiene keeper por userid
-        $keeper = $this->KeeperController->KeeperFinderByUserId($userid);
-
-        //se le extrae el precio al keeper
-        $valorxDia = $keeper->getPricing();
-
-        //se multiplica cant dias * precio keeper
-        $total = $valorxDia *  $intervalInDays;
-
-        //se retorna cantidad total
-        return $total;
-    }
 
    
 }
