@@ -216,7 +216,7 @@ require_once('nav.php');
                                     </td>
                                     <td>
                                         
-                                        <a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView/<?php echo $pet->getPetid() ?>" class="btn btn-primary btn-sm">Reservar</a>
+                                        <a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView/<?php echo $pet->getPetid() ?>" class="btn btn-primary btn-sm">Solicitar Reserva</a>
                                     </td>
                                 </tr>
                             <?php }

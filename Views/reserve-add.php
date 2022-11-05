@@ -6,62 +6,70 @@ require_once('nav.php');
     <section id="listado" class="mb-5">
         <div class="container">
 
-            <form action="<?php echo FRONT_ROOT ?>Reserve/showChooseKeeperView" method="post" class="bg-light-alpha p-5">
+            <?php if($listadoMascotas){ ?>
+                <form action="<?php echo FRONT_ROOT ?>Reserve/showChooseKeeperView" method="post" class="bg-light-alpha p-5">
 
-                <!--                Desplegable de mascotas-->
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label for="petid">Selecciona tu mascota</label>
+                    <!--                Desplegable de mascotas-->
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="petid">Selecciona tu mascota</label>
 
-                        
 
-                        <select class="form-control" id="petid" name="petid" required>
 
-                            <?php if ($listadoMascotas != null) {
+                            <select class="form-control" id="petid" name="petid" required>
 
-                                if($choosePet){
-                                    ?> <option value="<?php echo $choosePet->getPetid() ?>"><?php echo $choosePet->getName() ?></option>
-                                    
-                                    <?php
-                                }else{
-                                    foreach ($listadoMascotas as $pet) { ?>
-                                        <option value="<?php echo $pet->getPetid() ?>"><?php echo $pet->getName() ?></option>
-                                <?php }
-                                }
+                                <?php if ($listadoMascotas != null) {
 
-                                
-                            } ?>
-                        </select>
+                                    if($choosePet){
+                                        ?> <option value="<?php echo $choosePet->getPetid() ?>"><?php echo $choosePet->getName() ?></option>
+
+                                        <?php
+                                    }else{
+                                        foreach ($listadoMascotas as $pet) { ?>
+                                            <option value="<?php echo $pet->getPetid() ?>"><?php echo $pet->getName() ?></option>
+                                        <?php }
+                                    }
+
+
+                                } ?>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <!--                calendario-->
-                <div class="col-lg-5">
-                    <label for="daterange">Selecciona el rango de fechas que necesita</label>
-                    <script>
-                        $(function() {
-                            $('input[name="daterange"]').daterangepicker({
-                                opens: 'left',
-                                locale: {
-                                    format: "YYYY-MM-DD",
-                                    separator: ','
-                                }
-                            }, function(start, end, label) {
-                                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                    <!--                calendario-->
+                    <div class="col-lg-5">
+                        <label for="daterange">Selecciona el rango de fechas que necesita</label>
+                        <script>
+                            $(function() {
+                                $('input[name="daterange"]').daterangepicker({
+                                    opens: 'left',
+                                    locale: {
+                                        format: "YYYY-MM-DD",
+                                        separator: ','
+                                    }
+                                }, function(start, end, label) {
+                                    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                                });
                             });
-                        });
-                    </script>
-                    <input type="text" name="daterange" />
-                </div>
+                        </script>
+                        <input type="text" name="daterange" />
+                    </div>
 
-                <div class="col-lg-4">
-                    <br>
-                    <button type="submit" class="btn btn-primary">Ver Guardianes Disponibles</button>
-                </div>
+                    <div class="col-lg-4">
+                        <br>
+                        <button type="submit" class="btn btn-primary">Ver Guardianes Disponibles</button>
+                    </div>
 
-            </form>
-
-
+                </form>
+            <?php }else{ ?>
+            <div class="bg-light-alpha p-5">
+                <h2>Ups! Parece que no tienes mascotas cargadas en tu perfil</h2>
+                <br>
+                <img src="<?php echo FRONT_ROOT ?>Views/img/Missing_dog_photo.png" class="rounded mx-auto d-block" width="30%" alt="missing-dog">
+                <br>
+                <a href="<?php echo FRONT_ROOT ?>Pet/ShowPreAddView/" class="btn btn-primary">Agregar una mascota</a>
+            </div>
+            <?php } ?>
         </div>
     </section>
 </main>
