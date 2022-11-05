@@ -83,7 +83,7 @@ class UserController
             $consultaList = $availableDate2->getAvailablesListByDatesAndBreed(11, "2022-11-20", "2022-11-23");    //VALORES FIJOS TEST //VER SI TODAVIA SE USA
         }
 
-        //ESTE
+
         // Conseguir todas las reservas
         if ($_SESSION['userid']) {
             $reserveController = new ReserveController();
@@ -115,46 +115,47 @@ class UserController
 
             $controller = new HomeController();
             $controller->Index("Algunos de los datos ya estan en uso por otro usuario");
-
-
-            // require_once(VIEWS_PATH . "user-add.php");  //deberia ir al show add view con mensaje lindo de datps repetidos
         } else {
             $this->userDAO->Add($user);
-        }
 
-        if ($user->getType() == "G"){
-            $keeper = $this->userDAO->GetByEmail($email);
-            if ($keeper != null){
-                $this->keeperController->Add($keeper->getEmail());
+            if ($user->getType() == "G") {
+                $keeper = $this->userDAO->GetByEmail($email);
+                if ($keeper != null) {
+                    var_dump($keeper->getEmail());
+                    $this->keeperController->Add($keeper->getEmail());  //$keeper->getEmail() (?)
+                }
             }
         }
+
+
 
         $controller = new AuthController();
         $controller->Login($email, $password);
     }
 
-    public function ShowUpdateView(){
+    public function ShowUpdateView()
+    {
         $user = new User();
         $user = $this->GetUserById($_SESSION['userid']);
-        if ($user != null){
-            require_once (VIEWS_PATH . "user-update.php");
+        if ($user != null) {
+            require_once(VIEWS_PATH . "user-update.php");
         }
     }
 
-    public function Update($name, $surname, $phone){
+    public function Update($name, $surname, $phone)
+    {
         $user = new User();
         $user->setUserid($_SESSION['userid']);
         $user->setName($name);
         $user->setSurname($surname);
         $user->setPhone($phone);
-        if ($user != null){
+        if ($user != null) {
             $this->userDAO->Update($user);
             $this->ShowProfileView();
         } else {
             $_SESSION['message'] = "Error al actualizar datos";
             $this->ShowProfileView();
         }
-
     }
 
     public function GetUserById($userid)

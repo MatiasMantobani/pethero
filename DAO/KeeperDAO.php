@@ -12,8 +12,10 @@ class KeeperDAO
     private $connection;
     private $tableUsers = "keepers";
 
+
     public function Add(Keeper $keeper)
     {
+        var_dump($keeper);
         try {
             $query = "INSERT INTO " . $this->tableUsers . " (userid, rating, pricing) VALUES (:userid, :rating, :pricing);";
 
