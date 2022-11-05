@@ -100,7 +100,7 @@ require_once('nav.php');
                                         <?php if($keeper != null) { ?>
                                             <p class="text-muted">Comunidad: <?php echo $keeper->getRating(); ?></p>
                                         <?php } else { ?>
-                                            <p class="text-muted">Error cargando reputación</p>
+                                            <p class="text-muted">Error cargando reputación </p>
                                         <?php } ?>
                                     </div>
                                 </div>

@@ -21,6 +21,8 @@ class KeeperController
 
         $this->keeperDAO->Add($keeper);
 
+        return $this->getByUserId($userid);  //solo se usa una vez al crear perfil
+
     }
 
     public function ShowUpdatePricingView(){

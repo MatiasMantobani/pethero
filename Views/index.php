@@ -22,14 +22,14 @@ require_once('nav.php');
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" name="email" id="email"
+                            <input type="text" class="form-control" name="email" id="email"
                                    placeholder="email@pethero.com" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" name="password" id="password"
+                            <input type="text" class="form-control" name="password" id="password"
                                    placeholder="Password" required>
                         </div>
                     </div>

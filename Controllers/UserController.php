@@ -83,7 +83,7 @@ class UserController
         if ($_SESSION['type'] == 'G') {
             $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
             if ($keeper == null){
-                $this->keeperController->Add($_SESSION['userid']);
+                $keeper = $this->keeperController->Add($_SESSION['userid']);
             }
 
         }
@@ -98,9 +98,7 @@ class UserController
         if ($_SESSION['userid']) {
             $reserveController = new ReserveController();
             $reserveList = $reserveController->getMyReserves();
-            // foreach($reserveList as $reserva){
-            //     // echo $reserva->getReserveid(). "<br>";
-            // }
+           
         }
 
         require_once(VIEWS_PATH . "user-profile.php");
