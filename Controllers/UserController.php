@@ -83,9 +83,9 @@ class UserController
         if ($_SESSION['type'] == 'G') {
             $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
             if ($keeper == null){
+                $_SESSION['message'] .= "Falta cargar precio. ";
                 $keeper = $this->keeperController->Add($_SESSION['userid']);
             }
-
         }
 
 
