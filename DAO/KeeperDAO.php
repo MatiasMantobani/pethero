@@ -83,7 +83,7 @@ class KeeperDAO
     {
         $keeper = null;
 
-        $query = "SELECT keeperid, userid, rating, pricing, status FROM " . $this->tableUsers . " WHERE (userid = :userid)";
+        $query = "SELECT keeperid, rating, pricing, status FROM " . $this->tableUsers . " WHERE (userid = :userid)";
 
         $parameters["userid"] = $userid;
 
@@ -94,7 +94,7 @@ class KeeperDAO
         foreach ($results as $row) {
             $keeper = new Keeper();
             $keeper->setKeeperid($row["keeperid"]);
-            $keeper->setUserid($row["userid"]);
+            $keeper->setUserid($userid);
             $keeper->setRating($row["rating"]);
             $keeper->setPricing($row["pricing"]);
             $keeper->setStatus($row["status"]);

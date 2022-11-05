@@ -4,15 +4,37 @@ namespace Controllers;
 
 use DAO\KeeperDAO as KeeperDAO;
 use Models\Keeper as Keeper;
+use Controllers\AdressController as AdressController;
+use Controllers\AvailableDateController as AvailableDateController;
 
 class KeeperController
 {
     private $keeperDAO;
 
+    private $adressController;
+    private $AvailableController;
+
     public function __construct()
     {
         $this->keeperDAO = new KeeperDAO();
+
+        $this->adressController = new AdressController();
+        $this->AvailableController = new AvailableDateController();
     }
+
+    // It validates keeper table on db, pricing, userid, rating, adress & availability from keeper througt $userid
+//    public function validateKeeper($userid){
+//        $keeper = $this->getByUserId($userid);
+//
+//        if ($keeper->getPricing() > 0){
+//                $this->UpdateStatus(1);
+//                return 1;
+//
+//        } else {
+//            $this->UpdateStatus(0);
+//            return 0;
+//        }
+//    }
 
     public function Add($userid)
     {
@@ -32,18 +54,24 @@ class KeeperController
 
     public function UpdatePricing($pricing)
     {
-
-        $keeper = new Keeper();
-        $keeper->setUserid($_SESSION['userid']);
-        $keeper->setPricing($pricing);
-
-        $this->keeperDAO->UpdatePricing($keeper);
-        
-        $this->UpdateStatus(1);
-
-        $_SESSION['message'] = "Tarifa modificada con éxito";
         $controller = new UserController();
-        $controller->ShowProfileView();
+
+        if($pricing > 0){
+            $keeper = new Keeper();
+            $keeper->setUserid($_SESSION['userid']);
+            $keeper->setPricing($pricing);
+
+            $this->keeperDAO->UpdatePricing($keeper);
+
+            $this->UpdateStatus(1);
+
+            $_SESSION['message'] = "Tarifa modificada con éxito. <br>";
+            $controller->ShowProfileView();
+        } else {
+            $_SESSION['message'] = "Tarifa: ingrese un importe mayor. <br>";
+            $controller->ShowProfileView();
+        }
+
 
     }
 
@@ -59,7 +87,7 @@ class KeeperController
 
         $this->keeperDAO->UpdateStatus($keeper);;
 
-        $_SESSION['message'] = "El usuario fue actualizado con éxito";
+        $_SESSION['message'] = "El usuario fue actualizado con éxito <br>";
         $controller = new UserController();
         $controller->ShowProfileView();
 

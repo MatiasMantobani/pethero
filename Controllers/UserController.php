@@ -20,12 +20,14 @@ class UserController
     private $userDAO;
     private $keeperController;
     // private $reserveController;
+    // private $availableDateController;
 
     public function __construct()
     {
         $this->userDAO = new UserDAO();
         $this->keeperController = new KeeperController();
         // $this->reserveController = new ReserveController();  //Rompe
+        //$this->availableDateController = new AvailableDate();  //Rompe
     }
 
     public function ShowAddView()
@@ -42,8 +44,6 @@ class UserController
     //Mostrar perfil de usuario
     public function ShowProfileView()
     {
-        $userList = $this->userDAO->GetAll();
-
         $user = $this->GetUserById($_SESSION['userid']);
 
         $AdressController = new AdressController();
@@ -63,7 +63,7 @@ class UserController
 
         if ($_SESSION['userid']) {
             if ($adress == null) {
-                $_SESSION['message'] .= "Para comenzar, debés ingresar tu domicilio. ";
+                $_SESSION['message'] .= "Para comenzar, debés ingresar tu domicilio. <br>";
             }
         }
 
@@ -72,7 +72,7 @@ class UserController
             $SizeController = new SizeController();
             $size = $SizeController->getByUserId($_SESSION['userid']);
             if ($size == null) {
-                $_SESSION['message'] .= "Para cuidar mascotas, primero debés cargar el tamaño que aceptas. ";
+                $_SESSION['message'] .= "Para cuidar mascotas, primero debés cargar el tamaño que aceptas. <br>";
             }
             $availableDate = new AvailableDate();
             $fechas = $availableDate->GetById();
@@ -83,7 +83,12 @@ class UserController
         if ($_SESSION['type'] == 'G') {
             $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
             if ($keeper == null){
+                $_SESSION['message'] .= "Falta cargar precio. <br>";
                 $keeper = $this->keeperController->Add($_SESSION['userid']);
+            } else {
+                if ($keeper->getPricing() == 0){
+                    $_SESSION['message'] .= "Falta cargar tarifa. <br>";
+                }
             }
 
         }
@@ -149,7 +154,7 @@ class UserController
             $this->userDAO->Update($user);
             $this->ShowProfileView();
         } else {
-            $_SESSION['message'] = "Error al actualizar datos";
+            $_SESSION['message'] = "Error al actualizar datos <br>";
             $this->ShowProfileView();
         }
     }

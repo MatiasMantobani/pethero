@@ -89,7 +89,7 @@ require_once('nav.php');
                                 <div class="row pt-1">
                                     <div class="col-6 mb-3">
                                         <h6>Remuneración: </h6>
-                                        <?php if($keeper != null) { ?>
+                                        <?php if($keeper != null && $keeper->getPricing() > 0) { ?>
                                         <p class="text-muted"><?php echo $keeper->getPricing(); ?><a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView"> [Cambiar]</a></p>
                                         <?php } else { ?>
                                         <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView">[Cargar tarifa]</a></p>
@@ -111,7 +111,7 @@ require_once('nav.php');
                                     <div class="col-6 mb-3">
                                         <?php if ($size) { ?>
                                             <h6>Tamaños aceptados: </h6>
-                                            <p class="text-muted"><?php if ($size->getSmall() == true) echo "[S]";
+                                            <p class="text-muted"><?php if ($size->getSmall() == true) echo "[S] ";
                                                 if ($size->getMedium() == true) echo "[M] ";
                                                 if ($size->getLarge() == true) echo "[L] "; ?> <a
                                                         href="<?php echo FRONT_ROOT ?>Size/ShowAddView">[Editar]</a></p>
@@ -124,9 +124,11 @@ require_once('nav.php');
                                     </div>
                                     <div class="col-6 mb-3">
                                         <h6>Fechas disponibles:</h6>
-                                        <p class="text-muted"><a
-                                                    href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView/">[Modificar
-                                                ahora]</a></p>
+                                        <?php if($fechas != null) { ?>
+                                            <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView">[Editar disponibilidad]</a></p>
+                                        <?php } else { ?>
+                                            <p class="text-muted">No tenes disponibilidad <a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView"><br>[Cargar disponibilidad]</a></p>
+                                        <?php } ?>
                                     </div>
                                 </div>
 
