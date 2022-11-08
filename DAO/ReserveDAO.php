@@ -105,8 +105,6 @@ class ReserveDAO
         }
     }
 
-
-
     public function getAll()
     {
         try {

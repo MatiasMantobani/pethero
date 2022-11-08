@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-11-2022 a las 18:40:36
+-- Tiempo de generación: 08-11-2022 a las 19:44:54
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -31,6 +31,8 @@ SET	street=Street, number=Number, floor=Floor, department=Department, postalcode
 WHERE
         adresses.userid=Userid;
 END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getReserveByDay` (IN `KeeperUserId` INT(11), IN `Date` DATE)   SELECT reserve.petid FROM reserve WHERE (reserve.receiverid = KeeperUserId AND Date BETWEEN reserve.firstdate AND reserve.lastdate)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `images_add` (IN `Name` VARCHAR(100), IN `userid` INT(11))   BEGIN
     INSERT INTO user_images
@@ -330,6 +332,13 @@ CREATE TABLE `reserve` (
   `iscompleted` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `reserve`
+--
+
+INSERT INTO `reserve` (`reserveid`, `transmitterid`, `receiverid`, `petid`, `firstdate`, `lastdate`, `amount`, `isconfirmed`, `paymentid`, `ispayed`, `iscompleted`) VALUES
+(1, 1, 2, 1, '2022-11-01', '2022-11-18', 500, NULL, NULL, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -598,7 +607,7 @@ ALTER TABLE `pet_images`
 -- AUTO_INCREMENT de la tabla `reserve`
 --
 ALTER TABLE `reserve`
-  MODIFY `reserveid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `reserveid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `review`
