@@ -3,6 +3,7 @@
 namespace DAO;
 
 use DAO\Connection as Connection;
+use Models\Keeper as Keeper;
 use Models\Reserve as Reserve;
 use \Exception as Exception;
 
@@ -124,6 +125,40 @@ class ReserveDAO
             throw $ex;
         }
     }
+
+    public function getDuplicate($petid)
+    {
+        try {
+            $reserveList = array();
+
+            $query = "SELECT * FROM " . $this->tableReserve . " WHERE (petid = :petid)";
+
+            $parameters["petid"] = $petid;
+
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $reserve = new Reserve();
+
+                $reserve->setReserveid($row["reserveid"]);
+                $reserve->setTransmitterid($row["transmitterid"]);
+                $reserve->setReceiverid($row["receiverid"]);
+                $reserve->setPetid($row["petid"]);
+                $reserve->setFirstdate($row["firstdate"]);
+                $reserve->setLastdate($row["lastdate"]);
+                $reserve->setAmount($row["amount"]);
+                $reserve->setStatus($row["status"]);
+
+                array_push($reserveList, $reserve);
+            }
+            var_dump($reserveList);
+            return $reserveList;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
 
 //    public function Remove($reserveid)
 //    {

@@ -114,6 +114,8 @@ class ReserveController
         $dateArray = explode(",", $daterange);
         $dateStart = new DateTime($dateArray[0]);
         $dateFinish = new DateTime($dateArray[1]);
+        $dateStart2 = new DateTime($dateArray[0]);
+        $dateFinish2 = new DateTime($dateArray[1]);
 
         //obtenemos ids de los "disponibles" (aquellos que tienen al menos una fecha en el rango del dueño)
         $AvailableDates = $this->AvailableDateController->getAvailablesListByDatesAndBreed($breed, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));
@@ -162,7 +164,10 @@ class ReserveController
                 array_push($AvailableKeepers, $keeper);
             }
         }
-
         require_once(VIEWS_PATH . "choose-keeper.php");
+    }
+
+    public function checkOverlap($petid, $userid, $dateStart, $dateFinish){
+        return $this->reserveDAO->getDuplicate($petid, $userid, $dateStart, $dateFinish);
     }
 }
