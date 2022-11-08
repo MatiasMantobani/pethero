@@ -2,17 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
-<<<<<<< Updated upstream
 -- Servidor: 127.0.0.1
 -- Tiempo de generación: 08-11-2022 a las 19:44:54
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
-=======
--- Host: localhost
--- Generation Time: Nov 08, 2022 at 08:23 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.1.6
->>>>>>> Stashed changes
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,12 +18,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `pethero`
+-- Base de datos: `pethero`
 --
 
 DELIMITER $$
 --
--- Procedures
+-- Procedimientos
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `adress_update` (IN `Userid` INT(11), IN `Street` VARCHAR(50), IN `Number` VARCHAR(50), IN `Floor` VARCHAR(50), IN `Department` VARCHAR(15), IN `Postalcode` VARCHAR(15))   BEGIN
 UPDATE adresses
@@ -40,15 +33,6 @@ WHERE
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getReserveByDay` (IN `KeeperUserId` INT(11), IN `Date` DATE)   SELECT reserve.petid FROM reserve WHERE (reserve.receiverid = KeeperUserId AND Date BETWEEN reserve.firstdate AND reserve.lastdate)$$
-<<<<<<< Updated upstream
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `images_add` (IN `Name` VARCHAR(100), IN `userid` INT(11))   BEGIN
-    INSERT INTO user_images
-    	(name, userid)
-	VALUES
-		(name, userid);
-=======
->>>>>>> Stashed changes
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `images_add` (IN `Name` VARCHAR(100), IN `userid` INT(11))   BEGIN
     INSERT INTO user_images
@@ -108,13 +92,6 @@ WHERE
         pet.petid=Petid;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `reserve_update_status` (IN `Reserveid` INT(11), IN `Status` VARCHAR(45))   BEGIN
-UPDATE reserve
-SET	status=Status
-WHERE
-        reserve.reserveid=Reserveid;
-END$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `user_update` (IN `Userid` INT(11), IN `Name` VARCHAR(50), IN `Surname` VARCHAR(50), IN `Phone` VARCHAR(50))   BEGIN
 UPDATE users
 SET	name=Name, surname=Surname, phone=Phone
@@ -141,7 +118,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `adresses`
+-- Estructura de tabla para la tabla `adresses`
 --
 
 CREATE TABLE `adresses` (
@@ -154,7 +131,7 @@ CREATE TABLE `adresses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `adresses`
+-- Volcado de datos para la tabla `adresses`
 --
 
 INSERT INTO `adresses` (`userid`, `street`, `number`, `floor`, `department`, `postalcode`) VALUES
@@ -169,7 +146,7 @@ INSERT INTO `adresses` (`userid`, `street`, `number`, `floor`, `department`, `po
 -- --------------------------------------------------------
 
 --
--- Table structure for table `availabledates`
+-- Estructura de tabla para la tabla `availabledates`
 --
 
 CREATE TABLE `availabledates` (
@@ -180,7 +157,7 @@ CREATE TABLE `availabledates` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `availabledates`
+-- Volcado de datos para la tabla `availabledates`
 --
 
 INSERT INTO `availabledates` (`availabledatesid`, `userid`, `date`, `available`) VALUES
@@ -189,7 +166,7 @@ INSERT INTO `availabledates` (`availabledatesid`, `userid`, `date`, `available`)
 -- --------------------------------------------------------
 
 --
--- Table structure for table `breed`
+-- Estructura de tabla para la tabla `breed`
 --
 
 CREATE TABLE `breed` (
@@ -200,7 +177,7 @@ CREATE TABLE `breed` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `breed`
+-- Volcado de datos para la tabla `breed`
 --
 
 INSERT INTO `breed` (`breedid`, `name`, `size`, `type`) VALUES
@@ -225,7 +202,7 @@ INSERT INTO `breed` (`breedid`, `name`, `size`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chat`
+-- Estructura de tabla para la tabla `chat`
 --
 
 CREATE TABLE `chat` (
@@ -238,7 +215,7 @@ CREATE TABLE `chat` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `keepers`
+-- Estructura de tabla para la tabla `keepers`
 --
 
 CREATE TABLE `keepers` (
@@ -250,7 +227,7 @@ CREATE TABLE `keepers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `keepers`
+-- Volcado de datos para la tabla `keepers`
 --
 
 INSERT INTO `keepers` (`keeperid`, `userid`, `rating`, `pricing`, `status`) VALUES
@@ -259,7 +236,7 @@ INSERT INTO `keepers` (`keeperid`, `userid`, `rating`, `pricing`, `status`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `message`
+-- Estructura de tabla para la tabla `message`
 --
 
 CREATE TABLE `message` (
@@ -274,7 +251,7 @@ CREATE TABLE `message` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment`
+-- Estructura de tabla para la tabla `payment`
 --
 
 CREATE TABLE `payment` (
@@ -289,7 +266,7 @@ CREATE TABLE `payment` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pet`
+-- Estructura de tabla para la tabla `pet`
 --
 
 CREATE TABLE `pet` (
@@ -302,7 +279,7 @@ CREATE TABLE `pet` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `pet`
+-- Volcado de datos para la tabla `pet`
 --
 
 INSERT INTO `pet` (`petid`, `userid`, `status`, `breedid`, `name`, `observations`) VALUES
@@ -315,7 +292,7 @@ INSERT INTO `pet` (`petid`, `userid`, `status`, `breedid`, `name`, `observations
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pet_images`
+-- Estructura de tabla para la tabla `pet_images`
 --
 
 CREATE TABLE `pet_images` (
@@ -325,7 +302,7 @@ CREATE TABLE `pet_images` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `pet_images`
+-- Volcado de datos para la tabla `pet_images`
 --
 
 INSERT INTO `pet_images` (`imageid`, `name`, `petid`) VALUES
@@ -338,7 +315,7 @@ INSERT INTO `pet_images` (`imageid`, `name`, `petid`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reserve`
+-- Estructura de tabla para la tabla `reserve`
 --
 
 CREATE TABLE `reserve` (
@@ -349,7 +326,10 @@ CREATE TABLE `reserve` (
   `firstdate` date NOT NULL,
   `lastdate` date NOT NULL,
   `amount` int(11) NOT NULL,
-  `status` varchar(45) NOT NULL DEFAULT 'await'
+  `isconfirmed` int(11) DEFAULT NULL,
+  `paymentid` int(11) DEFAULT NULL,
+  `ispayed` int(11) DEFAULT NULL,
+  `iscompleted` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -362,7 +342,7 @@ INSERT INTO `reserve` (`reserveid`, `transmitterid`, `receiverid`, `petid`, `fir
 -- --------------------------------------------------------
 
 --
--- Table structure for table `review`
+-- Estructura de tabla para la tabla `review`
 --
 
 CREATE TABLE `review` (
@@ -377,7 +357,7 @@ CREATE TABLE `review` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sizes`
+-- Estructura de tabla para la tabla `sizes`
 --
 
 CREATE TABLE `sizes` (
@@ -388,7 +368,7 @@ CREATE TABLE `sizes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `sizes`
+-- Volcado de datos para la tabla `sizes`
 --
 
 INSERT INTO `sizes` (`userid`, `small`, `medium`, `large`) VALUES
@@ -400,7 +380,7 @@ INSERT INTO `sizes` (`userid`, `small`, `medium`, `large`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Estructura de tabla para la tabla `users`
 --
 
 CREATE TABLE `users` (
@@ -416,7 +396,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `users`
+-- Volcado de datos para la tabla `users`
 --
 
 INSERT INTO `users` (`userid`, `email`, `password`, `type`, `dni`, `cuit`, `name`, `surname`, `phone`) VALUES
@@ -434,7 +414,7 @@ INSERT INTO `users` (`userid`, `email`, `password`, `type`, `dni`, `cuit`, `name
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_images`
+-- Estructura de tabla para la tabla `user_images`
 --
 
 CREATE TABLE `user_images` (
@@ -444,7 +424,7 @@ CREATE TABLE `user_images` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
--- Dumping data for table `user_images`
+-- Volcado de datos para la tabla `user_images`
 --
 
 INSERT INTO `user_images` (`imageid`, `name`, `userid`) VALUES
@@ -454,7 +434,7 @@ INSERT INTO `user_images` (`imageid`, `name`, `userid`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vacunation_images`
+-- Estructura de tabla para la tabla `vacunation_images`
 --
 
 CREATE TABLE `vacunation_images` (
@@ -464,7 +444,7 @@ CREATE TABLE `vacunation_images` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `vacunation_images`
+-- Volcado de datos para la tabla `vacunation_images`
 --
 
 INSERT INTO `vacunation_images` (`imageid`, `name`, `petid`) VALUES
@@ -475,83 +455,83 @@ INSERT INTO `vacunation_images` (`imageid`, `name`, `petid`) VALUES
 (6, 'carnetVacunacion.jpg', 38);
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `adresses`
+-- Indices de la tabla `adresses`
 --
 ALTER TABLE `adresses`
   ADD PRIMARY KEY (`userid`);
 
 --
--- Indexes for table `availabledates`
+-- Indices de la tabla `availabledates`
 --
 ALTER TABLE `availabledates`
   ADD PRIMARY KEY (`availabledatesid`);
 
 --
--- Indexes for table `breed`
+-- Indices de la tabla `breed`
 --
 ALTER TABLE `breed`
   ADD PRIMARY KEY (`breedid`);
 
 --
--- Indexes for table `chat`
+-- Indices de la tabla `chat`
 --
 ALTER TABLE `chat`
   ADD PRIMARY KEY (`idchat`);
 
 --
--- Indexes for table `keepers`
+-- Indices de la tabla `keepers`
 --
 ALTER TABLE `keepers`
   ADD PRIMARY KEY (`keeperid`);
 
 --
--- Indexes for table `message`
+-- Indices de la tabla `message`
 --
 ALTER TABLE `message`
   ADD PRIMARY KEY (`idmessage`);
 
 --
--- Indexes for table `payment`
+-- Indices de la tabla `payment`
 --
 ALTER TABLE `payment`
   ADD PRIMARY KEY (`paymentid`);
 
 --
--- Indexes for table `pet`
+-- Indices de la tabla `pet`
 --
 ALTER TABLE `pet`
   ADD PRIMARY KEY (`petid`);
 
 --
--- Indexes for table `pet_images`
+-- Indices de la tabla `pet_images`
 --
 ALTER TABLE `pet_images`
   ADD PRIMARY KEY (`imageid`);
 
 --
--- Indexes for table `reserve`
+-- Indices de la tabla `reserve`
 --
 ALTER TABLE `reserve`
   ADD PRIMARY KEY (`reserveid`);
 
 --
--- Indexes for table `review`
+-- Indices de la tabla `review`
 --
 ALTER TABLE `review`
   ADD PRIMARY KEY (`reviewid`);
 
 --
--- Indexes for table `sizes`
+-- Indices de la tabla `sizes`
 --
 ALTER TABLE `sizes`
   ADD PRIMARY KEY (`userid`);
 
 --
--- Indexes for table `users`
+-- Indices de la tabla `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`userid`),
@@ -560,99 +540,95 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `cuit` (`cuit`);
 
 --
--- Indexes for table `user_images`
+-- Indices de la tabla `user_images`
 --
 ALTER TABLE `user_images`
   ADD PRIMARY KEY (`imageid`);
 
 --
--- Indexes for table `vacunation_images`
+-- Indices de la tabla `vacunation_images`
 --
 ALTER TABLE `vacunation_images`
   ADD PRIMARY KEY (`imageid`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `availabledates`
+-- AUTO_INCREMENT de la tabla `availabledates`
 --
 ALTER TABLE `availabledates`
   MODIFY `availabledatesid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
--- AUTO_INCREMENT for table `breed`
+-- AUTO_INCREMENT de la tabla `breed`
 --
 ALTER TABLE `breed`
   MODIFY `breedid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `chat`
+-- AUTO_INCREMENT de la tabla `chat`
 --
 ALTER TABLE `chat`
   MODIFY `idchat` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `keepers`
+-- AUTO_INCREMENT de la tabla `keepers`
 --
 ALTER TABLE `keepers`
   MODIFY `keeperid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `message`
+-- AUTO_INCREMENT de la tabla `message`
 --
 ALTER TABLE `message`
   MODIFY `idmessage` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `payment`
+-- AUTO_INCREMENT de la tabla `payment`
 --
 ALTER TABLE `payment`
   MODIFY `paymentid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `pet`
+-- AUTO_INCREMENT de la tabla `pet`
 --
 ALTER TABLE `pet`
   MODIFY `petid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
--- AUTO_INCREMENT for table `pet_images`
+-- AUTO_INCREMENT de la tabla `pet_images`
 --
 ALTER TABLE `pet_images`
   MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `reserve`
+-- AUTO_INCREMENT de la tabla `reserve`
 --
 ALTER TABLE `reserve`
-<<<<<<< Updated upstream
   MODIFY `reserveid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-=======
-  MODIFY `reserveid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
->>>>>>> Stashed changes
 
 --
--- AUTO_INCREMENT for table `review`
+-- AUTO_INCREMENT de la tabla `review`
 --
 ALTER TABLE `review`
   MODIFY `reviewid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
   MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'user id', AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `user_images`
+-- AUTO_INCREMENT de la tabla `user_images`
 --
 ALTER TABLE `user_images`
   MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `vacunation_images`
+-- AUTO_INCREMENT de la tabla `vacunation_images`
 --
 ALTER TABLE `vacunation_images`
   MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
