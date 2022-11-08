@@ -11,9 +11,6 @@ class ReserveDAO
     private $connection;
     private $tableReserve = "reserve";
 
-
-
-
     public function Add(Reserve $reserve)
     {
         try {
@@ -32,8 +29,6 @@ class ReserveDAO
             throw $ex;
         }
     }
-
-
 
     public function getOwnerReserves($userid)
     {
@@ -57,10 +52,7 @@ class ReserveDAO
                 $reserve->setFirstdate($row["firstdate"]);
                 $reserve->setLastdate($row["lastdate"]);
                 $reserve->setAmount($row["amount"]);
-                $reserve->setIsconfirmed($row["isconfirmed"]);
-                $reserve->setPaymentid($row["paymentid"]);
-                $reserve->setIspayed($row["ispayed"]);
-                $reserve->setIscompleted($row["iscompleted"]);
+                $reserve->setStatus($row["status"]);
 
                 array_push($reserveList, $reserve);
             }
@@ -92,10 +84,7 @@ class ReserveDAO
                 $reserve->setFirstdate($row["firstdate"]);
                 $reserve->setLastdate($row["lastdate"]);
                 $reserve->setAmount($row["amount"]);
-                $reserve->setIsconfirmed($row["isconfirmed"]);
-                $reserve->setPaymentid($row["paymentid"]);
-                $reserve->setIspayed($row["ispayed"]);
-                $reserve->setIscompleted($row["iscompleted"]);
+                $reserve->setStatus($row["status"]);
 
                 array_push($reserveList, $reserve);
             }
@@ -125,10 +114,7 @@ class ReserveDAO
                 $reserve->setFirstdate($row["firstdate"]);
                 $reserve->setLastdate($row["lastdate"]);
                 $reserve->setAmount($row["amount"]);
-                $reserve->setIsconfirmed($row["isconfirmed"]);
-                $reserve->setPaymentid($row["paymentid"]);
-                $reserve->setIspayed($row["ispayed"]);
-                $reserve->setIscompleted($row["iscompleted"]);
+                $reserve->setStatus($row["status"]);
 
                 array_push($reserveList, $reserve);
             }
@@ -139,15 +125,12 @@ class ReserveDAO
         }
     }
 
-
-   
-
-    public function Remove($reserveid)
-    {
-        $query = "DELETE FROM " . $this->tableReserve . " WHERE (reserveid = :reserveid)";
-        $parameters["reserveid"] =  $reserveid;
-
-        $this->connection = Connection::GetInstance();
-        $this->connection->ExecuteNonQuery($query, $parameters);
-    }
+//    public function Remove($reserveid)
+//    {
+//        $query = "DELETE FROM " . $this->tableReserve . " WHERE (reserveid = :reserveid)";
+//        $parameters["reserveid"] =  $reserveid;
+//
+//        $this->connection = Connection::GetInstance();
+//        $this->connection->ExecuteNonQuery($query, $parameters);
+//    }
 }

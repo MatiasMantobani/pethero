@@ -11,10 +11,7 @@ class Reserve
     private $firstdate;
     private $lastdate;
     private $amount;
-    private $isconfirmed;
-    private $paymentid;
-    private $ispayed;
-    private $iscompleted;
+    private $status;
 
     /**
      * @return mixed
@@ -131,66 +128,16 @@ class Reserve
     /**
      * @return mixed
      */
-    public function getIsconfirmed()
+    public function getStatus()
     {
-        return $this->isconfirmed;
+        return $this->status;
     }
 
     /**
-     * @param mixed $isconfirmed
+     * @param mixed $status
      */
-    public function setIsconfirmed($isconfirmed)
+    public function setStatus($status)
     {
-        $this->isconfirmed = $isconfirmed;
+        $this->status = $status;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getPaymentid()
-    {
-        return $this->paymentid;
-    }
-
-    /**
-     * @param mixed $paymentid
-     */
-    public function setPaymentid($paymentid)
-    {
-        $this->paymentid = $paymentid;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIspayed()
-    {
-        return $this->ispayed;
-    }
-
-    /**
-     * @param mixed $ispayed
-     */
-    public function setIspayed($ispayed)
-    {
-        $this->ispayed = $ispayed;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIscompleted()
-    {
-        return $this->iscompleted;
-    }
-
-    /**
-     * @param mixed $iscompleted
-     */
-    public function setIscompleted($iscompleted)
-    {
-        $this->iscompleted = $iscompleted;
-    }
-
-
 }

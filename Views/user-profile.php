@@ -307,10 +307,13 @@ require_once('nav.php');
                     <th>Fecha Inicio</th>
                     <th>Fecha Fin</th>
                     <th>MontoTotal</th>
-                    <th>isConfirmada</th>
-                    <th>PagoID</th>
-                    <th>isPaga</th>
-                    <th>isCompletada</th>
+                    <th>Estado</th>
+                    <?php if($_SESSION['type'] == 'G'){ ?>
+                        <th>Confirmar</th>
+                        <th>Rechazar</th>
+                    <?php }else{ ?>
+                        <th>Eliminar</th>
+                    <?php } ?>
                     </thead>
                     <tbody>
                     <?php
@@ -325,10 +328,15 @@ require_once('nav.php');
                         <td><?php echo $reserva->getFirstdate() ?></td>
                         <td><?php echo $reserva->getLastdate() ?></td>
                         <td><?php echo $reserva->getAmount() ?></td>
-                        <td><?php echo $reserva->getIsconfirmed() ?></td>
-                        <td><?php echo $reserva->getPaymentid() ?></td>
-                        <td><?php echo $reserva->getIspayed() ?></td>
-                        <td><?php echo $reserva->getIscompleted() ?></td>
+                        <td><?php echo $reserva->getStatus() ?></td>
+                        <?php if($_SESSION['type'] == 'G'){ ?>
+                            <td><a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView/<?php echo $pet->getPetid() ?>" class="btn btn-success btn-sm">Aceptar Reserva</a></td>
+                            <td><a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView/<?php echo $pet->getPetid() ?>" class="btn btn-danger btn-sm">Rechazar Reserva</a></td>
+                        <?php }else{ ?>
+                            <?php if($reserva->getFirstdate() >= date('y-m-d')){ ?>
+                                <td><a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView/<?php echo $pet->getPetid() ?>" class="btn btn-danger btn-sm">Eliminar Reserva</a></td>
+                            <?php } ?>
+                        <?php } ?>
                     </tr>
                     <?php
                     }

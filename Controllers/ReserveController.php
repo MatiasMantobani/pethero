@@ -46,8 +46,6 @@ class ReserveController
 
     public function Add($petid, $daterange, $userid)
     {
-
-
         $dateArray = explode(",", $daterange);
         $firstdate = new DateTime($dateArray[0]);
         $lastdate = new DateTime($dateArray[1]);
