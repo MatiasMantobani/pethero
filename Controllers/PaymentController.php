@@ -21,7 +21,9 @@
             return $this->paymentDAO->GetAllByUserId($userid);
         }
 
-
-
+        //retona entre 0 y 2 pagos
+        public function GetByReserveId($reserveid){
+            return $this->paymentDAO->GetByReserveId($reserveid);
+        }
 
     }

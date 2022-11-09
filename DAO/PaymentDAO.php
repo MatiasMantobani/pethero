@@ -13,6 +13,36 @@ class PaymentDAO
     private $tablePayments = "payments";
 
 
+    //get payments by reserveid que retona entre 0 y 2 pagos
+    public function GetByReserveId($reserveid){
+        try {
+            $paymentList = array();
+
+            $query = "SELECT * FROM " . $this->tablePayments . " WHERE (reserveid = :reserveid)";
+
+            $parameters["userid"] = $reserveid;
+
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $payment = new Payment();
+
+                $payment->setTransmitterid($row["transmitterid"]);
+                $payment->setReceiverid($row["receiverid"]);
+                $payment->setReserveid($row["reserveid"]);
+                $payment->setMonto($row["monto"]);
+                $payment->setQr($row["qr"]);
+
+                array_push($paymentList, $payment);
+            }
+            return $paymentList;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+
     public function Add(Payment $payment)
     {
         try {

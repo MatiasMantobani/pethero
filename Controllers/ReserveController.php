@@ -170,10 +170,17 @@ class ReserveController
     // public function checkOverlap($petid, $userid, $dateStart, $dateFinish){
     //     return $this->reserveDAO->getDuplicate($petid, $userid, $dateStart, $dateFinish);
     // }
+    public function payReserve($reserveid){
+        //se lo manda a la vista de pago
+        //se "paga"
+        //se envia el cupon de pago por mail
+        //chequeamos que ambos pagos esten hechos (getThePayments)
+        //si ambos estan se hace un status update a "payed"
+    }
 
-    //
-    // It updates the status on 'Reserve' table by userid.
-    //
+
+    
+    // It updates the status on 'Reserve' table by userid
     public function StatusUpdate($reserveid, $status){
         $reserve = new Reserve();
         $reserve->setReserveid($reserveid);

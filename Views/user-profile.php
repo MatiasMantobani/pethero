@@ -330,6 +330,7 @@ require_once('nav.php');
                         <td><?php echo $reserva->getAmount() ?></td>
                         <td><?php echo $reserva->getStatus() ?></td>
 
+                        <!-- status await -->
                         <?php if($reserva->getStatus() != "await"){ ?>
                             <?php if($_SESSION['type'] == 'G'){ ?>
                                 <td><button class="btn btn-success btn-sm" disabled>Aceptar Reserva</button></td>
@@ -349,6 +350,8 @@ require_once('nav.php');
                     <?php
                     }
                     ?>
+
+
 
                     </tr>
                     </tbody>
