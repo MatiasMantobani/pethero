@@ -33,25 +33,29 @@ class ReserveController
         $this->KeeperController = new KeeperController();
     }
 
+
+
+
+    //lo llama el boton de pagar reserva del user-profile
     public function payReserve($reserveid)
     {
         //se lo manda a la vista de pago (?)
+        //la vista llama al add() de payment
         //se "paga" (?)
         //se envia el cupon de pago por mail (listo)
-        
+
         //chequeamos que ambos pagos esten hechos
         $paymentController = new PaymentController;
         $pagos = $paymentController->GetByReserveId($reserveid);
-        $isPayed=0;
-        foreach($pagos as $pago){
-            if($pago->GetPaymentid()){
+        $isPayed = 0;
+        foreach ($pagos as $pago) {
+            if ($pago->GetPaymentid()) {
                 $isPayed++;
             }
         }
-        if($isPayed=2){  //si ambos estan pagos se hace un status update a "payed"
-           $this->StatusUpdate($reserveid, "payed");
+        if ($isPayed = 2) {  //si ambos estan pagos se hace un status update a "payed"
+            $this->StatusUpdate($reserveid, "payed");
         }
-        
     }
 
 

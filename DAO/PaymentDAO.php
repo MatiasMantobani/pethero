@@ -13,8 +13,9 @@ class PaymentDAO
     private $tablePayments = "payments";
 
 
-    //get payments by reserveid que retona entre 0 y 2 pagos
-    public function GetByReserveId($reserveid){
+    //retona entre 0 y 2 pagos
+    public function GetByReserveId($reserveid)
+    {
         try {
             $paymentList = array();
 
