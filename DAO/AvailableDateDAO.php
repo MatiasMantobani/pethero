@@ -13,6 +13,25 @@ class AvailableDateDAO
 
 
 
+    public function UpdateDatesByUserDatesAndBreed($userid, $dateStart, $dateFinish, $breedid)
+    {
+        try
+        {
+            $query = "CALL update_available_dates_by_userid_dates_and_breed(?,?,?,?);";
+            
+            $parameters["keeperid"] =$userid ;
+            $parameters["fechainicio"] =$dateStart ;
+            $parameters["fechafin"] =$dateFinish ;
+            $parameters["breedid"] = $breedid;
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
     public function Add(AvailableDate $availableDate)
     {
         try {

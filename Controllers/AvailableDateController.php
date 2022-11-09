@@ -19,7 +19,11 @@ class AvailableDateController
         $this->availableDateDAO = new AvailableDateDAO();
     }
 
-
+    public function UpdateDatesByBreed($userid, $dateStart, $dateFinish, $breedid)
+    {
+        $this->availableDateDAO->UpdateDatesByUserDatesAndBreed($userid, $dateStart, $dateFinish, $breedid);
+    } 
+    
     public function ShowAddView()
     {
         require_once(VIEWS_PATH . "availableDate-add.php");

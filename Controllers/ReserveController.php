@@ -238,7 +238,7 @@ class ReserveController
 
             if ($currentReserve->getReserveid() != $reserve->getReserveid()) {                       //si no es la misma reserva
                 if ($reserve->getStatus() == "confirmed" || $reserve->getStatus() == "payed" || $reserve->getStatus() == "in progress") {    //si los estados de las reservas son compatibles (ej: no tiene sentido chequear contra una reserva cancelada)
-                    if ($currentReserve->getFirstdate() >= $reserve->getFirstdate() && $currentReserve->getFirstDate() <= $reserve->getLastdate() ||$currentReserve->getLastdate() >= $reserve->getFirstdate() && $currentReserve->getLastDate() <= $reserve->getLastdate() ) { //si las fechas de las reservas coinciden
+                    if ($currentReserve->getFirstdate() >= $reserve->getFirstdate() && $currentReserve->getFirstDate() <= $reserve->getLastdate() || $currentReserve->getLastdate() >= $reserve->getFirstdate() && $currentReserve->getLastDate() <= $reserve->getLastdate()) { //si las fechas de las reservas coinciden
                         $pet = $this->PetController->PetFinder($reserve->getPetid());
                         if ($currentPet->getBreedid() != $pet->getBreedid()) {
                             $resultado = "rejected";
@@ -248,5 +248,10 @@ class ReserveController
             }
         }
         $this->StatusUpdate($currentReserve->getReserveid(), $resultado);
+        $availableDateController = new AvailableDateController;
+        echo "es string pero dice que no es string";
+        // $currentReserve->getFirstdate()->format("y-m-d") ya lo intentamos y no anda
+        var_dump($currentReserve);
+        $availableDateController->UpdateDatesByBreed($currentReserve->getReceiverid(), $currentReserve->getFirstdate(), $$currentReserve->getLastdate(), $currentPet->getBreedid());
     }
 }
