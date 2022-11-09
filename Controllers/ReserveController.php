@@ -89,7 +89,7 @@ class ReserveController
         $valorxDia = $keeper->getPricing();
 
         //se multiplica cant dias * precio keeper
-        $total = $valorxDia *  $intervalInDays;
+        $total = $valorxDia *  $intervalInDays + $valorxDia;
 
         //se retorna cantidad total
         return $total;
@@ -167,9 +167,9 @@ class ReserveController
         require_once(VIEWS_PATH . "choose-keeper.php");
     }
 
-    public function checkOverlap($petid, $userid, $dateStart, $dateFinish){
-        return $this->reserveDAO->getDuplicate($petid, $userid, $dateStart, $dateFinish);
-    }
+    // public function checkOverlap($petid, $userid, $dateStart, $dateFinish){
+    //     return $this->reserveDAO->getDuplicate($petid, $userid, $dateStart, $dateFinish);
+    // }
 
     //
     // It updates the status on 'Reserve' table by userid.
