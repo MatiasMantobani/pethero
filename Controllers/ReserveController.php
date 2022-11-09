@@ -220,12 +220,7 @@ class ReserveController
         $this->StatusUpdate($reserveid, "canceled");
     }
 
-    /*
-     Select m.raza from reserva as r, mascota as m where (r.id_mascota=m.id_mascota) and (r.id_guardian=:id_guardian)
-                 and (r.fecha_inicio between :fecha_inicio and :fecha_final or r.fecha_final between :fecha_inicio and :fecha_final) 
-                and ((r.estado != 'Cancelada') and (r.estado != 'Pendiente'));
-
-    */
+    
 
     public function AcceptReserve($reserveid)   //FUNCIONA MAL
     {
@@ -249,9 +244,6 @@ class ReserveController
         }
         $this->StatusUpdate($currentReserve->getReserveid(), $resultado);
         $availableDateController = new AvailableDateController;
-        echo "es string pero dice que no es string";
-        // $currentReserve->getFirstdate()->format("y-m-d") ya lo intentamos y no anda
-        var_dump($currentReserve);
-        $availableDateController->UpdateDatesByBreed($currentReserve->getReceiverid(), $currentReserve->getFirstdate(), $$currentReserve->getLastdate(), $currentPet->getBreedid());
+        $availableDateController->UpdateDatesByBreed($currentReserve->getReceiverid(), $currentReserve->getFirstdate(), $currentReserve->getLastdate(), $currentPet->getBreedid());
     }
 }
