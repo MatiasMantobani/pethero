@@ -33,6 +33,7 @@ class ReserveDAO
         }
     }
 
+
     public function getOwnerReserves($userid)
     {
         try {
@@ -198,8 +199,6 @@ class ReserveDAO
                 $reserve->setAmount($row["amount"]);
                 $reserve->setStatus($row["status"]);
             }
-            echo "VAR_DUMP de DAO getReserveById()<br>";
-            var_dump($reserve);
             return $reserve;
         } catch (Exception $ex) {
             throw $ex;

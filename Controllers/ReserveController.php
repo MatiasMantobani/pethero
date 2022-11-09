@@ -220,6 +220,13 @@ class ReserveController
         $this->StatusUpdate($reserveid, "canceled");
     }
 
+    /*
+     Select m.raza from reserva as r, mascota as m where (r.id_mascota=m.id_mascota) and (r.id_guardian=:id_guardian)
+                 and (r.fecha_inicio between :fecha_inicio and :fecha_final or r.fecha_final between :fecha_inicio and :fecha_final) 
+                and ((r.estado != 'Cancelada') and (r.estado != 'Pendiente'));
+
+    */
+
     public function AcceptReserve($reserveid)   //FUNCIONA MAL
     {
         $currentReserve = $this->reserveDAO->getReserveById($reserveid);                       //seleccionas la reserva actual
@@ -231,7 +238,7 @@ class ReserveController
 
             if ($currentReserve->getReserveid() != $reserve->getReserveid()) {                       //si no es la misma reserva
                 if ($reserve->getStatus() == "confirmed" || $reserve->getStatus() == "payed" || $reserve->getStatus() == "in progress") {    //si los estados de las reservas son compatibles (ej: no tiene sentido chequear contra una reserva cancelada)
-                    if ($currentReserve->getFirstdate() >= $reserve->getFirstdate() && $currentReserve->getLastDate() <= $reserve->getLastdate()) { //si las fechas de las reservas coinciden
+                    if ($currentReserve->getFirstdate() >= $reserve->getFirstdate() && $currentReserve->getFirstDate() <= $reserve->getLastdate() ||$currentReserve->getLastdate() >= $reserve->getFirstdate() && $currentReserve->getLastDate() <= $reserve->getLastdate() ) { //si las fechas de las reservas coinciden
                         $pet = $this->PetController->PetFinder($reserve->getPetid());
                         if ($currentPet->getBreedid() != $pet->getBreedid()) {
                             $resultado = "rejected";
@@ -241,6 +248,5 @@ class ReserveController
             }
         }
         $this->StatusUpdate($currentReserve->getReserveid(), $resultado);
-        // aca se cambia el avaialbe date 
     }
 }
