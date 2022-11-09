@@ -9,7 +9,7 @@ require_once('nav.php');
                 <div class="alert alert-primary" role="alert">
                     <?php echo $_SESSION['message'] ?>
                 </div>
-                <?php
+            <?php
                 $_SESSION['message'] = null;
             } ?>
 
@@ -22,14 +22,12 @@ require_once('nav.php');
 
                             <?php if ($userImage != null) { ?>
 
-                                <img src="<?php echo FRONT_ROOT . USER_UPLOADS_PATH . $userImage->getName() ?>"
-                                     alt="Profile img" class="img-fluid my-5 rounded" style="width: 200px;"/>
+                                <img src="<?php echo FRONT_ROOT . USER_UPLOADS_PATH . $userImage->getName() ?>" alt="Profile img" class="img-fluid my-5 rounded" style="width: 200px;" />
                                 <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>UserImage/ShowUploadView">[Cambiar
                                         foto]</a></p>
                             <?php } else { ?>
 
-                                <img src="<?php echo FRONT_ROOT ?>Views/img/profile/profile_default.png"
-                                     alt="Profile img" class="img-fluid my-5 rounded" style="width: 200px;"/>
+                                <img src="<?php echo FRONT_ROOT ?>Views/img/profile/profile_default.png" alt="Profile img" class="img-fluid my-5 rounded" style="width: 200px;" />
                                 <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>UserImage/ShowUploadView">[Subir
                                         foto]</a></p>
                             <?php } ?>
@@ -75,8 +73,7 @@ require_once('nav.php');
                                             dirección]</a></p>
                                 <?php } else { ?>
                                     <h6>Direccion: </h6>
-                                    <p class="text-muted">No disponible <a
-                                                href="<?php echo FRONT_ROOT ?>Adress/ShowAddView">[Cargar
+                                    <p class="text-muted">No disponible <a href="<?php echo FRONT_ROOT ?>Adress/ShowAddView">[Cargar
                                             direccion]</a></p>
 
                                 <?php } ?>
@@ -84,60 +81,61 @@ require_once('nav.php');
                                 <hr class="mt-0 mb-4">
 
 
-                                <?php if ($_SESSION['type'] == 'G') { ?><!-- INICIO GUARDIAN -->
+                                <?php if ($_SESSION['type'] == 'G') { ?>
+                                    <!-- INICIO GUARDIAN -->
 
-                                <div class="row pt-1">
-                                    <div class="col-6 mb-3">
-                                        <h6>Remuneración: </h6>
-                                        <?php if($keeper != null && $keeper->getPricing() > 0) { ?>
-                                        <p class="text-muted"><?php echo $keeper->getPricing(); ?><a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView"> [Cambiar]</a></p>
-                                        <?php } else { ?>
-                                        <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView">[Cargar tarifa]</a></p>
-                                        <?php } ?>
+                                    <div class="row pt-1">
+                                        <div class="col-6 mb-3">
+                                            <h6>Remuneración: </h6>
+                                            <?php if ($keeper != null && $keeper->getPricing() > 0) { ?>
+                                                <p class="text-muted"><?php echo $keeper->getPricing(); ?><a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView"> [Cambiar]</a></p>
+                                            <?php } else { ?>
+                                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView">[Cargar tarifa]</a></p>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Valoración:</h6>
+                                            <?php if ($keeper != null) { ?>
+                                                <p class="text-muted">Comunidad: <?php echo $keeper->getRating(); ?></p>
+                                            <?php } else { ?>
+                                                <p class="text-muted">Error cargando reputación </p>
+                                            <?php } ?>
+                                        </div>
                                     </div>
-                                    <div class="col-6 mb-3">
-                                        <h6>Valoración:</h6>
-                                        <?php if($keeper != null) { ?>
-                                            <p class="text-muted">Comunidad: <?php echo $keeper->getRating(); ?></p>
-                                        <?php } else { ?>
-                                            <p class="text-muted">Error cargando reputación </p>
-                                        <?php } ?>
+
+                                    <hr class="mt-0 mb-4">
+
+                                    <div class="row pt-1">
+                                        <div class="col-6 mb-3">
+                                            <?php if ($size) { ?>
+                                                <h6>Tamaños aceptados: </h6>
+                                                <p class="text-muted"><?php if ($size->getSmall() == true) echo "[S] ";
+                                                                        if ($size->getMedium() == true) echo "[M] ";
+                                                                        if ($size->getLarge() == true) echo "[L] "; ?> <a href="<?php echo FRONT_ROOT ?>Size/ShowAddView">[Editar]</a></p>
+                                            <?php } else { ?>
+                                                <h6>Tamaños aceptados: </h6>
+                                                <p class="text-muted">No disponible <a href="<?php echo FRONT_ROOT ?>Size/ShowAddView">[Cargar
+                                                        ahora]</a></p>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Fechas disponibles:</h6>
+                                            <?php if ($fechas != null) { ?>
+                                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView">[Editar disponibilidad]</a></p>
+                                            <?php } else { ?>
+                                                <p class="text-muted">No tenes disponibilidad <a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView"><br>[Cargar disponibilidad]</a></p>
+                                            <?php } ?>
+                                        </div>
                                     </div>
-                                </div>
-
-                            <hr class="mt-0 mb-4">
-
-                                <div class="row pt-1">
-                                    <div class="col-6 mb-3">
-                                        <?php if ($size) { ?>
-                                            <h6>Tamaños aceptados: </h6>
-                                            <p class="text-muted"><?php if ($size->getSmall() == true) echo "[S] ";
-                                                if ($size->getMedium() == true) echo "[M] ";
-                                                if ($size->getLarge() == true) echo "[L] "; ?> <a
-                                                        href="<?php echo FRONT_ROOT ?>Size/ShowAddView">[Editar]</a></p>
-                                        <?php } else { ?>
-                                            <h6>Tamaños aceptados: </h6>
-                                            <p class="text-muted">No disponible <a
-                                                        href="<?php echo FRONT_ROOT ?>Size/ShowAddView">[Cargar
-                                                    ahora]</a></p>
-                                        <?php } ?>
-                                    </div>
-                                    <div class="col-6 mb-3">
-                                        <h6>Fechas disponibles:</h6>
-                                        <?php if($fechas != null) { ?>
-                                            <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView">[Editar disponibilidad]</a></p>
-                                        <?php } else { ?>
-                                            <p class="text-muted">No tenes disponibilidad <a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView"><br>[Cargar disponibilidad]</a></p>
-                                        <?php } ?>
-                                    </div>
-                                </div>
 
 
-                                <hr class="mt-0 mb-4">
-                                <?php } ?><!-- FIN GUARDIAN -->
+                                    <hr class="mt-0 mb-4">
+                                <?php } ?>
+                                <!-- FIN GUARDIAN -->
 
 
-                                <?php if ($_SESSION['type'] == 'D') { ?><!-- INICIO DUEÑO -->
+                                <?php if ($_SESSION['type'] == 'D') { ?>
+                                    <!-- INICIO DUEÑO -->
 
                                     <!-- REALIZAR RESERVAS -->
                                     <p><a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView">[Realizar reserva]</a></p>
@@ -168,61 +166,60 @@ require_once('nav.php');
             <!-- SI ES DUEÑO -->
             <?php if ($_SESSION['type'] == 'D') { ?>
 
-               
+
 
                 <h2 class="mb-4">Listado de mascotas</h2>
                 <table class="table bg-light-alpha">
                     <thead>
-                    <th>ID</th>
-                    <th>Tipo</th>
-                    <th>Raza</th>
-                    <th>Nombre</th>
-                    <th>Tamaño</th>
-                    <th>Perfil</th>
-                    <th>Reserva</th>
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Raza</th>
+                        <th>Nombre</th>
+                        <th>Tamaño</th>
+                        <th>Perfil</th>
+                        <th>Reserva</th>
                     </thead>
                     <tbody>
-                    <?php if ($petList != null) {
-                        foreach ($petList as $pet) {
-                            if ($pet->getStatus() == 1) { ?>
-                                <?php $breed = $breedController->getByBreedId($pet->getBreedid()); ?>
-                                <tr>
-                                    <td><?php echo $pet->getPetid() ?></td>
-                                    <td><?php switch ($breed->getType()) {
-                                            case 1:
-                                                echo "Gato";
-                                                break;
-                                            case "2":
-                                                echo "Perro";
-                                                break;
-                                        } ?></td>
-                                    <td><?php echo $breed->getName() ?></td>
-                                    <td><?php echo $pet->getName() ?></td>
-                                    <td><?php switch ($breed->getSize()) {
-                                            case 1:
-                                                echo "Pequeño";
-                                                break;
-                                            case 2:
-                                                echo "Mediano";
-                                                break;
-                                            case 3:
-                                                echo "Grande";
-                                                break;
-                                        } ?></td>
-                                    <td>
-                                        <a href="<?php echo FRONT_ROOT ?>Pet/ShowProfileView/<?php echo $pet->getPetid() ?>"
-                                           class="btn btn-primary btn-sm">Ver
-                                            perfil</a>
-                                    </td>
-                                    <td>
-                                        
-                                        <a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView/<?php echo $pet->getPetid() ?>" class="btn btn-primary btn-sm">Solicitar Reserva</a>
-                                    </td>
-                                </tr>
-                            <?php }
-                        }
-                    } ?>
-                    </tr>
+                        <?php if ($petList != null) {
+                            foreach ($petList as $pet) {
+                                if ($pet->getStatus() == 1) { ?>
+                                    <?php $breed = $breedController->getByBreedId($pet->getBreedid()); ?>
+                                    <tr>
+                                        <td><?php echo $pet->getPetid() ?></td>
+                                        <td><?php switch ($breed->getType()) {
+                                                case 1:
+                                                    echo "Gato";
+                                                    break;
+                                                case "2":
+                                                    echo "Perro";
+                                                    break;
+                                            } ?></td>
+                                        <td><?php echo $breed->getName() ?></td>
+                                        <td><?php echo $pet->getName() ?></td>
+                                        <td><?php switch ($breed->getSize()) {
+                                                case 1:
+                                                    echo "Pequeño";
+                                                    break;
+                                                case 2:
+                                                    echo "Mediano";
+                                                    break;
+                                                case 3:
+                                                    echo "Grande";
+                                                    break;
+                                            } ?></td>
+                                        <td>
+                                            <a href="<?php echo FRONT_ROOT ?>Pet/ShowProfileView/<?php echo $pet->getPetid() ?>" class="btn btn-primary btn-sm">Ver
+                                                perfil</a>
+                                        </td>
+                                        <td>
+
+                                            <a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView/<?php echo $pet->getPetid() ?>" class="btn btn-primary btn-sm">Solicitar Reserva</a>
+                                        </td>
+                                    </tr>
+                        <?php }
+                            }
+                        } ?>
+                        </tr>
                     </tbody>
                 </table>
 
@@ -233,28 +230,28 @@ require_once('nav.php');
                 <h2 class="mb-4">Listado de guardianes</h2>
                 <table class="table bg-light-alpha">
                     <thead>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Telefono</th>
-                    <th>Email</th>
-                    <th>Contratar</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th>Contratar</th>
                     </thead>
                     <tbody>
-                    <?php
-                    foreach ($userList as $user) {
-                        if ($user->getType() == "G") {
-                            ?>
-                            <tr>
-                                <td><?php echo $user->getName() ?></td>
-                                <td><?php echo $user->getSurname() ?></td>
-                                <td><?php echo $user->getPhone() ?></td>
-                                <td><?php echo $user->getEmail() ?></td>
-                                <td>Accion ID <?php echo $user->getUserid() ?></td>
+                        <?php
+                        foreach ($userList as $user) {
+                            if ($user->getType() == "G") {
+                        ?>
+                                <tr>
+                                    <td><?php echo $user->getName() ?></td>
+                                    <td><?php echo $user->getSurname() ?></td>
+                                    <td><?php echo $user->getPhone() ?></td>
+                                    <td><?php echo $user->getEmail() ?></td>
+                                    <td>Accion ID <?php echo $user->getUserid() ?></td>
 
-                            </tr>
+                                </tr>
                         <?php }
-                    } ?>
-                    </tr>
+                        } ?>
+                        </tr>
                     </tbody>
                 </table>
 
@@ -267,26 +264,26 @@ require_once('nav.php');
 
                 <table class="table bg-light-alpha">
                     <thead>
-                    <th>Available Dates Id</th>
-                    <th>User Id</th>
-                    <th>Available</th>
-                    <th>Fecha</th>
+                        <th>Available Dates Id</th>
+                        <th>User Id</th>
+                        <th>Available</th>
+                        <th>Fecha</th>
 
                     </thead>
                     <tbody>
-                    <?php
-                    foreach ($fechas as $fecha) {
+                        <?php
+                        foreach ($fechas as $fecha) {
                         ?>
-                        <tr>
-                            <td><?php echo $fecha->getAvailableDateId() ?></td>
-                            <td><?php echo $fecha->getUserid() ?></td>
-                            <td><?php echo $fecha->getAvailable() ?></td>
-                            <td><?php echo $fecha->getDate() ?></td>
+                            <tr>
+                                <td><?php echo $fecha->getAvailableDateId() ?></td>
+                                <td><?php echo $fecha->getUserid() ?></td>
+                                <td><?php echo $fecha->getAvailable() ?></td>
+                                <td><?php echo $fecha->getDate() ?></td>
 
+                            </tr>
+                        <?php }
+                        ?>
                         </tr>
-                    <?php }
-                    ?>
-                    </tr>
                     </tbody>
                 </table>
 
@@ -296,10 +293,10 @@ require_once('nav.php');
 
             <!-- PARA GUARDIANES Y DUEÑOS -->
 
-             <!-- LISTADO DE RESERVAS -->
-             <h2 class="mb-4">Listado de Reservas</h2>
-                <table class="table bg-light-alpha">
-                    <thead>
+            <!-- LISTADO DE RESERVAS -->
+            <h2 class="mb-4">Listado de Reservas</h2>
+            <table class="table bg-light-alpha">
+                <thead>
                     <th>ReservaID</th>
                     <th>Emisor</th>
                     <th>Receptor</th>
@@ -308,94 +305,127 @@ require_once('nav.php');
                     <th>Fecha Fin</th>
                     <th>MontoTotal</th>
                     <th>Estado</th>
-                    <?php if($_SESSION['type'] == 'G'){ ?>
+                    <!-- Columnas para Guardian -->
+                    <?php if ($_SESSION['type'] == 'G') { ?>
                         <th>Confirmar</th>
                         <th>Rechazar</th>
-                    <?php }else{ ?>
                         <th>Eliminar</th>
+                        <!-- Columnas para Dueño -->
+                    <?php } else { ?>
+                        <th>Pagar</th>
+                        <th>Cancelar</th>
                     <?php } ?>
-                    </thead>
-                    <tbody>
+                </thead>
+                <tbody>
                     <?php
-                     foreach ($reserveList as $reserva) {
+                    foreach ($reserveList as $reserva) {
 
                     ?>
-                    <tr>
-                        <td><?php echo $reserva->getReserveid() ?></td>
-                        <td><?php echo $reserva->getTransmitterid() ?></td>
-                        <td><?php echo $reserva->getReceiverid() ?></td>
-                        <td><?php echo $reserva->getPetid() ?></td>
-                        <td><?php echo $reserva->getFirstdate() ?></td>
-                        <td><?php echo $reserva->getLastdate() ?></td>
-                        <td><?php echo $reserva->getAmount() ?></td>
-                        <td><?php echo $reserva->getStatus() ?></td>
+                        <tr>
+                            <td><?php echo $reserva->getReserveid() ?></td>
+                            <td><?php echo $reserva->getTransmitterid() ?></td>
+                            <td><?php echo $reserva->getReceiverid() ?></td>
+                            <td><?php echo $reserva->getPetid() ?></td>
+                            <td><?php echo $reserva->getFirstdate() ?></td>
+                            <td><?php echo $reserva->getLastdate() ?></td>
+                            <td><?php echo $reserva->getAmount() ?></td>
+                            <td><?php echo $reserva->getStatus() ?></td>
 
-                        <!-- status await -->
-                        <?php if($reserva->getStatus() != "await"){ ?>
-                            <?php if($_SESSION['type'] == 'G'){ ?>
-                                <td><button class="btn btn-success btn-sm" disabled>Aceptar Reserva</button></td>
-                                <td><button class="btn btn-danger btn-sm" disabled>Rechazar Reserva</button></td>
-                            <?php }else{ ?>
-                                <td><button class="btn btn-danger btn-sm" disabled>Eliminar Reserva</button></td>
+
+                            <!-- Todos los estados para Guardian -->
+                            <?php if ($_SESSION['type'] == 'G') { ?>
+
+                                <?php if ($reserva->getStatus() == "await") { ?>
+                                    <td><a href="<?php echo FRONT_ROOT ?>Reserve/AcceptReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-primary btn-sm">Aceptar Reserva</a></td>
+                                    <td><a href="<?php echo FRONT_ROOT ?>Reserve/RejectReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-warning btn-sm">Rechazar Reserva</a></td>
+                                    <td><a href="<?php echo FRONT_ROOT ?>Reserve/CancelReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Eliminar Reserva</a></td>
+
+                                <?php } else if ($reserva->getStatus() == "confirmed") { ?>
+                                    <td><button class="btn btn-primary btn-sm" disabled>Aceptar Reserva</button></td>
+                                    <td><button class="btn btn-primary btn-sm" disabled>Rechazar Reserva</button></td>
+                                    <td><a href="<?php echo FRONT_ROOT ?>Reserve/CancelReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Eliminar Reserva</a></td>
+
+                                <?php } else if ($reserva->getStatus() == "payed") { ?>
+
+                                <?php } else if ($reserva->getStatus() == "in progress") { ?>
+
+                                <?php } else if ($reserva->getStatus() == "completed") { ?>
+
+                                <?php } else if ($reserva->getStatus() == "canceled") { ?>
+                                <?php } ?>
+
                             <?php } ?>
-                        <?php }else{ ?>
-                            <?php if($_SESSION['type'] == 'G'){ ?>
-                                <td><a href="<?php echo FRONT_ROOT ?>Reserve/AcceptReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-success btn-sm">Aceptar Reserva</a></td>
-                                <td><a href="<?php echo FRONT_ROOT ?>Reserve/RejectReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Rechazar Reserva</a></td>
-                            <?php }else{ ?>
-                                <td><a href="<?php echo FRONT_ROOT ?>Reserve/CancelReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Eliminar Reserva</a></td>
+
+                            <!-- Todos los estados para Dueño -->
+                            <?php if ($_SESSION['type'] == 'D') { ?>
+                                <?php if ($reserva->getStatus() == "await") { ?>      
+                                    <td><button class="btn btn-primary btn-sm" disabled>Pagar Reserva</button></td>
+                                    <td><a href="<?php echo FRONT_ROOT ?>Reserve/CancelReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Eliminar Reserva</a></td>
+
+                                <?php } else if ($reserva->getStatus() == "confirmed") { ?>
+                                    <td><a href="<?php echo FRONT_ROOT ?>Reserve/PayReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Pagar Reserva</a></td>
+                                    <td><a href="<?php echo FRONT_ROOT ?>Reserve/CancelReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Eliminar Reserva</a></td>
+
+                                <?php } else if ($reserva->getStatus() == "payed") { ?>
+
+                                <?php } else if ($reserva->getStatus() == "in progress") { ?>
+
+                                <?php } else if ($reserva->getStatus() == "completed") { ?>
+
+                                <?php } else if ($reserva->getStatus() == "canceled") { ?>
+
+                                <?php } ?>
+
                             <?php } ?>
-                        <?php } ?>
-                    </tr>
+
+                        </tr>
                     <?php
                     }
                     ?>
 
-
-
                     </tr>
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
 
-                <div class="col-md-12 text-right">
-                    <a href="" class="btn btn-secondary">Agregar reserva</a>
-                </div>
+            <div class="col-md-12 text-right">
+                <a href="" class="btn btn-secondary">Agregar reserva</a>
+            </div>
 
             <h2 class="mb-4">Tus Pagos</h2>
             <table class="table bg-light-alpha">
                 <thead>
-                <th>Pago ID</th>
-                <th>Emisor ID</th>
-                <th>Receptor ID</th>
-                <th>Reserva ID</th>
-                <th>Monto</th>
-                <th>QR</th>
+                    <th>Pago ID</th>
+                    <th>Emisor ID</th>
+                    <th>Receptor ID</th>
+                    <th>Reserva ID</th>
+                    <th>Monto</th>
+                    <th>QR</th>
 
                 </thead>
                 <tbody>
-                <?php
+                    <?php
 
-                // foreach ($pagos as $pago) {
+                    // foreach ($pagos as $pago) {
 
-                ?>
-                <tr>
-                    <td><?php //echo $pago->getPaymentid()
-                        ?></td>
-                    <td><?php //echo $fecha->getTransmitterid()
-                        ?></td>
-                    <td><?php //echo $fecha->getReceiverid()
-                        ?></td>
-                    <td><?php //echo $fecha->getReserveid()
-                        ?></td>
-                    <td><?php //echo $fecha->getMonto()
-                        ?></td>
-                    <td><?php //echo $fecha->getQr()
-                        ?></td>
+                    ?>
+                    <tr>
+                        <td><?php //echo $pago->getPaymentid()
+                            ?></td>
+                        <td><?php //echo $fecha->getTransmitterid()
+                            ?></td>
+                        <td><?php //echo $fecha->getReceiverid()
+                            ?></td>
+                        <td><?php //echo $fecha->getReserveid()
+                            ?></td>
+                        <td><?php //echo $fecha->getMonto()
+                            ?></td>
+                        <td><?php //echo $fecha->getQr()
+                            ?></td>
 
-                </tr>
-                <?php //}
-                ?>
-                </tr>
+                    </tr>
+                    <?php //}
+                    ?>
+                    </tr>
                 </tbody>
             </table>
 

@@ -34,10 +34,8 @@ class ReserveController
     }
 
 
-
-
     //lo llama el boton de pagar reserva del user-profile
-    public function payReserve($reserveid)
+    public function PayReserve($reserveid)
     {
         //se lo manda a la vista de pago (?)
         //la vista llama al add() de payment
