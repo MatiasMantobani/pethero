@@ -13,6 +13,7 @@ use Models\AvailableDate;
 use Controllers\UserController as UserController;
 use Controllers\KeeperController as KeeperController;
 use Controllers\PetController as PetController;
+use Controllers\PaymentController as PaymentController;
 
 class ReserveController
 {
@@ -32,16 +33,39 @@ class ReserveController
         $this->KeeperController = new KeeperController();
     }
 
+    public function payReserve($reserveid)
+    {
+        //se lo manda a la vista de pago (?)
+        //se "paga" (?)
+        //se envia el cupon de pago por mail (listo)
+        
+        //chequeamos que ambos pagos esten hechos
+        $paymentController = new PaymentController;
+        $pagos = $paymentController->GetByReserveId($reserveid);
+        $isPayed=0;
+        foreach($pagos as $pago){
+            if($pago->GetPaymentid()){
+                $isPayed++;
+            }
+        }
+        if($isPayed=2){  //si ambos estan pagos se hace un status update a "payed"
+           $this->StatusUpdate($reserveid, "payed");
+        }
+        
+    }
+
+
+
+
     public function getMyReserves()
     {
         if ($_SESSION["type"] == "D") {
             return $this->reserveDAO->getOwnerReserves($_SESSION['userid']);
-        }else if($_SESSION["type"] == "G"){
+        } else if ($_SESSION["type"] == "G") {
             return $this->reserveDAO->getKeeperReserves($_SESSION['userid']);
-        }else{
+        } else {
             echo "admin";
         }
-        
     }
 
     public function Add($petid, $daterange, $userid)
@@ -170,18 +194,10 @@ class ReserveController
     // public function checkOverlap($petid, $userid, $dateStart, $dateFinish){
     //     return $this->reserveDAO->getDuplicate($petid, $userid, $dateStart, $dateFinish);
     // }
-    public function payReserve($reserveid){
-        //se lo manda a la vista de pago
-        //se "paga"
-        //se envia el cupon de pago por mail
-        //chequeamos que ambos pagos esten hechos (getThePayments)
-        //si ambos estan se hace un status update a "payed"
-    }
 
-
-    
     // It updates the status on 'Reserve' table by userid
-    public function StatusUpdate($reserveid, $status){
+    public function StatusUpdate($reserveid, $status)
+    {
         $reserve = new Reserve();
         $reserve->setReserveid($reserveid);
         $reserve->setStatus($status);
@@ -190,32 +206,34 @@ class ReserveController
         $reserveDAO->StatusUpdate($reserve);
 
         // After update returns to UserProfile
-//        header('Location:../User/ShowProfileView');
+        //        header('Location:../User/ShowProfileView');
         $this->UserController->ShowProfileView();
     }
 
-    public function RejectReserve($reserveid){
+    public function RejectReserve($reserveid)
+    {
         $this->StatusUpdate($reserveid, "rejected");
     }
 
-    public function CancelReserve($reserveid){
+    public function CancelReserve($reserveid)
+    {
         $this->StatusUpdate($reserveid, "canceled");
     }
 
-    public function AcceptReserve($reserveid){
+    public function AcceptReserve($reserveid)
+    {
         $currentReserve = $this->reserveDAO->getReserveById($reserveid);
         $currentPet = $this->PetController->PetFinder($currentReserve->getPetid());
         $reserveList = $this->reserveDAO->getKeeperReserves($currentReserve->getReceiverid());
-        foreach($reserveList as $reserve){
-            if($currentReserve->getFirstdate() >= $reserve->getFirstdate() && $currentReserve->getLastDate() <= $reserve->getLastdate()){
+        foreach ($reserveList as $reserve) {
+            if ($currentReserve->getFirstdate() >= $reserve->getFirstdate() && $currentReserve->getLastDate() <= $reserve->getLastdate()) {
                 $pet = $this->PetController->PetFinder($reserve->getPetid());
-                if($pet->getBreedid() == $currentPet->getBreedid()){
+                if ($pet->getBreedid() == $currentPet->getBreedid()) {
                     $this->StatusUpdate($reserveid, "confirmed");
-                }else{
+                } else {
                     $this->StatusUpdate($reserveid, "rejected");
                 }
             }
         }
     }
-
 }
