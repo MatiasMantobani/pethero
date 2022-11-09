@@ -222,18 +222,23 @@ class ReserveController
         $this->StatusUpdate($reserveid, "canceled");
     }
 
-    public function AcceptReserve($reserveid)
+    public function AcceptReserve($reserveid)   //FUNCIONA MAL
     {
-        $currentReserve = $this->reserveDAO->getReserveById($reserveid);
-        $currentPet = $this->PetController->PetFinder($currentReserve->getPetid());
-        $reserveList = $this->reserveDAO->getKeeperReserves($currentReserve->getReceiverid());
+        $currentReserve = $this->reserveDAO->getReserveById($reserveid);                       //seleccionas la reserva actual
+        $currentPet = $this->PetController->PetFinder($currentReserve->getPetid());             //seleccionas la mascota actual
+        $reserveList = $this->reserveDAO->getKeeperReserves($currentReserve->getReceiverid());  //seleccionas todas las reservas del keeper
+
         foreach ($reserveList as $reserve) {
-            if ($currentReserve->getFirstdate() >= $reserve->getFirstdate() && $currentReserve->getLastDate() <= $reserve->getLastdate()) {
-                $pet = $this->PetController->PetFinder($reserve->getPetid());
-                if ($pet->getBreedid() == $currentPet->getBreedid()) {
-                    $this->StatusUpdate($reserveid, "confirmed");
-                } else {
-                    $this->StatusUpdate($reserveid, "rejected");
+            if ($currentReserve->getReserveid() != $reserve->getReserveid()) {  //si no es la misma reserva
+                if ($reserve->getStatus() != "canceled" && $reserve->getStatus() != "rejected") { //si los estados de las reservas son compatibles (ej: no tiene sentido chequear contra una reserva cancelada)
+                    if ($currentReserve->getFirstdate() >= $reserve->getFirstdate() && $currentReserve->getLastDate() <= $reserve->getLastdate()) { //si las fechas de las reservas coinciden
+                        $pet = $this->PetController->PetFinder($reserve->getPetid());
+                        if ($pet->getBreedid() == $currentPet->getBreedid()) {
+                            $this->StatusUpdate($reserveid, "confirmed");   //sera currentReservegetid ?
+                        } else {
+                            $this->StatusUpdate($reserveid, "rejected");
+                        }
+                    }
                 }
             }
         }

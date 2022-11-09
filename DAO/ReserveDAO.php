@@ -128,6 +128,7 @@ class ReserveDAO
         }
     }
 
+
     public function getDuplicate($petid)
     {
         try {
@@ -154,7 +155,6 @@ class ReserveDAO
 
                 array_push($reserveList, $reserve);
             }
-            var_dump($reserveList);
             return $reserveList;
         } catch (Exception $ex) {
             throw $ex;
@@ -163,8 +163,7 @@ class ReserveDAO
 
     public function StatusUpdate($reserve)
     {
-        try
-        {
+        try {
             $query = "CALL reserve_update_status(?,?);";
 
             $parameters["reserveid"] = $reserve->getReserveid();
@@ -173,16 +172,14 @@ class ReserveDAO
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
-    public function getReserveById($reserveid){
-        try
-        {
+    public function getReserveById($reserveid)
+    {
+        try {
             $query = "SELECT * FROM " . $this->tableReserve . " WHERE (reserveid = :reserveid)";
 
             $parameters["reserveid"] = $reserveid;
@@ -201,11 +198,10 @@ class ReserveDAO
                 $reserve->setAmount($row["amount"]);
                 $reserve->setStatus($row["status"]);
             }
+            echo "VAR_DUMP de DAO getReserveById()<br>";
             var_dump($reserve);
             return $reserve;
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }

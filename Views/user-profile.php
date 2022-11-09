@@ -305,11 +305,13 @@ require_once('nav.php');
                     <th>Fecha Fin</th>
                     <th>MontoTotal</th>
                     <th>Estado</th>
+
                     <!-- Columnas para Guardian -->
                     <?php if ($_SESSION['type'] == 'G') { ?>
                         <th>Confirmar</th>
                         <th>Rechazar</th>
                         <th>Eliminar</th>
+                        
                         <!-- Columnas para Dueño -->
                     <?php } else { ?>
                         <th>Pagar</th>
@@ -322,6 +324,7 @@ require_once('nav.php');
 
                     ?>
                         <tr>
+                            <!-- Datos en comun para Dueño y Guardian -->
                             <td><?php echo $reserva->getReserveid() ?></td>
                             <td><?php echo $reserva->getTransmitterid() ?></td>
                             <td><?php echo $reserva->getReceiverid() ?></td>
@@ -332,7 +335,7 @@ require_once('nav.php');
                             <td><?php echo $reserva->getStatus() ?></td>
 
 
-                            <!-- Todos los estados para Guardian -->
+                            <!-- Todos los estados para Dueño -->
                             <?php if ($_SESSION['type'] == 'G') { ?>
 
                                 <?php if ($reserva->getStatus() == "await") { ?>
