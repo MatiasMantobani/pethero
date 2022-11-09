@@ -311,7 +311,7 @@ require_once('nav.php');
                         <th>Confirmar</th>
                         <th>Rechazar</th>
                         <th>Eliminar</th>
-                        
+
                         <!-- Columnas para Dueño -->
                     <?php } else { ?>
                         <th>Pagar</th>
@@ -366,7 +366,7 @@ require_once('nav.php');
                                     <td><a href="<?php echo FRONT_ROOT ?>Reserve/CancelReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Eliminar Reserva</a></td>
 
                                 <?php } else if ($reserva->getStatus() == "confirmed") { ?>
-                                    <td><a href="<?php echo FRONT_ROOT ?>Reserve/PayReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Pagar Reserva</a></td>
+                                    <td><a href="<?php echo FRONT_ROOT ?>Reserve/PayReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-primary btn-sm">Pagar Reserva</a></td>
                                     <td><a href="<?php echo FRONT_ROOT ?>Reserve/CancelReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Eliminar Reserva</a></td>
 
                                 <?php } else if ($reserva->getStatus() == "payed") { ?>

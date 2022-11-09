@@ -37,7 +37,7 @@ class ReserveController
     //lo llama el boton de pagar reserva del user-profile
     public function PayReserve($reserveid)
     {
-        //se lo manda a la vista de pago (?)
+        //se lo manda a la vista de pago (?) (podria ser vista con in troducir tarjeta de pago)
         //la vista llama al add() de payment
         //se "paga" (?)
         //se envia el cupon de pago por mail (listo)
@@ -55,8 +55,6 @@ class ReserveController
             $this->StatusUpdate($reserveid, "payed");
         }
     }
-
-
 
 
     public function getMyReserves()
@@ -227,20 +225,22 @@ class ReserveController
         $currentReserve = $this->reserveDAO->getReserveById($reserveid);                       //seleccionas la reserva actual
         $currentPet = $this->PetController->PetFinder($currentReserve->getPetid());             //seleccionas la mascota actual
         $reserveList = $this->reserveDAO->getKeeperReserves($currentReserve->getReceiverid());  //seleccionas todas las reservas del keeper
+        $resultado = "confirmed";
 
         foreach ($reserveList as $reserve) {
-            if ($currentReserve->getReserveid() != $reserve->getReserveid()) {  //si no es la misma reserva
-                if ($reserve->getStatus() != "canceled" && $reserve->getStatus() != "rejected") { //si los estados de las reservas son compatibles (ej: no tiene sentido chequear contra una reserva cancelada)
+
+            if ($currentReserve->getReserveid() != $reserve->getReserveid()) {                       //si no es la misma reserva
+                if ($reserve->getStatus() == "confirmed" || $reserve->getStatus() == "payed" || $reserve->getStatus() == "in progress") {    //si los estados de las reservas son compatibles (ej: no tiene sentido chequear contra una reserva cancelada)
                     if ($currentReserve->getFirstdate() >= $reserve->getFirstdate() && $currentReserve->getLastDate() <= $reserve->getLastdate()) { //si las fechas de las reservas coinciden
                         $pet = $this->PetController->PetFinder($reserve->getPetid());
-                        if ($pet->getBreedid() == $currentPet->getBreedid()) {
-                            $this->StatusUpdate($reserveid, "confirmed");   //sera currentReservegetid ?
-                        } else {
-                            $this->StatusUpdate($reserveid, "rejected");
+                        if ($currentPet->getBreedid() != $pet->getBreedid()) {
+                            $resultado = "rejected";
                         }
                     }
                 }
             }
         }
+        $this->StatusUpdate($currentReserve->getReserveid(), $resultado);
+        // aca se cambia el avaialbe date 
     }
 }
