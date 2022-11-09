@@ -183,8 +183,16 @@ class ReserveController
         $reserveDAO->StatusUpdate($reserve);
 
         // After update returns to UserProfile
-        header('Location:../User/ShowProfileView');
+//        header('Location:../User/ShowProfileView');
+        $this->UserController->ShowProfileView();
     }
 
+    public function RejectReserve($reserveid){
+        $this->StatusUpdate($reserveid, "rejected");
+    }
+
+    public function CancelReserve($reserveid){
+        $this->StatusUpdate($reserveid, "canceled");
+    }
 
 }

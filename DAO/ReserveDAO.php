@@ -167,7 +167,7 @@ class ReserveDAO
         {
             $query = "CALL reserve_update_status(?,?);";
 
-            $parameters["reserveid"] = $reserve->getRserveid();
+            $parameters["reserveid"] = $reserve->getReserveid();
             $parameters["status"] = $reserve->getStatus();
 
             $this->connection = Connection::GetInstance();

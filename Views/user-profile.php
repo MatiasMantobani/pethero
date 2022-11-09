@@ -297,7 +297,7 @@ require_once('nav.php');
             <!-- PARA GUARDIANES Y DUEÑOS -->
 
              <!-- LISTADO DE RESERVAS -->
-             <h2 class="mb-4">Listado de Reservas</h2>
+             <h2 class="mb-4">Listado de Reservas Pendientes</h2>
                 <table class="table bg-light-alpha">
                     <thead>
                     <th>ReservaID</th>
@@ -329,12 +329,20 @@ require_once('nav.php');
                         <td><?php echo $reserva->getLastdate() ?></td>
                         <td><?php echo $reserva->getAmount() ?></td>
                         <td><?php echo $reserva->getStatus() ?></td>
-                        <?php if($_SESSION['type'] == 'G'){ ?>
-                            <td><a href="<?php ?>" class="btn btn-success btn-sm">Aceptar Reserva</a></td>
-                            <td><a href="<?php ?>" class="btn btn-danger btn-sm">Rechazar Reserva</a></td>
+
+                        <?php if($reserva->getStatus() != "await"){ ?>
+                            <?php if($_SESSION['type'] == 'G'){ ?>
+                                <td><button class="btn btn-success btn-sm" disabled>Aceptar Reserva</button></td>
+                                <td><button class="btn btn-danger btn-sm" disabled>Rechazar Reserva</button></td>
+                            <?php }else{ ?>
+                                <td><button class="btn btn-danger btn-sm" disabled>Eliminar Reserva</button></td>
+                            <?php } ?>
                         <?php }else{ ?>
-                            <?php if($reserva->getFirstdate() >= date('y-m-d')){ ?>
-                                <td><a href="<?php ?>" class="btn btn-danger btn-sm">Eliminar Reserva</a></td>
+                            <?php if($_SESSION['type'] == 'G'){ ?>
+                                <td><a href="<?php ?>" class="btn btn-success btn-sm">Aceptar Reserva</a></td>
+                                <td><a href="<?php echo FRONT_ROOT ?>Reserve/RejectReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Rechazar Reserva</a></td>
+                            <?php }else{ ?>
+                                <td><a href="<?php echo FRONT_ROOT ?>Reserve/CancelReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Eliminar Reserva</a></td>
                             <?php } ?>
                         <?php } ?>
                     </tr>
