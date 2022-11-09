@@ -297,7 +297,7 @@ require_once('nav.php');
             <!-- PARA GUARDIANES Y DUEÑOS -->
 
              <!-- LISTADO DE RESERVAS -->
-             <h2 class="mb-4">Listado de Reservas Pendientes</h2>
+             <h2 class="mb-4">Listado de Reservas</h2>
                 <table class="table bg-light-alpha">
                     <thead>
                     <th>ReservaID</th>
@@ -339,7 +339,7 @@ require_once('nav.php');
                             <?php } ?>
                         <?php }else{ ?>
                             <?php if($_SESSION['type'] == 'G'){ ?>
-                                <td><a href="<?php ?>" class="btn btn-success btn-sm">Aceptar Reserva</a></td>
+                                <td><a href="<?php echo FRONT_ROOT ?>Reserve/AcceptReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-success btn-sm">Aceptar Reserva</a></td>
                                 <td><a href="<?php echo FRONT_ROOT ?>Reserve/RejectReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Rechazar Reserva</a></td>
                             <?php }else{ ?>
                                 <td><a href="<?php echo FRONT_ROOT ?>Reserve/CancelReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Eliminar Reserva</a></td>

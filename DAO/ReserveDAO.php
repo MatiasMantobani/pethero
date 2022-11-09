@@ -180,5 +180,33 @@ class ReserveDAO
         }
     }
 
+    public function getReserveById($reserveid){
+        try
+        {
+            $query = "SELECT * FROM " . $this->tableReserve . " WHERE (reserveid = :reserveid)";
 
+            $parameters["reserveid"] = $reserveid;
+
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            $reserve = new Reserve();
+            foreach ($resultSet as $row) {
+                $reserve->setReserveid($row["reserveid"]);
+                $reserve->setTransmitterid($row["transmitterid"]);
+                $reserve->setReceiverid($row["receiverid"]);
+                $reserve->setPetid($row["petid"]);
+                $reserve->setFirstdate($row["firstdate"]);
+                $reserve->setLastdate($row["lastdate"]);
+                $reserve->setAmount($row["amount"]);
+                $reserve->setStatus($row["status"]);
+            }
+            var_dump($reserve);
+            return $reserve;
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
 }

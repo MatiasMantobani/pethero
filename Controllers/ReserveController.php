@@ -195,4 +195,20 @@ class ReserveController
         $this->StatusUpdate($reserveid, "canceled");
     }
 
+    public function AcceptReserve($reserveid){
+        $currentReserve = $this->reserveDAO->getReserveById($reserveid);
+        $currentPet = $this->PetController->PetFinder($currentReserve->getPetid());
+        $reserveList = $this->reserveDAO->getKeeperReserves($currentReserve->getReceiverid());
+        foreach($reserveList as $reserve){
+            if($currentReserve->getFirstdate() >= $reserve->getFirstdate() && $currentReserve->getLastDate() <= $reserve->getLastdate()){
+                $pet = $this->PetController->PetFinder($reserve->getPetid());
+                if($pet->getBreedid() == $currentPet->getBreedid()){
+                    $this->StatusUpdate($reserveid, "confirmed");
+                }else{
+                    $this->StatusUpdate($reserveid, "rejected");
+                }
+            }
+        }
+    }
+
 }
