@@ -170,4 +170,21 @@ class ReserveController
     public function checkOverlap($petid, $userid, $dateStart, $dateFinish){
         return $this->reserveDAO->getDuplicate($petid, $userid, $dateStart, $dateFinish);
     }
+
+    //
+    // It updates the status on 'Reserve' table by userid.
+    //
+    public function StatusUpdate($reserveid, $status){
+        $reserve = new Reserve();
+        $reserve->setReserveid($reserveid);
+        $reserve->setStatus($status);
+
+        $reserveDAO = new ReserveDAO();
+        $reserveDAO->StatusUpdate($reserve);
+
+        // After update returns to UserProfile
+        header('Location:../User/ShowProfileView');
+    }
+
+
 }

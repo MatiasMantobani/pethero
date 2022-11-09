@@ -3,7 +3,9 @@
 namespace DAO;
 
 use DAO\Connection as Connection;
+use DAO\QueryType as QueryType;
 use Models\Keeper as Keeper;
+use Models\PetImage as PetImage;
 use Models\Reserve as Reserve;
 use \Exception as Exception;
 
@@ -159,13 +161,24 @@ class ReserveDAO
         }
     }
 
+    public function StatusUpdate($reserve)
+    {
+        try
+        {
+            $query = "CALL reserve_update_status(?,?);";
 
-//    public function Remove($reserveid)
-//    {
-//        $query = "DELETE FROM " . $this->tableReserve . " WHERE (reserveid = :reserveid)";
-//        $parameters["reserveid"] =  $reserveid;
-//
-//        $this->connection = Connection::GetInstance();
-//        $this->connection->ExecuteNonQuery($query, $parameters);
-//    }
+            $parameters["reserveid"] = $reserve->getRserveid();
+            $parameters["status"] = $reserve->getStatus();
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
+
 }
