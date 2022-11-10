@@ -222,7 +222,7 @@ class ReserveController
 
     
 
-    public function AcceptReserve($reserveid)   //FUNCIONA MAL
+    public function AcceptReserve($reserveid) 
     {
         $currentReserve = $this->reserveDAO->getReserveById($reserveid);                       //seleccionas la reserva actual
         $currentPet = $this->PetController->PetFinder($currentReserve->getPetid());             //seleccionas la mascota actual
@@ -233,8 +233,8 @@ class ReserveController
 
             if ($currentReserve->getReserveid() != $reserve->getReserveid()) {                       //si no es la misma reserva
                 if ($reserve->getStatus() == "confirmed" || $reserve->getStatus() == "payed" || $reserve->getStatus() == "in progress") {    //si los estados de las reservas son compatibles (ej: no tiene sentido chequear contra una reserva cancelada)
-                    if ($currentReserve->getFirstdate() >= $reserve->getFirstdate() && $currentReserve->getFirstDate() <= $reserve->getLastdate() || $currentReserve->getLastdate() >= $reserve->getFirstdate() && $currentReserve->getLastDate() <= $reserve->getLastdate()) { //si las fechas de las reservas coinciden
-                        $pet = $this->PetController->PetFinder($reserve->getPetid());
+                    if ($currentReserve->getFirstdate() >= $reserve->getFirstdate() && $currentReserve->getFirstDate() <= $reserve->getLastdate() || $currentReserve->getLastdate() >= $reserve->getFirstdate() && $currentReserve->getLastDate() <= $reserve->getLastdate()) { //si las fechas de las reservas coinciden o se superponen
+                        $pet = $this->PetController->PetFinder($reserve->getPetid());   //comparo con la mascota de las otras reservas
                         if ($currentPet->getBreedid() != $pet->getBreedid()) {
                             $resultado = "rejected";
                         }
@@ -244,6 +244,6 @@ class ReserveController
         }
         $this->StatusUpdate($currentReserve->getReserveid(), $resultado);
         $availableDateController = new AvailableDateController;
-        $availableDateController->UpdateDatesByBreed($currentReserve->getReceiverid(), $currentReserve->getFirstdate(), $currentReserve->getLastdate(), $currentPet->getBreedid());
+        $availableDateController->UpdateDatesByBreed($currentReserve->getReceiverid(), $currentReserve->getFirstdate(), $currentReserve->getLastdate(), $currentPet->getBreedid()); //modifico el status de las availables dates del guardian que se acaba de confirmar
     }
 }
