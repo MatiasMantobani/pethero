@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Controllers\AuthController as AuthController;
 use DAO\ReserveDAO;
+use Models\Payment;
 use Models\Reserve as Reserve;
 use DateInterval;
 use DateTime;
@@ -35,56 +36,21 @@ class ReserveController
 
 
     //lo llama el boton de pagar reserva del user-profile
-    public function PayOneReserve($reserveid)
+    public function PayReserve($reserveid)
     {
-        /*
-        narrativa: 
-        "En caso de que la reserva sea aceptada-->confirmed por el Keeper, se envía un cupón de pago
-        al Owner con el 50% del costo del total de la estadía. Al momento de efectuar el pago, la
-        reserva queda confirmada -->payed"
-        */
-
-        // CUPON DE PAGO COMO METODO DE PAGO
-        /*
-            Si la reserva es confirmada sale el mail (con datos de usuario en cuerpo y QR?)
-
-        */
-
-
-        // CUPON DE PAGO COMO COMPROBANTE DE PAGO
-        /*
-            OPCION 1
-            Se lo manda a la vista de agregar pago y se le pide introducir los datos de tarjeta
-            Apreta "pagar" luego de introducir todo bien (validado)
-            "pagar" hace el paymentAdd()
-            Se le dice "pago con exito, su cupon de pago fue enviado a su mail"
-            Se envia el cupon de pago al mail
-        */
-
-        /*
-            OPCION 2
-            Apreta "pagar reserva" en lista de reservas de perfil
-            Se hace el paymentAdd() en el controlador que llama el boton
-            Se le dice "su cupon de pago fue enviado a su mail, escanee el QR con las apps de "Mercado pago, CuentaDNI, ... para pagar"
-            Se envia el cupon de pago al mail
-        */
-
         //conseguimos la mitad del total de la reserva para mandarselo a cada pago
-        $paymentController = new PaymentController;
-        $mitadDelTotal = $this->reserveDAO->getReserveById($reserveid)->getAmount() / 2;
+        // $paymentController = new PaymentController;
+        // $mitadDelTotal = $this->reserveDAO->getReserveById($reserveid)->getAmount() / 2;
 
         //chequeamos que ambos pagos esten hechos
-        $paymentController = new PaymentController;
-        $pagos = $paymentController->GetByReserveId($reserveid);
-        $isPayed = 0;
-        foreach ($pagos as $pago) {
-            if ($pago->GetPaymentid()) {
-                $isPayed++;
-            }
-        }
-        if ($isPayed = 2) {  //si ambos estan pagos se hace un status update de la reserva a "payed"
-            $this->StatusUpdate($reserveid, "payed");
-        }
+        $this->StatusUpdate($reserveid, "payed");
+
+        $paymentController = new PaymentController();
+        $payment = $paymentController->GetFirstPayment($reserveid);
+        $paymentController->UpdatePayment($payment->getPaymentid());
+
+        $_SESSION['message']="Reserva abonada al 50%, ya puedes realizar el pago restante. ";
+        $this->UserController->ShowProfileView();
     }
 
 
@@ -117,6 +83,7 @@ class ReserveController
         $this->reserveDAO->Add($reserve);
 
         //enviar a vista perfil
+        $_SESSION['message']="Reserva realizada con exito ";
         $this->UserController->ShowProfileView();
     }
 
@@ -238,17 +205,21 @@ class ReserveController
 
         // After update returns to UserProfile
         //        header('Location:../User/ShowProfileView');
-        $this->UserController->ShowProfileView();
+
     }
 
     public function RejectReserve($reserveid)
     {
         $this->StatusUpdate($reserveid, "rejected");
+        $_SESSION['message']="Reserva rechazada";
+        $this->UserController->ShowProfileView();
     }
 
     public function CancelReserve($reserveid)
     {
         $this->StatusUpdate($reserveid, "canceled");
+        $_SESSION['message']="Reserva cancelada";
+        $this->UserController->ShowProfileView();
     }
 
 
@@ -276,5 +247,27 @@ class ReserveController
         $this->StatusUpdate($currentReserve->getReserveid(), $resultado);
         $availableDateController = new AvailableDateController;
         $availableDateController->UpdateDatesByBreed($currentReserve->getReceiverid(), $currentReserve->getFirstdate(), $currentReserve->getLastdate(), $currentPet->getBreedid()); //modifico el status de las availables dates del guardian que se acaba de confirmar
+
+        // To be sent:
+        $paymentController = new PaymentController;
+        $mitadDelTotal = $this->reserveDAO->getReserveById($reserveid)->getAmount() / 2;
+
+        if($resultado == "confirmed"){
+            $paymentController = new PaymentController();
+            $paymentController->Add($currentReserve->getTransmitterid(), $currentReserve->getReceiverid(), $currentReserve->getReserveid(), $currentReserve->getAmount());
+        } else {
+            $_SESSION['message'] = "Error al confirmar la reserva";
+        }
+
+        $mail = new MailerController();
+        $mail->emailSend($currentReserve->getTransmitterid(), $mitadDelTotal);
+
+        $_SESSION['message']="Reserva aceptada";
+        $this->UserController->ShowProfileView();
     }
+
+
+
+
+
 }

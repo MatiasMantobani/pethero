@@ -9,6 +9,8 @@ class Payment
     private $reserveid;
     private $monto;
     private $qr;
+    private $date;
+    private $payed;
 
     /**
      * Get the value of qr
@@ -129,4 +131,37 @@ class Payment
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param mixed $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayed()
+    {
+        return $this->payed;
+    }
+
+    /**
+     * @param mixed $payed
+     */
+    public function setPayed($payed)
+    {
+        $this->payed = $payed;
+    }
+
 }

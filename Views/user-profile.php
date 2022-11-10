@@ -22,12 +22,12 @@ require_once('nav.php');
 
                             <?php if ($userImage != null) { ?>
 
-                                <img src="<?php echo FRONT_ROOT . USER_UPLOADS_PATH . $userImage->getName() ?>" alt="Profile img" class="img-fluid my-5 rounded" style="width: 200px;" />
+                                <img src="<?php echo FRONT_ROOT . USER_UPLOADS_PATH . $userImage->getName() ?>" alt="Profile img" class="img-fluid my-5 rounded-circle" style="width: 200px;" />
                                 <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>UserImage/ShowUploadView">[Cambiar
                                         foto]</a></p>
                             <?php } else { ?>
 
-                                <img src="<?php echo FRONT_ROOT ?>Views/img/profile/profile_default.png" alt="Profile img" class="img-fluid my-5 rounded" style="width: 200px;" />
+                                <img src="<?php echo FRONT_ROOT ?>Views/img/profile/profile_default.png" alt="Profile img" class="img-fluid my-5 rounded-circle" style="width: 200px;" />
                                 <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>UserImage/ShowUploadView">[Subir
                                         foto]</a></p>
                             <?php } ?>
@@ -48,8 +48,7 @@ require_once('nav.php');
                         </div>
                         <div class="col-md-8">
                             <div class="card-body p-4">
-                                <h6>Información</h6>
-
+                                <h6>Perfíl</h6>
                                 <hr class="mt-0 mb-4">
                                 <div class="row pt-1">
                                     <div class="col-6 mb-3">
@@ -134,14 +133,7 @@ require_once('nav.php');
                                 <!-- FIN GUARDIAN -->
 
 
-                                <?php if ($_SESSION['type'] == 'D') { ?>
-                                    <!-- INICIO DUEÑO -->
 
-                                    <!-- REALIZAR RESERVAS -->
-                                    <p><a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView">[Realizar reserva]</a></p>
-                                    <hr class="mt-0 mb-4">
-
-                                <?php } ?>
 
                                 <div class="row pt-1">
                                     <div class="col-6 mb-3">
@@ -166,9 +158,7 @@ require_once('nav.php');
             <!-- SI ES DUEÑO -->
             <?php if ($_SESSION['type'] == 'D') { ?>
 
-
-
-                <h2 class="mb-4">Listado de mascotas</h2>
+                <h2 class="mb-4">Mis mascotas</h2>
                 <table class="table bg-light-alpha">
                     <thead>
                         <th>ID</th>
@@ -391,7 +381,7 @@ require_once('nav.php');
             </table>
 
             <div class="col-md-12 text-right">
-                <a href="" class="btn btn-secondary">Agregar reserva</a>
+                <a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView" class="btn btn-secondary">Agregar reserva</a>
             </div>
 
             <h2 class="mb-4">Tus Pagos</h2>
@@ -403,31 +393,31 @@ require_once('nav.php');
                     <th>Reserva ID</th>
                     <th>Monto</th>
                     <th>QR</th>
+                    <th>Fecha</th>
+                    <th>Pagado</th>
 
                 </thead>
                 <tbody>
                     <?php
-
-                    // foreach ($pagos as $pago) {
-
+                    foreach ($pagos as $pago) {
                     ?>
                     <tr>
-                        <td><?php //echo $pago->getPaymentid()
+                        <td><?php echo $pago->getPaymentid()
                             ?></td>
-                        <td><?php //echo $fecha->getTransmitterid()
+                        <td><?php echo $pago->getTransmitterid()
                             ?></td>
-                        <td><?php //echo $fecha->getReceiverid()
+                        <td><?php echo $pago->getReceiverid()
                             ?></td>
-                        <td><?php //echo $fecha->getReserveid()
+                        <td><?php echo $pago->getReserveid()
                             ?></td>
-                        <td><?php //echo $fecha->getMonto()
+                        <td><?php echo $pago->getMonto()
                             ?></td>
-                        <td><?php //echo $fecha->getQr()
-                            ?></td>
+                        <td><?php echo $pago->getQr() ?></td>
+                        <td><?php echo $pago->getDate() ?></td>
+                        <td><?php echo $pago->getPayed() ?></td>
 
                     </tr>
-                    <?php //}
-                    ?>
+                    <?php } ?>
                     </tr>
                 </tbody>
             </table>

@@ -2,6 +2,7 @@
 namespace Controllers;
 
 use Controllers\UserController as UserController;
+use Controllers\PaymentController as PaymentController;
 use DAO\MailerDAO as MailerDAO;
 use Models\Mail as Mail;
 
@@ -41,12 +42,14 @@ class MailerController
 //    auth_password=your_password_here
 //    force_sender=your_email_address_here (it's optional)
 
-    public function emailSend($userid){
+    public function emailSend($userid, $amount){
 
         $client = $this->userController->GetUserById($userid);
+        $qrpath = FRONT_ROOT."DummyContent/Qr/qr.png";
+
         if ($client != null){
             $this->mail->setSubject("Envio de cupon de pago");
-            $this->mail->setBody("Muchas gracias por utilizar Pet Hero! Su pago fue realizado con exito.");
+            $this->mail->setBody("Hola ". $client->getName() .", usted tiene para abonar el siguiente QR por un monto de $ ".$amount.". Puede abonar a través de MercadoPago directo desde la App. Muchas gracias por utilizar Pet Hero.");
             $this->mail->setReceiverMail($client->getEmail());
             $this->mail->setSenderMail("pethero@kateclarkph.com");
             $this->mailerDAO->SendEmail($this->mail);

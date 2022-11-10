@@ -100,11 +100,14 @@ class UserController
             $userList = $this->userDAO->GetAll(); // Envia la lista de guardianes al perfil de dueño
         }
 
-        // Conseguir todas las reservas
+        // Conseguir todas las reservas y todos los pagos
         if ($_SESSION['userid']) {
             $reserveController = new ReserveController();
             $reserveList = $reserveController->getMyReserves();
-           
+
+            $paymentController = new PaymentController();
+            $pagos = $paymentController->getMyPayments();
+
         }
 
         require_once(VIEWS_PATH . "user-profile.php");

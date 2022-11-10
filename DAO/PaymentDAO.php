@@ -21,7 +21,7 @@ class PaymentDAO
 
             $query = "SELECT * FROM " . $this->tablePayments . " WHERE (reserveid = :reserveid)";
 
-            $parameters["userid"] = $reserveid;
+            $parameters["reserveid"] = $reserveid;
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
@@ -29,11 +29,14 @@ class PaymentDAO
             foreach ($resultSet as $row) {
                 $payment = new Payment();
 
+                $payment->setPaymentid($row["paymentid"]);
                 $payment->setTransmitterid($row["transmitterid"]);
                 $payment->setReceiverid($row["receiverid"]);
                 $payment->setReserveid($row["reserveid"]);
                 $payment->setMonto($row["monto"]);
                 $payment->setQr($row["qr"]);
+                $payment->setDate($row["date"]);
+                $payment->setPayed($row["payed"]);
 
                 array_push($paymentList, $payment);
             }
@@ -43,6 +46,20 @@ class PaymentDAO
         }
     }
 
+    public function UpdatePayment($paymentid){
+        try
+        {
+            $query = "CALL payment_update(?);";
+            $parameters["paymentid"] = $paymentid;
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
 
     public function Add(Payment $payment)
     {
@@ -79,11 +96,14 @@ class PaymentDAO
             foreach ($resultSet as $row) {
                 $payment = new Payment();
 
+                $payment->setPaymentid($row["paymentid"]);
                 $payment->setTransmitterid($row["transmitterid"]);
                 $payment->setReceiverid($row["receiverid"]);
                 $payment->setReserveid($row["reserveid"]);
                 $payment->setMonto($row["monto"]);
                 $payment->setQr($row["qr"]);
+                $payment->setDate($row["date"]);
+                $payment->setPayed($row["payed"]);
 
                 array_push($paymentList, $payment);
             }
@@ -92,4 +112,72 @@ class PaymentDAO
             throw $ex;
         }
     }
+
+    public function GetOwnerPayments($userid)
+    {
+        try {
+            $paymentList = array();
+
+            $query = "SELECT * FROM " . $this->tablePayments . " WHERE (transmitterid = :transmitterid)";
+
+            $parameters["transmitterid"] = $userid;
+
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $payment = new Payment();
+
+                $payment->setPaymentid($row["paymentid"]);
+                $payment->setTransmitterid($row["transmitterid"]);
+                $payment->setReceiverid($row["receiverid"]);
+                $payment->setReserveid($row["reserveid"]);
+                $payment->setMonto($row["monto"]);
+                $payment->setQr($row["qr"]);
+                $payment->setDate($row["date"]);
+                $payment->setPayed($row["payed"]);
+
+                array_push($paymentList, $payment);
+            }
+            return $paymentList;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function GetKeeperPayments($userid)
+    {
+        try {
+            $paymentList = array();
+
+            $query = "SELECT * FROM " . $this->tablePayments . " WHERE (receiverid = :receiverid)";
+
+            $parameters["receiverid"] = $userid;
+
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $payment = new Payment();
+
+                $payment->setPaymentid($row["paymentid"]);
+                $payment->setTransmitterid($row["transmitterid"]);
+                $payment->setReceiverid($row["receiverid"]);
+                $payment->setReserveid($row["reserveid"]);
+                $payment->setMonto($row["monto"]);
+                $payment->setQr($row["qr"]);
+                $payment->setDate($row["date"]);
+                $payment->setPayed($row["payed"]);
+
+                array_push($paymentList, $payment);
+            }
+            return $paymentList;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+
+
+
 }
