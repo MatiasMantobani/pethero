@@ -35,7 +35,7 @@ class ReserveController
 
 
     //lo llama el boton de pagar reserva del user-profile
-    public function PayReserve($reserveid)
+    public function PayOneReserve($reserveid)
     {
         /*
         narrativa: "El cupón de pago para un Owner deberá ser enviado por mail"
@@ -57,6 +57,10 @@ class ReserveController
             Se le dice "su cupon de pago fue enviado a su mail, escanee el QR con las apps de "Mercado pago, CuentaDNI, ... para pagar"
             Se envia el cupon de pago al mail
         */
+
+        //conseguimos la mitad del total de la reserva para mandarselo a cada pago
+        $paymentController = new PaymentController;
+        $mitadDelTotal = $this->reserveDAO->getReserveById($reserveid)->getAmount() / 2;
 
         //chequeamos que ambos pagos esten hechos
         $paymentController = new PaymentController;
