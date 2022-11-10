@@ -37,10 +37,26 @@ class ReserveController
     //lo llama el boton de pagar reserva del user-profile
     public function PayReserve($reserveid)
     {
-        //se lo manda a la vista de pago (?) (podria ser vista con in troducir tarjeta de pago)
-        //la vista llama al add() de payment
-        //se "paga" (?)
-        //se envia el cupon de pago por mail (listo)
+        /*
+        narrativa: "El cupón de pago para un Owner deberá ser enviado por mail"
+        */
+
+        /*
+            OPCION 1
+            Se lo manda a la vista de agregar pago y se le pide introducir los datos de tarjeta
+            Apreta "pagar" luego de introducir todo bien (validado)
+            "pagar" hace el paymentAdd()
+            Se le dice "pago con exito, su cupon de pago fue enviado a su mail"
+            Se envia el cupon de pago al mail
+        */
+
+        /*
+            OPCION 2
+            Apreta "pagar reserva" en lista de reservas de perfil
+            Se hace el paymentAdd() en el controlador que llama el boton
+            Se le dice "su cupon de pago fue enviado a su mail, escanee el QR con las apps de "Mercado pago, CuentaDNI, ... para pagar"
+            Se envia el cupon de pago al mail
+        */
 
         //chequeamos que ambos pagos esten hechos
         $paymentController = new PaymentController;
@@ -51,7 +67,7 @@ class ReserveController
                 $isPayed++;
             }
         }
-        if ($isPayed = 2) {  //si ambos estan pagos se hace un status update a "payed"
+        if ($isPayed = 2) {  //si ambos estan pagos se hace un status update de la reserva a "payed"
             $this->StatusUpdate($reserveid, "payed");
         }
     }
@@ -220,9 +236,9 @@ class ReserveController
         $this->StatusUpdate($reserveid, "canceled");
     }
 
-    
 
-    public function AcceptReserve($reserveid) 
+
+    public function AcceptReserve($reserveid)
     {
         $currentReserve = $this->reserveDAO->getReserveById($reserveid);                       //seleccionas la reserva actual
         $currentPet = $this->PetController->PetFinder($currentReserve->getPetid());             //seleccionas la mascota actual
