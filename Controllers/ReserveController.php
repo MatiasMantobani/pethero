@@ -49,7 +49,7 @@ class ReserveController
         $payment = $paymentController->GetFirstPayment($reserveid);
         $paymentController->UpdatePayment($payment->getPaymentid());
 
-        $_SESSION['message']="Reserva abonada al 50%, ya puedes realizar el pago restante. ";
+        $_SESSION['message'] = "Tu Cupon de Pagado se ha acreditado correctamente! ";
         $this->UserController->ShowProfileView();
     }
 
@@ -83,7 +83,7 @@ class ReserveController
         $this->reserveDAO->Add($reserve);
 
         //enviar a vista perfil
-        $_SESSION['message']="Reserva realizada con exito ";
+        $_SESSION['message'] = "Reserva realizada con exito ";
         $this->UserController->ShowProfileView();
     }
 
@@ -211,14 +211,14 @@ class ReserveController
     public function RejectReserve($reserveid)
     {
         $this->StatusUpdate($reserveid, "rejected");
-        $_SESSION['message']="Reserva rechazada";
+        $_SESSION['message'] = "Reserva rechazada";
         $this->UserController->ShowProfileView();
     }
 
     public function CancelReserve($reserveid)
     {
         $this->StatusUpdate($reserveid, "canceled");
-        $_SESSION['message']="Reserva cancelada";
+        $_SESSION['message'] = "Reserva cancelada";
         $this->UserController->ShowProfileView();
     }
 
@@ -252,7 +252,7 @@ class ReserveController
         $paymentController = new PaymentController;
         $mitadDelTotal = $this->reserveDAO->getReserveById($reserveid)->getAmount() / 2;
 
-        if($resultado == "confirmed"){
+        if ($resultado == "confirmed") {
             $paymentController = new PaymentController();
             $paymentController->Add($currentReserve->getTransmitterid(), $currentReserve->getReceiverid(), $currentReserve->getReserveid(), $currentReserve->getAmount());
         } else {
@@ -262,12 +262,7 @@ class ReserveController
         $mail = new MailerController();
         $mail->emailSend($currentReserve->getTransmitterid(), $mitadDelTotal);
 
-        $_SESSION['message']="Reserva aceptada";
+        $_SESSION['message'] = "Reserva aceptada";
         $this->UserController->ShowProfileView();
     }
-
-
-
-
-
 }

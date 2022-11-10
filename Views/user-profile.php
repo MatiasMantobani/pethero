@@ -351,7 +351,7 @@ require_once('nav.php');
 
                             <!-- Todos los estados para Dueño -->
                             <?php if ($_SESSION['type'] == 'D') { ?>
-                                <?php if ($reserva->getStatus() == "await") { ?>      
+                                <?php if ($reserva->getStatus() == "await") { ?>
                                     <td><button class="btn btn-primary btn-sm" disabled>Pagar Reserva</button></td>
                                     <td><a href="<?php echo FRONT_ROOT ?>Reserve/CancelReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Eliminar Reserva</a></td>
 
@@ -360,7 +360,9 @@ require_once('nav.php');
                                     <td><a href="<?php echo FRONT_ROOT ?>Reserve/CancelReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Eliminar Reserva</a></td>
 
                                 <?php } else if ($reserva->getStatus() == "payed") { ?>
-
+                                    <td><button class="btn btn-primary btn-sm" disabled>Pagar Reserva</button></td>
+                                    <td><button class="btn btn-primary btn-sm" disabled>Eliminar Reserva</button></td>
+                                    
                                 <?php } else if ($reserva->getStatus() == "in progress") { ?>
 
                                 <?php } else if ($reserva->getStatus() == "completed") { ?>
@@ -401,22 +403,22 @@ require_once('nav.php');
                     <?php
                     foreach ($pagos as $pago) {
                     ?>
-                    <tr>
-                        <td><?php echo $pago->getPaymentid()
-                            ?></td>
-                        <td><?php echo $pago->getTransmitterid()
-                            ?></td>
-                        <td><?php echo $pago->getReceiverid()
-                            ?></td>
-                        <td><?php echo $pago->getReserveid()
-                            ?></td>
-                        <td><?php echo $pago->getMonto()
-                            ?></td>
-                        <td><?php echo $pago->getQr() ?></td>
-                        <td><?php echo $pago->getDate() ?></td>
-                        <td><?php echo $pago->getPayed() ?></td>
+                        <tr>
+                            <td><?php echo $pago->getPaymentid()
+                                ?></td>
+                            <td><?php echo $pago->getTransmitterid()
+                                ?></td>
+                            <td><?php echo $pago->getReceiverid()
+                                ?></td>
+                            <td><?php echo $pago->getReserveid()
+                                ?></td>
+                            <td><?php echo $pago->getMonto()
+                                ?></td>
+                            <td><?php echo $pago->getQr() ?></td>
+                            <td><?php echo $pago->getDate() ?></td>
+                            <td><?php echo $pago->getPayed() ?></td>
 
-                    </tr>
+                        </tr>
                     <?php } ?>
                     </tr>
                 </tbody>
