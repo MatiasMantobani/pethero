@@ -38,9 +38,20 @@ class ReserveController
     public function PayOneReserve($reserveid)
     {
         /*
-        narrativa: "El cupón de pago para un Owner deberá ser enviado por mail"
+        narrativa: 
+        "En caso de que la reserva sea aceptada-->confirmed por el Keeper, se envía un cupón de pago
+        al Owner con el 50% del costo del total de la estadía. Al momento de efectuar el pago, la
+        reserva queda confirmada -->payed"
         */
 
+        // CUPON DE PAGO COMO METODO DE PAGO
+        /*
+            Si la reserva es confirmada sale el mail (con datos de usuario en cuerpo y QR?)
+
+        */
+
+
+        // CUPON DE PAGO COMO COMPROBANTE DE PAGO
         /*
             OPCION 1
             Se lo manda a la vista de agregar pago y se le pide introducir los datos de tarjeta
