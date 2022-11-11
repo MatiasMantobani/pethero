@@ -69,7 +69,7 @@ require_once('nav.php');
                                     <h6>Valoracion (<?php echo $reviewCounter ?>): </h6>
 
                                     <input id="rating" name="rating" class="rating" readonly showClear="false" showClear="false" value="<?php echo $finalRating ?>">
-                                    <a href="">Ver todas las reviews</a>
+                                    <a href="<?php echo FRONT_ROOT ?>Review/ShowReviewList/<?php echo $user->getUserid() ?>">Ver todas las reviews</a>
 
 <!--                                    <p class="text-muted">--><?php //echo "x" ?>
 <!--                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="gold" color="gold" class="bi bi-star" viewBox="0 0 16 16">-->

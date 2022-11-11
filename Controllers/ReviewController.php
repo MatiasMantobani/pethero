@@ -1,6 +1,7 @@
 <?php
 namespace Controllers;
 use DAO\ReviewDAO as ReviewDAO;
+use Models\Keeper;
 use Models\Review as Review;
 use Controllers\ReserveController as Reserve;
 
@@ -59,6 +60,15 @@ class ReviewController
     public function ReviewFinderByReserve($reserveid)
     {
         return $this->reviewDAO->GetByReserveid($reserveid);
+    }
+
+    public function ShowReviewList($userid){
+        $ratings = $this->ReviewFinderByReceptor($userid);
+
+        $userController = new UserController();
+        $user = $userController->GetUserById($userid);
+
+        require_once(VIEWS_PATH . "review-list.php");
     }
 
 }

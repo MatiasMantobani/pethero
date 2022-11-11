@@ -246,7 +246,13 @@ class UserController
             $reviewCounter++;
             $reviewAcum += $rating->getRating();
         }
-        $finalRating = $reviewAcum/$reviewCounter;
+        if($reviewCounter > 0){
+            $finalRating = $reviewAcum/$reviewCounter;
+        }else{
+            $finalRating = 0;
+            $reviewCounter = 0;
+        }
+
 
         //mandar los sizes
         //mandar la imagen
