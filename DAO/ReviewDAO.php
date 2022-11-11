@@ -11,11 +11,11 @@ class ReviewDAO
     private $connection;
     private $tableReviews = "review";
 
-    public function Add(Review $review) // untested - 05/11/2022 - Juan
+    public function Add(Review $review)
     {
         try
         {
-            $query  = "INSERT INTO " . $this->tableReviews . "(emitterid, receptorid, reserveid, rating, comment) VALUES (:emitterid, :receptorid, :reserveid, :rating, :comment);";
+            $query  = "INSERT INTO " . $this->tableReviews . " (emitterid, receptorid, reserveid, rating, comment) VALUES (:emitterid, :receptorid, :reserveid, :rating, :comment);";
             $parameters["emitterid"] = $review->getEmitterid();
             $parameters["receptorid"] = $review->getReceptorid();
             $parameters["reserveid"] = $review->getReserveid();

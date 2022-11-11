@@ -2,6 +2,7 @@
 namespace Controllers;
 use DAO\ReviewDAO as ReviewDAO;
 use Models\Review as Review;
+use Controllers\ReserveController as Reserve;
 
 
 class ReviewController
@@ -13,20 +14,23 @@ class ReviewController
         $this->reviewDAO = new ReviewDAO();
     }
 
-    public function ShowAddView(/*$receptor, $reserveid*/)
+    public function ShowAddView($reserveid)
     {
+        $reserva = $reserveid;
         require_once(VIEWS_PATH . "review-add.php");
     }
 
-    public function Add($rating, $comment) //$receptorid, $reserveid, => Agregarlo cuando este en el boton del dueno
+    public function Add($rating, $comment, $reserveid) //$receptorid, $reserveid, => Agregarlo cuando este en el boton del dueno
     {
-        var_dump($comment, $rating);
         $review = new Review();
 
-//        $review->setEmitterid($_SESSION['userid']);
-    //    $review->setReceptorid($receptorid);
-    //    $review->setReserveid($reserveid);
-        $review->setRating($rating);
+        $reserveController = new Reserve();
+        $reserva = $reserveController->getReserveById($reserveid);
+
+        $review->setEmitterid($_SESSION['userid']);
+        $review->setReceptorid($reserva->getReceiverid());
+        $review->setReserveid($reserveid);
+        $review->setRating((int)$rating);
         $review->setComment($comment);
 
         $this->reviewDAO->Add($review);

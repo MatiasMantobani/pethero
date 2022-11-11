@@ -1,6 +1,13 @@
 <?php
 require_once('nav.php');
 ?>
+<header>
+    <!--    Sistema de rating starts-->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/js/star-rating.min.js"></script>
+</header>
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
@@ -16,6 +23,8 @@ require_once('nav.php');
                 <script>
                     $("#input-id").rating();
                 </script>
+
+                <input type="hidden" name="reserveid" value="<?php echo $reserva ?>">
 
                 <br>
                 <button type="submit" class="btn btn-primary">Enviar review</button>

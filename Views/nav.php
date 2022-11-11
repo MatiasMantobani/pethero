@@ -41,5 +41,8 @@
 
         <?php } ?>
 
+        <li class="nav-item">
+            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Review/ShowAddView">review</a>
+        </li>
     </ul>
 </nav>

@@ -265,4 +265,8 @@ class ReserveController
         $_SESSION['message'] = "Reserva aceptada";
         $this->UserController->ShowProfileView();
     }
+
+    public function getReserveById($reserveid){
+        return $this->reserveDAO->getReserveById($reserveid);
+    }
 }
