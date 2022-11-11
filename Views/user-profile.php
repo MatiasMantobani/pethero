@@ -23,13 +23,13 @@ require_once('nav.php');
                             <?php if ($userImage != null) { ?>
 
                                 <img src="<?php echo FRONT_ROOT . USER_UPLOADS_PATH . $userImage->getName() ?>" alt="Profile img" class="img-fluid my-5 rounded-circle" style="width: 200px;" />
-                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>UserImage/ShowUploadView">[Cambiar
-                                        foto]</a></p>
+                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>UserImage/ShowUploadView" class="btn btn-dark btn-sm">Cambiar
+                                        foto</a></p>
                             <?php } else { ?>
 
                                 <img src="<?php echo FRONT_ROOT ?>Views/img/profile/profile_default.png" alt="Profile img" class="img-fluid my-5 rounded-circle" style="width: 200px;" />
-                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>UserImage/ShowUploadView">[Subir
-                                        foto]</a></p>
+                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>UserImage/ShowUploadView" class="btn btn-dark btn-sm">Subir
+                                        foto</a></p>
                             <?php } ?>
 
                             <h5><?php echo $user->getName(); ?> <?php echo $user->getSurname(); ?></h5>
@@ -54,8 +54,8 @@ require_once('nav.php');
                                     <div class="col-6 mb-3">
                                         <h6>Email</h6>
                                         <p class="text-muted"><?php echo $user->getEmail() ?></p>
-                                        <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>User/ShowUpdateView">[Cambiar
-                                                datos]</a></p>
+                                        <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>User/ShowUpdateView" class="btn btn-dark btn-sm">Cambiar
+                                                datos</a></p>
                                     </div>
                                     <div class="col-6 mb-3">
                                         <h6>Teléfono</h6>
@@ -68,12 +68,12 @@ require_once('nav.php');
                                 <?php if ($adress) { ?>
                                     <h6>Direccion: </h6>
                                     <p class="text-muted"><?php echo $adress->getStreet() . " " . $adress->getNumber() . " Piso: " . $adress->getFloor() . " Depto: " . $adress->getDepartment() . " CP: " . $adress->getPostalcode() ?></p>
-                                    <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>Adress/ShowAddView">[Cambiar
-                                            dirección]</a></p>
+                                    <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>Adress/ShowAddView" class="btn btn-dark btn-sm">Cambiar
+                                            dirección</a></p>
                                 <?php } else { ?>
                                     <h6>Direccion: </h6>
-                                    <p class="text-muted">No disponible <a href="<?php echo FRONT_ROOT ?>Adress/ShowAddView">[Cargar
-                                            direccion]</a></p>
+                                    <p class="text-muted">No disponible <a href="<?php echo FRONT_ROOT ?>Adress/ShowAddView" class="btn btn-dark btn-sm">Cargar
+                                            direccion</a></p>
 
                                 <?php } ?>
 
@@ -87,9 +87,9 @@ require_once('nav.php');
                                         <div class="col-6 mb-3">
                                             <h6>Remuneración: </h6>
                                             <?php if ($keeper != null && $keeper->getPricing() > 0) { ?>
-                                                <p class="text-muted"><?php echo $keeper->getPricing(); ?><a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView"> [Cambiar]</a></p>
+                                                <p class="text-muted"><?php echo $keeper->getPricing(); ?><a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView" class="btn btn-dark btn-sm"> Cambiar</a></p>
                                             <?php } else { ?>
-                                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView">[Cargar tarifa]</a></p>
+                                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView" class="btn btn-dark btn-sm">Cargar tarifa</a></p>
                                             <?php } ?>
                                         </div>
                                         <div class="col-6 mb-3">
@@ -133,7 +133,21 @@ require_once('nav.php');
                                 <!-- FIN GUARDIAN -->
 
                                 <!-- DUEÑO  -->
-                                <!-- Aun no tiene parte propia  -->
+                                <?php if($_SESSION['type'] == 'D'){ ?>
+                                    <div class="row pt-1">
+
+                                        <div class="col-6 mb-3">
+                                            <a href="<?php echo FRONT_ROOT ?>#" class="btn btn-primary btn-lg">Ver mis mascotas</a>
+                                        </div>
+                                        <div class="row pt-1">
+                                            <div class="col-6 mb-3">
+                                                <a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView/" class="btn btn-primary btn-lg">Solicitar reserva</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="mt-0 mb-4">
+                                <?php } ?>
                                 <!-- FIN DUEÑO -->
 
 
@@ -164,7 +178,7 @@ require_once('nav.php');
                                     </div>
 
                                     <div class="col-6 mb-3">
-                                        <h6>Most Viewed</h6>
+                                        <h6>Ver mis pagos</h6>
                                         <p class="text-muted">Dolor sit amet</p>
                                     </div>
                                 </div>
@@ -424,9 +438,11 @@ require_once('nav.php');
                 </tbody>
             </table>
 
+            <?php if($_SESSION['type'] == 'D'){ ?>
             <div class="col-md-12 text-right">
                 <a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView" class="btn btn-secondary">Agregar reserva</a>
             </div>
+            <?php } ?>
 
             <h2 class="mb-4">Tus Pagos</h2>
             <table class="table bg-light-alpha">

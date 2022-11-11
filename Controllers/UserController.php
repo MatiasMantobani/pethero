@@ -137,41 +137,28 @@ class UserController
             $sizeFlag = 0;
             if($keeper != null){
                 $sizes = new SizeController();
-                $sizesList = $sizes->getByUserId($_SESSION['userid']);
-                if($sizesList != null){  // Justo aca
-                    foreach ($sizesList as $size){
-                        var_dump($size);
-                        if($size->getSmall() == 1 || $size->getMedium() == 1 || $size->getLarge() == 1){
-                            $sizeFlag = 1;
-                        }
+                $size = $sizes->getByUserId($_SESSION['userid']);
+                if($size != null){
+                    if($size->getSmall() == 1 || $size->getMedium() == 1 || $size->getLarge() == 1){
+                        $sizeFlag = 1;
                     }
                 }
                 $dates = new AvailableDateController();
                 $dateList = $dates->GetByUserId($_SESSION['userid']);
                 $dateFlag = 0;
                 $dateNow = date('Y-m-d');
-                echo $dateNow;
                 if ($dateList != null){
                     foreach ($dateList as $date){
                         if($date->getDate() > $dateNow){
-                            echo "es mayor";
                             $dateFlag = 1;
                         }
                     }
                 }
             }
 
-            echo "<br>".$dateFlag."<br>";
-            echo $keeper->getPricing()."<br>";
-            echo $sizeFlag."<br>";
-            var_dump($adress);
-
-
             if ($keeper->getPricing() > 0 && $sizeFlag == 1 && $dateFlag == 1 && $adress != null){
-                echo "exito";
                 $this->UpdateStatus(1);
             } else {
-                echo "te hiciste pija imbecil";
                 $this->UpdateStatus(0);
             }
         }
