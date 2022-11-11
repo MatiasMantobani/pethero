@@ -164,4 +164,8 @@ class UserController
         $user = $this->userDAO->GetById($userid);
         return $user;
     }
+
+    public function ShowExternalProfile(){
+        require_once(VIEWS_PATH . "external-profile.php");
+    }
 }

@@ -42,7 +42,7 @@
         <?php } ?>
 
         <li class="nav-item">
-            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Review/ShowAddView">review</a>
+            <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/ShowExternalProfile">Perfil de un 3ro</a>
         </li>
     </ul>
 </nav>
