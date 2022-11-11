@@ -144,7 +144,7 @@ require_once('nav.php');
                                     <div class="col-6 mb-3">
                                         <h6>Ver mis Reservas</h6>
 
-                                        <form action="<?php echo FRONT_ROOT ?>Reserve/ShowReservesView" method="post" class="bg-light-alpha p-5">
+                                        <form action="<?php echo FRONT_ROOT ?>Reserve/ShowReservesView" method="post" class="bg-light-alpha p-1">
 
                                             <select class="form-control" name="pseudostatus" required>
                                                 <option value="En Espera">En Espera</option>
@@ -155,7 +155,7 @@ require_once('nav.php');
                                                 <option value="Canceladas">Canceladas</option>
                                             </select>
 
-                                            <button type="submit" class="btn btn-dark ml-auto d-block">Ir</button>
+                                            <button type="submit" class="btn btn-dark ml-auto d-block m-1">Ir</button>
                                         </form>
 
 
