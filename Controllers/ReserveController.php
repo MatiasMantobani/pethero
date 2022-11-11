@@ -35,6 +35,35 @@ class ReserveController
     }
 
 
+    //lo llama el boton de ver historial de reservas
+    public function ShowReservesView($status)
+    {
+        $reserveList = array();
+
+        if ($_SESSION["type"] == "D") {
+            $reserves = $this->reserveDAO->getOwnerReserves($_SESSION['userid']);
+        } else if ($_SESSION["type"] == "G") {
+            $reserves = $this->reserveDAO->getKeeperReserves($_SESSION['userid']);
+        }
+
+        foreach ($reserves as $reserve) {
+            if ($reserve->getStatus() == $status) {
+                array_push($reserveList, $reserve);
+            }
+        }
+
+        $statusQuo = "";
+        if ($status == "completed") {
+            $statusQuo = "Completadas";
+        }else if($status == "otroEstado"){
+            $statusQuo = "";
+        }
+
+        require_once(VIEWS_PATH . "reserve-list.php");
+    }
+
+
+
     //lo llama el boton de pagar reserva del user-profile
     public function PayReserve($reserveid)
     {
@@ -60,8 +89,6 @@ class ReserveController
             return $this->reserveDAO->getOwnerReserves($_SESSION['userid']);
         } else if ($_SESSION["type"] == "G") {
             return $this->reserveDAO->getKeeperReserves($_SESSION['userid']);
-        } else {
-            echo "admin";
         }
     }
 
@@ -266,7 +293,8 @@ class ReserveController
         $this->UserController->ShowProfileView();
     }
 
-    public function getReserveById($reserveid){
+    public function getReserveById($reserveid)
+    {
         return $this->reserveDAO->getReserveById($reserveid);
     }
 }

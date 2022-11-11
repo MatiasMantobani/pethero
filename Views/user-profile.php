@@ -78,10 +78,10 @@ require_once('nav.php');
                                 <?php } ?>
 
                                 <hr class="mt-0 mb-4">
+                                <!-- FIN Parte Datos Personales -->
 
-
+                                <!-- INICIO GUARDIAN -->
                                 <?php if ($_SESSION['type'] == 'G') { ?>
-                                    <!-- INICIO GUARDIAN -->
 
                                     <div class="row pt-1">
                                         <div class="col-6 mb-3">
@@ -132,10 +132,30 @@ require_once('nav.php');
                                 <?php } ?>
                                 <!-- FIN GUARDIAN -->
 
+                                <!-- DUEÑO  -->
+                                <!-- Aun no tiene parte propia  -->
+                                <!-- FIN DUEÑO -->
 
 
+
+                                <!-- PARA AMBOS -->
+                                <div class="row pt-1">
+
+                                    <div class="col-6 mb-3">
+                                        <h6>Historial de Reservas</h6>
+                                        <p class="text-muted"> <a href="<?php echo FRONT_ROOT ?>Reserve/ShowReservesView/completed">[Ver Mi Historial de Reservas]</a></p>
+                                    </div>
+
+                                    <div class="col-6 mb-3">
+                                        <h6>Most Viewed</h6>
+                                        <p class="text-muted">Dolor sit amet</p>
+                                    </div>
+                                </div>
+
+                                <hr class="mt-0 mb-4">
 
                                 <div class="row pt-1">
+
                                     <div class="col-6 mb-3">
                                         <h6>Most Viewed</h6>
                                         <p class="text-muted">Dolor sit amet</p>
@@ -145,7 +165,6 @@ require_once('nav.php');
                                         <p class="text-muted">Dolor sit amet</p>
                                     </div>
                                 </div>
-
 
                             </div>
                         </div>
@@ -362,11 +381,11 @@ require_once('nav.php');
                                 <?php } else if ($reserva->getStatus() == "payed") { ?>
                                     <td><button class="btn btn-primary btn-sm" disabled>Pagar Reserva</button></td>
                                     <td><button class="btn btn-primary btn-sm" disabled>Eliminar Reserva</button></td>
-                                    
+
                                 <?php } else if ($reserva->getStatus() == "in progress") { ?>
 
                                 <?php } else if ($reserva->getStatus() == "completed") { ?>
-                                    <td><a href=<?php echo FRONT_ROOT ?>Review/ShowAddView/<?php echo $reserva->getReserveid() ?> " class="btn btn-warning btn-sm">Opinar</a></td>
+                                    <td><a href=<?php echo FRONT_ROOT ?>Review/ShowAddView/<?php echo $reserva->getReserveid() ?> " class=" btn btn-warning btn-sm">Opinar</a></td>
                                 <?php } else if ($reserva->getStatus() == "canceled") { ?>
 
                                 <?php } ?>
