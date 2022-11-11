@@ -11,7 +11,7 @@ require_once('nav.php');
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-            <form action="<?php echo FRONT_ROOT ?>Review/Add" method="post">
+            <form action="<?php echo FRONT_ROOT ?>Review/AddWithCheck" method="post">
 
                 <div class="container">
                     <label for="rating" class="control-label">Como calificarias el cuidado de...:</label>

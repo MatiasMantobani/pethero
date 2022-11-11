@@ -99,7 +99,7 @@ class ReviewDAO
             throw $ex;
         }
     }
-    public function GetByReserveid($reserveid) //debe retornar uno      // untested - 05/11/2022 - Juan
+    public function GetByReserveid($reserveid)
     {
         try
         {

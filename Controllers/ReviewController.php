@@ -34,7 +34,15 @@ class ReviewController
         $review->setComment($comment);
 
         $this->reviewDAO->Add($review);
+    }
 
+    public function AddWithCheck($rating, $comment, $reserveid){
+        if(!$this->reviewDAO->GetByReserveid($reserveid)){
+            $this->Add($rating, $comment, $reserveid);
+            $_SESSION['message'] = "Tu review se envio correctamente";
+        }else{
+            $_SESSION['message'] = "No puedes enviar la review, ya que dejaste una previamente";
+        }
         $controller = new UserController();
         $controller->ShowProfileView();
     }
