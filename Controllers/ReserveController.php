@@ -38,6 +38,8 @@ class ReserveController
     //lo llama el boton de ver historial de reservas
     public function ShowReservesView($pseudostatus)
     {
+        // el pseudostatus es para no mostrar los estados de la BD en el front
+
         $reserveList = array();
 
         //trear todas las reservas por usuario logueado
@@ -47,37 +49,33 @@ class ReserveController
             $reserves = $this->reserveDAO->getKeeperReserves($_SESSION['userid']);
         }
 
-        //para no mostrar datos sensibles en front
         $status = "";
-        if ($pseudostatus == "Completadas") {
-            $status = "completed";
+        if ($pseudostatus == "Todas") {
+            $reserveList = $reserves;
+        } else {
+            if ($pseudostatus == "Completadas") {
+                $status = "completed";
+            } else if ($pseudostatus == "En Espera") {
+                $status = "await";
+            } else if ($pseudostatus == "Confirmadas") {
+                $status = "confirmed";
+            } else if ($pseudostatus == "Rechazadas") {
+                $status = "rejected";
+            } else if ($pseudostatus == "Pagadas") {
+                $status = "payed";
+            } else if ($pseudostatus == "En Progreso") {
+                $status = "in progress";
+            } else if ($pseudostatus == "Completadas") {
+                $status = "completed";
+            } else if ($pseudostatus == "Canceladas") {
+                $status = "canceled";
+            }
 
-        } else if ($pseudostatus == "En Espera") {
-            $status = "await";
-
-        } else if ($pseudostatus == "Confirmadas") {
-            $status = "confirmed";
-
-        } else if ($pseudostatus == "Rechazadas") {
-            $status = "rejected";
-
-        } else if ($pseudostatus == "Pagadas") {
-            $status = "payed";
-
-        } else if ($pseudostatus == "En Progreso") {
-            $status = "in progress";
-
-        } else if ($pseudostatus == "Completadas") {
-            $status = "completed";
-
-        } else if ($pseudostatus == "Canceladas") {
-            $status = "canceled";
-        }
-
-        //pasamos las reservas con el status pedidos a la vista
-        foreach ($reserves as $reserve) {
-            if ($reserve->getStatus() == $status) {
-                array_push($reserveList, $reserve);
+            //pasamos las reservas con el status pedidos a la vista
+            foreach ($reserves as $reserve) {
+                if ($reserve->getStatus() == $status) {
+                    array_push($reserveList, $reserve);
+                }
             }
         }
 

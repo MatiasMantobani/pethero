@@ -147,6 +147,7 @@ require_once('nav.php');
                                         <form action="<?php echo FRONT_ROOT ?>Reserve/ShowReservesView" method="post" class="bg-light-alpha p-1">
 
                                             <select class="form-control" name="pseudostatus" required>
+                                                <option value="Todas">Todas</option>
                                                 <option value="En Espera">En Espera</option>
                                                 <option value="Confirmadas">Confirmadas</option>
                                                 <option value="Rechazadas">Rechazadas</option>
