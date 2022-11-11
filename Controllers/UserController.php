@@ -92,11 +92,7 @@ class UserController
             }
         }
 
-
         if ($_SESSION['type'] == 'D') {
-            $availableDate2 = new AvailableDate();
-            $consultaList = $availableDate2->getAvailablesListByDatesAndBreed(11, "2022-11-20", "2022-11-23");    //VALORES FIJOS TEST //VER SI TODAVIA SE USA
-
             $userList = $this->userDAO->GetAll(); // Envia la lista de guardianes al perfil de dueño
         }
 

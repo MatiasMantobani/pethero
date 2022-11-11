@@ -61,8 +61,7 @@ class AvailableDateController
 
             //chequeamos si date existe y no la subimos
             if ($this->availableDateDAO->CheckDate($_SESSION['userid'], $date->getDate())) {
-                //nada
-                echo "no se puede estar disponible en fechas ya reservadas<br>";
+               $_SESSION["message"] = "No se puede estar disponible en fechas ya reservadas";
             } else {
                 $this->availableDateDAO->Add($date);
             }
