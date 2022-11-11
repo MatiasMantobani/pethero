@@ -177,7 +177,7 @@ require_once('nav.php');
 
                                     <div class="col-6 mb-3">
                                         <h6>Ver mis pagos</h6>
-                                        <p class="text-muted">Dolor sit amet</p>
+                                        <a href="<?php echo FRONT_ROOT ?>Payment/ShowPaymentList/" class="btn btn-dark btn-sm">Ver mis pagos</a>
                                     </div>
                                 </div>
 

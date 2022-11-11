@@ -4,24 +4,20 @@ require_once('nav.php');
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-            <?php if($ratings != null){ ?>
-                <h2 class="mb-4">Todas las reviews de <?php echo $user->getName() ?> </h2>
+
+            <?php if ($paymentList) { ?>
+
+                <h2 class="mb-4"> Tus pagos </h2>
                 <table class="table bg-light-alpha">
                     <thead>
-                    <th>ID</th>
-                    <th>Dueno</th>
-                    <th>Comentario</th>
-                    <th>Rating</th>
+                    <th>PaymentID</th>
                     </thead>
                     <tbody>
                     <?php
-                    foreach ($ratings as $rating) {
+                    foreach ($paymentList as $payment) {
                         ?>
                         <tr>
-                            <td><?php echo $rating->getReviewid() ?></td>
-                            <td><?php echo $rating->getEmitterid() ?></td>
-                            <td><?php echo $rating->getComment() ?></td>
-                            <td><?php echo $rating->getRating() ?></td>
+                            <td><?php echo $payment->getPaymentid() ?></td>
                         </tr>
                         <?php
                     }
@@ -29,10 +25,13 @@ require_once('nav.php');
                     </tr>
                     </tbody>
                 </table>
-            <?php }else{
+
+            <?php } else {
                 echo "Opcion 1: Mostrar un perrito lindo triste y algo asi como no hay reservas";
                 echo "Opcion 2: Devolverlo al perfil con mensaje de no hay reservas para mostrar ";
             } ?>
+
+
         </div>
     </section>
 </main>

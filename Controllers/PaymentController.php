@@ -26,9 +26,14 @@ class PaymentController
         $this->paymentDAO->Add($payment);
     }
 
-    public function GetAllByUserId($userid)
+    public function GetAllByUserIdTransmitter($userid)
     {
-        return $this->paymentDAO->GetAllByUserId($userid);
+        return $this->paymentDAO->GetAllByUserIdTransmitter($userid);
+    }
+
+    public function GetAllByUserIdReceiver($userid)
+    {
+        return $this->paymentDAO->GetAllByUserIdReceiver($userid);
     }
 
     //retona entre 0 y 2 pagos
@@ -62,6 +67,12 @@ class PaymentController
         }
     }
 
-
+    public function ShowPaymentList(){ // funciona ya sea el transmitter o el receiver
+        $paymentList = $this->GetAllByUserIdTransmitter($_SESSION['userid']);
+        if($paymentList == null){
+            $paymentList = $this->GetAllByUserIdReceiver($_SESSION['userid']);
+        }
+        require_once(VIEWS_PATH . "payment-list.php");
+    }
 
 }

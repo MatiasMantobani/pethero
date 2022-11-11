@@ -81,14 +81,46 @@ class PaymentDAO
     }
 
 
-    public function GetAllByUserId($userid)
+    public function GetAllByUserIdTransmitter($transmitterid)
     {
         try {
             $paymentList = array();
 
-            $query = "SELECT * FROM " . $this->tablePayments . " WHERE (userid = :userid)";
+            $query = "SELECT * FROM " . $this->tablePayments . " WHERE (transmitterid = :transmitterid)";
 
-            $parameters["userid"] = $userid;
+            $parameters["transmitterid"] = $transmitterid;
+
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $payment = new Payment();
+
+                $payment->setPaymentid($row["paymentid"]);
+                $payment->setTransmitterid($row["transmitterid"]);
+                $payment->setReceiverid($row["receiverid"]);
+                $payment->setReserveid($row["reserveid"]);
+                $payment->setMonto($row["monto"]);
+                $payment->setQr($row["qr"]);
+                $payment->setDate($row["date"]);
+                $payment->setPayed($row["payed"]);
+
+                array_push($paymentList, $payment);
+            }
+            return $paymentList;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function GetAllByUserIdReceiver($receiverid)
+    {
+        try {
+            $paymentList = array();
+
+            $query = "SELECT * FROM " . $this->tablePayments . " WHERE (receiverid = :receiverid)";
+
+            $parameters["receiverid"] = $receiverid;
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
