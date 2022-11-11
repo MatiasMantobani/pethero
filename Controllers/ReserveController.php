@@ -36,27 +36,30 @@ class ReserveController
 
 
     //lo llama el boton de ver historial de reservas
-    public function ShowReservesView($status)
+    public function ShowReservesView($pseudostatus)
     {
         $reserveList = array();
 
+        //trear todas las reservas por usuario logueado
         if ($_SESSION["type"] == "D") {
             $reserves = $this->reserveDAO->getOwnerReserves($_SESSION['userid']);
         } else if ($_SESSION["type"] == "G") {
             $reserves = $this->reserveDAO->getKeeperReserves($_SESSION['userid']);
         }
 
+        //para no regalarse en el front
+        $status = "";
+        if ($pseudostatus == "Completadas") {
+            $status = "completed";
+        }else if($pseudostatus == "En Espera"){
+            $status = "await";
+        }
+
+        //pasamos las reservas con el status pedidos a la vista
         foreach ($reserves as $reserve) {
             if ($reserve->getStatus() == $status) {
                 array_push($reserveList, $reserve);
             }
-        }
-
-        $statusQuo = "";
-        if ($status == "completed") {
-            $statusQuo = "Completadas";
-        }else if($status == "otroEstado"){
-            $statusQuo = "";
         }
 
         require_once(VIEWS_PATH . "reserve-list.php");

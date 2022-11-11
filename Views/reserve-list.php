@@ -4,7 +4,12 @@ require_once('nav.php');
 <main class="py-5">
      <section id="listado" class="mb-5">
           <div class="container">
-               <h2 class="mb-4"> Tus Reservas <?php echo $statusQuo ?> </h2>
+
+
+          <?php if($reserveList){ ?>
+
+
+               <h2 class="mb-4"> Tus Reservas <?php echo $pseudostatus ?> </h2>
                <table class="table bg-light-alpha">
                     <thead>
                          <th>ReservaID</th>
@@ -36,6 +41,12 @@ require_once('nav.php');
                          </tr>
                     </tbody>
                </table>
+
+               <?php } else{
+                    echo "Nos hacemos pija imbecil";
+               }?>
+
+
           </div>
      </section>
 </main>

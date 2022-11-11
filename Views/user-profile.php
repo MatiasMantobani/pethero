@@ -142,8 +142,23 @@ require_once('nav.php');
                                 <div class="row pt-1">
 
                                     <div class="col-6 mb-3">
-                                        <h6>Historial de Reservas</h6>
-                                        <p class="text-muted"> <a href="<?php echo FRONT_ROOT ?>Reserve/ShowReservesView/completed">[Ver Mi Historial de Reservas]</a></p>
+                                        <h6>Ver mis Reservas</h6>
+
+                                        <form action="<?php echo FRONT_ROOT ?>Reserve/ShowReservesView" method="post" class="bg-light-alpha p-5">
+
+                                            <select class="form-control" name="pseudostatus" required>
+                                                <option value="En Espera">En Espera</option>
+                                                <option value="Confirmadas">Confirmadas</option>
+                                                <option value="Pagadas">Pagadas</option>
+                                                <option value="En Progreso">En Progreso</option>
+                                                <option value="Completadas">Completadas</option>
+                                                <option value="Canceladas">Canceladas</option>
+                                            </select>
+
+                                            <button type="submit" class="btn btn-dark ml-auto d-block">Ir</button>
+                                        </form>
+
+
                                     </div>
 
                                     <div class="col-6 mb-3">
