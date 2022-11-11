@@ -51,19 +51,27 @@ class ReserveController
         $status = "";
         if ($pseudostatus == "Completadas") {
             $status = "completed";
+
         } else if ($pseudostatus == "En Espera") {
             $status = "await";
-        }else if($pseudostatus == "Confirmadas"){
-            $status = "confirmed";
-        }else if($pseudostatus == "Pagadas"){
-            $status = "payed";
-        }else if($pseudostatus == "En Progreso"){
-            $status = "in progress";
-        }else if($pseudostatus == "Completadas"){
-            $status = "completed";
-        }else if($pseudostatus == "Canceladas"){
-            $status = "canceled";
 
+        } else if ($pseudostatus == "Confirmadas") {
+            $status = "confirmed";
+
+        } else if ($pseudostatus == "Rechazadas") {
+            $status = "rejected";
+
+        } else if ($pseudostatus == "Pagadas") {
+            $status = "payed";
+
+        } else if ($pseudostatus == "En Progreso") {
+            $status = "in progress";
+
+        } else if ($pseudostatus == "Completadas") {
+            $status = "completed";
+
+        } else if ($pseudostatus == "Canceladas") {
+            $status = "canceled";
         }
 
         //pasamos las reservas con el status pedidos a la vista

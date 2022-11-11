@@ -149,6 +149,7 @@ require_once('nav.php');
                                             <select class="form-control" name="pseudostatus" required>
                                                 <option value="En Espera">En Espera</option>
                                                 <option value="Confirmadas">Confirmadas</option>
+                                                <option value="Rechazadas">Rechazadas</option>
                                                 <option value="Pagadas">Pagadas</option>
                                                 <option value="En Progreso">En Progreso</option>
                                                 <option value="Completadas">Completadas</option>
@@ -374,11 +375,14 @@ require_once('nav.php');
 
                                 <?php } else if ($reserva->getStatus() == "payed") { ?>
 
+                                <?php } else if ($reserva->getStatus() == "rejected") { ?>
+
                                 <?php } else if ($reserva->getStatus() == "in progress") { ?>
 
                                 <?php } else if ($reserva->getStatus() == "completed") { ?>
 
                                 <?php } else if ($reserva->getStatus() == "canceled") { ?>
+
                                 <?php } ?>
 
                             <?php } ?>
@@ -392,6 +396,9 @@ require_once('nav.php');
                                 <?php } else if ($reserva->getStatus() == "confirmed") { ?>
                                     <td><a href="<?php echo FRONT_ROOT ?>Reserve/PayReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-primary btn-sm">Pagar Reserva</a></td>
                                     <td><a href="<?php echo FRONT_ROOT ?>Reserve/CancelReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Eliminar Reserva</a></td>
+
+                                <?php } else if ($reserva->getStatus() == "rejected") { ?>
+
 
                                 <?php } else if ($reserva->getStatus() == "payed") { ?>
                                     <td><button class="btn btn-primary btn-sm" disabled>Pagar Reserva</button></td>
