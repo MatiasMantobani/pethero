@@ -226,7 +226,9 @@ class ReserveController
                 }
             }
             if ($flag == 0) {
-                array_push($AvailableUsers, $user);
+                if($user->getStatus() == 1){
+                    array_push($AvailableUsers, $user);
+                }
 
                 //se guardan los keepers (que son el mismo usuario)
                 $keeper = $this->KeeperController->getByUserId($user->getUserid());

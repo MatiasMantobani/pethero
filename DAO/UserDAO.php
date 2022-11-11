@@ -152,7 +152,7 @@ class UserDAO
             $user->setName($row["name"]);
             $user->setSurname($row["surname"]);
             $user->setPhone($row["phone"]);
-            $user->setStatus($row["phone"]);
+            $user->setStatus($row["status"]);
         }
         return $user;
     }
