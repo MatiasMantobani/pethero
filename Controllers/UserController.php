@@ -235,7 +235,21 @@ class UserController
         return $user;
     }
 
-    public function ShowExternalProfile(){
+    public function ShowExternalProfile($keeperid){
+        $keeper = $this->keeperController->getByKeeperId($keeperid); // para la info especifica del guardian
+        $user = $this->GetUserById($keeperid);  // para la info especifica del user
+        $reviewController = new ReviewController();
+        $ratings = $reviewController->ReviewFinderByReceptor($keeperid);
+        $reviewCounter = 0;
+        $reviewAcum = 0;
+        foreach($ratings as $rating){
+            $reviewCounter++;
+            $reviewAcum += $rating->getRating();
+        }
+        $finalRating = $reviewAcum/$reviewCounter;
+
+        //mandar los sizes
+        //mandar la imagen
         require_once(VIEWS_PATH . "external-profile.php");
     }
 }

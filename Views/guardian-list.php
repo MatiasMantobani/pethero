@@ -22,7 +22,7 @@ require_once('nav.php');
                         <td><?php echo $user->getSurname() ?></td>
                         <td><?php echo $user->getPhone() ?></td>
                         <td><?php echo $user->getEmail() ?></td>
-                        <td><a class="btn btn-primary btn-sm">Ver</a></td>
+                        <td><a href="<?php echo FRONT_ROOT ?>User/ShowExternalProfile/<?php echo $user->getUserid() ?>" class="btn btn-primary btn-sm">Ver</a></td>
 
                     </tr>
                     <?php

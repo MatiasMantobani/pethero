@@ -12,7 +12,7 @@ require_once('nav.php');
     <section id="listado" class="mb-5">
         <div class="container">
 
-            <h2 class="mb-4">Perfil de... <?php echo "3ro"?></h2>
+            <h2 class="mb-4">Perfil de <?php echo $user->getName() ?></h2>
 
             <div class="col col-lg-12 mb-4 mb-lg-0">
                 <div class="card mb-3" style="border-radius: .5rem; border: #856404">
@@ -32,7 +32,7 @@ require_once('nav.php');
 <!--                                        foto]</a></p>-->
 <!--                            --><?php //} ?>
 
-                            <h5><?php echo "Nombre" ?> <?php echo "Apellido" ?></h5>
+                            <h5><?php echo $user->getName() ?> <?php echo $user->getSurname() ?></h5>
                             <i class="far fa-edit mb-5"></i>
                         </div>
                         <div class="col-md-8">
@@ -40,11 +40,11 @@ require_once('nav.php');
                                 <div class="row pt-1">
                                     <div class="col-6 mb-3">
                                         <h6>Email</h6>
-                                        <p class="text-muted"><?php echo "Email" ?></p>
+                                        <p class="text-muted"><?php echo $user->getEmail() ?></p>
                                     </div>
                                     <div class="col-6 mb-3">
                                         <h6>Teléfono</h6>
-                                        <p class="text-muted"><?php echo "Telefono" ?></p>
+                                        <p class="text-muted"><?php echo $user->getPhone() ?></p>
                                     </div>
                                 </div>
 
@@ -66,9 +66,10 @@ require_once('nav.php');
                                 <hr class="mt-0 mb-4">
 
 <!--                                --><?php //if ($valoracion) { ?>
-                                    <h6>Valoracion (0): </h6>
+                                    <h6>Valoracion (<?php echo $reviewCounter ?>): </h6>
 
-                                    <input id="rating" name="rating" class="rating" readonly showClear="false" showClear="false" value="4.5">
+                                    <input id="rating" name="rating" class="rating" readonly showClear="false" showClear="false" value="<?php echo $finalRating ?>">
+                                    <a href="">Ver todas las reviews</a>
 
 <!--                                    <p class="text-muted">--><?php //echo "x" ?>
 <!--                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="gold" color="gold" class="bi bi-star" viewBox="0 0 16 16">-->

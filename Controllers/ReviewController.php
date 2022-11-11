@@ -51,7 +51,7 @@ class ReviewController
     {
         return $this->reviewDAO->GetByEmitterid($userid);
     }
-    public function ReviewFinderByTransmitter($userid)
+    public function ReviewFinderByReceptor($userid)
     {
         return $this->reviewDAO->GetByReceptorid($userid);
     }
