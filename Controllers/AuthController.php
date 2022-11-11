@@ -49,6 +49,10 @@ class AuthController
         $controll->Index("Cierre de sesión correcto<br>");
 
     }
+
+    public function notFound(){
+        require_once(VIEWS_PATH . "404.php");
+    }
 }
 
 ?>

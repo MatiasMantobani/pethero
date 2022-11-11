@@ -40,5 +40,10 @@
             </li>
 
         <?php } ?>
+
+        <li class="nav-item">
+            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Auth/notFound">404</a>
+        </li>
+
     </ul>
 </nav>
