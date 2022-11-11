@@ -106,7 +106,76 @@ class UserController
 
         }
 
+        $this->validateStatus(); // Checks for adress and pets for owner
         require_once(VIEWS_PATH . "user-profile.php");
+    }
+
+    public function validateStatus(){
+        $adressController = new AdressController();
+        $adress = $adressController->getByUserId($_SESSION['userid']);
+
+        if ($_SESSION['type'] == 'D'){
+            $petController = new PetController();
+            $flag = 0;
+            $petList = $petController->GetByUserId($_SESSION['userid']);
+            if ($petList != null){
+                foreach ($petList as $pet){
+                    if ($pet->getStatus() == "1"){
+                        $flag = 1;
+                    }
+                }
+            }
+            if ($flag == 1 && $adress != null){
+                $this->UpdateStatus(1);
+            } else {
+                $this->UpdateStatus(0);
+            }
+        }
+
+        if ($_SESSION['type'] == 'G'){
+            $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
+            $sizeFlag = 0;
+            if($keeper != null){
+                $sizes = new SizeController();
+                $sizesList = $sizes->getByUserId($_SESSION['userid']);
+                if($sizesList != null){  // Justo aca
+                    foreach ($sizesList as $size){
+                        var_dump($size);
+                        if($size->getSmall() == 1 || $size->getMedium() == 1 || $size->getLarge() == 1){
+                            $sizeFlag = 1;
+                        }
+                    }
+                }
+                $dates = new AvailableDateController();
+                $dateList = $dates->GetByUserId($_SESSION['userid']);
+                $dateFlag = 0;
+                $dateNow = date('Y-m-d');
+                echo $dateNow;
+                if ($dateList != null){
+                    foreach ($dateList as $date){
+                        if($date->getDate() > $dateNow){
+                            echo "es mayor";
+                            $dateFlag = 1;
+                        }
+                    }
+                }
+            }
+
+            echo "<br>".$dateFlag."<br>";
+            echo $keeper->getPricing()."<br>";
+            echo $sizeFlag."<br>";
+            var_dump($adress);
+
+
+            if ($keeper->getPricing() > 0 && $sizeFlag == 1 && $dateFlag == 1 && $adress != null){
+                echo "exito";
+                $this->UpdateStatus(1);
+            } else {
+                echo "te hiciste pija imbecil";
+                $this->UpdateStatus(0);
+            }
+        }
+
     }
 
     public function Add($email, $password, $type, $dni, $cuit, $name, $surname, $phone)
@@ -157,6 +226,15 @@ class UserController
             $_SESSION['message'] = "Error al actualizar datos <br>";
             $this->ShowProfileView();
         }
+    }
+
+    public function UpdateStatus($status)
+    {
+        $user = new User();
+        $user->setUserid($_SESSION['userid']);
+        $user->setStatus($status);
+
+        $this->userDAO->UpdateStatus($user);
     }
 
     public function GetUserById($userid)

@@ -12,6 +12,7 @@
         private $name;
         private $surname;
         private $phone;
+        private $status;
 
         /**
          * @return mixed
@@ -155,6 +156,22 @@
         public function setPhone($phone)
         {
             $this->phone = $phone;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getStatus()
+        {
+            return $this->status;
+        }
+
+        /**
+         * @param mixed $status
+         */
+        public function setStatus($status)
+        {
+            $this->status = $status;
         }
 
 

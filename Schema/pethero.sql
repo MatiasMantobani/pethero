@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-11-2022 a las 21:54:11
+-- Tiempo de generación: 11-11-2022 a las 20:59:34
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -110,6 +110,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_available_dates_by_userid_da
 SET availabledates.available = breedid
 WHERE (availabledates.available = 0 AND availabledates.userid = keeperid AND (availabledates.date >= fechainicio AND availabledates.date <= fechafin))$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `user_status_update` (IN `Userid` INT(11), IN `Status` INT(11))   BEGIN
+UPDATE users
+SET status=Status
+WHERE
+users.userid=Userid;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `user_update` (IN `Userid` INT(11), IN `Name` VARCHAR(50), IN `Surname` VARCHAR(50), IN `Phone` VARCHAR(50))   BEGIN
 UPDATE users
 SET	name=Name, surname=Surname, phone=Phone
@@ -153,13 +160,14 @@ CREATE TABLE `adresses` (
 --
 
 INSERT INTO `adresses` (`userid`, `street`, `number`, `floor`, `department`, `postalcode`) VALUES
-(1, 'Marconi', '2050', '7', 'H', '7600'),
+(1, 'marconi', '1990', '', '', '7600'),
 (2, 'Colon', '4000', '', '', '7600'),
 (3, 'Colon', '7890', '9', 'A', '7600'),
 (5, 'San Luis', '2050', '', '', '7600'),
 (8, 'Salta', '2502', '9', 'K', '7600'),
 (9, 'Rioja', '4199', '8', 'J', '7600'),
-(11, 'Rivadavia', '2586', '4', '8', '7600');
+(11, 'Rivadavia', '2586', '4', '8', '7600'),
+(14, 'marconi', '1990', '', '', '7600');
 
 -- --------------------------------------------------------
 
@@ -173,6 +181,42 @@ CREATE TABLE `availabledates` (
   `date` date NOT NULL COMMENT 'fecha que pone el guardian para cuidar',
   `available` int(11) NOT NULL COMMENT '0 = libre, sino el breedid'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `availabledates`
+--
+
+INSERT INTO `availabledates` (`availabledatesid`, `userid`, `date`, `available`) VALUES
+(349, 14, '2022-11-01', 0),
+(350, 14, '2022-11-02', 0),
+(351, 14, '2022-11-03', 0),
+(352, 14, '2022-11-04', 0),
+(353, 14, '2022-11-05', 0),
+(354, 14, '2022-11-06', 0),
+(355, 14, '2022-11-07', 0),
+(356, 14, '2022-11-08', 0),
+(357, 14, '2022-11-09', 0),
+(358, 14, '2022-11-10', 0),
+(359, 14, '2022-11-11', 0),
+(360, 14, '2022-11-12', 0),
+(361, 14, '2022-11-13', 0),
+(362, 14, '2022-11-14', 0),
+(363, 14, '2022-11-15', 0),
+(364, 14, '2022-11-16', 0),
+(365, 14, '2022-11-17', 0),
+(366, 14, '2022-11-18', 0),
+(367, 14, '2022-11-19', 0),
+(368, 14, '2022-11-20', 0),
+(369, 14, '2022-11-21', 0),
+(370, 14, '2022-11-22', 0),
+(371, 14, '2022-11-23', 0),
+(372, 14, '2022-11-24', 0),
+(373, 14, '2022-11-25', 0),
+(374, 14, '2022-11-26', 0),
+(375, 14, '2022-11-27', 0),
+(376, 14, '2022-11-28', 0),
+(377, 14, '2022-11-29', 0),
+(378, 14, '2022-11-30', 0);
 
 -- --------------------------------------------------------
 
@@ -237,7 +281,8 @@ CREATE TABLE `keepers` (
 --
 
 INSERT INTO `keepers` (`keeperid`, `userid`, `rating`, `pricing`, `status`) VALUES
-(1, 2, 0, 100, 1);
+(1, 2, 0, 100, 1),
+(2, 14, 0, 500, 1);
 
 -- --------------------------------------------------------
 
@@ -291,8 +336,9 @@ CREATE TABLE `pet` (
 --
 
 INSERT INTO `pet` (`petid`, `userid`, `status`, `breedid`, `name`, `observations`) VALUES
-(39, 1, 1, 18, 'gato', 'asd'),
-(40, 1, 1, 25, 'perro', 'asd');
+(39, 1, 0, 18, 'gato', 'asd'),
+(40, 1, 0, 25, 'perro', 'asd'),
+(41, 1, 1, 18, 'Kitty', '');
 
 -- --------------------------------------------------------
 
@@ -357,9 +403,9 @@ CREATE TABLE `review` (
 
 CREATE TABLE `sizes` (
   `userid` int(11) NOT NULL,
-  `small` tinyint(1) DEFAULT NULL,
-  `medium` tinyint(1) DEFAULT NULL,
-  `large` tinyint(1) DEFAULT NULL
+  `small` tinyint(1) NOT NULL DEFAULT 0,
+  `medium` tinyint(1) NOT NULL DEFAULT 0,
+  `large` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -370,7 +416,8 @@ INSERT INTO `sizes` (`userid`, `small`, `medium`, `large`) VALUES
 (2, 1, 1, 1),
 (4, 1, 1, 1),
 (10, 0, 1, 0),
-(11, 1, 0, 1);
+(11, 1, 0, 1),
+(14, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -387,24 +434,26 @@ CREATE TABLE `users` (
   `cuit` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
   `surname` varchar(50) NOT NULL,
-  `phone` varchar(50) NOT NULL
+  `phone` varchar(50) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`userid`, `email`, `password`, `type`, `dni`, `cuit`, `name`, `surname`, `phone`) VALUES
-(1, 'qwe', 'qwe', 'D', '13092520', '21474836497', 'Matias', 'Mantovani', '2235820553'),
-(2, 'asd', 'asd', 'G', '13092514', '23130925148', 'Romina', 'Schurzmann', '4803662'),
-(3, 'usuario3@gmail.com', '123456', 'G', '38005813', '23380058139', 'Cesar', 'Millan', '4802259'),
-(4, 'usuario4@gmail.com', '123456', 'G', '38456789', '20384567899', 'Nazareno', 'Gomez', '2147483647'),
-(5, 'usuario5@gmail.com', '123456', 'D', '32814777', '20328147779', 'Karen', 'Ditomasso', '4802694'),
-(8, 'usuario6@gmail.com', '123456', 'G', '32645987', '20326459874', 'Matias', 'Mantovani', '4802556'),
-(9, 'usuario7@gmail.com', '123456', 'D', '23456123', '20234561236', 'Juan', 'Gomez', '4805549'),
-(10, 'usuario10@gmail.com', '123456', 'G', '32885331', '20328853318', 'Julian', 'Moreno', '4557896'),
-(11, 'usuario11@gmail.com', '123456', 'G', '24456123', '23244561239', 'Ricardo', 'Montalbano', '2235820559'),
-(13, 'asddd@gmail.com', '123456', 'D', '12345678', '20123456785', 'hkljhkjhkjh', 'kjhkjhjkhkjh', '456789');
+INSERT INTO `users` (`userid`, `email`, `password`, `type`, `dni`, `cuit`, `name`, `surname`, `phone`, `status`) VALUES
+(1, 'qwe', 'qwe', 'D', '13092520', '21474836497', 'Matias', 'Mantovani', '2235820553', 1),
+(2, 'asd', 'asd', 'G', '13092514', '23130925148', 'Romina', 'Schurzmann', '4803662', 1),
+(3, 'usuario3@gmail.com', '123456', 'G', '38005813', '23380058139', 'Cesar', 'Millan', '4802259', 0),
+(4, 'usuario4@gmail.com', '123456', 'G', '38456789', '20384567899', 'Nazareno', 'Gomez', '2147483647', 0),
+(5, 'usuario5@gmail.com', '123456', 'D', '32814777', '20328147779', 'Karen', 'Ditomasso', '4802694', 0),
+(8, 'usuario6@gmail.com', '123456', 'G', '32645987', '20326459874', 'Matias', 'Mantovani', '4802556', 0),
+(9, 'usuario7@gmail.com', '123456', 'D', '23456123', '20234561236', 'Juan', 'Gomez', '4805549', 0),
+(10, 'usuario10@gmail.com', '123456', 'G', '32885331', '20328853318', 'Julian', 'Moreno', '4557896', 0),
+(11, 'usuario11@gmail.com', '123456', 'G', '24456123', '23244561239', 'Ricardo', 'Montalbano', '2235820559', 0),
+(13, 'asddd@gmail.com', '123456', 'D', '12345678', '20123456785', 'hkljhkjhkjh', 'kjhkjhjkhkjh', '456789', 0),
+(14, 'aaa', '123456', 'G', '456456', '456546546', 'fds', 'fsdf', '4564', 0);
 
 -- --------------------------------------------------------
 
@@ -554,7 +603,7 @@ ALTER TABLE `vacunation_images`
 -- AUTO_INCREMENT de la tabla `availabledates`
 --
 ALTER TABLE `availabledates`
-  MODIFY `availabledatesid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=260;
+  MODIFY `availabledatesid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=379;
 
 --
 -- AUTO_INCREMENT de la tabla `breed`
@@ -572,7 +621,7 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT de la tabla `keepers`
 --
 ALTER TABLE `keepers`
-  MODIFY `keeperid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `keeperid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `message`
@@ -590,7 +639,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT de la tabla `pet`
 --
 ALTER TABLE `pet`
-  MODIFY `petid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `petid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `pet_images`
@@ -614,7 +663,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'user id', AUTO_INCREMENT=14;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'user id', AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `user_images`

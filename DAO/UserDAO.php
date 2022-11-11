@@ -94,6 +94,7 @@ class UserDAO
                 $user->setName($row["name"]);
                 $user->setSurname($row["surname"]);
                 $user->setPhone($row["phone"]);
+                $user->setStatus($row["status"]);
 
                 array_push($userList, $user);
             }
@@ -108,7 +109,7 @@ class UserDAO
     {
         $user = null;
 
-        $query = "SELECT userid, email, password, name, type, phone FROM " . $this->tableUsers . " WHERE (email = :email)";
+        $query = "SELECT userid, email, password, name, type, phone, status FROM " . $this->tableUsers . " WHERE (email = :email)";
 
         $parameters["email"] = $email;
 
@@ -123,8 +124,8 @@ class UserDAO
             $user->setEmail($row["email"]);
             $user->setPassword($row["password"]);
             $user->setPhone($row["phone"]);
+            $user->setStatus($row["status"]);
         }
-
         return $user;
     }
 
@@ -132,7 +133,7 @@ class UserDAO
     {
         $user = null;
 
-        $query = "SELECT userid, email, password, type, dni, cuit, name, surname, phone FROM " . $this->tableUsers . " WHERE (userid = :userid)";
+        $query = "SELECT userid, email, password, type, dni, cuit, name, surname, phone, status FROM " . $this->tableUsers . " WHERE (userid = :userid)";
 
         $parameters["userid"] = $userid;
 
@@ -151,6 +152,7 @@ class UserDAO
             $user->setName($row["name"]);
             $user->setSurname($row["surname"]);
             $user->setPhone($row["phone"]);
+            $user->setStatus($row["phone"]);
         }
         return $user;
     }
@@ -175,4 +177,21 @@ class UserDAO
         }
     }
 
+    public function UpdateStatus(User $user)
+    {
+        try
+        {
+            $query = "CALL user_status_update(?,?);";
+
+            $parameters["userid"] = $user->getUserid();
+            $parameters["status"] = $user->getStatus();
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
 }
