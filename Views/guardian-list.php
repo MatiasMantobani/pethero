@@ -11,7 +11,7 @@ require_once('nav.php');
                 <th>Apellido</th>
                 <th>Telefono</th>
                 <th>Email</th>
-                <th>Contratar</th>
+                <th>Perfil</th>
                 </thead>
                 <tbody>
                 <?php
@@ -22,7 +22,7 @@ require_once('nav.php');
                         <td><?php echo $user->getSurname() ?></td>
                         <td><?php echo $user->getPhone() ?></td>
                         <td><?php echo $user->getEmail() ?></td>
-                        <td>Accion ID <?php echo $user->getId() ?></td>
+                        <td><a class="btn btn-primary btn-sm">Ver</a></td>
 
                     </tr>
                     <?php

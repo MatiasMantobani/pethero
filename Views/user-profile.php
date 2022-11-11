@@ -48,8 +48,6 @@ require_once('nav.php');
                         </div>
                         <div class="col-md-8">
                             <div class="card-body p-4">
-                                <h6>Perfíl</h6>
-                                <hr class="mt-0 mb-4">
                                 <div class="row pt-1">
                                     <div class="col-6 mb-3">
                                         <h6>Email</h6>
@@ -110,7 +108,7 @@ require_once('nav.php');
                                                 <h6>Tamaños aceptados: </h6>
                                                 <p class="text-muted"><?php if ($size->getSmall() == true) echo "[S] ";
                                                                         if ($size->getMedium() == true) echo "[M] ";
-                                                                        if ($size->getLarge() == true) echo "[L] "; ?> <a href="<?php echo FRONT_ROOT ?>Size/ShowAddView">[Editar]</a></p>
+                                                                        if ($size->getLarge() == true) echo "[L] "; ?> <a href="<?php echo FRONT_ROOT ?>Size/ShowAddView" class="btn btn-dark btn-sm">Editar</a></p>
                                             <?php } else { ?>
                                                 <h6>Tamaños aceptados: </h6>
                                                 <p class="text-muted">No disponible <a href="<?php echo FRONT_ROOT ?>Size/ShowAddView">[Cargar
@@ -120,9 +118,9 @@ require_once('nav.php');
                                         <div class="col-6 mb-3">
                                             <h6>Fechas disponibles:</h6>
                                             <?php if ($fechas != null) { ?>
-                                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView">[Editar disponibilidad]</a></p>
+                                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView" class="btn btn-dark btn-sm">Editar disponibilidad</a></p>
                                             <?php } else { ?>
-                                                <p class="text-muted">No tenes disponibilidad <a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView"><br>[Cargar disponibilidad]</a></p>
+                                                <p class="text-muted">No tenes disponibilidad <a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView" class="btn btn-dark btn-sm"><br>Cargar disponibilidad</a></p>
                                             <?php } ?>
                                         </div>
                                     </div>
@@ -188,8 +186,8 @@ require_once('nav.php');
                                 <div class="row pt-1">
 
                                     <div class="col-6 mb-3">
-                                        <h6>Most Viewed</h6>
-                                        <p class="text-muted">Dolor sit amet</p>
+                                        <h6>Ver Guardianes</h6>
+                                        <a href="<?php echo FRONT_ROOT ?>User/ShowAllGuardians/" class="btn btn-primary btn-sm">Listado</a>
                                     </div>
                                     <div class="col-6 mb-3">
                                         <h6>Most Viewed</h6>

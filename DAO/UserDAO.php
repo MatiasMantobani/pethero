@@ -105,6 +105,40 @@ class UserDAO
         }
     }
 
+    public function GetAllKeepers()
+    {
+        try {
+            $userList = array();
+
+            $query = "SELECT * FROM " . $this->tableUsers . " WHERE (type = 'G')";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+
+            foreach ($resultSet as $row) {
+                $user = new User();
+
+                $user->setUserid($row["userid"]);
+                $user->setEmail($row["email"]);
+                $user->setPassword($row["password"]);
+                $user->setType($row["type"]);
+                $user->setDni($row["dni"]);
+                $user->setCuit($row["cuit"]);
+                $user->setName($row["name"]);
+                $user->setSurname($row["surname"]);
+                $user->setPhone($row["phone"]);
+                $user->setStatus($row["status"]);
+
+                array_push($userList, $user);
+            }
+
+            return $userList;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
     public function GetByEmail($email)
     {
         $user = null;

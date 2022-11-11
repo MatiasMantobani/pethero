@@ -41,6 +41,11 @@ class UserController
         require_once(VIEWS_PATH . "user-list.php");
     }
 
+    public function ShowAllGuardians(){
+        $guardianList = $this->userDAO->GetAllKeepers();
+        require_once(VIEWS_PATH . "guardian-list.php");
+    }
+
     //Mostrar perfil de usuario
     public function ShowProfileView()
     {
