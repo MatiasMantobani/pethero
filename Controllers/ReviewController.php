@@ -70,6 +70,9 @@ class ReviewController
         $userController = new UserController();
         $user = $userController->GetUserById($userid);
 
+        $reserveInfo = new ReserveController();
+        $petInfo = new PetController();
+
         require_once(VIEWS_PATH . "review-list.php");
     }
 
