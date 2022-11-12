@@ -49,6 +49,36 @@ class ChatDAO
         }
     }
 
+    public function GetAllActiveChats($id){
+        try{
+            $chatList = array();
+            $query = "SELECT * FROM ".$this->tableChat ." WHERE (receiverid = :receiverid OR senderid = :senderid )";
+
+            $parameters["receiverid"] = $id;
+            $parameters["senderid"] = $id;
+
+            $this->connection = Connection::GetInstance();
+            $results = $this->connection->Execute($query, $parameters);
+
+            foreach($results as $row)
+            {
+                $chat = new Chat();
+
+                $chat->setIdmessage($row["idmessage"]);
+                $chat->setReceiverid($row["receiverid"]);
+                $chat->setText($row["text"]);
+                $chat->setStatus($row["status"]);
+                $chat->setTime($row["time"]);
+                $chat->setSenderid($row["senderid"]);
+
+                array_push($chatList, $chat);
+            }
+            return $chatList;
+        }catch(Exception $ex) {
+            throw $ex;
+        }
+    }
+
     public function findChat($receiverid, $senderid){
         try{
             $chatList = array();

@@ -24,6 +24,7 @@ class ChatController
         $receiverImage = $imageController->ShowImage($receiverid);
         $senderName = $userController->GetUserById($_SESSION['userid'])->getName();
         $receiverName = $userController->GetUserById($receiverid)->getName();
+        $this->changeStatus($_SESSION['userid'], $receiverid, "read");
         require_once(VIEWS_PATH."chat.php");
     }
 
@@ -32,20 +33,35 @@ class ChatController
 
         $chat->setReceiverid($receiverid);
         $chat->setSenderid($_SESSION['userid']);
-        $chat->setText($text); // setear en vacio?
+        $chat->setText($text);
 
         $this->chatDAO->Add($chat);
-
-        if($chat->getSenderid() != $_SESSION['userid']){
-            $this->changeStatus($_SESSION['userid'], $receiverid, "read");
-        }
 
         $this->ShowAddView($receiverid);
     }
 
+    public function GetAllActiveChats(){
+        $allChats = $this->chatDAO->GetAllActiveChats($_SESSION['userid']);
+        $finalList = array();
+        foreach($allChats as $chat){
+            if($chat->getReceiverid() != $_SESSION['userid']){
+                array_push($finalList, $chat->getReceiverid());
+            }
+            if($chat->getSenderid() != $_SESSION['userid']){
+                array_push($finalList, $chat->getSenderid());
+            }
+        }
+        $list = array_unique($finalList);
+        $userList = array();
+        $userController = new UserController();
+        foreach($list as $userid){
+            array_push($userList, $userController->GetUserById($userid));
+        }
+        require_once(VIEWS_PATH."chat-list.php");
+    }
+
     public function changeStatus($senderid, $receiverid, $status){
-        // ver como encarar esta logica y la del DAO
-        $this->chatDAO->changeStatus();
+        $this->chatDAO->changeStatus($senderid, $receiverid, $status);
     }
 
     public function findChat($sender, $receiver){
