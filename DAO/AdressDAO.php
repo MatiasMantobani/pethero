@@ -3,6 +3,7 @@ namespace DAO;
 
 use \Exception as Exception;
 use Models\Adress as Adress;
+use Models\User as User;
 use DAO\Connection as Connection;
 
 class AdressDAO

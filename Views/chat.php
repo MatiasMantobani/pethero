@@ -1,8 +1,8 @@
 <?php
-require_once('nav.php');
+    require_once(VIEWS_PATH."header.php");
+    require_once('nav.php');
 ?>
-<br>
-<br>
+
 <div class="container py-5 bg-light-alpha rounded" >
 
     <div class="row">
@@ -187,3 +187,7 @@ require_once('nav.php');
     </div>
 
 </div>
+
+<?php 
+    require_once(VIEWS_PATH."footer.php");
+?>

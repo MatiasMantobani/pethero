@@ -1,5 +1,6 @@
 <?php
-require_once('nav.php');
+    require_once(VIEWS_PATH."header.php");
+    require_once('nav.php');
 ?>
 <main class="py-5">
     <section id="listado" class="mb-5">
@@ -43,3 +44,7 @@ require_once('nav.php');
 
     </section>
 </main>
+
+<?php 
+    require_once(VIEWS_PATH."footer.php");
+?>

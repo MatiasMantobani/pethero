@@ -1,5 +1,6 @@
 <?php
-require_once('nav.php');
+    require_once(VIEWS_PATH."header.php");
+    require_once('nav.php');
 ?>
 <header>
     <!--    Sistema de rating starts-->
@@ -88,3 +89,7 @@ require_once('nav.php');
         </div>
     </section>
 </main>
+
+<?php 
+    require_once(VIEWS_PATH."footer.php");
+?>
