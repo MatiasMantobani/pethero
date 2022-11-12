@@ -73,4 +73,23 @@ class ReviewController
         require_once(VIEWS_PATH . "review-list.php");
     }
 
+    public function GetFinalScore($id, $reviewCounter){
+        $ratings = $this->ReviewFinderByReceptor($id);
+        $reviewAcum = 0;
+        foreach($ratings as $rating){
+            $reviewAcum += $rating->getRating();
+        }
+        if($reviewCounter > 0){
+            $finalRating = $reviewAcum/$reviewCounter;
+        }else{
+            $finalRating = 0;
+        }
+        return $finalRating;
+    }
+
+    public function GetReviewCounter($id){
+        $ratings = $this->ReviewFinderByReceptor($id);
+        return sizeof($ratings);
+    }
+
 }

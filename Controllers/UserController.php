@@ -83,19 +83,8 @@ class UserController
             $fechas = $availableDate->GetById();
 
             $reviewController = new ReviewController();
-            $ratings = $reviewController->ReviewFinderByReceptor($_SESSION['userid']);
-            $reviewCounter = 0;
-            $reviewAcum = 0;
-            foreach($ratings as $rating){
-                $reviewCounter++;
-                $reviewAcum += $rating->getRating();
-            }
-            if($reviewCounter > 0){
-                $finalRating = $reviewAcum/$reviewCounter;
-            }else{
-                $finalRating = 0;
-                $reviewCounter = 0;
-            }
+            $reviewCounter = $reviewController->GetReviewCounter($_SESSION['userid']);
+            $finalRating = $reviewController->GetFinalScore($_SESSION['userid'], $reviewCounter);
         }
 
         // Manda keeper al perfil
@@ -252,20 +241,10 @@ class UserController
     public function ShowExternalProfile($keeperid){
         $keeper = $this->keeperController->getByKeeperId($keeperid); // para la info especifica del guardian
         $user = $this->GetUserById($keeperid);  // para la info especifica del user
+
         $reviewController = new ReviewController();
-        $ratings = $reviewController->ReviewFinderByReceptor($keeperid);
-        $reviewCounter = 0;
-        $reviewAcum = 0;
-        foreach($ratings as $rating){
-            $reviewCounter++;
-            $reviewAcum += $rating->getRating();
-        }
-        if($reviewCounter > 0){
-            $finalRating = $reviewAcum/$reviewCounter;
-        }else{
-            $finalRating = 0;
-            $reviewCounter = 0;
-        }
+        $reviewCounter = $reviewController->GetReviewCounter($keeperid);
+        $finalRating = $reviewController->GetFinalScore($keeperid, $reviewCounter);
 
         $userImageController = new UserImageController();
         $userImage = $userImageController->ShowImage($keeperid);
