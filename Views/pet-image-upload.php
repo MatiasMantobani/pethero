@@ -4,7 +4,7 @@ require_once('nav.php');
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-            <a href="<?php echo FRONT_ROOT ?>Pet/ShowProfileView/<?php echo $petid ?>">Volver</a>
+<!--            <a href="--><?php //echo FRONT_ROOT ?><!--Pet/ShowProfileView/--><?php //echo $petid ?><!--">Volver</a>-->
             <h2 class="mb-4">Carga de imágen</h2>
             <p>Subí la foto de tu mascota</p>
             <form action="<?php echo FRONT_ROOT ?>PetImage/Upload" method="post" enctype="multipart/form-data" class="bg-light-alpha p-5">
