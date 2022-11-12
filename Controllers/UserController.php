@@ -256,9 +256,9 @@ class UserController
         $userImageController = new UserImageController();
         $userImage = $userImageController->ShowImage($keeperid);
 
+        $SizeController = new SizeController();
+        $size = $SizeController->getByUserId($keeperid);
 
-        //mandar los sizes
-        //mandar la imagen
         require_once(VIEWS_PATH . "external-profile.php");
     }
 }
