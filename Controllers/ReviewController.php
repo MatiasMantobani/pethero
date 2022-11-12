@@ -44,6 +44,8 @@ class ReviewController
         }else{
             $_SESSION['message'] = "No puedes enviar la review, ya que dejaste una previamente";
         }
+        $reserveController = new ReserveController();
+        $reserveController->Reviewed($reserveid);
         $controller = new UserController();
         $controller->ShowProfileView();
     }

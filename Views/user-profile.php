@@ -421,9 +421,11 @@ require_once('nav.php');
                                     <td><a href="<?php echo FRONT_ROOT ?>Reserve/PickUpPet/<?php echo $reserva->getReserveid() ?>" class="btn btn-primary btn-sm">Marcar Retiro</a></td>
                                 <?php } else if ($reserva->getStatus() == "completed") { ?>
                                     <td><a href=<?php echo FRONT_ROOT ?>Review/ShowAddView/<?php echo $reserva->getReserveid() ?> " class=" btn btn-warning btn-sm">Opinar</a></td>
-                                <?php } else if ($reserva->getStatus() == "canceled") { ?>
+                                <?php } else if ($reserva->getStatus() == "completed & reviewed") { ?>
+                                    <td><button class=" btn btn-warning btn-sm" disabled >Opinar</button></td>
+                                <?php }else if($reserva->getStatus() == "canceled"){ ?>
 
-                                <?php } ?>
+                                <?php }?>
 
                             <?php } ?>
 

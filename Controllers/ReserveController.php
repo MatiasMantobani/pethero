@@ -285,6 +285,12 @@ class ReserveController
         $this->UserController->ShowProfileView();
     }
 
+    public function Reviewed($reserveid)
+    {
+        $this->StatusUpdate($reserveid, "completed & reviewed");
+        $this->UserController->ShowProfileView();
+    }
+
     public function AcceptReserve($reserveid)
     {
         $currentReserve = $this->reserveDAO->getReserveById($reserveid);                       //seleccionas la reserva actual
