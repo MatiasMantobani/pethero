@@ -29,8 +29,13 @@ class AvailableDateController
         require_once(VIEWS_PATH . "availableDate-add.php");
     }
 
+    public function ShowAvailableDates(){
+        $fechas = $this->GetById();
+        require_once(VIEWS_PATH . "availableDate-show.php");
+    }
 
-    public function GetById()   //ACA
+
+    public function GetById()
     {
         return $this->availableDateDAO->GetByUserid($_SESSION['userid']);
     }
