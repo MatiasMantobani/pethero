@@ -73,7 +73,14 @@ class ReviewController
         $reserveInfo = new ReserveController();
         $petInfo = new PetController();
 
-        require_once(VIEWS_PATH . "review-list.php");
+
+        if (count($ratings) > 0) {
+            require_once(VIEWS_PATH . "review-list.php");
+        } else {
+            $_SESSION["message"] = "No tienes reviews para mostrar";
+            $userController = new UserController();
+            $userController->ShowProfileView();
+        }
     }
 
     public function GetFinalScore($id, $reviewCounter){

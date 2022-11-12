@@ -42,11 +42,12 @@ class PaymentController
         return $this->paymentDAO->GetByReserveId($reserveid);
     }
 
-    public function GetFirstPayment($reserveid){
+    public function GetFirstPayment($reserveid)
+    {
         $payments = $this->GetByReserveId($reserveid);
         $firstPayment = $payments[0];
-        foreach ($payments as $payment){
-            if($payment->getPaymentid() < $firstPayment->getPaymentid()){
+        foreach ($payments as $payment) {
+            if ($payment->getPaymentid() < $firstPayment->getPaymentid()) {
                 $firstPayment = $payment;
             }
         }
@@ -67,12 +68,21 @@ class PaymentController
         }
     }
 
-    public function ShowPaymentList(){ // funciona ya sea el transmitter o el receiver
+    public function ShowPaymentList()
+    { // funciona ya sea el transmitter o el receiver
         $paymentList = $this->GetAllByUserIdTransmitter($_SESSION['userid']);
-        if($paymentList == null){
+        if ($paymentList == null) {
             $paymentList = $this->GetAllByUserIdReceiver($_SESSION['userid']);
         }
-        require_once(VIEWS_PATH . "payment-list.php");
-    }
 
+
+        //para evitar mostrar una lista vacia
+        if (count($paymentList) > 0) {
+            require_once(VIEWS_PATH . "payment-list.php");
+        } else {
+            $_SESSION["message"] = "No tienes pagos para mostrar";
+            $userController = new UserController();
+            $userController->ShowProfileView();
+        }
+    }
 }

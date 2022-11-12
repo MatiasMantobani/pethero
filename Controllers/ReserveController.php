@@ -84,7 +84,14 @@ class ReserveController
         $petInfo = $this->PetController;
         $keeperInfo = $this->UserController;
 
-        require_once(VIEWS_PATH . "reserve-list.php");
+        //para evitar mostrar una lista vacia
+        if (count($reserveList) > 0) {
+            require_once(VIEWS_PATH . "reserve-list.php");
+        } else {
+            $_SESSION["message"] = "No tienes reservas para mostrar";
+            $userController = new UserController();
+            $userController->ShowProfileView();
+        }
     }
 
     public function ShowAllReservesView()
@@ -106,7 +113,14 @@ class ReserveController
         $petInfo = $this->PetController;
         $keeperInfo = $this->UserController;
 
-        require_once(VIEWS_PATH . "reserve-list.php");
+        //para evitar mostrar una lista vacia
+        if (count($reserveList) > 0) {
+            require_once(VIEWS_PATH . "reserve-list.php");
+        } else {
+            $_SESSION["message"] = "No tienes reservas para mostrar";
+            $userController = new UserController();
+            $userController->ShowProfileView();
+        }
     }
 
     //lo llama el boton de pagar reserva del user-profile
@@ -251,7 +265,7 @@ class ReserveController
                 }
             }
             if ($flag == 0) {
-                if($user->getStatus() == 1){
+                if ($user->getStatus() == 1) {
                     array_push($AvailableUsers, $user);
                 }
 

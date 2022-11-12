@@ -34,11 +34,11 @@ class PetController
         $petImage = $this->petImageController->ShowImage($pet->getPetid());
         $vacunationImage = $this->vacunationImageController->ShowImage($pet->getPetid());
 
-        if (!$petImage){
+        if (!$petImage) {
             $_SESSION['message'] .= "Para comenzar, podés subir mi foto. <br>";
         }
 
-        if (!$vacunationImage){
+        if (!$vacunationImage) {
             $_SESSION['message'] .= "Subí mi carnet de vacunación. <br>";
         }
 
@@ -66,7 +66,18 @@ class PetController
     {
         $petList = $this->petDAO->GetByUserid($_SESSION['userid']);
         $breedController = new BreedController();
-        require_once(VIEWS_PATH . "pet-list.php");
+
+
+        //para evitar mostrar una lista vacia
+        if (count($petList) > 0) {
+            require_once(VIEWS_PATH . "pet-list.php");
+        } else {
+            $_SESSION["message"] = "No tienes mascotas para mostrar";
+            $userController = new UserController();
+            $userController->ShowProfileView();
+        }
+
+        
     }
 
     public function Add($breedid, $name, $observations)

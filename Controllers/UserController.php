@@ -4,6 +4,7 @@ namespace Controllers;
 
 use DAO\UserDAO as UserDAO;
 use Models\User as User;
+use Models\Adress as Adress;
 use Controllers\AuthController as AuthController;
 use Controllers\AdressController as AdressController;
 use Controllers\SizeController as SizeController;
@@ -43,7 +44,16 @@ class UserController
 
     public function ShowAllGuardians(){
         $guardianList = $this->userDAO->GetAllKeepers();
-        require_once(VIEWS_PATH . "guardian-list.php");
+
+         //para evitar mostrar una lista vacia
+         if (count($guardianList) > 0) {
+            require_once(VIEWS_PATH . "guardian-list.php");
+        } else {
+            $_SESSION["message"] = "Parece que aun no hay guardianes por tu zona, prueba de nuevo mas tarde!";
+            $userController = new UserController();
+            $userController->ShowProfileView();
+        }
+        
     }
 
     //Mostrar perfil de usuario
