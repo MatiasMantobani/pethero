@@ -67,6 +67,8 @@ class ReserveController
                 $status = "in progress";
             } else if ($pseudostatus == "Completadas") {
                 $status = "completed";
+            } else if ($pseudostatus == "Calificadas") {
+                $status = "completed & reviewed";
             } else if ($pseudostatus == "Canceladas") {
                 $status = "canceled";
             }
@@ -82,7 +84,24 @@ class ReserveController
         require_once(VIEWS_PATH . "reserve-list.php");
     }
 
+    public function ShowAllReservesView()
+    {
+        // el pseudostatus es para no mostrar los estados de la BD en el front
 
+        $reserveList = array();
+
+        //trear todas las reservas por usuario logueado
+        if ($_SESSION["type"] == "D") {
+            $reserves = $this->reserveDAO->getOwnerReserves($_SESSION['userid']);
+        } else if ($_SESSION["type"] == "G") {
+            $reserves = $this->reserveDAO->getKeeperReserves($_SESSION['userid']);
+        }
+
+        $reserveList = $reserves;
+        $pseudostatus = "Todas";
+
+        require_once(VIEWS_PATH . "reserve-list.php");
+    }
 
     //lo llama el boton de pagar reserva del user-profile
     public function PayReserve($reserveid)

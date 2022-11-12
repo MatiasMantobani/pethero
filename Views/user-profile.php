@@ -173,6 +173,7 @@ require_once('nav.php');
                                                 <option value="Pagadas">Pagadas</option>
                                                 <option value="En Progreso">En Progreso</option>
                                                 <option value="Completadas">Completadas</option>
+                                                <option value="Calificadas">Calificadas</option>
                                                 <option value="Canceladas">Canceladas</option>
                                             </select>
 
