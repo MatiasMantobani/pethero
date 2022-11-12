@@ -387,7 +387,7 @@ require_once('nav.php');
                                     <td><a href="<?php echo FRONT_ROOT ?>Reserve/CancelReserve/<?php echo $reserva->getReserveid() ?>" class="btn btn-danger btn-sm">Eliminar Reserva</a></td>
 
                                 <?php } else if ($reserva->getStatus() == "payed") { ?>
-
+                                    <td><a href="<?php echo FRONT_ROOT ?>Reserve/CheckInPet/<?php echo $reserva->getReserveid() ?>" class="btn btn-primary btn-sm">Marcar Ingreso</a></td>
                                 <?php } else if ($reserva->getStatus() == "rejected") { ?>
 
                                 <?php } else if ($reserva->getStatus() == "in progress") { ?>
@@ -418,7 +418,7 @@ require_once('nav.php');
                                     <td><button class="btn btn-primary btn-sm" disabled>Eliminar Reserva</button></td>
 
                                 <?php } else if ($reserva->getStatus() == "in progress") { ?>
-
+                                    <td><a href="<?php echo FRONT_ROOT ?>Reserve/PickUpPet/<?php echo $reserva->getReserveid() ?>" class="btn btn-primary btn-sm">Marcar Retiro</a></td>
                                 <?php } else if ($reserva->getStatus() == "completed") { ?>
                                     <td><a href=<?php echo FRONT_ROOT ?>Review/ShowAddView/<?php echo $reserva->getReserveid() ?> " class=" btn btn-warning btn-sm">Opinar</a></td>
                                 <?php } else if ($reserva->getStatus() == "canceled") { ?>

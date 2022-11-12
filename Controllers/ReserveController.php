@@ -271,7 +271,19 @@ class ReserveController
         $this->UserController->ShowProfileView();
     }
 
+    public function CheckInPet($reserveid)
+    {
+        $this->StatusUpdate($reserveid, "in progress");
+        $_SESSION['message'] = "Mascota ingresada";
+        $this->UserController->ShowProfileView();
+    }
 
+    public function PickUpPet($reserveid)
+    {
+        $this->StatusUpdate($reserveid, "completed");
+        $_SESSION['message'] = "Mascota retirada";
+        $this->UserController->ShowProfileView();
+    }
 
     public function AcceptReserve($reserveid)
     {
