@@ -5,7 +5,7 @@ require_once('nav.php');
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-
+            <h2 class="mb-4"> Solicita una reserva </h2>
             <?php if($listadoMascotas){ ?>
                 <form action="<?php echo FRONT_ROOT ?>Reserve/showChooseKeeperView" method="post" class="bg-light-alpha p-5">
 

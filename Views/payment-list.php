@@ -7,7 +7,7 @@ require_once('nav.php');
 
             <?php if ($paymentList) { ?>
 
-                <h2 class="mb-4"> Tus pagos </h2>
+                <h2 class="mb-4"> Tus Pagos </h2>
                 <table class="table bg-light-alpha">
                     <thead>
                         <th>ID de Reserva</th>

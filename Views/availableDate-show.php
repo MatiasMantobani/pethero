@@ -10,9 +10,6 @@ require_once('nav.php');
                 <h2 class="mb-4"> Tus Fechas Disponibles</h2>
                 <table class="table bg-light-alpha">
                     <thead>
-                        <th>Available Dates Id</th>
-                        <th>User Id</th>
-                        <th>Available</th>
                         <th>Fecha</th>
                     </thead>
                     <tbody>
@@ -20,9 +17,6 @@ require_once('nav.php');
                     foreach ($fechas as $fecha) {
                         ?>
                         <tr>
-                            <td><?php echo $fecha->getAvailableDateId() ?></td>
-                            <td><?php echo $fecha->getUserid() ?></td>
-                            <td><?php echo $fecha->getAvailable() ?></td>
                             <td><?php echo $fecha->getDate() ?></td>
                         </tr>
                         <?php
