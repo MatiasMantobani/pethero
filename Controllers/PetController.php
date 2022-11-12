@@ -65,6 +65,7 @@ class PetController
     public function ShowListView()
     {
         $petList = $this->petDAO->GetByUserid($_SESSION['userid']);
+        $breedController = new BreedController();
         require_once(VIEWS_PATH . "pet-list.php");
     }
 

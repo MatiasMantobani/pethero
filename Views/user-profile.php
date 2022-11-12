@@ -136,7 +136,7 @@ require_once('nav.php');
                                 <?php if($_SESSION['type'] == 'D'){ ?>
                                     <div class="row pt-1">
                                         <div class="col-6 mb-3">
-                                            <a href="<?php echo FRONT_ROOT ?>#" class="btn btn-dark btn-lg">Ver mis mascotas</a>
+                                            <a href="<?php echo FRONT_ROOT ?>Pet/ShowListView/" class="btn btn-dark btn-lg">Ver mis mascotas</a>
                                         </div>
                                         <div class="col-6 mb-3">
                                             <a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView/" class="btn btn-dark btn-lg">Solicitar reserva</a>
