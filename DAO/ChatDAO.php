@@ -29,13 +29,14 @@ class ChatDAO
         }
     }
 
-    public function changeStatus($idmessage, $status)
+    public function changeStatus($senderid, $receiverid, $status)
     {
         try
         {
-            $query = "CALL chat_update_status (?,?);";
+            $query = "CALL chat_update_status (?,?,?);";
 
-            $parameters["idmessage"] = $idmessage;
+            $parameters["senderid"] = $senderid;
+            $parameters["receiverid"] = $receiverid;
             $parameters["status"] = $status;
 
             $this->connection = Connection::GetInstance();

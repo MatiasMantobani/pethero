@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 12, 2022 at 05:58 PM
+-- Generation Time: Nov 12, 2022 at 06:16 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -32,11 +32,11 @@ WHERE
         adresses.userid=Userid;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `chat_update_status` (IN `Idmessage` INT(11), IN `Status` VARCHAR(50))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `chat_update_status` (IN `Senderid` INT(11), IN `Receiverid` INT(11), IN `Status` VARCHAR(50))   BEGIN
 UPDATE chat
 SET	status=Status
 WHERE
-        chat.idmessage=Idmessage;
+        (chat.senderid=Senderid AND chat.receiverid=Receiverid) OR (chat.senderid=Receiverid AND chat.receiverid=Senderid);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getReserveByDay` (IN `KeeperUserId` INT(11), IN `Date` DATE)   SELECT reserve.petid FROM reserve WHERE (reserve.receiverid = KeeperUserId AND Date BETWEEN reserve.firstdate AND reserve.lastdate)$$
@@ -290,7 +290,8 @@ INSERT INTO `chat` (`idmessage`, `receiverid`, `text`, `status`, `time`, `sender
 (5, 2, 'Que bueno que esta funcionando', 'sent', '2022-11-12 13:24:38', 1),
 (10, 8, '??', 'sent', '2022-11-12 13:40:35', 1),
 (11, 1, 'Que te pasa gil?', 'sent', '2022-11-12 13:41:35', 8),
-(12, 10, 'Que onda pa?', 'sent', '2022-11-12 13:44:22', 1);
+(12, 10, 'Que onda pa?', 'sent', '2022-11-12 13:44:22', 1),
+(16, 1, 'Probando el visto', 'sent', '2022-11-12 14:13:17', 2);
 
 -- --------------------------------------------------------
 
@@ -663,7 +664,7 @@ ALTER TABLE `breed`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `idmessage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idmessage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `keepers`

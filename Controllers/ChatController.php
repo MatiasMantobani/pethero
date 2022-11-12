@@ -28,8 +28,6 @@ class ChatController
     }
 
     public function Add($receiverid, $text){
-        // evaluar si ya existe un chat entre el sender y el receiver
-
         $chat = new Chat();
 
         $chat->setReceiverid($receiverid);
@@ -38,10 +36,14 @@ class ChatController
 
         $this->chatDAO->Add($chat);
 
+        if($chat->getSenderid() != $_SESSION['userid']){
+            $this->changeStatus($_SESSION['userid'], $receiverid, "read");
+        }
+
         $this->ShowAddView($receiverid);
     }
 
-    public function changeStatus(){
+    public function changeStatus($senderid, $receiverid, $status){
         // ver como encarar esta logica y la del DAO
         $this->chatDAO->changeStatus();
     }
