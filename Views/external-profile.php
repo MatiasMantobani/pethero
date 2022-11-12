@@ -18,19 +18,12 @@ require_once('nav.php');
                 <div class="card mb-3" style="border-radius: .5rem; border: #856404">
                     <div class="row g-0">
                         <div class="col-md-4 gradient-custom text-center text-white" style="border-radius: .5rem;">
-
-<!--                            IMAGEN-->
-<!--                            --><?php //if ($userImage != null) { ?>
-<!---->
-<!--                                <img src="--><?php //echo FRONT_ROOT . USER_UPLOADS_PATH . $userImage->getName() ?><!--" alt="Profile img" class="img-fluid my-5 rounded-circle" style="width: 200px;" />-->
-<!--                                <p class="text-muted"><a href="--><?php //echo FRONT_ROOT ?><!--UserImage/ShowUploadView">[Cambiar-->
-<!--                                        foto]</a></p>-->
-<!--                            --><?php //} else { ?>
-<!---->
+                            
+                            <?php if ($userImage != null) { ?>
+                                <img src="<?php echo FRONT_ROOT . USER_UPLOADS_PATH . $userImage->getName() ?>" alt="Profile img" class="img-fluid my-5 rounded-circle" style="width: 200px;" />
+                            <?php } else { ?>
                                 <img src="<?php echo FRONT_ROOT ?>Views/img/profile/profile_default.png" alt="Profile img" class="img-fluid my-5 rounded-circle" style="width: 200px;" />
-<!--                                <p class="text-muted"><a href="--><?php //echo FRONT_ROOT ?><!--UserImage/ShowUploadView">[Subir-->
-<!--                                        foto]</a></p>-->
-<!--                            --><?php //} ?>
+                            <?php } ?>
 
                             <h5><?php echo $user->getName() ?> <?php echo $user->getSurname() ?></h5>
                             <i class="far fa-edit mb-5"></i>

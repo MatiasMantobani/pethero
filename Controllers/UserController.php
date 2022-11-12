@@ -253,6 +253,9 @@ class UserController
             $reviewCounter = 0;
         }
 
+        $userImageController = new UserImageController();
+        $userImage = $userImageController->ShowImage($keeperid);
+
 
         //mandar los sizes
         //mandar la imagen
