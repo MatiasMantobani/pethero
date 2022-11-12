@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 12, 2022 at 06:16 PM
+-- Generation Time: Nov 12, 2022 at 07:24 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -36,7 +36,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `chat_update_status` (IN `Senderid` 
 UPDATE chat
 SET	status=Status
 WHERE
-        (chat.senderid=Senderid AND chat.receiverid=Receiverid) OR (chat.senderid=Receiverid AND chat.receiverid=Senderid);
+        chat.senderid=Senderid AND chat.receiverid=Receiverid OR chat.senderid=Receiverid AND chat.receiverid=Senderid;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getReserveByDay` (IN `KeeperUserId` INT(11), IN `Date` DATE)   SELECT reserve.petid FROM reserve WHERE (reserve.receiverid = KeeperUserId AND Date BETWEEN reserve.firstdate AND reserve.lastdate)$$
@@ -283,15 +283,16 @@ CREATE TABLE `chat` (
 --
 
 INSERT INTO `chat` (`idmessage`, `receiverid`, `text`, `status`, `time`, `senderid`) VALUES
-(1, 2, 'Hola, como estas?', 'sent', '2022-11-12 13:00:08', 1),
-(2, 1, 'Todo bien!', 'sent', '2022-11-12 13:00:25', 2),
-(3, 2, 'Me alegro', 'sent', '2022-11-12 13:23:23', 1),
-(4, 2, 'JOJO', 'sent', '2022-11-12 13:23:43', 1),
-(5, 2, 'Que bueno que esta funcionando', 'sent', '2022-11-12 13:24:38', 1),
+(1, 2, 'Hola, como estas?', 'read', '2022-11-12 13:00:08', 1),
+(2, 1, 'Todo bien!', 'read', '2022-11-12 13:00:25', 2),
+(3, 2, 'Me alegro', 'read', '2022-11-12 13:23:23', 1),
+(4, 2, 'JOJO', 'read', '2022-11-12 13:23:43', 1),
+(5, 2, 'Que bueno que esta funcionando', 'read', '2022-11-12 13:24:38', 1),
 (10, 8, '??', 'sent', '2022-11-12 13:40:35', 1),
 (11, 1, 'Que te pasa gil?', 'sent', '2022-11-12 13:41:35', 8),
 (12, 10, 'Que onda pa?', 'sent', '2022-11-12 13:44:22', 1),
-(16, 1, 'Probando el visto', 'sent', '2022-11-12 14:13:17', 2);
+(16, 1, 'Probando el visto', 'read', '2022-11-12 14:13:17', 2),
+(17, 1, 'Hola', 'read', '2022-11-12 15:10:26', 2);
 
 -- --------------------------------------------------------
 
@@ -664,7 +665,7 @@ ALTER TABLE `breed`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `idmessage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idmessage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `keepers`
