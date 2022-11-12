@@ -81,6 +81,9 @@ class ReserveController
             }
         }
 
+        $petInfo = $this->PetController;
+        $keeperInfo = $this->UserController;
+
         require_once(VIEWS_PATH . "reserve-list.php");
     }
 
@@ -99,6 +102,9 @@ class ReserveController
 
         $reserveList = $reserves;
         $pseudostatus = "Todas";
+
+        $petInfo = $this->PetController;
+        $keeperInfo = $this->UserController;
 
         require_once(VIEWS_PATH . "reserve-list.php");
     }

@@ -42,8 +42,7 @@ require_once('nav.php');
                                             break;
                                     } ?></td>
                                 <td>
-                                    <a href="<?php echo FRONT_ROOT ?>Pet/ShowProfileView/<?php echo $pet->getPetid() ?>" class="btn btn-primary btn-sm">Ver
-                                        perfil</a>
+                                    <a href="<?php echo FRONT_ROOT ?>Pet/ShowProfileView/<?php echo $pet->getPetid() ?>" class="btn btn-primary btn-sm">Ver perfil</a>
                                 </td>
                                 <td>
 
