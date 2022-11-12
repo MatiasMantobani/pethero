@@ -10,59 +10,70 @@ class ChatDAO
     private $connection;
     private $tableChat = "chat";
 
-    public function getAll()
-    {
-        try {
-            $chatList = array();
-
-            $query = "SELECT * FROM " . $this->tableChat;
-
-            $this->connection = Connection::GetInstance();
-            $resultSet = $this->connection->Execute($query);
-
-            foreach ($resultSet as $row) {
-                $chat = new Chat();
-
-                $chat->setIdchat($row["idchat"]);
-                $chat->setSender($row["sender"]);
-                $chat->setReceiver($row["receiver"]);
-                $chat->setMessages($row["messages"]);
-
-                array_push($chatList, $chat);
-            }
-
-            return $chatList;
-        } catch (Exception $ex) {
-            throw $ex;
-        }
-    }
-
-    public function getSpecificChat($chatId)
-    {
-        try {
-            // filtrar el chat segun el id que le llegue
-        } catch (Exception $ex) {
-            throw $ex;
-        }
-    }
-
     public function Add(Chat $chat)
     {
         try
         {
-            $query = "INSERT INTO ".$this->tableChat." (sender, receiver, messages) VALUES (:sender, :receiver, :messages);";
+            $query = "INSERT INTO ".$this->tableChat." (receiverid, text, senderid) VALUES (:receiverid, :text, :senderid);";
 
-            $parameters["sender"] = $chat->getSender();
-            $parameters["receiver"] = $chat->getReceiver();
-            $parameters["messages"] = $chat->getMessages();
-
+            $parameters["receiverid"] = $chat->getReceiverid();
+            $parameters["text"] = $chat->getText();
+            $parameters["senderid"] = $chat->getSenderid();
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
+    public function changeStatus($idmessage, $status)
+    {
+        try
+        {
+            $query = "CALL chat_update_status (?,?);";
+
+            $parameters["idmessage"] = $idmessage;
+            $parameters["status"] = $status;
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
 
         }
         catch(Exception $ex)
         {
+            throw $ex;
+        }
+    }
+
+    public function findChat($receiverid, $senderid){
+        try{
+            $chatList = array();
+            $query = "SELECT * FROM ".$this->tableChat ." WHERE (receiverid = :receiverid AND senderid = :senderid OR senderid = :receiverid AND receiverid = :senderid)";
+
+            $parameters["receiverid"] = $receiverid;
+            $parameters["senderid"] = $senderid;
+
+            $this->connection = Connection::GetInstance();
+            $results = $this->connection->Execute($query, $parameters);
+
+            foreach($results as $row)
+            {
+                $chat = new Chat();
+
+                $chat->setIdmessage($row["idmessage"]);
+                $chat->setReceiverid($row["receiverid"]);
+                $chat->setText($row["text"]);
+                $chat->setStatus($row["status"]);
+                $chat->setTime($row["time"]);
+                $chat->setSenderid($row["senderid"]);
+
+                array_push($chatList, $chat);
+            }
+            return $chatList;
+        }catch(Exception $ex) {
             throw $ex;
         }
     }

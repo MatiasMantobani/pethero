@@ -76,15 +76,17 @@ require_once('nav.php');
                                         <?php if ($adress) { ?>
                                             <h6>Direccion: </h6>
                                             <p class="text-muted"><?php echo $adress->getStreet() . " " . $adress->getNumber() . " Piso: " . $adress->getFloor() . " Depto: " . $adress->getDepartment() . " CP: " . $adress->getPostalcode() ?></p>
+                                            <h6></h6>
+                                            <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>Adress/ShowAddView" class="btn btn-dark btn-sm">Editar dirección <i class="far fa-edit"></i></a></p>
                                         <?php } else { ?>
                                             <h6>Direccion no disponible: </h6>
                                             <a href="<?php echo FRONT_ROOT ?>Adress/ShowAddView" class="btn btn-dark btn-sm">Cargar direccion</a>
                                         <?php } ?>
                                     </div>
                                     <div class="col-6 mb-3">
-                                        <?php if ($adress) { ?>
-                                            <h6></h6>
-                                            <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>Adress/ShowAddView" class="btn btn-dark btn-sm">Editar dirección <i class="far fa-edit"></i></a></p>
+                                        <?php if ($_SESSION['type'] == 'G') { ?>
+                                            <h6>Editar disponibilidad: </h6>
+                                            <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView" class="btn btn-dark btn-sm">Editar disponibilidad <i class="far fa-edit"></i></a></p>
                                         <?php } ?>
                                     </div>
                                 </div>

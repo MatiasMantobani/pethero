@@ -2,60 +2,51 @@
 
 namespace Controllers;
 
-use DAO\ChatDAO;
-use DAO\MessageDAO;
-use Models\Chat;
-use Models\Message;
+use DAO\ChatDAO as ChatDAO;
+use Models\Chat as Chat;
+use Controllers\UserImageController as UserImageController;
+use Controllers\UserController as UserController;
 
 class ChatController
 {
     private $chatDAO;
-    private $messageDAO;
 
     public function __construct()
     {
         $this->chatDAO = new ChatDAO();
-        $this->messageDAO = new MessageDAO();
     }
 
-    public function ShowAddView(){
-        $chats = $this->chatDAO->getAll(); // envio todos los chats a la vista
+    public function ShowAddView($receiverid){
+        $messages = $this->findChat($_SESSION['userid'], $receiverid);
+        $imageController = new UserImageController();
+        $userController = new UserController();
+        $senderImage = $imageController->ShowImage($_SESSION['userid']);
+        $receiverImage = $imageController->ShowImage($receiverid);
+        $senderName = $userController->GetUserById($_SESSION['userid'])->getName();
+        $receiverName = $userController->GetUserById($receiverid)->getName();
         require_once(VIEWS_PATH."chat.php");
     }
 
-    public function ShowSpecificChat(){
-        $chats = $this->chatDAO->getAll(); // envio todos los chats a la vista
-        require_once(VIEWS_PATH."chat.php");
-    }
+    public function Add($receiverid, $text){
+        // evaluar si ya existe un chat entre el sender y el receiver
 
-    public function createChat($receiver){
         $chat = new Chat();
 
-        $chat->setReceiver();
-        $chat->setSender($_SESSION['userid']);
-        $chat->setMessages(); // va llegar apenas se crea un chat o se lo actuliza despues?
+        $chat->setReceiverid($receiverid);
+        $chat->setSenderid($_SESSION['userid']);
+        $chat->setText($text); // setear en vacio?
 
-        // un boton donde el owner podra iniciar una conversacion (con un keeper cualquiera o solo los que contrato?) ubicado en el perfil del keeper
-        // evaluar si ya existe un chat entre el sender y el receiver
         $this->chatDAO->Add($chat);
+
+        $this->ShowAddView($receiverid);
     }
 
-    public function createMessage($chatId){
-        $message = new Message();
-
-        $message->setChatidentifier($chatId);
-        $message->setSender();
-        //$message->setRead(); se setea automaticamente como 0 (false) en la base de datos
-        $message->setText();
-        //$message->setTime(); se setea automaticamente con la fecha del momento de creacion
-
-        $this->messageDAO->Add($message);
-    }
-
-    public function markAsRead(){
+    public function changeStatus(){
         // ver como encarar esta logica y la del DAO
-        $this->messageDAO->markAsRead();
+        $this->chatDAO->changeStatus();
     }
 
-
+    public function findChat($sender, $receiver){
+        return $this->chatDAO->findChat($receiver, $sender);
+    }
 }

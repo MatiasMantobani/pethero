@@ -4,74 +4,107 @@ namespace Models;
 
 class Chat
 {
-    private $idchat;
-    private $sender;
-    private $receiver;
-    private $messages;
+    private $idmessage;
+    private $receiverid;
+    private $text;
+    private $status;
+    private $time;
+    private $senderid;
 
     /**
      * @return mixed
      */
-    public function getIdchat()
+    public function getIdmessage()
     {
-        return $this->idchat;
+        return $this->idmessage;
     }
 
     /**
-     * @param mixed $idchat
+     * @param mixed $idmessage
      */
-    public function setIdchat($idchat)
+    public function setIdmessage($idmessage)
     {
-        $this->idchat = $idchat;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSender()
-    {
-        return $this->sender;
-    }
-
-    /**
-     * @param mixed $sender
-     */
-    public function setSender($sender)
-    {
-        $this->sender = $sender;
+        $this->idmessage = $idmessage;
     }
 
     /**
      * @return mixed
      */
-    public function getReceiver()
+    public function getReceiverid()
     {
-        return $this->receiver;
+        return $this->receiverid;
     }
 
     /**
-     * @param mixed $receiver
+     * @param mixed $receiverid
      */
-    public function setReceiver($receiver)
+    public function setReceiverid($receiverid)
     {
-        $this->receiver = $receiver;
+        $this->receiverid = $receiverid;
     }
 
     /**
      * @return mixed
      */
-    public function getMessages()
+    public function getText()
     {
-        return $this->messages;
+        return $this->text;
     }
 
     /**
-     * @param mixed $messages
+     * @param mixed $text
      */
-    public function setMessages($messages)
+    public function setText($text)
     {
-        $this->messages = $messages;
-    } // arreglo de Message
+        $this->text = $text;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    /**
+     * @param mixed $time
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSenderid()
+    {
+        return $this->senderid;
+    }
+
+    /**
+     * @param mixed $senderid
+     */
+    public function setSenderid($senderid)
+    {
+        $this->senderid = $senderid;
+    }
 
 }
