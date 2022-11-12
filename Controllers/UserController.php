@@ -82,6 +82,20 @@ class UserController
             $availableDate = new AvailableDate();
             $fechas = $availableDate->GetById();
 
+            $reviewController = new ReviewController();
+            $ratings = $reviewController->ReviewFinderByReceptor($_SESSION['userid']);
+            $reviewCounter = 0;
+            $reviewAcum = 0;
+            foreach($ratings as $rating){
+                $reviewCounter++;
+                $reviewAcum += $rating->getRating();
+            }
+            if($reviewCounter > 0){
+                $finalRating = $reviewAcum/$reviewCounter;
+            }else{
+                $finalRating = 0;
+                $reviewCounter = 0;
+            }
         }
 
         // Manda keeper al perfil

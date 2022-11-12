@@ -23,7 +23,7 @@ require_once('nav.php');
                             <?php if ($userImage != null) { ?>
 
                                 <img src="<?php echo FRONT_ROOT . USER_UPLOADS_PATH . $userImage->getName() ?>" alt="Profile img" class="img-fluid my-5 rounded-circle" style="width: 200px;" />
-                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>UserImage/ShowUploadView" class="btn btn-dark btn-sm">Editar foto</a></p>
+                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>UserImage/ShowUploadView" class="btn btn-dark btn-sm">Editar foto <i class="far fa-edit"></i></a></p>
                             <?php } else { ?>
 
                                 <img src="<?php echo FRONT_ROOT ?>Views/img/profile/profile_default.png" alt="Profile img" class="img-fluid my-5 rounded-circle" style="width: 200px;" />
@@ -42,7 +42,6 @@ require_once('nav.php');
                                         echo "Admin";
                                         break;
                                 } ?></p>
-                            <i class="far fa-edit mb-5"></i>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body p-4">
@@ -50,7 +49,7 @@ require_once('nav.php');
                                     <div class="col-6 mb-3">
                                         <h6>Email</h6>
                                         <p class="text-muted"><?php echo $user->getEmail() ?></p>
-                                        <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>User/ShowUpdateView" class="btn btn-dark btn-sm">Editar datos</a></p>
+                                        <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>User/ShowUpdateView" class="btn btn-dark btn-sm">Editar datos <i class="far fa-edit"></i></a></p>
                                     </div>
                                     <div class="col-6 mb-3">
                                         <h6>Teléfono</h6>
@@ -73,7 +72,7 @@ require_once('nav.php');
                                     <div class="col-6 mb-3">
                                         <?php if ($adress) { ?>
                                             <h6></h6>
-                                            <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>Adress/ShowAddView" class="btn btn-dark btn-sm">Editar dirección</a></p>
+                                            <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>Adress/ShowAddView" class="btn btn-dark btn-sm">Editar dirección <i class="far fa-edit"></i></a></p>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -88,7 +87,10 @@ require_once('nav.php');
                                         <div class="col-6 mb-3">
                                             <h6>Remuneración: </h6>
                                             <?php if ($keeper != null && $keeper->getPricing() > 0) { ?>
-                                                <p class="text-muted"><?php echo $keeper->getPricing(); ?><a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView" class="btn btn-dark btn-sm"> Editar</a></p>
+                                                <p class="text-muted"><?php echo $keeper->getPricing(); ?>
+                                                    <br>
+                                                    <a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView" class="btn btn-dark btn-sm">Editar Remuneracion <i class="far fa-edit"></i></a>
+                                                </p>
                                             <?php } else { ?>
                                                 <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView" class="btn btn-dark btn-sm">Cargar tarifa</a></p>
                                             <?php } ?>
@@ -96,7 +98,11 @@ require_once('nav.php');
                                         <div class="col-6 mb-3">
                                             <h6>Valoración:</h6>
                                             <?php if ($keeper != null) { ?>
-                                                <p class="text-muted">Comunidad: <?php echo $keeper->getRating(); ?></p>
+                                                <p class="text-muted">Comunidad: <?php echo round($finalRating, 2) ?>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                                        <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                                    </svg>
+                                                </p>
                                             <?php } else { ?>
                                                 <p class="text-muted">Error cargando reputación </p>
                                             <?php } ?>
@@ -111,16 +117,18 @@ require_once('nav.php');
                                                 <h6>Tamaños aceptados: </h6>
                                                 <p class="text-muted"><?php if ($size->getSmall() == true) echo "[S] ";
                                                                         if ($size->getMedium() == true) echo "[M] ";
-                                                                        if ($size->getLarge() == true) echo "[L] "; ?> <a href="<?php echo FRONT_ROOT ?>Size/ShowAddView" class="btn btn-dark btn-sm">Editar</a></p>
+                                                                        if ($size->getLarge() == true) echo "[L] "; ?>
+                                                    <br>
+                                                    <a href="<?php echo FRONT_ROOT ?>Size/ShowAddView" class="btn btn-dark btn-sm">Editar Tamaños Aceptados <i class="far fa-edit"></i></a></p>
                                             <?php } else { ?>
                                                 <h6>Tamaños aceptados: </h6>
-                                                <p class="text-muted">No disponible <a href="<?php echo FRONT_ROOT ?>Size/ShowAddView"  class="btn btn-dark btn-sm">Cargar ahora</a></p>
+                                                <p class="text-muted">No disponible<a href="<?php echo FRONT_ROOT ?>Size/ShowAddView"  class="btn btn-dark btn-sm">Cargar ahora</a></p>
                                             <?php } ?>
                                         </div>
                                         <div class="col-6 mb-3">
                                             <h6>Fechas disponibles:</h6>
                                             <?php if ($fechas != null) { ?>
-                                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView" class="btn btn-dark btn-sm">Editar disponibilidad</a></p>
+                                                <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView" class="btn btn-dark btn-sm">Editar disponibilidad <i class="far fa-edit"></i></a></p>
                                             <?php } else { ?>
                                                 <p class="text-muted">No tenes disponibilidad <a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView" class="btn btn-dark btn-sm"><br>Cargar disponibilidad</a></p>
                                             <?php } ?>
@@ -133,18 +141,18 @@ require_once('nav.php');
                                 <!-- FIN GUARDIAN -->
 
                                 <!-- DUEÑO  -->
-                                <?php if($_SESSION['type'] == 'D'){ ?>
-                                    <div class="row pt-1">
-                                        <div class="col-6 mb-3">
-                                            <a href="<?php echo FRONT_ROOT ?>Pet/ShowListView/" class="btn btn-dark btn-lg">Ver mis mascotas</a>
-                                        </div>
-                                        <div class="col-6 mb-3">
-                                            <a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView/" class="btn btn-dark btn-lg">Solicitar reserva</a>
-                                        </div>
-                                    </div>
-
-                                    <hr class="mt-0 mb-4">
-                                <?php } ?>
+<!--                                --><?php //if($_SESSION['type'] == 'D'){ ?>
+<!--                                    <div class="row pt-1">-->
+<!--                                        <div class="col-6 mb-3">-->
+<!--                                            <a href="--><?php //echo FRONT_ROOT ?><!--Pet/ShowListView/" class="btn btn-dark btn-lg">Ver mis mascotas</a>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-6 mb-3">-->
+<!--                                            <a href="--><?php //echo FRONT_ROOT ?><!--Reserve/ShowAddView/" class="btn btn-dark btn-lg">Solicitar reserva</a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!---->
+<!--                                    <hr class="mt-0 mb-4">-->
+<!--                                --><?php //} ?>
                                 <!-- FIN DUEÑO -->
 
 
@@ -168,33 +176,37 @@ require_once('nav.php');
                                                 <option value="Canceladas">Canceladas</option>
                                             </select>
 
-                                            <button type="submit" class="btn btn-dark ml-auto d-block m-1">Ir</button>
+                                            <button type="submit" class="btn btn-dark ml-auto d-block m-1">Ir
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                                </svg>
+                                            </button>
                                         </form>
 
 
                                     </div>
 
-                                    <div class="col-6 mb-3">
-                                        <h6>Ver mis pagos</h6>
-                                        <a href="<?php echo FRONT_ROOT ?>Payment/ShowPaymentList/" class="btn btn-dark btn-sm">Ver mis pagos</a>
-                                    </div>
+<!--                                    <div class="col-6 mb-3">-->
+<!--                                        <h6>Ver mis pagos</h6>-->
+<!--                                        <a href="--><?php //echo FRONT_ROOT ?><!--Payment/ShowPaymentList/" class="btn btn-dark btn-sm">Ver mis pagos</a>-->
+<!--                                    </div>-->
                                 </div>
 
-                                <hr class="mt-0 mb-4">
-
-                                <div class="row pt-1">
-
-                                    <div class="col-6 mb-3">
-                                        <h6>Ver Guardianes</h6>
-                                        <a href="<?php echo FRONT_ROOT ?>User/ShowAllGuardians/" class="btn btn-primary btn-sm">Listado</a>
-                                    </div>
-                                    <div class="col-6 mb-3">
-                                        <h6>Most Viewed</h6>
-                                        <p class="text-muted">Dolor sit amet</p>
-                                    </div>
-                                </div>
-
-                            </div>
+<!--                                <hr class="mt-0 mb-4">-->
+<!---->
+<!--                                <div class="row pt-1">-->
+<!---->
+<!--                                    <div class="col-6 mb-3">-->
+<!--                                        <h6>Ver Guardianes</h6>-->
+<!--                                        <a href="--><?php //echo FRONT_ROOT ?><!--User/ShowAllGuardians/" class="btn btn-primary btn-sm">Listado</a>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-6 mb-3">-->
+<!--                                        <h6>Most Viewed</h6>-->
+<!--                                        <p class="text-muted">Dolor sit amet</p>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!---->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>
