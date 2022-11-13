@@ -30,7 +30,6 @@ class UserDAO
         }
     }
 
-
     public function ValidateUniqueDni($dni) // true si hay repeticion
     {
         try {
@@ -157,28 +156,27 @@ class UserDAO
         }
     }
 
-
-    public function GetByEmail($email)
+    public function Login($email, $password)
     {
         try {
             $user = null;
 
-            $query = "SELECT userid, email, password, name, type, phone, status FROM " . $this->tableUsers . " WHERE (email = :email)";
+            $query = "CALL get_user_login(?,?);";
 
             $parameters["email"] = $email;
+            $parameters["password"] = $password;
 
             $this->connection = Connection::GetInstance();
-            $results = $this->connection->Execute($query, $parameters);
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
 
             foreach ($results as $row) {
                 $user = new User();
                 $user->setUserid($row["userid"]);
-                $user->setName($row["name"]);
+                //$user->setName($row["name"]);
                 $user->setType($row["type"]);
-                $user->setEmail($row["email"]);
-                $user->setPassword($row["password"]);
-                $user->setPhone($row["phone"]);
-                $user->setStatus($row["status"]);
+                //$user->setEmail($row["email"]);
+                //$user->setPhone($row["phone"]);
+                //$user->setStatus($row["status"]);
             }
             return $user;
         } catch (Exception $ex) {
@@ -187,12 +185,13 @@ class UserDAO
     }
 
 
+
     public function GetById($userid)
     {
         try {
             $user = null;
 
-            $query = "SELECT userid, email, password, type, dni, cuit, name, surname, phone, status FROM " . $this->tableUsers . " WHERE (userid = :userid)";
+            $query = "SELECT userid, email, type, dni, cuit, name, surname, phone, status FROM " . $this->tableUsers . " WHERE (userid = :userid)";
 
             $parameters["userid"] = $userid;
 
@@ -204,7 +203,6 @@ class UserDAO
                 $user = new User();
                 $user->setUserid($row["userid"]);
                 $user->setEmail($row["email"]);
-                $user->setPassword($row["password"]);
                 $user->setType($row["type"]);
                 $user->setDni($row["dni"]);
                 $user->setCuit($row["cuit"]);

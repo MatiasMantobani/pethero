@@ -21,20 +21,18 @@ class AuthController
 
     public function Login($email, $password)
     {
-        $user = new User();
-        $user = $this->userDao->GetByEmail($email);
+
+        $user = $this->userDao->Login($email, $password);
+
+
         if ($user) {
-            if ($user->getPassword() == $password) {
                 $_SESSION['userid'] = $user->getUserid();
                 $_SESSION['type'] = $user->getType();
                 $_SESSION['message'] = null;
 
                 $userController = new UserController();
                 $userController->ShowProfileView();
-            } else {
-                $homeController = new HomeController();
-                $homeController->Index("Usuario y/o clave incorrectas<br>");
-            }
+
         } else {
             $homeController = new HomeController();
             $homeController->Index("Usuario y/o clave incorrectas<br>");

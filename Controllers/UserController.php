@@ -32,21 +32,31 @@ class UserController
         //$this->availableDateController = new AvailableDate();  //Rompe
     }
 
+    public function validate()
+    {
+        if (isset($_SESSION["userid"])) {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
     public function ShowAddView()
     {
         require_once(VIEWS_PATH . "user-add.php");
     }
 
-    public function ShowListView()
+    public function ShowListView() // Muestra la lista de todos los usuarios? Borrar?
     {
         $userList = $this->userDAO->GetAll();
         require_once(VIEWS_PATH . "user-list.php");
     }
 
     public function ShowAllGuardians(){
+        if ($this->validate()) {
         $guardianList = $this->userDAO->GetAllKeepers();
 
-         //para evitar mostrar una lista vacia
+         // Para evitar mostrar una lista vacia
          if (count($guardianList) > 0) {
             require_once(VIEWS_PATH . "guardian-list.php");
         } else {
@@ -54,12 +64,13 @@ class UserController
             $userController = new UserController();
             $userController->ShowProfileView();
         }
-        
+        }
     }
 
     //Mostrar perfil de usuario
     public function ShowProfileView()
     {
+        if ($this->validate()) {
         $user = $this->GetUserById($_SESSION['userid']);
 
         $AdressController = new AdressController();
@@ -128,8 +139,10 @@ class UserController
         $this->validateStatus(); // Checks for adress and pets for owner
         require_once(VIEWS_PATH . "user-profile.php");
     }
+    }
 
     public function validateStatus(){
+        if ($this->validate()) {
         $adressController = new AdressController();
         $adress = $adressController->getByUserId($_SESSION['userid']);
 
@@ -181,7 +194,7 @@ class UserController
                 $this->UpdateStatus(0);
             }
         }
-
+        }
     }
 
     public function Add($email, $password, $type, $dni, $cuit, $name, $surname, $phone)
@@ -250,6 +263,7 @@ class UserController
     }
 
     public function ShowExternalProfile($keeperid){
+        if ($this->validate()) {
         $keeper = $this->keeperController->getByKeeperId($keeperid); // para la info especifica del guardian
         $user = $this->GetUserById($keeperid);  // para la info especifica del user
 
@@ -264,5 +278,6 @@ class UserController
         $size = $SizeController->getByUserId($keeperid);
 
         require_once(VIEWS_PATH . "external-profile.php");
+    }
     }
 }

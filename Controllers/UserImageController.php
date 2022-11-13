@@ -1,4 +1,5 @@
 <?php
+
 namespace Controllers;
 
 use \Exception as Exception;
@@ -15,61 +16,70 @@ class UserImageController
         $this->userImageDAO = new UserImageDAO();
     }
 
+    public function validate()
+    {
+        if (isset($_SESSION["userid"])) {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
     public function ShowUploadView()
     {
-        require_once(VIEWS_PATH."user-image-upload.php");
+        if ($this->validate()) {
+            require_once(VIEWS_PATH . "user-image-upload.php");
+        }
     }
 
     public function ShowImage($userid)
     {
-        return $this->userImageDAO->getByUserId($userid);
+        if ($this->validate()) {
+            return $this->userImageDAO->getByUserId($userid);
 
+        }
     }
 
     public function Upload($file)
     {
-        try
-        {
-            $fileName = $file["name"];
-            $tempFileName = $file["tmp_name"];
-            $type = $file["type"];
+        if ($this->validate()) {
+            try {
+                $fileName = $file["name"];
+                $tempFileName = $file["tmp_name"];
+                $type = $file["type"];
 
-            $filePath = USER_UPLOADS_PATH.basename($fileName);
-
-
-            $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-
-            $imageSize = getimagesize($tempFileName);
-
-            if($imageSize !== false)
-            {
-                if (move_uploaded_file($tempFileName, $filePath))
-                {
-                    $image = new UserImage();
-                    $image->setName($fileName);
-                    $image->setUserid($_SESSION['userid']);
-                    if ($this->userImageDAO->GetByUserId($_SESSION['userid'])){
-                        $this->userImageDAO->Update($image);
-                    } else {
-                        $this->userImageDAO->Add($image);
-                    }
+                $filePath = USER_UPLOADS_PATH . basename($fileName);
 
 
-                    $message = "Imagen subida correctamente";
-                }
-                else
-                    $message = "Ocurrió un error al intentar subir la imagen";
+                $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+
+                $imageSize = getimagesize($tempFileName);
+
+                if ($imageSize !== false) {
+                    if (move_uploaded_file($tempFileName, $filePath)) {
+                        $image = new UserImage();
+                        $image->setName($fileName);
+                        $image->setUserid($_SESSION['userid']);
+                        if ($this->userImageDAO->GetByUserId($_SESSION['userid'])) {
+                            $this->userImageDAO->Update($image);
+                        } else {
+                            $this->userImageDAO->Add($image);
+                        }
+
+
+                        $message = "Imagen subida correctamente";
+                    } else
+                        $message = "Ocurrió un error al intentar subir la imagen";
+                } else
+                    $message = "El archivo no corresponde a una imágen";
+            } catch (Exception $ex) {
+                $message = $ex->getMessage();
             }
-            else
-                $message = "El archivo no corresponde a una imágen";
-        }
-        catch(Exception $ex)
-        {
-            $message = $ex->getMessage();
-        }
 
-        $userController = new UserController();
-        $userController->ShowProfileView();
+            $userController = new UserController();
+            $userController->ShowProfileView();
+        }
     }
 }
+
 ?>

@@ -96,34 +96,7 @@ class AdressDAO
         }
     }
 
-    public function GetByEmail($email)
-    {
-        try {
-            $user = null;
 
-            $query = "SELECT userid, email, password, name, type, phone FROM " . $this->tableUsers . " WHERE (email = :email)";
-
-            $parameters["email"] = $email;
-
-            $this->connection = Connection::GetInstance();
-
-            $results = $this->connection->Execute($query, $parameters);
-
-            foreach ($results as $row) {
-                $user = new User();
-                $user->setUserid($row["userid"]);
-                $user->setName($row["name"]);
-                $user->setType($row["type"]);
-                $user->setEmail($row["email"]);
-                $user->setPassword($row["password"]);
-                $user->setPhone($row["phone"]);
-            }
-
-            return $user;
-        } catch (Exception $ex) {
-            throw $ex;
-        }
-    }
 }
 
 /*
