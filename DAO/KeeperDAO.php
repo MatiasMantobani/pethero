@@ -2,8 +2,8 @@
 
 namespace DAO;
 
-use DAO\QueryType as QueryType;
 use \Exception as Exception;
+use DAO\QueryType as QueryType;
 use Models\Keeper as Keeper;
 use DAO\Connection as Connection;
 
@@ -26,6 +26,7 @@ class KeeperDAO
             throw $ex;
         }
     }
+
 
     public function GetAll()
     {
@@ -55,57 +56,66 @@ class KeeperDAO
         }
     }
 
+
     public function GetByKeeperId($keeperid)
     {
-        $keeper = null;
+        try {
+            $keeper = null;
 
-        $query = "SELECT keeperid, userid, rating, pricing, status FROM " . $this->tableUsers . " WHERE (keeperid = :keeperid)";
+            $query = "SELECT keeperid, userid, rating, pricing, status FROM " . $this->tableUsers . " WHERE (keeperid = :keeperid)";
 
-        $parameters["keeperid"] = $keeperid;
+            $parameters["keeperid"] = $keeperid;
 
-        $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-        $results = $this->connection->Execute($query, $parameters);
+            $results = $this->connection->Execute($query, $parameters);
 
-        foreach ($results as $row) {
-            $keeper = new Keeper();
-            $keeper->setKeeperid($row["keeperid"]);
-            $keeper->setUserid($row["userid"]);
-            $keeper->setRating($row["rating"]);
-            $keeper->setPricing($row["pricing"]);
-            $keeper->setStatus($row["status"]);
-
+            foreach ($results as $row) {
+                $keeper = new Keeper();
+                $keeper->setKeeperid($row["keeperid"]);
+                $keeper->setUserid($row["userid"]);
+                $keeper->setRating($row["rating"]);
+                $keeper->setPricing($row["pricing"]);
+                $keeper->setStatus($row["status"]);
+            }
+            return $keeper;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-        return $keeper;
     }
+
 
     public function GetByUserId($userid)
     {
-        $keeper = null;
+        try {
+            $keeper = null;
 
-        $query = "SELECT keeperid, rating, pricing, status FROM " . $this->tableUsers . " WHERE (userid = :userid)";
+            $query = "SELECT keeperid, rating, pricing, status FROM " . $this->tableUsers . " WHERE (userid = :userid)";
 
-        $parameters["userid"] = $userid;
+            $parameters["userid"] = $userid;
 
-        $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-        $results = $this->connection->Execute($query, $parameters);
+            $results = $this->connection->Execute($query, $parameters);
 
-        foreach ($results as $row) {
-            $keeper = new Keeper();
-            $keeper->setKeeperid($row["keeperid"]);
-            $keeper->setUserid($userid);
-            $keeper->setRating($row["rating"]);
-            $keeper->setPricing($row["pricing"]);
-            $keeper->setStatus($row["status"]);
+            foreach ($results as $row) {
+                $keeper = new Keeper();
+                $keeper->setKeeperid($row["keeperid"]);
+                $keeper->setUserid($userid);
+                $keeper->setRating($row["rating"]);
+                $keeper->setPricing($row["pricing"]);
+                $keeper->setStatus($row["status"]);
+            }
+            return $keeper;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-        return $keeper;
     }
+
 
     public function UpdatePricing(Keeper $keeper)
     {
-        try
-        {
+        try {
             $query = "CALL keeper_pricing_update(?,?);";
 
             $parameters["userid"] = $keeper->getUserid();
@@ -113,17 +123,15 @@ class KeeperDAO
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
+
     public function UpdateStatus(Keeper $keeper)
     {
-        try
-        {
+        try {
             $query = "CALL keeper_status_update(?,?);";
 
             $parameters["userid"] = $keeper->getUserid();
@@ -131,11 +139,8 @@ class KeeperDAO
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
-
 }

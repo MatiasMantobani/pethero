@@ -1,6 +1,8 @@
 <?php
+
 namespace DAO;
 
+use \Exception as Exception;
 use DAO\QueryType as QueryType;
 use Models\PetImage as PetImage;
 
@@ -8,10 +10,10 @@ class PetImageDao
 {
     private $tableName = "pet_images";
 
+
     public function Add(PetImage $image)
     {
-        try
-        {
+        try {
             $query = "CALL pet_images_add(?,?);";
 
             $parameters["name"] = $image->getName();
@@ -20,17 +22,15 @@ class PetImageDao
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
+
     public function Update(PetImage $image)
     {
-        try
-        {
+        try {
             $query = "CALL pet_images_update(?,?);";
 
             $parameters["name"] = $image->getName();
@@ -39,20 +39,18 @@ class PetImageDao
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
+
     function GetByPetId($petid)
     {
-        try
-        {
+        try {
             $image = null;
 
-            $query = "SELECT * FROM ".$this->tableName." WHERE petid = :petid";
+            $query = "SELECT * FROM " . $this->tableName . " WHERE petid = :petid";
 
             $parameters["petid"] = $petid;
 
@@ -60,8 +58,7 @@ class PetImageDao
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            foreach ($resultSet as $row)
-            {
+            foreach ($resultSet as $row) {
                 $image = new PetImage();
                 $image->setImageid($row["imageid"]);
                 $image->setName($row["name"]);
@@ -69,22 +66,22 @@ class PetImageDao
             }
 
             return $image;
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
+    
     public function Remove($imageid)
     {
-        $query = "DELETE FROM ".$this->tableName." WHERE (imageid = :imageid)";
-        $parameters["imageid"] =  $imageid;
+        try {
+            $query = "DELETE FROM " . $this->tableName . " WHERE (imageid = :imageid)";
+            $parameters["imageid"] =  $imageid;
 
-        $this->connection = Connection::GetInstance();
-        $this->connection->ExecuteNonQuery($query, $parameters);
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
-
-    
 }
-?>

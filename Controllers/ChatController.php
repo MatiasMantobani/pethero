@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use \Exception as Exception;
 use DAO\ChatDAO as ChatDAO;
 use Models\Chat as Chat;
 use Controllers\UserImageController as UserImageController;

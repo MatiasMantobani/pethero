@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use \Exception as Exception;
 use DAO\PetDAO as PetDAO;
 use Models\Pet as Pet;
 use Controllers\UserController as UserController;

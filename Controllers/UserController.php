@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use \Exception as Exception;
 use DAO\UserDAO as UserDAO;
 use Models\User as User;
 use Models\Adress as Adress;

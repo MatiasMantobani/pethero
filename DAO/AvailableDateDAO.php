@@ -15,18 +15,16 @@ class AvailableDateDAO
 
     public function UpdateDatesByUserDatesAndBreed($userid, $dateStart, $dateFinish, $breedid)
     {
-        try
-        {
+        try {
             $query = "CALL update_available_dates_by_userid_dates_and_breed(?,?,?,?);";
-            
-            $parameters["keeperid"] =$userid ;
-            $parameters["fechainicio"] =$dateStart ;
-            $parameters["fechafin"] =$dateFinish ;
+
+            $parameters["keeperid"] = $userid;
+            $parameters["fechainicio"] = $dateStart;
+            $parameters["fechafin"] = $dateFinish;
             $parameters["breedid"] = $breedid;
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -80,93 +78,91 @@ class AvailableDateDAO
     //chequear si fecha existe
     public function CheckDate($userid, $date)
     {
-        $query = "SELECT date FROM " . $this->tableAvailableDates . " WHERE (userid = :userid AND date = :date)";
-        $parameters["userid"] = $userid;
-        $parameters["date"] = $date;
-        $this->connection = Connection::GetInstance();
-        $resultado = $this->connection->Execute($query, $parameters);
-        if ($resultado) {
-            return true;
+        try {
+            $query = "SELECT date FROM " . $this->tableAvailableDates . " WHERE (userid = :userid AND date = :date)";
+            $parameters["userid"] = $userid;
+            $parameters["date"] = $date;
+            $this->connection = Connection::GetInstance();
+            $resultado = $this->connection->Execute($query, $parameters);
+            if ($resultado) {
+                return true;
+            }
+            return false;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-        return false;
     }
 
     //borra todas las reservas
     public function Remove($userid)
     {
-        $query = "DELETE FROM " . $this->tableAvailableDates . " WHERE (userid = :userid)";
+        try {
 
-        $parameters["userid"] =  $userid;
+            $query = "DELETE FROM " . $this->tableAvailableDates . " WHERE (userid = :userid)";
 
-        $this->connection = Connection::GetInstance();
+            $parameters["userid"] =  $userid;
 
-        $this->connection->ExecuteNonQuery($query, $parameters);
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 
     //borra por "userid" y "available == 0"
     public function RemoveAvailablesById($userid)
     {
-        $query = "DELETE FROM " . $this->tableAvailableDates . " WHERE (userid = :userid AND available = :available)";
+        try {
+            $query = "DELETE FROM " . $this->tableAvailableDates . " WHERE (userid = :userid AND available = :available)";
 
-        $parameters["userid"] =  $userid;
-        $parameters["available"] =  "0";
+            $parameters["userid"] =  $userid;
+            $parameters["available"] =  "0";
 
-        $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-        $this->connection->ExecuteNonQuery($query, $parameters);
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 
 
 
     public function GetAvailablesByRangeAndBreed($breed, $dateStart, $dateFinish) //devuelve todas las availableDates en rango de fechas
     {
-        $query = "SELECT sizes.userid, availabledates.date, availabledates.available, availabledates.availabledatesid FROM sizes INNER JOIN availabledates ON sizes.userid = availabledates.userid WHERE (IF((SELECT size FROM breed WHERE breedid = :raza) = 1, small = 1,IF((SELECT size FROM breed WHERE breedid = :raza) = 2, medium = 1, large = 1)) AND (availabledates.date >= :inicio AND availabledates.date <= :fin) AND (availabledates.available = 0 OR availabledates.available = :raza)) order by date";
+        try {
+            $query = "SELECT sizes.userid, availabledates.date, availabledates.available, availabledates.availabledatesid FROM sizes INNER JOIN availabledates ON sizes.userid = availabledates.userid WHERE (IF((SELECT size FROM breed WHERE breedid = :raza) = 1, small = 1,IF((SELECT size FROM breed WHERE breedid = :raza) = 2, medium = 1, large = 1)) AND (availabledates.date >= :inicio AND availabledates.date <= :fin) AND (availabledates.available = 0 OR availabledates.available = :raza)) order by date";
 
-        $parameters["raza"] = $breed;
-        $parameters["inicio"] = $dateStart;
-        $parameters["fin"] = $dateFinish;
+            $parameters["raza"] = $breed;
+            $parameters["inicio"] = $dateStart;
+            $parameters["fin"] = $dateFinish;
 
-        $resultado = array();
-        $resultSet = array();
+            $resultado = array();
+            $resultSet = array();
 
-        $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-        $resultSet = $this->connection->Execute($query, $parameters);
+            $resultSet = $this->connection->Execute($query, $parameters);
 
-        foreach ($resultSet as $row) {
+            foreach ($resultSet as $row) {
 
-            $date = new AvailableDate();
-            $date->setAvailableDateId($row["availabledatesid"]);
-            $date->setUserid($row["userid"]);
-            $date->setDate($row["date"]);
-            $date->setAvailable($row["available"]);
+                $date = new AvailableDate();
+                $date->setAvailableDateId($row["availabledatesid"]);
+                $date->setUserid($row["userid"]);
+                $date->setDate($row["date"]);
+                $date->setAvailable($row["available"]);
 
-            array_push($resultado, $date);
-        }
+                array_push($resultado, $date);
+            }
 
-        if ($resultado) {
-            return $resultado;
-        } else {
-            return null;
+            if ($resultado) {
+                return $resultado;
+            } else {
+                return null;
+            }
+        } catch (Exception $ex) {
+            throw $ex;
         }
     }
-
-    // Necesitamos función que devuelva Fechas posibles para los dueños
-    // Seleccionar por fecha específica aquellos keepers que cuiden perros de la misma raza O que cuiden cualquier perro y que cuiden perros del tamaño buscado 
-    // "SELECT userid FROM".$this->tableAvailableDates."WHERE
-
-    // ver si guardian tiene alguna fecha disponible en rango de seleccion de dueño
-    // tamaño de guardian == tamaño de perro || available == 0 || available == breedid de perro que realiza reserva
-
-    //DUEÑO
-    //selecciona rango de fechas
-    //selecciona perro -> recuperas breeid
-
-    //TABLA DE DISPONIBILIDAD
-    //chequear todas las fechas de todos los guardianes -> devolver los userid con las fechas disponible
-    //chequiemos dates por user id
-
-
-
-
 }

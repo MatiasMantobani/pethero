@@ -46,20 +46,20 @@ class PaymentDAO
         }
     }
 
-    public function UpdatePayment($paymentid){
-        try
-        {
+
+    public function UpdatePayment($paymentid)
+    {
+        try {
             $query = "CALL payment_update(?);";
             $parameters["paymentid"] = $paymentid;
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
+
 
     public function Add(Payment $payment)
     {
@@ -113,6 +113,7 @@ class PaymentDAO
         }
     }
 
+
     public function GetAllByUserIdReceiver($receiverid)
     {
         try {
@@ -144,6 +145,7 @@ class PaymentDAO
             throw $ex;
         }
     }
+
 
     public function GetOwnerPayments($userid)
     {
@@ -177,6 +179,7 @@ class PaymentDAO
         }
     }
 
+
     public function GetKeeperPayments($userid)
     {
         try {
@@ -208,8 +211,4 @@ class PaymentDAO
             throw $ex;
         }
     }
-
-
-
-
 }

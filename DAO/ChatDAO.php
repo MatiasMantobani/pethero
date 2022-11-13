@@ -2,6 +2,7 @@
 
 namespace DAO;
 
+use \Exception as Exception;
 use DAO\Connection as Connection;
 use Models\Chat as Chat;
 
@@ -12,9 +13,8 @@ class ChatDAO
 
     public function Add(Chat $chat)
     {
-        try
-        {
-            $query = "INSERT INTO ".$this->tableChat." (receiverid, text, senderid) VALUES (:receiverid, :text, :senderid);";
+        try {
+            $query = "INSERT INTO " . $this->tableChat . " (receiverid, text, senderid) VALUES (:receiverid, :text, :senderid);";
 
             $parameters["receiverid"] = $chat->getReceiverid();
             $parameters["text"] = $chat->getText();
@@ -22,17 +22,14 @@ class ChatDAO
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
     public function changeStatus($senderid, $receiverid, $status)
     {
-        try
-        {
+        try {
             $query = "CALL chat_update_status (?,?,?);";
 
             $parameters["senderid"] = $senderid;
@@ -41,18 +38,16 @@ class ChatDAO
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
-    public function GetAllActiveChats($id){
-        try{
+    public function GetAllActiveChats($id)
+    {
+        try {
             $chatList = array();
-            $query = "SELECT * FROM ".$this->tableChat ." WHERE (receiverid = :receiverid OR senderid = :senderid )";
+            $query = "SELECT * FROM " . $this->tableChat . " WHERE (receiverid = :receiverid OR senderid = :senderid )";
 
             $parameters["receiverid"] = $id;
             $parameters["senderid"] = $id;
@@ -60,8 +55,7 @@ class ChatDAO
             $this->connection = Connection::GetInstance();
             $results = $this->connection->Execute($query, $parameters);
 
-            foreach($results as $row)
-            {
+            foreach ($results as $row) {
                 $chat = new Chat();
 
                 $chat->setIdmessage($row["idmessage"]);
@@ -74,15 +68,17 @@ class ChatDAO
                 array_push($chatList, $chat);
             }
             return $chatList;
-        }catch(Exception $ex) {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
-    public function findChat($receiverid, $senderid){
-        try{
+
+    public function findChat($receiverid, $senderid)
+    {
+        try {
             $chatList = array();
-            $query = "SELECT * FROM ".$this->tableChat ." WHERE (receiverid = :receiverid AND senderid = :senderid OR senderid = :receiverid AND receiverid = :senderid)";
+            $query = "SELECT * FROM " . $this->tableChat . " WHERE (receiverid = :receiverid AND senderid = :senderid OR senderid = :receiverid AND receiverid = :senderid)";
 
             $parameters["receiverid"] = $receiverid;
             $parameters["senderid"] = $senderid;
@@ -90,8 +86,7 @@ class ChatDAO
             $this->connection = Connection::GetInstance();
             $results = $this->connection->Execute($query, $parameters);
 
-            foreach($results as $row)
-            {
+            foreach ($results as $row) {
                 $chat = new Chat();
 
                 $chat->setIdmessage($row["idmessage"]);
@@ -104,7 +99,7 @@ class ChatDAO
                 array_push($chatList, $chat);
             }
             return $chatList;
-        }catch(Exception $ex) {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }

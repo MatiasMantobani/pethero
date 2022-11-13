@@ -2,8 +2,8 @@
 
 namespace DAO;
 
+use \Exception as Exception;
 use DAO\QueryType as QueryType;
-use Exception as Exception;
 use Models\PetImage as PetImage;
 use Models\User as User;
 use DAO\Connection as Connection;
@@ -13,41 +13,57 @@ class UserDAO
     private $connection;
     private $tableUsers = "users";
 
+
     public function ValidateUniqueCuit($cuit)    // true si hay repeticion
     {
-        $query = "SELECT cuit FROM " . $this->tableUsers . " WHERE (cuit = :cuit)";
-        $parameters["cuit"] = $cuit;
-        $this->connection = Connection::GetInstance();
-        $resultado = $this->connection->Execute($query, $parameters);
-        if ($resultado) {
-            return true;   
+        try {
+            $query = "SELECT cuit FROM " . $this->tableUsers . " WHERE (cuit = :cuit)";
+            $parameters["cuit"] = $cuit;
+            $this->connection = Connection::GetInstance();
+            $resultado = $this->connection->Execute($query, $parameters);
+            if ($resultado) {
+                return true;
+            }
+            return false;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-        return false;
     }
+
 
     public function ValidateUniqueDni($dni) // true si hay repeticion
     {
-        $query = "SELECT dni FROM " . $this->tableUsers . " WHERE (dni = :dni)";
-        $parameters["dni"] = $dni;
-        $this->connection = Connection::GetInstance();
-        $resultado = $this->connection->Execute($query, $parameters);
-        if ($resultado) {
-            return true;    
+        try {
+            $query = "SELECT dni FROM " . $this->tableUsers . " WHERE (dni = :dni)";
+            $parameters["dni"] = $dni;
+            $this->connection = Connection::GetInstance();
+            $resultado = $this->connection->Execute($query, $parameters);
+            if ($resultado) {
+                return true;
+            }
+            return false;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-        return false;
     }
+
 
     public function ValidateUniqueEmail($email) // true si hay repeticion
     {
-        $query = "SELECT email FROM " . $this->tableUsers . " WHERE (email = :email)";
-        $parameters["email"] = $email;
-        $this->connection = Connection::GetInstance();
-        $resultado = $this->connection->Execute($query, $parameters);
-        if ($resultado) {
-            return true;    
+        try {
+            $query = "SELECT email FROM " . $this->tableUsers . " WHERE (email = :email)";
+            $parameters["email"] = $email;
+            $this->connection = Connection::GetInstance();
+            $resultado = $this->connection->Execute($query, $parameters);
+            if ($resultado) {
+                return true;
+            }
+            return false;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-        return false;
     }
+
 
     public function Add(User $user)
     {
@@ -70,6 +86,7 @@ class UserDAO
             throw $ex;
         }
     }
+
 
     public function GetAll()
     {
@@ -105,6 +122,7 @@ class UserDAO
         }
     }
 
+
     public function GetAllKeepers()
     {
         try {
@@ -139,62 +157,72 @@ class UserDAO
         }
     }
 
+
     public function GetByEmail($email)
     {
-        $user = null;
+        try {
+            $user = null;
 
-        $query = "SELECT userid, email, password, name, type, phone, status FROM " . $this->tableUsers . " WHERE (email = :email)";
+            $query = "SELECT userid, email, password, name, type, phone, status FROM " . $this->tableUsers . " WHERE (email = :email)";
 
-        $parameters["email"] = $email;
+            $parameters["email"] = $email;
 
-        $this->connection = Connection::GetInstance();
-        $results = $this->connection->Execute($query, $parameters);
+            $this->connection = Connection::GetInstance();
+            $results = $this->connection->Execute($query, $parameters);
 
-        foreach ($results as $row) {
-            $user = new User();
-            $user->setUserid($row["userid"]);
-            $user->setName($row["name"]);
-            $user->setType($row["type"]);
-            $user->setEmail($row["email"]);
-            $user->setPassword($row["password"]);
-            $user->setPhone($row["phone"]);
-            $user->setStatus($row["status"]);
+            foreach ($results as $row) {
+                $user = new User();
+                $user->setUserid($row["userid"]);
+                $user->setName($row["name"]);
+                $user->setType($row["type"]);
+                $user->setEmail($row["email"]);
+                $user->setPassword($row["password"]);
+                $user->setPhone($row["phone"]);
+                $user->setStatus($row["status"]);
+            }
+            return $user;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-        return $user;
     }
+
 
     public function GetById($userid)
     {
-        $user = null;
+        try {
+            $user = null;
 
-        $query = "SELECT userid, email, password, type, dni, cuit, name, surname, phone, status FROM " . $this->tableUsers . " WHERE (userid = :userid)";
+            $query = "SELECT userid, email, password, type, dni, cuit, name, surname, phone, status FROM " . $this->tableUsers . " WHERE (userid = :userid)";
 
-        $parameters["userid"] = $userid;
+            $parameters["userid"] = $userid;
 
-        $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-        $results = $this->connection->Execute($query, $parameters);
+            $results = $this->connection->Execute($query, $parameters);
 
-        foreach ($results as $row) {
-            $user = new User();
-            $user->setUserid($row["userid"]);
-            $user->setEmail($row["email"]);
-            $user->setPassword($row["password"]);
-            $user->setType($row["type"]);
-            $user->setDni($row["dni"]);
-            $user->setCuit($row["cuit"]);
-            $user->setName($row["name"]);
-            $user->setSurname($row["surname"]);
-            $user->setPhone($row["phone"]);
-            $user->setStatus($row["status"]);
+            foreach ($results as $row) {
+                $user = new User();
+                $user->setUserid($row["userid"]);
+                $user->setEmail($row["email"]);
+                $user->setPassword($row["password"]);
+                $user->setType($row["type"]);
+                $user->setDni($row["dni"]);
+                $user->setCuit($row["cuit"]);
+                $user->setName($row["name"]);
+                $user->setSurname($row["surname"]);
+                $user->setPhone($row["phone"]);
+                $user->setStatus($row["status"]);
+            }
+            return $user;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-        return $user;
     }
+
 
     public function Update(User $user)
     {
-        try
-        {
+        try {
             $query = "CALL user_update(?,?,?,?);";
 
             $parameters["userid"] = $user->getUserid();
@@ -204,17 +232,15 @@ class UserDAO
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
+
     public function UpdateStatus(User $user)
     {
-        try
-        {
+        try {
             $query = "CALL user_status_update(?,?);";
 
             $parameters["userid"] = $user->getUserid();
@@ -222,9 +248,7 @@ class UserDAO
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }

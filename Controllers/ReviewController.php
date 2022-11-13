@@ -1,5 +1,7 @@
 <?php
 namespace Controllers;
+
+use \Exception as Exception;
 use DAO\ReviewDAO as ReviewDAO;
 use Models\Keeper;
 use Models\Review as Review;

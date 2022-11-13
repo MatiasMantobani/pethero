@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use \Exception as Exception;
 use Models\User as User;
 use DAO\UserDAO as UserDAO;
 use Controllers\UserController as UserController;
@@ -9,12 +10,14 @@ use Controllers\HomeController as HomeController;
 
 class AuthController
 {
+
     private $userDao;
 
     public function __construct()
     {
         $this->userDao = new UserDAO();
     }
+
 
     public function Login($email, $password)
     {
@@ -47,12 +50,19 @@ class AuthController
 
         $controll = new HomeController();
         $controll->Index("Cierre de sesión correcto<br>");
-
     }
 
-    public function notFound(){
+    public function notFound()
+    {
         require_once(VIEWS_PATH . "404.php");
     }
 }
 
-?>
+/*
+try {
+} catch (Exception $ex) {
+// var_dump($ex);
+$_SESSION["message"] = "Error al ... De Autentificar";
+}
+
+*/

@@ -4,135 +4,121 @@ namespace DAO;
 
 use \Exception as Exception;
 use Models\Review as Review;
-use DAO\Connection as Connection; 
+use DAO\Connection as Connection;
 
 class ReviewDAO
 {
     private $connection;
     private $tableReviews = "review";
 
+
     public function Add(Review $review)
     {
-        try
-        {
+        try {
             $query  = "INSERT INTO " . $this->tableReviews . " (emitterid, receptorid, reserveid, rating, comment) VALUES (:emitterid, :receptorid, :reserveid, :rating, :comment);";
             $parameters["emitterid"] = $review->getEmitterid();
             $parameters["receptorid"] = $review->getReceptorid();
             $parameters["reserveid"] = $review->getReserveid();
             $parameters["rating"] = $review->getRating();
-            $parameters["comment"] = $review->getComment(); 
-        
+            $parameters["comment"] = $review->getComment();
+
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
-
-        
         } catch (Exception $ex) {
             throw $ex;
         }
-        
     }
+
+
     public function GetByEmitterid($emitterid) // untested - 05/11/2022 - Juan
     {
-        try
-        {
-        $reviewList = array();
+        try {
+            $reviewList = array();
 
-        $query = "SELECT * FROM ". $this->tableReviews . " WHERE (emitterid = :emitterid) ORDER BY reserveid";
-    
-        $parameters["emitterid"] = $emitterid;
+            $query = "SELECT * FROM " . $this->tableReviews . " WHERE (emitterid = :emitterid) ORDER BY reserveid";
 
-        $this->connection = Connection::GetInstance();
-        $resultSet = $this->connection->Execute($query, $parameters);
+            $parameters["emitterid"] = $emitterid;
 
-        foreach ($resultSet as $row)
-        {
-            $review = new Review();
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
 
-            $review->setReviewid($row["reviewid"]);
-            $review->setEmitterid($row["emitterid"]);
-            $review->setReceptorid($row["receptorid"]);
-            $review->setReserveid($row["reserveid"]);
-            $review->setRating($row["rating"]);
-            $review->setComment($row["comment"]);
-            
-            array_push($reviewList, $review);
+            foreach ($resultSet as $row) {
+                $review = new Review();
 
-        }
-        return $reviewList;
-        
-    } catch(Exception $ex)
-        {
+                $review->setReviewid($row["reviewid"]);
+                $review->setEmitterid($row["emitterid"]);
+                $review->setReceptorid($row["receptorid"]);
+                $review->setReserveid($row["reserveid"]);
+                $review->setRating($row["rating"]);
+                $review->setComment($row["comment"]);
+
+                array_push($reviewList, $review);
+            }
+            return $reviewList;
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
+
+
     public function GetByReceptorid($receptorid) // untested - 05/11/2022 - Juan
     {
-        try
-        {
-        $reviewList = array();
+        try {
+            $reviewList = array();
 
-        $query = "SELECT * FROM ". $this->tableReviews . " WHERE (receptorid = :receptorid) ORDER BY reserveid";
-    
-        $parameters["receptorid"] = $receptorid;
+            $query = "SELECT * FROM " . $this->tableReviews . " WHERE (receptorid = :receptorid) ORDER BY reserveid";
 
-        $this->connection = Connection::GetInstance();
-        $resultSet = $this->connection->Execute($query, $parameters);
+            $parameters["receptorid"] = $receptorid;
 
-        foreach ($resultSet as $row)
-        {
-            $review = new Review();
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
 
-            $review->setReviewid($row["reviewid"]);
-            $review->setEmitterid($row["emitterid"]);
-            $review->setReceptorid($row["receptorid"]);
-            $review->setReserveid($row["reserveid"]);
-            $review->setRating($row["rating"]);
-            $review->setComment($row["comment"]);
-            
-            array_push($reviewList, $review);
+            foreach ($resultSet as $row) {
+                $review = new Review();
 
-        }
-        return $reviewList;
-        
-    } catch(Exception $ex)
-        {
+                $review->setReviewid($row["reviewid"]);
+                $review->setEmitterid($row["emitterid"]);
+                $review->setReceptorid($row["receptorid"]);
+                $review->setReserveid($row["reserveid"]);
+                $review->setRating($row["rating"]);
+                $review->setComment($row["comment"]);
+
+                array_push($reviewList, $review);
+            }
+            return $reviewList;
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
+
+
     public function GetByReserveid($reserveid)
     {
-        try
-        {
-        $reviewList = array();
+        try {
+            $reviewList = array();
 
-        $query = "SELECT * FROM ". $this->tableReviews . " WHERE (reserveid = :reserveid)";
-    
-        $parameters["reserveid"] = $reserveid;
+            $query = "SELECT * FROM " . $this->tableReviews . " WHERE (reserveid = :reserveid)";
 
-        $this->connection = Connection::GetInstance();
-        $resultSet = $this->connection->Execute($query, $parameters);
+            $parameters["reserveid"] = $reserveid;
 
-        foreach ($resultSet as $row)
-        {
-            $review = new Review();
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
 
-            $review->setReviewid($row["reviewid"]);
-            $review->setEmitterid($row["emitterid"]);
-            $review->setReceptorid($row["receptorid"]);
-            $review->setReserveid($row["reserveid"]);
-            $review->setRating($row["rating"]);
-            $review->setComment($row["comment"]);
-            
-            array_push($reviewList, $review);
+            foreach ($resultSet as $row) {
+                $review = new Review();
 
-        }
-        return $reviewList;
-        
-    } catch(Exception $ex)
-        {
+                $review->setReviewid($row["reviewid"]);
+                $review->setEmitterid($row["emitterid"]);
+                $review->setReceptorid($row["receptorid"]);
+                $review->setReserveid($row["reserveid"]);
+                $review->setRating($row["rating"]);
+                $review->setComment($row["comment"]);
+
+                array_push($reviewList, $review);
+            }
+            return $reviewList;
+        } catch (Exception $ex) {
             throw $ex;
         }
-
     }
 }
-?>

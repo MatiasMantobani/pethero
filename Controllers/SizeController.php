@@ -1,6 +1,7 @@
 <?php
 namespace Controllers;
 
+use \Exception as Exception;
 use DAO\SizeDAO as SizeDAO;
 use Models\Size as Size;
 use Controllers\UserController as UserController;

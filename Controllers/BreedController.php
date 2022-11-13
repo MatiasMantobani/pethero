@@ -1,6 +1,7 @@
 <?php
     namespace Controllers;
 
+    use \Exception as Exception;
     use DAO\BreedDAO as BreedDAO;
     use Models\Breed as Breed;
     use Controllers\UserController as UserController;

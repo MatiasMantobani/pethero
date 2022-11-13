@@ -1,6 +1,7 @@
 <?php
 namespace Controllers;
 
+use \Exception as Exception;
 use Controllers\UserController as UserController;
 use Controllers\PaymentController as PaymentController;
 use DAO\MailerDAO as MailerDAO;
