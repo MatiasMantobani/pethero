@@ -34,9 +34,8 @@ class PetController
     //carga y muestra mascotas en navbar dueño
     public function ShowListView()
     {
-        $petList = $this->petDAO->GetByUseridAndStatus($_SESSION['userid'], 1);  //muestra las sin carnet y disponibles
+        $petList = $this->petDAO->GetMyPets($_SESSION['userid']);  //muestra las sin carnet y disponibles
         $breedController = new BreedController();
-
 
         //para evitar mostrar una lista vacia
         if (count($petList) > 0) {

@@ -16,9 +16,12 @@
                 <th>Reserva</th>
                 </thead>
                 <tbody>
-                <?php if ($petList != null) {
+
+                <?php
+
+                    
                     foreach ($petList as $pet) {
-                        if ($pet->getStatus() == 1) { ?>
+                         ?>
                             <?php $breed = $breedController->getByBreedId($pet->getBreedid()); ?>
                             <tr>
                                 <td><?php echo $pet->getName() ?></td>
@@ -50,9 +53,15 @@
                                     <a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView/<?php echo $pet->getPetid() ?>" class="btn btn-primary btn-sm">Solicitar Reserva</a>
                                 </td>
                             </tr>
-                        <?php }
+
+
+                        <?php 
                     }
-                } ?>
+
+
+                 ?>
+
+
                 </tr>
                 </tbody>
             </table>

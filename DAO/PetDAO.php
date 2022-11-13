@@ -49,7 +49,41 @@ class PetDAO
     // 1 : no disponible para reservar
     // 2 : disponible
 
+
+
     //encontrar mascotas por estado NUEVA
+    public function GetMyPets($userid)
+    {
+        try {
+            $petList = array();
+
+            $query = "SELECT petid, status, breedid, name, observations FROM " . $this->tablePets . " WHERE (userid = :userid AND (status = 1 OR status = 2))";
+
+            $parameters["userid"] = $userid;
+
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $pet = new Pet();
+
+                $pet->setPetid($row["petid"]);
+                $pet->setStatus($row["status"]);
+                $pet->setBreedid($row["breedid"]);
+                $pet->setName($row["name"]);
+                $pet->setObservations($row["observations"]);
+
+                array_push($petList, $pet);
+            }
+            return $petList;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+
+
+    //encontrar mascotas por estado
     public function GetByUseridAndStatus($userid, $status)
     {
         try {
