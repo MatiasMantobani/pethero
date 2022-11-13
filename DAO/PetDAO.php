@@ -1,4 +1,5 @@
 <?php
+
 namespace DAO;
 
 use \Exception as Exception;
@@ -13,9 +14,8 @@ class PetDAO
 
     public function Add(Pet $pet)
     {
-        try
-        {
-            $query = "INSERT INTO ".$this->tablePets." (userid, breedid, name, observations) VALUES (:userid, :breedid, :name, :observations);";
+        try {
+            $query = "INSERT INTO " . $this->tablePets . " (userid, breedid, name, observations) VALUES (:userid, :breedid, :name, :observations);";
 
             $parameters["userid"] = $pet->getUserid();
             $parameters["breedid"] = $pet->getBreedid();
@@ -24,18 +24,14 @@ class PetDAO
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
-
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
     public function Update(Pet $pet)
     {
-        try
-        {
+        try {
             $query = "CALL pet_update(?,?,?);";
 
             $parameters["petid"] = $pet->getPetid();
@@ -44,45 +40,38 @@ class PetDAO
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
     public function Remove($petid)
     {
-        try
-        {
+        try {
             $query = "CALL pet_delete(?);";
 
             $parameters["petid"] = $petid;
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
     public function GetByUserId($userid)
     {
-        try
-        {
+        try {
             $petList = array();
 
-            $query = "SELECT petid, status, breedid, name, observations FROM ".$this->tablePets." WHERE (userid = :userid)";
+            $query = "SELECT petid, status, breedid, name, observations FROM " . $this->tablePets . " WHERE (userid = :userid)";
 
             $parameters["userid"] = $userid;
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            foreach ($resultSet as $row)
-            {
+            foreach ($resultSet as $row) {
                 $pet = new Pet();
 
                 $pet->setPetid($row["petid"]);
@@ -91,43 +80,42 @@ class PetDAO
                 $pet->setName($row["name"]);
                 $pet->setObservations($row["observations"]);
 
-                if ($pet->getStatus() == 1){
+                if ($pet->getStatus() == 1) {
                     array_push($petList, $pet);
                 }
             }
             return $petList;
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
     public function GetByPetId($petid)  //retorna 1 mascota
     {
-        $pet = null;
+        try {
+            $pet = null;
 
-        $query = "SELECT petid, userid, status, breedid, name, observations FROM ".$this->tablePets." WHERE (petid = :petid)";
+            $query = "SELECT petid, userid, status, breedid, name, observations FROM " . $this->tablePets . " WHERE (petid = :petid)";
 
-        $parameters["petid"] = $petid;
+            $parameters["petid"] = $petid;
 
-        $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-        $results = $this->connection->Execute($query, $parameters);
+            $results = $this->connection->Execute($query, $parameters);
 
-        foreach($results as $row)
-        {
-            $pet = new Pet();
-            $pet->setPetid($row["petid"]);
-            $pet->setUserid($row["userid"]);
-            $pet->setStatus($row["status"]);
-            $pet->setBreedid($row["breedid"]);
-            $pet->setName($row["name"]);
-            $pet->setObservations($row["observations"]);
+            foreach ($results as $row) {
+                $pet = new Pet();
+                $pet->setPetid($row["petid"]);
+                $pet->setUserid($row["userid"]);
+                $pet->setStatus($row["status"]);
+                $pet->setBreedid($row["breedid"]);
+                $pet->setName($row["name"]);
+                $pet->setObservations($row["observations"]);
+            }
+
+            return $pet;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-
-        return $pet;
     }
-
 }
-?>

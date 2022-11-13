@@ -1,6 +1,7 @@
 <?php
     namespace Controllers;
 
+    use \Exception as Exception;
     use DAO\AdressDAO as AdressDAO;
     use Models\Adress as Adress;
     use Controllers\UserController as UserController;

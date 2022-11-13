@@ -1,6 +1,7 @@
 <?php
 namespace Controllers;
 
+use \Exception as Exception;
 use DAO\VacunationImageDAO as VacunationImageDAO;
 use Models\VacunationImage as VacunationImage;
 use Controllers\PetController as PetController;

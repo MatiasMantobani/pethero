@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use \Exception as Exception;
 use Controllers\AuthController as AuthController;
 use DAO\ReserveDAO;
 use Models\Payment;

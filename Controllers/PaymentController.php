@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use \Exception as Exception;
 use Models\Payment as Payment;
 use DAO\PaymentDAO as paymentDAO;
 

@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use \Exception as Exception;
 use DAO\KeeperDAO as KeeperDAO;
 use Models\Keeper as Keeper;
 use Controllers\AdressController as AdressController;

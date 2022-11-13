@@ -1,53 +1,58 @@
 <?php
-    namespace DAO;
 
-    use \Exception as Exception;
-    use Models\Keeper as Keeper;
-    use DAO\Connection as Connection;
-    use Models\Size as Size;
+namespace DAO;
 
-    class SizeDAO
+use \Exception as Exception;
+use Models\Keeper as Keeper;
+use DAO\Connection as Connection;
+use Models\Size as Size;
+
+class SizeDAO
+{
+    private $connection;
+    private $tableSizes = "sizes";
+
+
+    public function Add(Size $size)
     {
-        private $connection;
-        private $tableSizes = "sizes";
+        try {
+            $query = "INSERT INTO " . $this->tableSizes . " (userid, small, medium, large) VALUES (:userid, :small, :medium, :large);";
 
-        public function Add(Size $size)
-        {
-            try
-            {
-                $query = "INSERT INTO ".$this->tableSizes." (userid, small, medium, large) VALUES (:userid, :small, :medium, :large);";
+            $parameters["userid"] = $size->getUserid();
+            $parameters["small"] = $size->getSmall();
+            $parameters["medium"] = $size->getMedium();
+            $parameters["large"] = $size->getLarge();
 
-                $parameters["userid"] = $size->getUserid();
-                $parameters["small"] = $size->getSmall();
-                $parameters["medium"] = $size->getMedium();
-                $parameters["large"] = $size->getLarge();
-
-                $this->connection = Connection::GetInstance();
-                $this->connection->ExecuteNonQuery($query, $parameters);
-
-            }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
         }
+    }
 
-        public function Remove($userid)
-        {
-            $query = "DELETE FROM ".$this->tableSizes." WHERE (userid = :userid)";
+
+    public function Remove($userid)
+    {
+        try {
+            $query = "DELETE FROM " . $this->tableSizes . " WHERE (userid = :userid)";
 
             $parameters["userid"] =  $userid;
 
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
         }
+    }
 
-        public function GetByUserid($userid)
-        {
+
+    public function GetByUserid($userid)
+    {
+        try {
             $size = null;
 
-            $query = "SELECT userid, small, medium, large FROM ".$this->tableSizes." WHERE (userid = :userid)";
+            $query = "SELECT userid, small, medium, large FROM " . $this->tableSizes . " WHERE (userid = :userid)";
 
             $parameters["userid"] = $userid;
 
@@ -55,8 +60,7 @@
 
             $results = $this->connection->Execute($query, $parameters);
 
-            foreach($results as $row)
-            {
+            foreach ($results as $row) {
                 $size = new Size();
                 $size->setUserid($row["userid"]);
                 $size->setSmall($row["small"]);
@@ -64,10 +68,8 @@
                 $size->setLarge($row["large"]);
             }
             return $size;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-
-
-
-
     }
-?>
+}

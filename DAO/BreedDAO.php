@@ -1,4 +1,5 @@
 <?php
+
 namespace DAO;
 
 use \Exception as Exception;
@@ -12,9 +13,8 @@ class BreedDAO
 
     public function Add(Breed $breed)
     {
-        try
-        {
-            $query = "INSERT INTO ".$this->tableBreed." (breedid, name, size, type) VALUES (:breedid, :name, :size, :type);";
+        try {
+            $query = "INSERT INTO " . $this->tableBreed . " (breedid, name, size, type) VALUES (:breedid, :name, :size, :type);";
 
             $parameters["breedid"] = $breed->getBreedid();
             $parameters["name"] = $breed->getName();
@@ -23,39 +23,38 @@ class BreedDAO
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
-
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
     public function Remove($breedid)
     {
-        $query = "DELETE FROM ".$this->tableBreed." WHERE (breedid = :breedid)";
+        try {
+            $query = "DELETE FROM " . $this->tableBreed . " WHERE (breedid = :breedid)";
 
-        $parameters["breedid"] =  $breedid;
+            $parameters["breedid"] =  $breedid;
 
-        $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-        $this->connection->ExecuteNonQuery($query, $parameters);
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 
     public function GetAll()
     {
-        try
-        {
+        try {
             $breedList = array();
 
-            $query = "SELECT * FROM ".$this->tableBreed;
+            $query = "SELECT * FROM " . $this->tableBreed;
 
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query);
 
-            foreach ($resultSet as $row)
-            {
+            foreach ($resultSet as $row) {
                 $breed = new Breed();
 
                 $breed->setBreedid($row["breedid"]);
@@ -67,28 +66,24 @@ class BreedDAO
             }
 
             return $breedList;
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
     public function GetAllByType($type)
     {
-        try
-        {
+        try {
             $breedList = array();
 
-            $query = "SELECT * FROM ".$this->tableBreed." WHERE (type = :type)";
+            $query = "SELECT * FROM " . $this->tableBreed . " WHERE (type = :type)";
             $parameters["type"] = $type;
 
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            foreach ($resultSet as $row)
-            {
+            foreach ($resultSet as $row) {
                 $breed = new Breed();
 
                 $breed->setBreedid($row["breedid"]);
@@ -100,36 +95,34 @@ class BreedDAO
             }
 
             return $breedList;
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
     public function GetByBreedId($breedid)
     {
-        $breed = null;
+        try {
+            $breed = null;
 
-        $query = "SELECT breedid, name, size, type FROM ".$this->tableBreed." WHERE (breedid = :breedid)";
+            $query = "SELECT breedid, name, size, type FROM " . $this->tableBreed . " WHERE (breedid = :breedid)";
 
-        $parameters["breedid"] = $breedid;
+            $parameters["breedid"] = $breedid;
 
-        $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-        $results = $this->connection->Execute($query, $parameters);
+            $results = $this->connection->Execute($query, $parameters);
 
-        foreach($results as $row)
-        {
-            $breed = new Breed();
-            $breed->setBreedid($row["breedid"]);
-            $breed->setName($row["name"]);
-            $breed->setSize($row["size"]);
-            $breed->setType($row["type"]);
+            foreach ($results as $row) {
+                $breed = new Breed();
+                $breed->setBreedid($row["breedid"]);
+                $breed->setName($row["name"]);
+                $breed->setSize($row["size"]);
+                $breed->setType($row["type"]);
+            }
+            return $breed;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-        return $breed;
     }
-
-
 }
-?>

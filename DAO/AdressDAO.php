@@ -1,4 +1,5 @@
 <?php
+
 namespace DAO;
 
 use \Exception as Exception;
@@ -14,9 +15,8 @@ class AdressDAO
 
     public function Add(Adress $adress)
     {
-        try
-        {
-            $query = "INSERT INTO ".$this->tableAdresses." (userid, street, number, floor, department, postalcode) VALUES (:userid, :street, :number, :floor, :department, :postalcode);";
+        try {
+            $query = "INSERT INTO " . $this->tableAdresses . " (userid, street, number, floor, department, postalcode) VALUES (:userid, :street, :number, :floor, :department, :postalcode);";
 
             $parameters["userid"] = $adress->getUserid();
             $parameters["street"] = $adress->getStreet();
@@ -27,18 +27,14 @@ class AdressDAO
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
-
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
     public function Update($userid, $street, $number, $floor, $department, $postalcode)
     {
-        try
-        {
+        try {
             $query = "CALL adress_update(?,?,?,?,?,?);";
 
             $parameters["userid"] = $userid;
@@ -50,38 +46,39 @@ class AdressDAO
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
     public function Remove($userid)
     {
-        $query = "DELETE FROM ".$this->tableAdresses." WHERE (userid = :userid)";
 
-        $parameters["userid"] =  $userid;
+        try {
+            $query = "DELETE FROM " . $this->tableAdresses . " WHERE (userid = :userid)";
 
-        $this->connection = Connection::GetInstance();
+            $parameters["userid"] =  $userid;
 
-        $this->connection->ExecuteNonQuery($query, $parameters);
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 
     public function GetAll()
     {
-        try
-        {
+        try {
             $adressList = array();
 
-            $query = "SELECT * FROM ".$this->tableAdresses;
+            $query = "SELECT * FROM " . $this->tableAdresses;
 
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query);
 
-            foreach ($resultSet as $row)
-            {
+            foreach ($resultSet as $row) {
                 $adress = new Adress();
 
                 $adress->setUserid($row["userid"]);
@@ -95,65 +92,65 @@ class AdressDAO
             }
 
             return $adressList;
-        }
-        catch(Exception $ex)
-        {
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
 
     public function GetByUserid($userid)
     {
-        $adress = null;
+        try {
+            $adress = null;
 
-        $query = "SELECT userid, street, number, floor, department, postalcode FROM ".$this->tableAdresses." WHERE (userid = :userid)";
+            $query = "SELECT userid, street, number, floor, department, postalcode FROM " . $this->tableAdresses . " WHERE (userid = :userid)";
 
-        $parameters["userid"] = $userid;
+            $parameters["userid"] = $userid;
 
-        $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-        $results = $this->connection->Execute($query, $parameters);
+            $results = $this->connection->Execute($query, $parameters);
 
-        foreach($results as $row)
-        {
-            $adress = new Adress();
-            $adress->setUserid($row["userid"]);
-            $adress->setStreet($row["street"]);
-            $adress->setNumber($row["number"]);
-            $adress->setFloor($row["floor"]);
-            $adress->setDepartment($row["department"]);
-            $adress->setPostalcode($row["postalcode"]);
+            foreach ($results as $row) {
+                $adress = new Adress();
+                $adress->setUserid($row["userid"]);
+                $adress->setStreet($row["street"]);
+                $adress->setNumber($row["number"]);
+                $adress->setFloor($row["floor"]);
+                $adress->setDepartment($row["department"]);
+                $adress->setPostalcode($row["postalcode"]);
+            }
+            return $adress;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-        return $adress;
     }
 
     public function GetByEmail($email)
     {
-        $user = null;
+        try {
+            $user = null;
 
-        $query = "SELECT userid, email, password, name, type, phone FROM ".$this->tableUsers." WHERE (email = :email)";
+            $query = "SELECT userid, email, password, name, type, phone FROM " . $this->tableUsers . " WHERE (email = :email)";
 
-        $parameters["email"] = $email;
+            $parameters["email"] = $email;
 
-        $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-        $results = $this->connection->Execute($query, $parameters);
+            $results = $this->connection->Execute($query, $parameters);
 
-        foreach($results as $row)
-        {
-            $user = new User();
-            $user->setUserid($row["userid"]);
-            $user->setName($row["name"]);
-            $user->setType($row["type"]);
-            $user->setEmail($row["email"]);
-            $user->setPassword($row["password"]);
-            $user->setPhone($row["phone"]);
+            foreach ($results as $row) {
+                $user = new User();
+                $user->setUserid($row["userid"]);
+                $user->setName($row["name"]);
+                $user->setType($row["type"]);
+                $user->setEmail($row["email"]);
+                $user->setPassword($row["password"]);
+                $user->setPhone($row["phone"]);
+            }
+
+            return $user;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-
-        return $user;
     }
-
-
-
 }
-?>

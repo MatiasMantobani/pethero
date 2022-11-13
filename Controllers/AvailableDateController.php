@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use \Exception as Exception;
 use Cassandra\Date;
 use DAO\AvailableDateDAO as AvailableDateDAO;
 use Models\AvailableDate as AvailableDate;
