@@ -18,6 +18,12 @@ class AdressController
     }
 
 
+    public function AdressFinder($userid)
+    {
+        return $this->adressDAO->GetByUserid($userid);
+    }
+
+
     public function Update($street, $number, $floor, $department, $postalcode)
     {
         try {
@@ -29,7 +35,7 @@ class AdressController
                 $this->Add($street, $number, $floor, $department, $postalcode);
             }
         } catch (Exception $ex) {
-            // var_dump($ex);   //se puede
+            // var_dump($ex);
             $_SESSION["message"] = "Error al Modificar la Direccion";
         }
         $controller = new UserController();
@@ -39,25 +45,8 @@ class AdressController
 
     public function ShowAddView()
     {
-        try {
-            $adress2 = $this->getByUserId($_SESSION['userid']);
-            require_once(VIEWS_PATH . "adress-add.php");
-        } catch (Exception $ex) {
-            // var_dump($ex);
-            $_SESSION["message"] = "Error al mostrar la Vista de Agregar Dirección";
-        }
-    }
-
-
-    public function ShowListView()
-    {
-        try {
-            $adressList = $this->adressDAO->GetAll();
-            require_once(VIEWS_PATH . "adress-list.php");
-        } catch (Exception $ex) {
-            // var_dump($ex);
-            $_SESSION["message"] = "Error al Mostrar la Lista de Dirección";
-        }
+        $adress2 = $this->getByUserId($_SESSION['userid']);
+        require_once(VIEWS_PATH . "adress-add.php");
     }
 
 
@@ -74,24 +63,12 @@ class AdressController
             $adress->setPostalcode($postalcode);
 
             $this->adressDAO->Add($adress);
-
-            $controller = new UserController();
-            $controller->ShowProfileView();
         } catch (Exception $ex) {
             // var_dump($ex);
             $_SESSION["message"] = "Error al Agregar Direccion";
         }
-    }
-
-
-    public function AdressFinder($userid)
-    {
-        try {
-            return $this->adressDAO->GetByUserid($userid);
-        } catch (Exception $ex) {
-            // var_dump($ex);
-            $_SESSION["message"] = "Error al Ecnontrar Direccion";
-        }
+        $controller = new UserController();
+        $controller->ShowProfileView();
     }
 
 
