@@ -7,7 +7,7 @@
     <section id="listado" class="mb-5">
         <div class="container">
             <h2 class="mb-4"> Solicita una reserva </h2>
-            <?php if($listadoMascotas){ ?>
+            
                 <form action="<?php echo FRONT_ROOT ?>Reserve/showChooseKeeperView" method="post" class="bg-light-alpha p-5">
 
                     <!--                Desplegable de mascotas-->
@@ -62,15 +62,8 @@
                     </div>
 
                 </form>
-            <?php }else{ ?>
-            <div class="bg-light-alpha p-5">
-                <h2>Ups! Parece que no tienes mascotas cargadas en tu perfil</h2>
-                <br>
-                <img src="<?php echo FRONT_ROOT ?>Views/img/Missing_dog_photo.png" class="rounded mx-auto d-block" width="30%" alt="missing-dog">
-                <br>
-                <a href="<?php echo FRONT_ROOT ?>Pet/ShowPreAddView/" class="btn btn-primary">Agregar una mascota</a>
-            </div>
-            <?php } ?>
+           
+
         </div>
     </section>
 </main>
