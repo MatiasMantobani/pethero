@@ -211,7 +211,7 @@ class ReserveController
         $choosePet = $this->PetController->PetFinder($choosePetid);
 
         //para evitar mostrar una lista vacia
-        if (count($listadoMascotas) > 0) {
+        if ($listadoMascotas != null && count($listadoMascotas) > 0) {
             require_once(VIEWS_PATH . "reserve-add.php");
         } else {
             $_SESSION["message"] = "No tienes Mascotas Activas para Reservar, Agrega a una mascota Foto de Perfil y Carnet de Vacunacion para comenzar!";

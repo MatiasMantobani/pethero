@@ -35,7 +35,13 @@ class PetController
     public function ShowListView()
     {
         $petList = $this->petDAO->GetMyPets($_SESSION['userid']);  //muestra las sin carnet y disponibles
+        $breeds = array();
         $breedController = new BreedController();
+        foreach ($petList as $pet){
+            array_push($breeds, $breedController->getByBreedId($pet->getBreedid()));
+        }
+
+
 
         //para evitar mostrar una lista vacia
         if (count($petList) > 0) {

@@ -17,15 +17,10 @@
                 </thead>
                 <tbody>
 
-                <?php
-
-                    
-                    foreach ($petList as $pet) {
-                         ?>
-                            <?php $breed = $breedController->getByBreedId($pet->getBreedid()); ?>
+                <?php for($i = 0 ; $i < count($petList); $i++) { ?>
                             <tr>
-                                <td><?php echo $pet->getName() ?></td>
-                                <td><?php switch ($breed->getType()) {
+                                <td><?php echo $petList[$i]->getName() ?></td>
+                                <td><?php switch ($breeds[$i]->getType()) {
                                         case 1:
                                             echo "Gato";
                                             break;
@@ -33,8 +28,8 @@
                                             echo "Perro";
                                             break;
                                     } ?></td>
-                                <td><?php echo $breed->getName() ?></td>
-                                <td><?php switch ($breed->getSize()) {
+                                <td><?php echo $breeds[$i]->getName() ?></td>
+                                <td><?php switch ($breeds[$i]->getSize()) {
                                         case 1:
                                             echo "Pequeño";
                                             break;
@@ -46,22 +41,14 @@
                                             break;
                                     } ?></td>
                                 <td>
-                                    <a href="<?php echo FRONT_ROOT ?>Pet/ShowProfileView/<?php echo $pet->getPetid() ?>" class="btn btn-primary btn-sm">Ver perfil</a>
+                                    <a href="<?php echo FRONT_ROOT ?>Pet/ShowProfileView/<?php echo $petList[$i]->getPetid() ?>" class="btn btn-primary btn-sm">Ver perfil</a>
                                 </td>
                                 <td>
 
-                                    <a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView/<?php echo $pet->getPetid() ?>" class="btn btn-primary btn-sm">Solicitar Reserva</a>
+                                    <a href="<?php echo FRONT_ROOT ?>Reserve/ShowAddView/<?php echo $petList[$i]->getPetid() ?>" class="btn btn-primary btn-sm">Solicitar Reserva</a>
                                 </td>
                             </tr>
-
-
-                        <?php 
-                    }
-
-
-                 ?>
-
-
+                        <?php } ?>
                 </tr>
                 </tbody>
             </table>
