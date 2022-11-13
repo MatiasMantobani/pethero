@@ -154,3 +154,7 @@ class AdressDAO
         }
     }
 }
+
+/*
+try{}catch(Exception $ex){throw $ex;}
+*/
