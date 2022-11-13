@@ -111,7 +111,6 @@ class AdressController
 
     public function Remove($userid)
     {
-
         if ($this->validate()) {
             try {
                 $this->adressDAO->Remove($userid);

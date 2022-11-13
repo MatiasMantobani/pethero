@@ -1,14 +1,19 @@
 <?php
-    namespace Controllers;
 
-    use Controllers\UserController as UserController;
+namespace Controllers;
 
-    class HomeController
+use Controllers\UserController as UserController;
+
+class HomeController
+{
+    static public function Index($message = "")
     {
-        static public function Index($message = "")
-        {
-            require_once(VIEWS_PATH."index.php");
-        }
 
+        if (isset($_SESSION["userid"])) {
+            $userController = new UserController();
+            $userController->ShowProfileView();
+        } else {
+            require_once(VIEWS_PATH . "index.php");
+        }
     }
-?>
+}
