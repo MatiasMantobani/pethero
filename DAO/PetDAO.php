@@ -59,12 +59,13 @@ class PetDAO
         }
     }
 
+    // encuentra todas las mascotas de alta de un usuario
     public function GetByUserId($userid)
     {
         try {
             $petList = array();
 
-            $query = "SELECT petid, status, breedid, name, observations FROM " . $this->tablePets . " WHERE (userid = :userid)";
+            $query = "SELECT petid, status, breedid, name, observations FROM " . $this->tablePets . " WHERE (userid = :userid AND status = 1)";
 
             $parameters["userid"] = $userid;
 
@@ -80,9 +81,7 @@ class PetDAO
                 $pet->setName($row["name"]);
                 $pet->setObservations($row["observations"]);
 
-                if ($pet->getStatus() == 1) {
-                    array_push($petList, $pet);
-                }
+                array_push($petList, $pet);
             }
             return $petList;
         } catch (Exception $ex) {
