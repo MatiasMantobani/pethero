@@ -18,89 +18,118 @@ class AdressController
     }
 
 
+    public function validate()
+    {
+        if (isset($_SESSION["userid"])) {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
+
     public function AdressFinder($userid)
     {
-        return $this->adressDAO->GetByUserid($userid);
+        if ($this->validate()) {
+            return $this->adressDAO->GetByUserid($userid);
+        }
     }
 
 
     public function Update($street, $number, $floor, $department, $postalcode)
     {
-        try {
-            if ($this->AdressFinder($_SESSION['userid'])) {
-                $this->adressDAO->Update($_SESSION['userid'], $street, $number, $floor, $department, $postalcode);
+        if ($this->validate()) {
+            try {
+                if ($this->AdressFinder($_SESSION['userid'])) {
+                    $this->adressDAO->Update($_SESSION['userid'], $street, $number, $floor, $department, $postalcode);
 
-                $_SESSION['message'] = "Domicilio modificado con exito<br>";
-            } else {
-                $this->Add($street, $number, $floor, $department, $postalcode);
+                    $_SESSION['message'] = "Domicilio modificado con exito<br>";
+                } else {
+                    $this->Add($street, $number, $floor, $department, $postalcode);
+                }
+            } catch (Exception $ex) {
+                // var_dump($ex);
+                $_SESSION["message"] = "Error al Modificar la Direccion";
             }
-        } catch (Exception $ex) {
-            // var_dump($ex);
-            $_SESSION["message"] = "Error al Modificar la Direccion";
+            $controller = new UserController();
+            $controller->ShowProfileView();
         }
-        $controller = new UserController();
-        $controller->ShowProfileView();
     }
 
 
     public function ShowAddView()
     {
-        $adress2 = $this->getByUserId($_SESSION['userid']);
-        require_once(VIEWS_PATH . "adress-add.php");
+        if ($this->validate()) {
+            $adress2 = $this->getByUserId($_SESSION['userid']);
+            require_once(VIEWS_PATH . "adress-add.php");
+        }
     }
 
 
     public function Add($street, $number, $floor, $department, $postalcode)
     {
-        try {
-            $adress = new Adress();
+        if ($this->validate()) {
+            try {
+                $adress = new Adress();
 
-            $adress->setUserid($_SESSION['userid']);
-            $adress->setStreet($street);
-            $adress->setNumber($number);
-            $adress->setFloor($floor);
-            $adress->setDepartment($department);
-            $adress->setPostalcode($postalcode);
+                $adress->setUserid($_SESSION['userid']);
+                $adress->setStreet($street);
+                $adress->setNumber($number);
+                $adress->setFloor($floor);
+                $adress->setDepartment($department);
+                $adress->setPostalcode($postalcode);
 
-            $this->adressDAO->Add($adress);
-        } catch (Exception $ex) {
-            // var_dump($ex);
-            $_SESSION["message"] = "Error al Agregar Direccion";
+                $this->adressDAO->Add($adress);
+            } catch (Exception $ex) {
+                // var_dump($ex);
+                $_SESSION["message"] = "Error al Agregar Direccion";
+            }
+            $controller = new UserController();
+            $controller->ShowProfileView();
         }
-        $controller = new UserController();
-        $controller->ShowProfileView();
     }
 
 
     public function getByUserId($userid)
     {
-        try {
-            $adressDAO = new AdressDAO();
-            $adress = $adressDAO->getByUserId($userid);
-            if ($adress) {
-                return $adress;
-            } else {
-                return null;
+        if ($this->validate()) {
+            try {
+                $adressDAO = new AdressDAO();
+                $adress = $adressDAO->getByUserId($userid);
+                if ($adress) {
+                    return $adress;
+                } else {
+                    return null;
+                }
+            } catch (Exception $ex) {
+                // var_dump($ex);
+                $_SESSION["message"] = "Error al Conseguir por Usuario en Direccion";
             }
-        } catch (Exception $ex) {
-            // var_dump($ex);
-            $_SESSION["message"] = "Error al Conseguir por Usuario en Direccion";
         }
     }
 
 
     public function Remove($userid)
     {
-        try {
-            $this->adressDAO->Remove($userid);
-        } catch (Exception $ex) {
-            // var_dump($ex);
-            $_SESSION["message"] = "Error al Remover Direccion";
+
+        if ($this->validate()) {
+            try {
+                $this->adressDAO->Remove($userid);
+            } catch (Exception $ex) {
+                // var_dump($ex);
+                $_SESSION["message"] = "Error al Remover Direccion";
+            }
         }
     }
 }
 
 /*
+
+if ($this->validate()) {
+            
+        }
+
+
 try {
         } catch (Exception $ex) {
             // var_dump($ex);

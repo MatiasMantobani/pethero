@@ -67,35 +67,6 @@ class AdressDAO
         }
     }
 
-    public function GetAll()
-    {
-        try {
-            $adressList = array();
-
-            $query = "SELECT * FROM " . $this->tableAdresses;
-
-            $this->connection = Connection::GetInstance();
-
-            $resultSet = $this->connection->Execute($query);
-
-            foreach ($resultSet as $row) {
-                $adress = new Adress();
-
-                $adress->setUserid($row["userid"]);
-                $adress->setStreet($row["street"]);
-                $adress->setNumber($row["number"]);
-                $adress->setFloor($row["floor"]);
-                $adress->setDepartment($row["department"]);
-                $adress->setPostalcode($row["postalcode"]);
-
-                array_push($adressList, $adress);
-            }
-
-            return $adressList;
-        } catch (Exception $ex) {
-            throw $ex;
-        }
-    }
 
     public function GetByUserid($userid)
     {
