@@ -207,7 +207,7 @@ class ReserveController
 
     public function showAddView($choosePetid = null)  //parametro entra de reserve-add (por si selecciona reservar desde la mascota)
     {
-        $listadoMascotas = $this->PetController->GetByUserId($_SESSION['userid']);
+        $listadoMascotas = $this->PetController->GetMyPaused($_SESSION['userid']);  //CAMBIAR A MASCOTAS ACTIVAS
         $choosePet = $this->PetController->PetFinder($choosePetid);
         require_once(VIEWS_PATH . "reserve-add.php");
     }

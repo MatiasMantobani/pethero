@@ -25,8 +25,84 @@ class PetController
         $this->vacunationImageController = new VacunationImageController();
     }
 
+
+    // 0 : dadas de baja
+    // 1 : sin carnet, no puede hacer reservas
+    // 2 : disponible
+
+
+    //carga y muestra mascotas en navbar dueño
+    public function ShowListView()
+    {
+        $petList = $this->petDAO->GetByUseridAndStatus($_SESSION['userid'], 1);  //muestra las sin carnet y disponibles
+        $breedController = new BreedController();
+
+
+        //para evitar mostrar una lista vacia
+        if (count($petList) > 0) {
+            require_once(VIEWS_PATH . "pet-list.php");
+        } else {
+            $_SESSION["message"] = "No tienes mascotas para mostrar";
+            $userController = new UserController();
+            $userController->ShowProfileView();
+        }
+    }
+
+
+    //dadas de baja
+    public function GetMyDischarged($userid)
+    {
+        $petList = $this->petDAO->GetByUseridAndStatus($_SESSION['userid'], 0);
+        if ($petList) {
+            return $petList;
+        } else {
+            return null;
+        }
+    }
+
+
+    //no pueden hacer reservas
+    public function GetMyPaused($userid)
+    {
+        $petList = $this->petDAO->GetByUseridAndStatus($_SESSION['userid'], 1);
+        if ($petList) {
+            return $petList;
+        } else {
+            return null;
+        }
+    }
+
+
+    // pueden hacer reservas
+    public function GetMyActive($userid)
+    {
+        $petList = $this->petDAO->GetByUseridAndStatus($_SESSION['userid'], 2);
+        if ($petList) {
+            return $petList;
+        } else {
+            return null;
+        }
+    }
+
+
+    public function validateStatus($petid)
+    {
+        $petImageController = new PetImageController();
+        $vacunationImageController = new VacunationImageController();
+
+        if ($petImageController->ShowImage($petid) && $vacunationImageController->ShowImage($petid)) {
+            $this->petDAO->UpdateStatus($petid, 2);
+        } else {
+            $this->petDAO->UpdateStatus($petid, 1);
+        }
+    }
+
+
     public function ShowProfileView($petid)
     {
+
+        $this->validateStatus($petid);
+
         $pet = $this->petDAO->GetByPetId($petid);
 
         $breedid = $pet->getBreedid();
@@ -63,23 +139,6 @@ class PetController
         require_once(VIEWS_PATH . "pet-update.php");
     }
 
-    public function ShowListView()
-    {
-        $petList = $this->petDAO->GetByUserid($_SESSION['userid']);
-        $breedController = new BreedController();
-
-
-        //para evitar mostrar una lista vacia
-        if (count($petList) > 0) {
-            require_once(VIEWS_PATH . "pet-list.php");
-        } else {
-            $_SESSION["message"] = "No tienes mascotas para mostrar";
-            $userController = new UserController();
-            $userController->ShowProfileView();
-        }
-
-        
-    }
 
     public function Add($breedid, $name, $observations)
     {
@@ -123,15 +182,7 @@ class PetController
         return $this->petDAO->GetByPetId($petid);
     }
 
-    public function GetByUserId($userid)
-    {
-        $petList = $this->petDAO->GetByUserId($userid);
-        if ($petList) {
-            return $petList;
-        } else {
-            return null;
-        }
-    }
+
 
     public function Remove($petid)
     {

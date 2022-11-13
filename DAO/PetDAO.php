@@ -12,23 +12,6 @@ class PetDAO
     private $tablePets = "pet";
 
 
-    public function Add(Pet $pet)
-    {
-        try {
-            $query = "INSERT INTO " . $this->tablePets . " (userid, breedid, name, observations) VALUES (:userid, :breedid, :name, :observations);";
-
-            $parameters["userid"] = $pet->getUserid();
-            $parameters["breedid"] = $pet->getBreedid();
-            $parameters["name"] = $pet->getName();
-            $parameters["observations"] = $pet->getObservations();
-
-            $this->connection = Connection::GetInstance();
-            $this->connection->ExecuteNonQuery($query, $parameters);
-        } catch (Exception $ex) {
-            throw $ex;
-        }
-    }
-
     public function Update(Pet $pet)
     {
         try {
@@ -45,12 +28,14 @@ class PetDAO
         }
     }
 
-    public function Remove($petid)
+
+    public function UpdateStatus($petid, $status)
     {
         try {
-            $query = "CALL pet_delete(?);";
+            $query = "CALL pet_status_update(?,?);";
 
             $parameters["petid"] = $petid;
+            $parameters["status"] = $status;
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
@@ -59,15 +44,21 @@ class PetDAO
         }
     }
 
-    // encuentra todas las mascotas de alta de un usuario
-    public function GetByUserId($userid)
+
+    // 0 : baja
+    // 1 : no disponible para reservar
+    // 2 : disponible
+
+    //encontrar mascotas por estado NUEVA
+    public function GetByUseridAndStatus($userid, $status)
     {
         try {
             $petList = array();
 
-            $query = "SELECT petid, status, breedid, name, observations FROM " . $this->tablePets . " WHERE (userid = :userid AND status = 1)";
+            $query = "SELECT petid, status, breedid, name, observations FROM " . $this->tablePets . " WHERE (userid = :userid AND status = :status)";
 
             $parameters["userid"] = $userid;
+            $parameters["status"] = $status;
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
@@ -88,6 +79,45 @@ class PetDAO
             throw $ex;
         }
     }
+
+
+    public function Add(Pet $pet)
+    {
+        try {
+            $query = "INSERT INTO " . $this->tablePets . " (userid, breedid, name, observations) VALUES (:userid, :breedid, :name, :observations);";
+
+            $parameters["userid"] = $pet->getUserid();
+            $parameters["breedid"] = $pet->getBreedid();
+            $parameters["name"] = $pet->getName();
+            $parameters["observations"] = $pet->getObservations();
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+
+
+    public function Remove($petid)
+    {
+        try {
+            $query = "CALL pet_delete(?);";
+
+            $parameters["petid"] = $petid;
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+
+
+
+
 
     public function GetByPetId($petid)  //retorna 1 mascota
     {

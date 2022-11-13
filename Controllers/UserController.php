@@ -81,7 +81,7 @@ class UserController
 
         if ($_SESSION['type'] == 'D') {
             $petController = new PetController();
-            $petList = $petController->GetByUserId($_SESSION['userid']);
+            $petList = $petController->GetMyPaused($_SESSION['userid']);    //activas y sin carnet
 
             if ($petList != null) {
                 $breedController = new BreedController();
@@ -149,7 +149,7 @@ class UserController
         if ($_SESSION['type'] == 'D'){
             $petController = new PetController();
             $flag = 0;
-            $petList = $petController->GetByUserId($_SESSION['userid']);
+            $petList = $petController->GetMyActive($_SESSION['userid']);    //trae las mascotas ACTIVAS (con carnet)
             if ($petList != null){
                 foreach ($petList as $pet){
                     if ($pet->getStatus() == "1"){
