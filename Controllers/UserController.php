@@ -68,36 +68,36 @@ class UserController
     public function ShowProfileView()
     {
         if ($this->validate()) {
+
+
+            // PARA AMBOS
             $user = $this->GetUserById($_SESSION['userid']);
 
+            //trae direccion
             $AdressController = new AdressController();
             $adress = $AdressController->getByUserId($_SESSION['userid']);
 
+            //trae foto de perfil
             $userImageController = new UserImageController();
             $userImage = $userImageController->ShowImage($_SESSION['userid']);
 
-            if ($_SESSION['type'] == 'D') {
-                $petController = new PetController();
-                $petList = $petController->GetMyPaused($_SESSION['userid']);    //activas y sin carnet
-
-                if ($petList != null) {
-                    $breedController = new BreedController();
-                }
+            if ($adress == null) {
+                $_SESSION['message'] .= "Para comenzar, debés ingresar tu domicilio. <br>";
             }
 
-            if ($_SESSION['userid']) {
-                if ($adress == null) {
-                    $_SESSION['message'] .= "Para comenzar, debés ingresar tu domicilio. <br>";
-                }
-            }
+            //DUEÑO
+            // No tiene
 
-            //si es Guardian
+            //GUARDIAN
             if ($_SESSION['type'] == 'G') {
+
                 $SizeController = new SizeController();
                 $size = $SizeController->getByUserId($_SESSION['userid']);
+
                 if ($size == null) {
                     $_SESSION['message'] .= "Para cuidar mascotas, primero debés cargar el tamaño que aceptas. <br>";
                 }
+                
                 $availableDate = new AvailableDate();
                 $fechas = $availableDate->GetById();
 
@@ -119,20 +119,7 @@ class UserController
                 }
             }
 
-            if ($_SESSION['type'] == 'D') {
-                $userList = $this->userDAO->GetAll(); // Envia la lista de guardianes al perfil de dueño
-            }
-
-            // Conseguir todas las reservas y todos los pagos
-            if ($_SESSION['userid']) {
-                $reserveController = new ReserveController();
-                $reserveList = $reserveController->getMyReserves();
-
-                $paymentController = new PaymentController();
-                $pagos = $paymentController->getMyPayments();
-            }
-
-            $this->validateStatus(); // Checks for adress and pets for owner and keeper
+            $this->validateStatus();    // Checks for adress and pets for owner and keeper
             require_once(VIEWS_PATH . "user-profile.php");
         }
     }

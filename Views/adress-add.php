@@ -19,21 +19,21 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Altura</label>
-                            <input type="number" name="number" value="<?php if($adress2 != null) echo $adress2->getNumber(); ?>" class="form-control" required>
+                            <input type="text" name="number" value="<?php if($adress2 != null) echo $adress2->getNumber(); ?>" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Codigo postal</label>
-                            <input type="number" name="postalcode" value="<?php if($adress2 != null) echo $adress2->getPostalcode(); ?>" class="form-control" required>
+                            <input type="text" name="postalcode" value="<?php if($adress2 != null) echo $adress2->getPostalcode(); ?>" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Piso [Opcional]</label>
-                            <input type="number" name="floor" value="<?php if($adress2 != null) echo $adress2->getFloor(); ?>" class="form-control">
+                            <input type="text" name="floor" value="<?php if($adress2 != null) echo $adress2->getFloor(); ?>" class="form-control">
                         </div>
                     </div>
                     <div class="col-lg-4">
