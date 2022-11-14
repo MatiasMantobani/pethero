@@ -48,18 +48,19 @@ class UserController
         require_once(VIEWS_PATH . "user-list.php");
     }
 
-    public function ShowAllGuardians(){
+    public function ShowAllGuardians()
+    {
         if ($this->validate()) {
-        $guardianList = $this->userDAO->GetAllKeepers();
+            $guardianList = $this->userDAO->GetAllKeepers();
 
-         // Para evitar mostrar una lista vacia
-         if (count($guardianList) > 0) {
-            require_once(VIEWS_PATH . "guardian-list.php");
-        } else {
-            $_SESSION["message"] = "Parece que aun no hay guardianes por tu zona, prueba de nuevo mas tarde!";
-            $userController = new UserController();
-            $userController->ShowProfileView();
-        }
+            // Para evitar mostrar una lista vacia
+            if (count($guardianList) > 0) {
+                require_once(VIEWS_PATH . "guardian-list.php");
+            } else {
+                $_SESSION["message"] = "Parece que aun no hay guardianes por tu zona, prueba de nuevo mas tarde!";
+                $userController = new UserController();
+                $userController->ShowProfileView();
+            }
         }
     }
 
@@ -67,129 +68,122 @@ class UserController
     public function ShowProfileView()
     {
         if ($this->validate()) {
-        $user = $this->GetUserById($_SESSION['userid']);
+            $user = $this->GetUserById($_SESSION['userid']);
 
-        $AdressController = new AdressController();
-        $adress = $AdressController->getByUserId($_SESSION['userid']);
+            $AdressController = new AdressController();
+            $adress = $AdressController->getByUserId($_SESSION['userid']);
 
-        $userImageController = new UserImageController();
-        $userImage = $userImageController->ShowImage($_SESSION['userid']);
+            $userImageController = new UserImageController();
+            $userImage = $userImageController->ShowImage($_SESSION['userid']);
 
-        if ($_SESSION['type'] == 'D') {
-            $petController = new PetController();
-            $petList = $petController->GetMyPaused($_SESSION['userid']);    //activas y sin carnet
+            if ($_SESSION['type'] == 'D') {
+                $petController = new PetController();
+                $petList = $petController->GetMyPaused($_SESSION['userid']);    //activas y sin carnet
 
-            if ($petList != null) {
-                $breedController = new BreedController();
-            }
-        }
-
-        if ($_SESSION['userid']) {
-            if ($adress == null) {
-                $_SESSION['message'] .= "Para comenzar, debés ingresar tu domicilio. <br>";
-            }
-        }
-
-        //si es Guardian
-        if ($_SESSION['type'] == 'G') {
-            $SizeController = new SizeController();
-            $size = $SizeController->getByUserId($_SESSION['userid']);
-            if ($size == null) {
-                $_SESSION['message'] .= "Para cuidar mascotas, primero debés cargar el tamaño que aceptas. <br>";
-            }
-            $availableDate = new AvailableDate();
-            $fechas = $availableDate->GetById();
-
-            $reviewController = new ReviewController();
-            $reviewCounter = $reviewController->GetReviewCounter($_SESSION['userid']);
-            $finalRating = $reviewController->GetFinalScore($_SESSION['userid'], $reviewCounter);
-        }
-
-        // Manda keeper al perfil
-        if ($_SESSION['type'] == 'G') {
-            $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
-            if ($keeper == null){
-                $_SESSION['message'] .= "Falta cargar precio. <br>";
-                $keeper = $this->keeperController->Add($_SESSION['userid']);
-            } else {
-                if ($keeper->getPricing() == 0){
-                    $_SESSION['message'] .= "Falta cargar tarifa. <br>";
+                if ($petList != null) {
+                    $breedController = new BreedController();
                 }
             }
+
+            if ($_SESSION['userid']) {
+                if ($adress == null) {
+                    $_SESSION['message'] .= "Para comenzar, debés ingresar tu domicilio. <br>";
+                }
+            }
+
+            //si es Guardian
+            if ($_SESSION['type'] == 'G') {
+                $SizeController = new SizeController();
+                $size = $SizeController->getByUserId($_SESSION['userid']);
+                if ($size == null) {
+                    $_SESSION['message'] .= "Para cuidar mascotas, primero debés cargar el tamaño que aceptas. <br>";
+                }
+                $availableDate = new AvailableDate();
+                $fechas = $availableDate->GetById();
+
+                $reviewController = new ReviewController();
+                $reviewCounter = $reviewController->GetReviewCounter($_SESSION['userid']);
+                $finalRating = $reviewController->GetFinalScore($_SESSION['userid'], $reviewCounter);
+            }
+
+            // Manda keeper al perfil
+            if ($_SESSION['type'] == 'G') {
+                $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
+                if ($keeper == null) {
+                    $_SESSION['message'] .= "Falta cargar precio. <br>";
+                    $keeper = $this->keeperController->Add($_SESSION['userid']);
+                } else {
+                    if ($keeper->getPricing() == 0) {
+                        $_SESSION['message'] .= "Falta cargar tarifa. <br>";
+                    }
+                }
+            }
+
+            if ($_SESSION['type'] == 'D') {
+                $userList = $this->userDAO->GetAll(); // Envia la lista de guardianes al perfil de dueño
+            }
+
+            // Conseguir todas las reservas y todos los pagos
+            if ($_SESSION['userid']) {
+                $reserveController = new ReserveController();
+                $reserveList = $reserveController->getMyReserves();
+
+                $paymentController = new PaymentController();
+                $pagos = $paymentController->getMyPayments();
+            }
+
+            $this->validateStatus(); // Checks for adress and pets for owner and keeper
+            require_once(VIEWS_PATH . "user-profile.php");
         }
-
-        if ($_SESSION['type'] == 'D') {
-            $userList = $this->userDAO->GetAll(); // Envia la lista de guardianes al perfil de dueño
-        }
-
-        // Conseguir todas las reservas y todos los pagos
-        if ($_SESSION['userid']) {
-            $reserveController = new ReserveController();
-            $reserveList = $reserveController->getMyReserves();
-
-            $paymentController = new PaymentController();
-            $pagos = $paymentController->getMyPayments();
-
-        }
-
-        $this->validateStatus(); // Checks for adress and pets for owner
-        require_once(VIEWS_PATH . "user-profile.php");
     }
-    }
 
-    public function validateStatus(){
+    public function validateStatus()
+    {
         if ($this->validate()) {
-        $adressController = new AdressController();
-        $adress = $adressController->getByUserId($_SESSION['userid']);
+            $adressController = new AdressController();
+            $adress = $adressController->getByUserId($_SESSION['userid']);
 
-        if ($_SESSION['type'] == 'D'){
-            $petController = new PetController();
-            $flag = 0;
-            $petList = $petController->GetMyActive($_SESSION['userid']);    //trae las mascotas ACTIVAS (con carnet)
-            if ($petList != null){
-                foreach ($petList as $pet){
-                    if ($pet->getStatus() == "1"){
-                        $flag = 1;
-                    }
+            if ($_SESSION['type'] == 'D') {
+                $petController = new PetController();
+                $flag = 0;
+                $petList = $petController->GetMyActive($_SESSION['userid']);    //trae las mascotas ACTIVAS (con carnet)
+                if ($petList && $adress) {
+                    $this->UpdateStatus(1);
+                } else {
+                    $this->UpdateStatus(0);
                 }
             }
-            if ($flag == 1 && $adress != null){
-                $this->UpdateStatus(1);
-            } else {
-                $this->UpdateStatus(0);
-            }
-        }
 
-        if ($_SESSION['type'] == 'G'){
-            $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
-            $sizeFlag = 0;
-            if($keeper != null){
-                $sizes = new SizeController();
-                $size = $sizes->getByUserId($_SESSION['userid']);
-                if($size != null){
-                    if($size->getSmall() == 1 || $size->getMedium() == 1 || $size->getLarge() == 1){
-                        $sizeFlag = 1;
+            if ($_SESSION['type'] == 'G') {
+                $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
+                $sizeFlag = 0;
+                if ($keeper != null) {
+                    $sizes = new SizeController();
+                    $size = $sizes->getByUserId($_SESSION['userid']);
+                    if ($size != null) {
+                        if ($size->getSmall() == 1 || $size->getMedium() == 1 || $size->getLarge() == 1) {
+                            $sizeFlag = 1;
+                        }
                     }
-                }
-                $dates = new AvailableDateController();
-                $dateList = $dates->GetByUserId($_SESSION['userid']);
-                $dateFlag = 0;
-                $dateNow = date('Y-m-d');
-                if ($dateList != null){
-                    foreach ($dateList as $date){
-                        if($date->getDate() > $dateNow){
-                            $dateFlag = 1;
+                    $dates = new AvailableDateController();
+                    $dateList = $dates->GetByUserId($_SESSION['userid']);
+                    $dateFlag = 0;
+                    $dateNow = date('Y-m-d');
+                    if ($dateList != null) {
+                        foreach ($dateList as $date) {
+                            if ($date->getDate() > $dateNow) {
+                                $dateFlag = 1;
+                            }
                         }
                     }
                 }
-            }
 
-            if ($keeper->getPricing() > 0 && $sizeFlag == 1 && $dateFlag == 1 && $adress != null){
-                $this->UpdateStatus(1);
-            } else {
-                $this->UpdateStatus(0);
+                if ($keeper->getPricing() > 0 && $sizeFlag == 1 && $dateFlag == 1 && $adress != null) {
+                    $this->UpdateStatus(1);
+                } else {
+                    $this->UpdateStatus(0);
+                }
             }
-        }
         }
     }
 
@@ -215,7 +209,6 @@ class UserController
             $this->userDAO->Add($user);
             $controller->Index("Usuario registrado con exito");
         }
-
     }
 
     public function ShowUpdateView()
@@ -258,22 +251,23 @@ class UserController
         return $user;
     }
 
-    public function ShowExternalProfile($keeperid){
+    public function ShowExternalProfile($keeperid)
+    {
         if ($this->validate()) {
-        $keeper = $this->keeperController->getByKeeperId($keeperid); // para la info especifica del guardian
-        $user = $this->GetUserById($keeperid);  // para la info especifica del user
+            $keeper = $this->keeperController->getByKeeperId($keeperid); // para la info especifica del guardian
+            $user = $this->GetUserById($keeperid);  // para la info especifica del user
 
-        $reviewController = new ReviewController();
-        $reviewCounter = $reviewController->GetReviewCounter($keeperid);
-        $finalRating = $reviewController->GetFinalScore($keeperid, $reviewCounter);
+            $reviewController = new ReviewController();
+            $reviewCounter = $reviewController->GetReviewCounter($keeperid);
+            $finalRating = $reviewController->GetFinalScore($keeperid, $reviewCounter);
 
-        $userImageController = new UserImageController();
-        $userImage = $userImageController->ShowImage($keeperid);
+            $userImageController = new UserImageController();
+            $userImage = $userImageController->ShowImage($keeperid);
 
-        $SizeController = new SizeController();
-        $size = $SizeController->getByUserId($keeperid);
+            $SizeController = new SizeController();
+            $size = $SizeController->getByUserId($keeperid);
 
-        require_once(VIEWS_PATH . "external-profile.php");
-    }
+            require_once(VIEWS_PATH . "external-profile.php");
+        }
     }
 }

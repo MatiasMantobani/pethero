@@ -81,7 +81,7 @@ class VacunationImageController
                     $_SESSION['message'] = $ex->getMessage();
                     $petController->ShowProfileView($petid);
                 }
-            }else {
+            } else {
                 $_SESSION['message'] = "No se cargo ninguna imagen";
                 $petController->ShowProfileView($petid);
             }

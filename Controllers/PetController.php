@@ -37,7 +37,7 @@ class PetController
         $petList = $this->petDAO->GetMyPets($_SESSION['userid']);  //muestra las sin carnet y disponibles
         $breeds = array();
         $breedController = new BreedController();
-        foreach ($petList as $pet){
+        foreach ($petList as $pet) {
             array_push($breeds, $breedController->getByBreedId($pet->getBreedid()));
         }
 
@@ -109,6 +109,11 @@ class PetController
 
         $this->validateStatus($petid);
 
+        //para cambiar estado al dueño si completa fotos mascota
+        $userController = new UserController();
+        $userController->validateStatus();
+
+
         $pet = $this->petDAO->GetByPetId($petid);
 
         $breedid = $pet->getBreedid();
@@ -124,6 +129,8 @@ class PetController
         if (!$vacunationImage) {
             $_SESSION['message'] .= "Subí mi carnet de vacunación. <br>";
         }
+
+
 
         require_once(VIEWS_PATH . "pet-profile.php");
     }
