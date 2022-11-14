@@ -147,9 +147,12 @@ class UserController
     public function validateStatus()
     {
         if ($this->validate()) {
+
+            //AMBOS
             $adressController = new AdressController();
             $adress = $adressController->getByUserId($_SESSION['userid']);
 
+            // DUEÑO
             if ($_SESSION['type'] == 'D') {
                 $petController = new PetController();
                 $flag = 0;
@@ -161,6 +164,7 @@ class UserController
                 }
             }
 
+            // GUARDIAN
             if ($_SESSION['type'] == 'G') {
                 $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
                 $sizeFlag = 0;
