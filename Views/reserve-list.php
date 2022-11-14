@@ -18,51 +18,49 @@ require_once('nav.php');
                          <th>Accionar</th>
                     </thead>
                     <tbody>
-                         <?php
-                         foreach ($reserveList as $reserve) {
-                         ?>
+                         <?php for($i = 0; $i < count($reserveList); $i++) {?>
                               <tr>
-                                   <td><a href="<?php echo FRONT_ROOT ?>User/ShowExternalProfile/<?php echo $reserve->getReceiverid() ?>" class="btn btn-primary btn-sm"> <?php echo $keeperInfo->GetUserById($reserve->getReceiverid())->getName() ?> </a></td>
-                                   <td><a href="<?php echo FRONT_ROOT ?>Pet/ShowProfileView/<?php echo $reserve->getPetid() ?>" class="btn btn-primary btn-sm"><?php echo $petInfo->PetFinder($reserve->getPetid())->getName() ?></a></td>
-                                   <td><?php echo $reserve->getFirstdate() ?></td>
-                                   <td><?php echo $reserve->getLastdate() ?></td>
-                                   <td><?php echo "$" . $reserve->getAmount() ?></td>
-                                   <td><?php echo $reserve->getStatus() ?></td>
+                                   <td><a href="<?php echo FRONT_ROOT ?>User/ShowExternalProfile/<?php echo $reserveList[$i]->getReceiverid() ?>" class="btn btn-primary btn-sm"> <?php echo $keeperInfo[$i] ?> </a></td>
+                                   <td><a href="<?php echo FRONT_ROOT ?>Pet/ShowProfileView/<?php echo $reserveList[$i]->getPetid() ?>" class="btn btn-primary btn-sm"><?php echo $petInfo[$i] ?></a></td>
+                                   <td><?php echo $reserveList[$i]->getFirstdate() ?></td>
+                                   <td><?php echo $reserveList[$i]->getLastdate() ?></td>
+                                   <td><?php echo "$" . $reserveList[$i]->getAmount() ?></td>
+                                   <td><?php echo $reserveList[$i]->getStatus() ?></td>
                                    <td>
-                                        <?php if ($reserve->getStatus() == "await") { ?>
+                                        <?php if ($reserveList[$i]->getStatus() == "await") { ?>
 
                                              <?php if ($_SESSION['type'] == 'G') { ?>
-                                                  <a href="<?php echo FRONT_ROOT ?>Reserve/AcceptReserve/<?php echo $reserve->getReserveid() ?>" class="btn btn-success btn-sm">Aceptar Reserva</a>
+                                                  <a href="<?php echo FRONT_ROOT ?>Reserve/AcceptReserve/<?php echo $reserveList[$i]->getReserveid() ?>" class="btn btn-success btn-sm">Aceptar Reserva</a>
                                                   <br>
                                                   <br>
-                                                  <a href="<?php echo FRONT_ROOT ?>Reserve/RejectReserve/<?php echo $reserve->getReserveid() ?>" class="btn btn-danger btn-sm">Rechazar Reserva</a>
+                                                  <a href="<?php echo FRONT_ROOT ?>Reserve/RejectReserve/<?php echo $reserveList[$i]->getReserveid() ?>" class="btn btn-danger btn-sm">Rechazar Reserva</a>
                                              <?php } ?>
 
-                                        <?php } else if ($reserve->getStatus() == "confirmed") { ?>
+                                        <?php } else if ($reserveList[$i]->getStatus() == "confirmed") { ?>
 
                                              <?php if ($_SESSION['type'] == 'D') { ?>
-                                                  <a href="<?php echo FRONT_ROOT ?>Reserve/PayReserve/<?php echo $reserve->getReserveid() ?>" class="btn btn-success btn-sm">Pagar Reserva</a>
+                                                  <a href="<?php echo FRONT_ROOT ?>Reserve/PayReserve/<?php echo $reserveList[$i]->getReserveid() ?>" class="btn btn-success btn-sm">Pagar Reserva</a>
                                              <?php } ?>
 
-                                        <?php } else if ($reserve->getStatus() == "rejected") { ?>
+                                        <?php } else if ($reserveList[$i]->getStatus() == "rejected") { ?>
 
-                                        <?php } else if ($reserve->getStatus() == "payed") { ?>
+                                        <?php } else if ($reserveList[$i]->getStatus() == "payed") { ?>
 
                                              <?php if ($_SESSION['type'] == 'G') { ?>
-                                                  <a href="<?php echo FRONT_ROOT ?>Reserve/CheckInPet/<?php echo $reserve->getReserveid() ?>" class="btn btn-success btn-sm">Marcar Ingreso</a>
+                                                  <a href="<?php echo FRONT_ROOT ?>Reserve/CheckInPet/<?php echo $reserveList[$i]->getReserveid() ?>" class="btn btn-success btn-sm">Marcar Ingreso</a>
                                              <?php } ?>
 
-                                        <?php } else if ($reserve->getStatus() == "in progress") { ?>
+                                        <?php } else if ($reserveList[$i]->getStatus() == "in progress") { ?>
                                              <?php if ($_SESSION['type'] == 'D') { ?>
-                                                  <a href="<?php echo FRONT_ROOT ?>Reserve/PickUpPet/<?php echo $reserve->getReserveid() ?>" class="btn btn-success btn-sm">Marcar Retiro</a>
+                                                  <a href="<?php echo FRONT_ROOT ?>Reserve/PickUpPet/<?php echo $reserveList[$i]->getReserveid() ?>" class="btn btn-success btn-sm">Marcar Retiro</a>
                                              <?php } ?>
-                                        <?php } else if ($reserve->getStatus() == "completed") { ?>
+                                        <?php } else if ($reserveList[$i]->getStatus() == "completed") { ?>
                                              <?php if ($_SESSION['type'] == 'D') { ?>
-                                                  <a href=<?php echo FRONT_ROOT ?>Review/ShowAddView/<?php echo $reserve->getReserveid() ?> " class=" btn btn-warning btn-sm">Opinar</a>
+                                                  <a href=<?php echo FRONT_ROOT ?>Review/ShowAddView/<?php echo $reserveList[$i]->getReserveid() ?> " class=" btn btn-warning btn-sm">Opinar</a>
                                              <?php } ?>
-                                        <?php } else if ($reserve->getStatus() == "completed & reviewed") { ?>
+                                        <?php } else if ($reserveList[$i]->getStatus() == "completed & reviewed") { ?>
 
-                                        <?php } else if ($reserve->getStatus() == "canceled") { ?>
+                                        <?php } else if ($reserveList[$i]->getStatus() == "canceled") { ?>
 
                                         <?php } ?>
                                    </td>

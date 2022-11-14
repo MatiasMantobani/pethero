@@ -72,15 +72,23 @@ class ReviewController
         $userController = new UserController();
         $user = $userController->GetUserById($userid);
 
-        $reserveInfo = new ReserveController();
-        $petInfo = new PetController();
 
+        $reserveController = new ReserveController();
+        $petController = new PetController();
+        $petIds = array();
+        $petNames = array();
+        $keepersNames = array();
+
+        foreach ($ratings as $rating){
+            array_push($petNames, $petController->PetFinder($reserveController->getReserveById($rating->getReserveid())->getPetid())->getName());
+            array_push($petIds, $petController->PetFinder($reserveController->getReserveById($rating->getReserveid())->getPetid())->getPetid());
+            array_push($keepersNames, $userController->GetUserById($rating->getEmitterid())->getName());
+        }
 
         if (count($ratings) > 0) {
             require_once(VIEWS_PATH . "review-list.php");
         } else {
             $_SESSION["message"] = "No tienes reviews para mostrar";
-            $userController = new UserController();
             $userController->ShowProfileView();
         }
     }

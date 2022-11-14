@@ -82,8 +82,15 @@ class ReserveController
             }
         }
 
-        $petInfo = $this->PetController;
-        $keeperInfo = $this->UserController;
+        $petController = $this->PetController;
+        $keeperController = $this->UserController;
+        $petInfo = array();
+        $keeperInfo = array();
+
+        foreach($reserveList as $reserve){
+            array_push($petInfo, $petController->PetFinder($reserve->getPetid())->getName());
+            array_push($keeperInfo, $keeperController->getUserById($reserve->getReceiverid())->getName());
+        }
 
         //para evitar mostrar una lista vacia
         if (count($reserveList) > 0) {
@@ -111,8 +118,15 @@ class ReserveController
         $reserveList = $reserves;
         $pseudostatus = "Todas";
 
-        $petInfo = $this->PetController;
-        $keeperInfo = $this->UserController;
+        $petController = $this->PetController;
+        $keeperController = $this->UserController;
+        $petInfo = array();
+        $keeperInfo = array();
+
+        foreach($reserveList as $reserve){
+            array_push($petInfo, $petController->PetFinder($reserve->getPetid())->getName());
+            array_push($keeperInfo, $keeperController->getUserById($reserve->getReceiverid())->getName());
+        }
 
         //para evitar mostrar una lista vacia
         if (count($reserveList) > 0) {
