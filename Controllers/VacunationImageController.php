@@ -80,10 +80,9 @@ class VacunationImageController
                 } catch (Exception $ex) {
                     $_SESSION['message'] = $ex->getMessage();
                     $petController->ShowProfileView($petid);
-                } 
+                }
             }else {
                 $_SESSION['message'] = "No se cargo ninguna imagen";
-
                 $petController->ShowProfileView($petid);
             }
         }

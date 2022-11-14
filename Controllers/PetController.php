@@ -94,8 +94,9 @@ class PetController
     {
         $petImageController = new PetImageController();
         $vacunationImageController = new VacunationImageController();
+        $pet = $this->petDAO->GetByPetId($petid);
 
-        if ($petImageController->ShowImage($petid) && $vacunationImageController->ShowImage($petid)) {
+        if ($petImageController->ShowImage($petid) && $vacunationImageController->ShowImage($petid) && $pet->getStatus() != 0) {
             $this->petDAO->UpdateStatus($petid, 2);
         } else {
             $this->petDAO->UpdateStatus($petid, 1);

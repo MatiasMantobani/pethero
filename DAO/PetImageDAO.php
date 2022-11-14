@@ -71,7 +71,7 @@ class PetImageDao
         }
     }
 
-    
+
     public function Remove($imageid)
     {
         try {

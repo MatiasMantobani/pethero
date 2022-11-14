@@ -83,7 +83,6 @@ class PetImageController
                 }
             } else {
                 $_SESSION['message'] = "No se cargo ninguna imagen";
-
                 $petController->ShowProfileView($petid);
             }
         }
