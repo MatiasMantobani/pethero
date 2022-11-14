@@ -17,20 +17,36 @@ class AvailableDateController
 
     public function __construct()
     {
-        $this->availableDateDAO = new AvailableDateDAO();
+            $this->availableDateDAO = new AvailableDateDAO();
     }
 
+
+    public function validate()
+    {
+        if (isset($_SESSION["userid"]) ) {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
+    
     public function UpdateDatesByBreed($userid, $dateStart, $dateFinish, $breedid)
     {
-        $this->availableDateDAO->UpdateDatesByUserDatesAndBreed($userid, $dateStart, $dateFinish, $breedid);
-    } 
-    
-    public function ShowAddView()
-    {
-        require_once(VIEWS_PATH . "availableDate-add.php");
+        if ($this->validate()) {
+            $this->availableDateDAO->UpdateDatesByUserDatesAndBreed($userid, $dateStart, $dateFinish, $breedid);
+        }
     }
 
-    public function ShowAvailableDates(){
+    public function ShowAddView()
+    {
+        if ($this->validate()) {
+            require_once(VIEWS_PATH . "availableDate-add.php");
+        }
+    }
+
+    public function ShowAvailableDates()
+    {
         $fechas = $this->GetById();
         require_once(VIEWS_PATH . "availableDate-show.php");
     }
@@ -67,7 +83,7 @@ class AvailableDateController
 
             //chequeamos si date existe y no la subimos
             if ($this->availableDateDAO->CheckDate($_SESSION['userid'], $date->getDate())) {
-               $_SESSION["message"] = "Algunas de tus fechas disponibles no se modificaron debido a que ya tienen reservas confirmadas!";
+                $_SESSION["message"] = "Algunas de tus fechas disponibles no se modificaron debido a que ya tienen reservas confirmadas!";
             } else {
                 $this->availableDateDAO->Add($date);
             }

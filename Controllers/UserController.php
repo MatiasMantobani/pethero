@@ -3,10 +3,10 @@
 namespace Controllers;
 
 use \Exception as Exception;
+use Controllers\AuthController as AuthController;
 use DAO\UserDAO as UserDAO;
 use Models\User as User;
 use Models\Adress as Adress;
-use Controllers\AuthController as AuthController;
 use Controllers\AdressController as AdressController;
 use Controllers\SizeController as SizeController;
 use Controllers\PetController as PetController;
@@ -21,15 +21,11 @@ class UserController
 {
     private $userDAO;
     private $keeperController;
-    // private $reserveController;
-    // private $availableDateController;
 
     public function __construct()
     {
         $this->userDAO = new UserDAO();
         $this->keeperController = new KeeperController();
-        // $this->reserveController = new ReserveController();  //Rompe
-        //$this->availableDateController = new AvailableDate();  //Rompe
     }
 
     public function validate()
@@ -46,7 +42,7 @@ class UserController
         require_once(VIEWS_PATH . "user-add.php");
     }
 
-    public function ShowListView() // Muestra la lista de todos los usuarios? Borrar?
+    public function ShowListView()
     {
         $userList = $this->userDAO->GetAll();
         require_once(VIEWS_PATH . "user-list.php");
