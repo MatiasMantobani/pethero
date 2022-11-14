@@ -35,51 +35,57 @@ class VacunationImageController
     public function ShowImage($petid)
     {
         if ($this->validate()) {
-            $vacunationImage = $this->vacunationImageDAO->GetByPetId($petid);
-            return $vacunationImage;
+            try {
+                $vacunationImage = $this->vacunationImageDAO->GetByPetId($petid);
+                return $vacunationImage;
+            } catch (Exception $ex) {
+                $_SESSION["message"] = "error al Mostrar el Carnet de Vacunacion";
+            }
         }
     }
 
     public function Upload($file, $petid)
     {
         if ($this->validate()) {
-            try {
-                $fileName = $file["name"];
-                $tempFileName = $file["tmp_name"];
-                $type = $file["type"];
-
-                $filePath = VACUNATION_UPLOADS_PATH . basename($fileName);
-
-
-                $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-
-                $imageSize = getimagesize($tempFileName);
-
-                if ($imageSize !== false) {
-                    if (move_uploaded_file($tempFileName, $filePath)) {
-                        $image = new VacunationImage();
-                        $image->setName($fileName);
-                        $image->setPetid($petid);
-
-                        if ($this->vacunationImageDAO->GetByPetId($petid)) {
-                            $this->vacunationImageDAO->Update($image);
-                        } else {
-                            $this->vacunationImageDAO->Add($image);
-                        }
-
-                        $message = "Imagen subida correctamente";
-                    } else
-                        $message = "Ocurrió un error al intentar subir la imagen";
-                } else
-                    $message = "El archivo no corresponde a una imágen";
-            } catch (Exception $ex) {
-                $message = $ex->getMessage();
-            }
-
             $petController = new PetController();
-            $petController->ShowProfileView($petid);
+            if ($file["name"] != "") {
+                try {
+                    $fileName = $file["name"];
+                    $tempFileName = $file["tmp_name"];
+                    $type = $file["type"];
+                    $filePath = VACUNATION_UPLOADS_PATH . basename($fileName);
+                    $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+                    $imageSize = getimagesize($tempFileName);
+
+                    if ($imageSize !== false) {
+                        if (move_uploaded_file($tempFileName, $filePath)) {
+                            $image = new VacunationImage();
+                            $image->setName($fileName);
+                            $image->setPetid($petid);
+
+                            if ($this->vacunationImageDAO->GetByPetId($petid)) {
+                                $this->vacunationImageDAO->Update($image);
+                            } else {
+                                $this->vacunationImageDAO->Add($image);
+                            }
+
+                            $_SESSION['message'] = "Imagen subida correctamente";
+                            $petController->ShowProfileView($petid);
+                        } else
+                            $_SESSION['message'] = "Ocurrió un error al intentar subir la imagen";
+                        $petController->ShowProfileView($petid);
+                    } else
+                        $_SESSION['message'] = "El archivo no corresponde a una imágen";
+                    $petController->ShowProfileView($petid);
+                } catch (Exception $ex) {
+                    $_SESSION['message'] = $ex->getMessage();
+                    $petController->ShowProfileView($petid);
+                } 
+            }else {
+                $_SESSION['message'] = "No se cargo ninguna imagen";
+
+                $petController->ShowProfileView($petid);
+            }
         }
     }
 }
-
-?>
