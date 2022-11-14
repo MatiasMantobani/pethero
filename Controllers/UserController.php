@@ -33,7 +33,7 @@ class UserController
         if (isset($_SESSION["userid"])) {
             return true;
         } else {
-            HomeController::Index("Permisos Insuficientes");
+            HomeController::Index("Permisos Insuficientes. <br>");
         }
     }
 
@@ -57,7 +57,7 @@ class UserController
             if (count($guardianList) > 0) {
                 require_once(VIEWS_PATH . "guardian-list.php");
             } else {
-                $_SESSION["message"] = "Parece que aun no hay guardianes por tu zona, prueba de nuevo mas tarde!";
+                $_SESSION["message"] = "Parece que aun no hay guardianes por tu zona, prueba de nuevo mas tarde. <br>";
                 $userController = new UserController();
                 $userController->ShowProfileView();
             }
@@ -91,27 +91,23 @@ class UserController
             //GUARDIAN
             if ($_SESSION['type'] == 'G') {
 
+                //tamaños aceptados
                 $SizeController = new SizeController();
                 $size = $SizeController->getByUserId($_SESSION['userid']);
-
                 if ($size == null) {
                     $_SESSION['message'] .= "Para cuidar mascotas, primero debés cargar el tamaño que aceptas. <br>";
                 }
-                
-                $availableDate = new AvailableDate();
-                $fechas = $availableDate->GetById();
 
+                //rating
                 $reviewController = new ReviewController();
                 $reviewCounter = $reviewController->GetReviewCounter($_SESSION['userid']);
                 $finalRating = $reviewController->GetFinalScore($_SESSION['userid'], $reviewCounter);
-            }
 
-            // Manda keeper al perfil
-            if ($_SESSION['type'] == 'G') {
+                // te chequea si hay keeper creado sino lo crea
                 $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
                 if ($keeper == null) {
-                    $_SESSION['message'] .= "Falta cargar precio. <br>";
-                    $keeper = $this->keeperController->Add($_SESSION['userid']);
+                    $_SESSION['message'] .= "Falta cargar tarifa. <br>";
+                    $keeper = $this->keeperController->Add($_SESSION['userid']);    //si keeper no existe te lo crea
                 } else {
                     if ($keeper->getPricing() == 0) {
                         $_SESSION['message'] .= "Falta cargar tarifa. <br>";
