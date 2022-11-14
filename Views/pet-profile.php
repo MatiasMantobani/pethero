@@ -6,7 +6,7 @@
     <section id="listado" class="mb-5">
         <div class="container">
 
-            <?php if ($_SESSION['message'] != null) { ?>
+            <?php if (if($_SESSION['type'] = "D" && $_SESSION['message'] != null) { ?>
                 <div class="alert alert-primary" role="alert">
                     <?php echo $_SESSION['message'] ?>
                 </div>
