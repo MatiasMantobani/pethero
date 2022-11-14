@@ -103,14 +103,14 @@ class UserController
                 $reviewCounter = $reviewController->GetReviewCounter($_SESSION['userid']);
                 $finalRating = $reviewController->GetFinalScore($_SESSION['userid'], $reviewCounter);
 
-                // te chequea si hay keeper creado sino lo crea
+                //remuneracion y creacion de keeper
                 $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
                 if ($keeper == null) {
-                    $_SESSION['message'] .= "Falta cargar tarifa. <br>";
-                    $keeper = $this->keeperController->Add($_SESSION['userid']);    //si keeper no existe te lo crea
+                    $_SESSION['message'] .= "Agregue una remuneracion diferente a 0 para comenzar. <br>";
+                    $keeper = $this->keeperController->Add($_SESSION['userid']);    //si keeper no existe lo crea
                 } else {
                     if ($keeper->getPricing() == 0) {
-                        $_SESSION['message'] .= "Falta cargar tarifa. <br>";
+                        $_SESSION['message'] .= "Agregue una remuneracion diferente a 0 para comenzar. <br>";
                     }
                 }
             }
@@ -119,6 +119,30 @@ class UserController
             require_once(VIEWS_PATH . "user-profile.php");
         }
     }
+
+
+    public function Add($email, $password, $type, $dni, $cuit, $name, $surname, $phone)
+    {
+        $user = new User();
+        $user->setEmail($email);    //es unique, hay que chequear antes de guardar en BD
+        $user->setPassword($password);
+        $user->setType($type);
+        $user->setDni($dni);    //es unique
+        $user->setCuit($cuit);  //es unique
+        $user->setname($name);
+        $user->setSurname($surname);
+        $user->setPhone($phone);
+
+        $controller = new HomeController();
+        if ($this->userDAO->ValidateUniqueEmail($email) || $this->userDAO->ValidateUniqueDni($dni) || $this->userDAO->ValidateUniqueCuit($cuit)) {  //validar que no haya repeticiones de atributos UNIQUE
+            $controller->Index("Algunos de los datos ya estan en uso por otro usuario");
+        } else {
+            $this->userDAO->Add($user);
+            //aca no se puede crear un keeper porque aun no hay userid ni $_SESSION['userid']
+            $controller->Index("Usuario registrado con exito");
+        }
+    }
+
 
     public function validateStatus()
     {
@@ -170,29 +194,6 @@ class UserController
         }
     }
 
-    public function Add($email, $password, $type, $dni, $cuit, $name, $surname, $phone)
-    {
-
-        $user = new User();
-
-        $user->setEmail($email);    //es unique
-        $user->setPassword($password);
-        $user->setType($type);
-        $user->setDni($dni);    //es unique, hay que chequear antes de guardar en BD
-        $user->setCuit($cuit);  //es unique
-        $user->setname($name);
-        $user->setSurname($surname);
-        $user->setPhone($phone);
-
-        $controller = new HomeController();
-        //validar que no haya repeticiones de atributos UNIQUE
-        if ($this->userDAO->ValidateUniqueEmail($email) || $this->userDAO->ValidateUniqueDni($dni) || $this->userDAO->ValidateUniqueCuit($cuit)) {
-            $controller->Index("Algunos de los datos ya estan en uso por otro usuario");
-        } else {
-            $this->userDAO->Add($user);
-            $controller->Index("Usuario registrado con exito");
-        }
-    }
 
     public function ShowUpdateView()
     {
@@ -202,6 +203,7 @@ class UserController
             require_once(VIEWS_PATH . "user-update.php");
         }
     }
+
 
     public function Update($name, $surname, $phone)
     {
