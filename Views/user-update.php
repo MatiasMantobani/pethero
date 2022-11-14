@@ -28,7 +28,7 @@
                     <div class="col-lg-8">
                         <div class="form-group">
                             <label for="phone">Teléfono</label>
-                            <input type="text" id="phone" name="phone" value="<?php echo $user->getPhone(); ?>"  class="form-control">
+                            <input type="number" id="phone" name="phone" value="<?php echo $user->getPhone(); ?>"  class="form-control">
                         </div>
                     </div>
 

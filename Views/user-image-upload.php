@@ -14,7 +14,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Imagen:</label>
-                            <input type="file" name="file" class="form-control-file">
+                            <input type="file" name="file" class="form-control-file" required>
                         </div>
                     </div>
 

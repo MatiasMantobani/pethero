@@ -36,33 +36,33 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Email</label>
-                            <input type="text" name="email" value="" class="form-control" required>
+                            <input type="email" name="email" value="" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Password</label>
-                            <input type="text" name="password" value="" class="form-control" required>
+                            <input type="password" name="password" value="" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Telefono</label>
-                            <input type="text" name="phone" value="" class="form-control" required>
+                            <input type="number" name="phone" value="" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">DNI [8]</label>
-                            <input type="text" name="dni" value="" class="form-control" required>
+                            <input type="number" max="99999999" name="dni" value="" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">CUIT [11]</label>
-                            <input type="text" name="cuit" value="" class="form-control" required>
+                            <input type="number" max="99999999999" name="cuit" value="" class="form-control" required>
                         </div>
                     </div>
 
