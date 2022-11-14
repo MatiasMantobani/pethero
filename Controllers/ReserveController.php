@@ -87,7 +87,7 @@ class ReserveController
         $petInfo = array();
         $keeperInfo = array();
 
-        foreach($reserveList as $reserve){
+        foreach ($reserveList as $reserve) {
             array_push($petInfo, $petController->PetFinder($reserve->getPetid())->getName());
             array_push($keeperInfo, $keeperController->getUserById($reserve->getReceiverid())->getName());
         }
@@ -123,7 +123,7 @@ class ReserveController
         $petInfo = array();
         $keeperInfo = array();
 
-        foreach($reserveList as $reserve){
+        foreach ($reserveList as $reserve) {
             array_push($petInfo, $petController->PetFinder($reserve->getPetid())->getName());
             array_push($keeperInfo, $keeperController->getUserById($reserve->getReceiverid())->getName());
         }
@@ -384,14 +384,16 @@ class ReserveController
         if ($resultado == "confirmed") {
             $paymentController = new PaymentController();
             $paymentController->Add($currentReserve->getTransmitterid(), $currentReserve->getReceiverid(), $currentReserve->getReserveid(), $currentReserve->getAmount());
+
+            $mail = new MailerController();
+            $mail->emailSend($currentReserve->getTransmitterid(), $mitadDelTotal);
+
+            $_SESSION['message'] = "Reserva aceptada";  //no mostrarse si rechaza
+
         } else {
-            $_SESSION['message'] = "Error al confirmar la reserva";
+            $_SESSION['message'] = "Esta reserva no pude ser confirmada porque ya cuidas animalitos de otra raza en esas fechas";
         }
 
-        $mail = new MailerController();
-        $mail->emailSend($currentReserve->getTransmitterid(), $mitadDelTotal);
-
-        $_SESSION['message'] = "Reserva aceptada";
         $this->UserController->ShowProfileView();
     }
 
