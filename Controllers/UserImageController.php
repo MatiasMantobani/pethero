@@ -32,6 +32,14 @@ class UserImageController
         }
     }
 
+    public function ShowImage($userid)
+    {
+        if ($this->validate()) {
+            return $this->userImageDAO->getByUserId($userid);
+
+        }
+    }
+
     public function Upload($file)
     {
         $userController = new UserController();
