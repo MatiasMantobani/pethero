@@ -32,27 +32,16 @@ class UserImageController
         }
     }
 
-    public function ShowImage($userid)
-    {
-        if ($this->validate()) {
-            return $this->userImageDAO->getByUserId($userid);
-
-        }
-    }
-
     public function Upload($file)
     {
-        if ($this->validate()) {
+        $userController = new UserController();
+        if ($file["name"] != "") {
             try {
                 $fileName = $file["name"];
                 $tempFileName = $file["tmp_name"];
                 $type = $file["type"];
-
                 $filePath = USER_UPLOADS_PATH . basename($fileName);
-
-
                 $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-
                 $imageSize = getimagesize($tempFileName);
 
                 if ($imageSize !== false) {
@@ -65,18 +54,20 @@ class UserImageController
                         } else {
                             $this->userImageDAO->Add($image);
                         }
-
-
-                        $message = "Imagen subida correctamente";
+                        $_SESSION['message'] = "Imagen subida correctamente";
+                        $userController->ShowProfileView();
                     } else
-                        $message = "Ocurrió un error al intentar subir la imagen";
+                        $_SESSION['message'] = "Ocurrió un error al intentar subir la imagen";
+                    $userController->ShowProfileView();
                 } else
-                    $message = "El archivo no corresponde a una imágen";
+                    $_SESSION['message'] = "El archivo no corresponde a una imágen";
+                $userController->ShowProfileView();
             } catch (Exception $ex) {
-                $message = $ex->getMessage();
+                $_SESSION['message'] = "Ocurrió un error al intentar subir la imagen";
+                $userController->ShowProfileView();
             }
-
-            $userController = new UserController();
+        } else {
+            $_SESSION['message'] = "No se cargo ninguna imagen";
             $userController->ShowProfileView();
         }
     }

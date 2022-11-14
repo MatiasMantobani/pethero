@@ -29,17 +29,15 @@ class PetImageController
 
     public function Upload($file, $petid)
     {
+        $petController = new PetController();
+        if ($file["name"] != "") {
         try
         {
             $fileName = $file["name"];
             $tempFileName = $file["tmp_name"];
             $type = $file["type"];
-
             $filePath = PET_UPLOADS_PATH.basename($fileName);
-
-
             $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-
             $imageSize = getimagesize($tempFileName);
 
             if($imageSize !== false)
@@ -49,30 +47,31 @@ class PetImageController
                     $image = new PetImage();
                     $image->setName($fileName);
                     $image->setPetid($petid);
-
-
-
                     if ($this->petImageDAO->GetByPetId($petid)){
                         $this->petImageDAO->Update($image);
                     } else {
                         $this->petImageDAO->Add($image);
                     }
-
-                    $message = "Imagen subida correctamente";
+                    $_SESSION['message'] = "Imagen subida correctamente";
+                    $petController->ShowProfileView($petid);
                 }
                 else
-                    $message = "Ocurrió un error al intentar subir la imagen";
+                    $_SESSION['message'] = "Ocurrió un error al intentar subir la imagen";
+                $petController->ShowProfileView($petid);
             }
             else
-                $message = "El archivo no corresponde a una imágen";
+                $_SESSION['message'] = "El archivo no corresponde a una imágen";
+            $petController->ShowProfileView($petid);
         }
         catch(Exception $ex)
         {
-            $message = $ex->getMessage();
+            $_SESSION['message'] = $ex->getMessage();
+            $petController->ShowProfileView($petid);
         }
-
-        $petController = new PetController();
-        $petController->ShowProfileView($petid);
+    }else {
+            $_SESSION['message'] = "No se cargo ninguna imagen";
+            $petController->ShowProfileView($petid);
+        }
     }
 }
 ?>
