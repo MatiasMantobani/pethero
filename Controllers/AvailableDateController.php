@@ -47,9 +47,6 @@ class AvailableDateController
     }
 
 
-    
-
-
     public function UpdateDatesByBreed($userid, $dateStart, $dateFinish, $breedid)
     {
         if ($this->validate()) {
@@ -70,11 +67,19 @@ class AvailableDateController
     }
 
 
-    public function ShowAvailableDates()
+    public function ShowAvailableDates()    //ESTA
     {
         if ($this->validate()) {
             $fechas = $this->GetById();
-            require_once(VIEWS_PATH . "availableDate-show.php");
+
+            //para evitar mostrar una lista vacia
+            if (count($fechas) > 0) {
+                require_once(VIEWS_PATH . "availableDate-show.php");
+            } else {
+                $_SESSION["message"][] = "No tienes Fechas Disponibles para mostrar";
+                $userController = new UserController();
+                $userController->ShowProfileView();
+            }
         }
     }
 
