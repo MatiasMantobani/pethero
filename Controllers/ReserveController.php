@@ -374,14 +374,17 @@ class ReserveController
             }
         }
         $this->StatusUpdate($currentReserve->getReserveid(), $resultado);
-        $availableDateController = new AvailableDateController;
-        $availableDateController->UpdateDatesByBreed($currentReserve->getReceiverid(), $currentReserve->getFirstdate(), $currentReserve->getLastdate(), $currentPet->getBreedid()); //modifico el status de las availables dates del guardian que se acaba de confirmar
-
+        
         // To be sent:
         $paymentController = new PaymentController;
         $mitadDelTotal = $this->reserveDAO->getReserveById($reserveid)->getAmount() / 2;
 
         if ($resultado == "confirmed") {
+
+            $availableDateController = new AvailableDateController;
+            $availableDateController->UpdateDatesByBreed($currentReserve->getReceiverid(), $currentReserve->getFirstdate(), $currentReserve->getLastdate(), $currentPet->getBreedid()); //modifico el status de las availables dates del guardian que se acaba de confirmar
+
+
             $paymentController = new PaymentController();
             $paymentController->Add($currentReserve->getTransmitterid(), $currentReserve->getReceiverid(), $currentReserve->getReserveid(), $currentReserve->getAmount());
 
