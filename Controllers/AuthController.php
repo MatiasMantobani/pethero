@@ -36,10 +36,10 @@ class AuthController
                 $homeController->Index("Usuario y/o clave incorrectas<br>");
             }
         } catch (Exception $ex) {
-            // var_dump($ex);
-            $_SESSION["message"] = "Error al Loguearse";
+            HomeController::Index("Error al Loguearse");
         }
     }
+
 
     public function Logout()
     {
@@ -48,8 +48,7 @@ class AuthController
         unset($_SESSION['message']);
         session_destroy();
 
-        $controll = new HomeController();
-        $controll->Index("Cierre de sesión correcto<br>");
+        HomeController::Index("Error al Desloguearse");
     }
 
     public function notFound()
@@ -61,8 +60,7 @@ class AuthController
 /*
 try {
 } catch (Exception $ex) {
-// var_dump($ex);
-HomeController::Index("Error al ... De Autentificar");
+HomeController::Index("Error al ... Autentificar");
 }
 
 */

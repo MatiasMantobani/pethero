@@ -48,8 +48,7 @@ class AdressController
                     $this->Add($street, $number, $floor, $department, $postalcode);
                 }
             } catch (Exception $ex) {
-                // var_dump($ex);
-                HomeController::Index("Error al modificar la direccion");
+                HomeController::Index("Error al Modificar Direccion");
             }
             $controller = new UserController();
             $controller->ShowProfileView();
@@ -81,8 +80,7 @@ class AdressController
 
                 $this->adressDAO->Add($adress);
             } catch (Exception $ex) {
-                // var_dump($ex);
-                $_SESSION["message"][] = "Error al cargar direccion";
+                HomeController::Index("Error al Cargar Direccion");
             }
             $controller = new UserController();
             $controller->ShowProfileView();
@@ -102,8 +100,7 @@ class AdressController
                     return null;
                 }
             } catch (Exception $ex) {
-                // var_dump($ex);
-                $_SESSION["message"][] = "Error al obtener direccion";
+                HomeController::Index("Error al Obtener Direccion");
             }
         }
     }
@@ -115,8 +112,7 @@ class AdressController
             try {
                 $this->adressDAO->Remove($userid);
             } catch (Exception $ex) {
-                // var_dump($ex);
-                $_SESSION["message"][] = "Error al remover direccion";
+                HomeController::Index("Error al Remover Direccion");
             }
         }
     }
@@ -134,8 +130,7 @@ if ($this->validate()) {
         // Si llama a otro metodo que ya tiene un try-catch no lleva try-catch
 try {
         } catch (Exception $ex) {
-            // var_dump($ex);
-            HomeController::Index("Error al ... De Direccion");
+            HomeController::Index("Error al ... Direccion");
         }
 
 */

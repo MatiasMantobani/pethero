@@ -28,8 +28,7 @@ class AvailableDateController
             try {
                 return $this->availableDateDAO->GetByUserid($_SESSION['userid']);
             } catch (Exception $ex) {
-                // var_dump($ex);
-                $_SESSION["message"] = "Error al Traer Fecha Disponible";
+                HomeController::Index("Error al Traer Fecha Disponible");
             }
         }
     }
@@ -42,8 +41,7 @@ class AvailableDateController
             try {
                 return $this->availableDateDAO->GetByUserid($userid);
             } catch (Exception $ex) {
-                // var_dump($ex);
-                $_SESSION["message"] = "Error al Traer De Fecha Disponible";
+                HomeController::Index("Error al Traer Fecha Disponible");
             }
         }
     }
@@ -65,8 +63,7 @@ class AvailableDateController
             try {
                 $this->availableDateDAO->UpdateDatesByUserDatesAndBreed($userid, $dateStart, $dateFinish, $breedid);
             } catch (Exception $ex) {
-                // var_dump($ex);
-                $_SESSION["message"] = "Error al Modificar Fecha Disponible";
+                HomeController::Index("Error al Modificar Fecha Disponible");
             }
         }
     }
@@ -95,11 +92,11 @@ class AvailableDateController
             try {
                 return $this->availableDateDAO->CheckDate($userid, $date);
             } catch (Exception $ex) {
-                // var_dump($ex);
-                $_SESSION["message"] = "Error al Chequear Fecha Disponible";
+                HomeController::Index("Error al Chequear Fecha Disponible");
             }
         }
     }
+
 
     public function AddMany($daterange)
     {
@@ -127,8 +124,7 @@ class AvailableDateController
                     $date1->modify('+1 day');
                 }
             } catch (Exception $ex) {
-                // var_dump($ex);
-                $_SESSION["message"] = "Error al Agregar Varias Fechas Disponibles";
+                HomeController::Index("Error al Agregar Varias Fecha Disponible");
             }
         }
     }
@@ -144,8 +140,6 @@ class AvailableDateController
                 $userController = new UserController();
                 $userController->ShowProfileView();
             } catch (Exception $ex) {
-                // var_dump($ex);
-                // $_SESSION["message"] = "Error al Modificar Fecha Disponible";
                 HomeController::Index("Error al Modificar Fecha Disponible");
             }
         }
@@ -155,12 +149,11 @@ class AvailableDateController
     public function getAvailablesListByDatesAndBreed($breed, $dateStart, $dateFinish)
     {
         if ($this->validate()) {
-            
+
             try {
                 return $this->availableDateDAO->GetAvailablesByRangeAndBreed($breed, $dateStart, $dateFinish);
             } catch (Exception $ex) {
-                // var_dump($ex);
-                $_SESSION["message"] = "Error al Conseguir Fechas Disponibles";
+                HomeController::Index("Error al Conseguir Fecha Disponible");
             }
         }
     }
@@ -170,6 +163,6 @@ class AvailableDateController
 try {
 } catch (Exception $ex) {
     // var_dump($ex);
-    HomeController::Index("Error al ... De Fecha Disponible");
+    HomeController::Index("Error al ... Fecha Disponible");
 }
 */
