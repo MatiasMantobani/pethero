@@ -113,7 +113,6 @@ class PetController
         $userController = new UserController();
         $userController->validateStatus();
 
-
         $pet = $this->petDAO->GetByPetId($petid);
 
         $breedid = $pet->getBreedid();
@@ -122,15 +121,13 @@ class PetController
         $petImage = $this->petImageController->ShowImage($pet->getPetid());
         $vacunationImage = $this->vacunationImageController->ShowImage($pet->getPetid());
 
-        if (!$petImage) {
+        if (empty($petImage)) {
             $_SESSION['message'][] = "Para comenzar, subi mi foto";
         }
 
-        if (!$vacunationImage) {
+        if (empty($petImage)) {
             $_SESSION['message'][] = "Subí mi carnet de vacunación";
         }
-
-
 
         require_once(VIEWS_PATH . "pet-profile.php");
     }
@@ -194,8 +191,6 @@ class PetController
     {
         return $this->petDAO->GetByPetId($petid);
     }
-
-
 
     public function Remove($petid)
     {

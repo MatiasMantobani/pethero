@@ -8,9 +8,9 @@
 
             <?php if ($_SESSION['type'] == "D" && $_SESSION['message'] != null) { foreach($_SESSION['message'] as $alert) { ?>
                 <div class="alert alert-primary" role="alert">
-                    <?php echo $alert ?>
+                    <?php if($alert != "") { echo $alert; } ?>
                 </div>
-                <?php $_SESSION['message'] = array(); } } ?>
+                <?php } $_SESSION['message'] = null; $_SESSION['message'] = []; } ?>
 
             <a href="<?php echo FRONT_ROOT ?>User/ShowProfileView">Volver</a>
             <h2 class="mb-4">Estás viendo a <?php echo $pet->getName(); ?></h2>

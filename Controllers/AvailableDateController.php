@@ -121,6 +121,8 @@ class AvailableDateController
                     }
                     $date1->modify('+1 day');
                 }
+                $_SESSION["message"][] = "Tus fechas fueron modificadas";
+
             } catch (Exception $ex) {
                 HomeController::Index("Error al Agregar Varias Fecha Disponible");
             }

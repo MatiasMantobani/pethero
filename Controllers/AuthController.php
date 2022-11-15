@@ -27,7 +27,7 @@ class AuthController
             if ($user) {
                 $_SESSION['userid'] = $user->getUserid();
                 $_SESSION['type'] = $user->getType();
-                $_SESSION['message'] = array();
+                $_SESSION['message'] = [];
 
                 $userController = new UserController();
                 $userController->ShowProfileView();

@@ -9,9 +9,9 @@ require_once('nav.php');
 
             <?php if ($_SESSION['message'] != null) { foreach($_SESSION['message'] as $alert) { ?>
                 <div class="alert alert-primary" role="alert">
-                    <?php echo $alert ?>
+                    <?php if($alert != "") { echo $alert; } ?>
                 </div>
-                <?php $_SESSION['message'] = array(); } } ?>
+            <?php } $_SESSION['message'] = null; $_SESSION['message'] = []; } ?>
 
             <h2 class="mb-4">Bienvenid@ <?php echo $user->getName(); ?></h2>
 
