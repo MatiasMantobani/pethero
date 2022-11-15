@@ -6,9 +6,7 @@
     <section id="listado" class="mb-5">
         <div class="container">
             <form action="<?php echo FRONT_ROOT ?>AvailableDate/Update/" method="post" class="bg-light-alpha p-5">
-                <a href="<?php echo FRONT_ROOT ?>User/ShowProfileView">Volver</a>
-                <h4>Selecciona tus fechas disponibles</h4>
-                <p>Estos serán los dias que podrás recibir reservas</p>
+                <h4>Selecciona tus fechas disponibles para cuidar mascotas</h4>
                 <br>
                 <script>
                     $(function() {

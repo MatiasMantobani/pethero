@@ -6,13 +6,15 @@
     <section id="listado" class="mb-5">
         <div class="container">
 
-            <?php if ($_SESSION['type'] == "D" && $_SESSION['message'] != null) { foreach($_SESSION['message'] as $alert) { ?>
+            <?php if ($_SESSION['type'] == "D" && $_SESSION['message'] != null) { ?>
                 <div class="alert alert-primary" role="alert">
-                    <?php echo $alert ?>
+                    <?php echo $_SESSION['message'] ?>
                 </div>
-                <?php $_SESSION['message'] = array(); } } ?>
+                <?php ;
 
-            <a href="<?php echo FRONT_ROOT ?>User/ShowProfileView">Volver</a>
+            } $_SESSION['message'] = null; ?>
+
+<!--            <a href="--><?php //echo FRONT_ROOT ?><!--User/ShowProfileView">Volver</a>-->
             <h2 class="mb-4">Estás viendo a <?php echo $pet->getName(); ?></h2>
 
             <div class="col col-lg-12 mb-4 mb-lg-0">

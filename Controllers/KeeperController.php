@@ -66,12 +66,14 @@ class KeeperController
 
             $this->UpdateStatus(1);
 
-            $_SESSION['message'][] = "Tarifa modificada con éxito";
+            $_SESSION['message'] = "Tarifa modificada con éxito. <br>";
             $controller->ShowProfileView();
         } else {
-            $_SESSION['message'][] = "Tarifa: ingrese un importe mayor";
+            $_SESSION['message'] = "Tarifa: ingrese un importe mayor. <br>";
             $controller->ShowProfileView();
         }
+
+
     }
 
     public function getPricingByUserId($userid){
@@ -86,6 +88,7 @@ class KeeperController
 
         $this->keeperDAO->UpdateStatus($keeper);;
 
+        $_SESSION['message'] = "El usuario fue actualizado con éxito <br>";
         $controller = new UserController();
         $controller->ShowProfileView();
 

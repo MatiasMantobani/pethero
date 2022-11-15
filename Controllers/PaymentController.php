@@ -81,7 +81,7 @@ class PaymentController
         if (count($paymentList) > 0) {
             require_once(VIEWS_PATH . "payment-list.php");
         } else {
-            $_SESSION["message"][] = "No tienes pagos para mostrar";
+            $_SESSION["message"] = "No tienes pagos para mostrar";
             $userController = new UserController();
             $userController->ShowProfileView();
         }

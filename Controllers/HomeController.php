@@ -8,6 +8,7 @@ class HomeController
 {
     static public function Index($message = "")
     {
+
         if (isset($_SESSION["userid"])) {
             $userController = new UserController();
             $userController->ShowProfileView();

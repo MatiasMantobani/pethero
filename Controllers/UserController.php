@@ -3,10 +3,10 @@
 namespace Controllers;
 
 use \Exception as Exception;
+use Controllers\AuthController as AuthController;
 use DAO\UserDAO as UserDAO;
 use Models\User as User;
 use Models\Adress as Adress;
-use Controllers\AuthController as AuthController;
 use Controllers\AdressController as AdressController;
 use Controllers\SizeController as SizeController;
 use Controllers\PetController as PetController;
@@ -21,15 +21,11 @@ class UserController
 {
     private $userDAO;
     private $keeperController;
-    // private $reserveController;
-    // private $availableDateController;
 
     public function __construct()
     {
         $this->userDAO = new UserDAO();
         $this->keeperController = new KeeperController();
-        // $this->reserveController = new ReserveController();  //Rompe
-        //$this->availableDateController = new AvailableDate();  //Rompe
     }
 
     public function validate()
@@ -37,7 +33,7 @@ class UserController
         if (isset($_SESSION["userid"])) {
             return true;
         } else {
-            HomeController::Index("Permisos Insuficientes");
+            HomeController::Index("Permisos Insuficientes. <br>");
         }
     }
 
@@ -46,7 +42,7 @@ class UserController
         require_once(VIEWS_PATH . "user-add.php");
     }
 
-    public function ShowListView() // Muestra la lista de todos los usuarios? Borrar?
+    public function ShowListView()
     {
         $userList = $this->userDAO->GetAll();
         require_once(VIEWS_PATH . "user-list.php");
@@ -61,7 +57,7 @@ class UserController
             if (count($guardianList) > 0) {
                 require_once(VIEWS_PATH . "guardian-list.php");
             } else {
-                $_SESSION["message"][] = "Parece que no hay guardianes por tu zona, intenta de nuevo mas tarde";
+                $_SESSION["message"] = "Parece que aun no hay guardianes por tu zona, prueba de nuevo mas tarde. <br>";
                 $userController = new UserController();
                 $userController->ShowProfileView();
             }
@@ -72,99 +68,103 @@ class UserController
     public function ShowProfileView()
     {
         if ($this->validate()) {
+
+
+            // PARA AMBOS
             $user = $this->GetUserById($_SESSION['userid']);
 
+            //trae direccion
             $AdressController = new AdressController();
             $adress = $AdressController->getByUserId($_SESSION['userid']);
 
+            //trae foto de perfil
             $userImageController = new UserImageController();
             $userImage = $userImageController->ShowImage($_SESSION['userid']);
 
-            if ($_SESSION['type'] == 'D') {
-                $petController = new PetController();
-                $petList = $petController->GetMyPaused($_SESSION['userid']);    //activas y sin carnet
-
-                if ($petList != null) {
-                    $breedController = new BreedController();
-                }
+            if ($adress == null) {
+                $_SESSION['message'] .= "Para comenzar, debés ingresar tu domicilio. <br>";
             }
 
-            if ($_SESSION['userid']) {
-                if ($adress == null) {
-                    $_SESSION['message'][] = "Para comenzar, debés ingresar tu domicilio";
-                }
-            }
+            //DUEÑO
+            // No tiene
 
-            //si es Guardian
+            //GUARDIAN
             if ($_SESSION['type'] == 'G') {
+
+                //tamaños aceptados
                 $SizeController = new SizeController();
                 $size = $SizeController->getByUserId($_SESSION['userid']);
                 if ($size == null) {
-                    $_SESSION['message'][] = "Para cuidar mascotas, debés cargar el tamaño que aceptas";
+                    $_SESSION['message'] .= "Para cuidar mascotas, primero debés cargar el tamaño que aceptas. <br>";
                 }
-                $availableDate = new AvailableDate();
-                $fechas = $availableDate->GetById();
 
+                //rating
                 $reviewController = new ReviewController();
                 $reviewCounter = $reviewController->GetReviewCounter($_SESSION['userid']);
                 $finalRating = $reviewController->GetFinalScore($_SESSION['userid'], $reviewCounter);
-            }
 
-            // Manda keeper al perfil
-            if ($_SESSION['type'] == 'G') {
+                //remuneracion y creacion de keeper
                 $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
                 if ($keeper == null) {
-                    $_SESSION['message'][] = "Falta cargar tu tarifa";
-                    $keeper = $this->keeperController->Add($_SESSION['userid']);
+                    $_SESSION['message'] .= "Agregue una remuneracion diferente a 0 para comenzar. <br>";
+                    $keeper = $this->keeperController->Add($_SESSION['userid']);    //si keeper no existe lo crea
                 } else {
                     if ($keeper->getPricing() == 0) {
-                        $_SESSION['message'][] = "Falta cargar tu tarifa";
+                        $_SESSION['message'] .= "Agregue una remuneracion diferente a 0 para comenzar. <br>";
                     }
                 }
             }
 
-            if ($_SESSION['type'] == 'D') {
-                $userList = $this->userDAO->GetAll(); // Envia la lista de guardianes al perfil de dueño
-            }
-
-            // Conseguir todas las reservas y todos los pagos
-            if ($_SESSION['userid']) {
-                $reserveController = new ReserveController();
-                $reserveList = $reserveController->getMyReserves();
-
-                $paymentController = new PaymentController();
-                $pagos = $paymentController->getMyPayments();
-            }
-
-            $this->validateStatus(); // Checks for adress and pets for owner
+            $this->validateStatus();    // Checks for adress and pets for owner and keeper
             require_once(VIEWS_PATH . "user-profile.php");
         }
     }
 
+
+    public function Add($email, $password, $type, $dni, $cuit, $name, $surname, $phone)
+    {
+        $user = new User();
+        $user->setEmail($email);    //es unique, hay que chequear antes de guardar en BD
+        $user->setPassword($password);
+        $user->setType($type);
+        $user->setDni($dni);    //es unique
+        $user->setCuit($cuit);  //es unique
+        $user->setname($name);
+        $user->setSurname($surname);
+        $user->setPhone($phone);
+
+        $controller = new HomeController();
+        if ($this->userDAO->ValidateUniqueEmail($email) || $this->userDAO->ValidateUniqueDni($dni) || $this->userDAO->ValidateUniqueCuit($cuit)) {  //validar que no haya repeticiones de atributos UNIQUE
+            $controller->Index("Algunos de los datos ya estan en uso por otro usuario");
+        } else {
+            $this->userDAO->Add($user);
+            //aca no se puede crear un keeper porque aun no hay userid ni $_SESSION['userid']
+            $controller->Index("Usuario registrado con exito");
+        }
+    }
+
+
     public function validateStatus()
     {
         if ($this->validate()) {
+
+            //AMBOS
             $adressController = new AdressController();
             $adress = $adressController->getByUserId($_SESSION['userid']);
 
+            // DUEÑO
             if ($_SESSION['type'] == 'D') {
                 $petController = new PetController();
                 $flag = 0;
                 $petList = $petController->GetMyActive($_SESSION['userid']);    //trae las mascotas ACTIVAS (con carnet)
-                if ($petList != null) {
-                    foreach ($petList as $pet) {
-                        if ($pet->getStatus() == "1") {
-                            $flag = 1;
-                        }
-                    }
-                }
-                if ($flag == 1 && $adress != null) {
+                if ($petList && $adress) {
                     $this->UpdateStatus(1);
                 } else {
                     $this->UpdateStatus(0);
                 }
             }
 
+            // GUARDIAN
             if ($_SESSION['type'] == 'G') {
                 $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
                 $sizeFlag = 0;
@@ -198,30 +198,6 @@ class UserController
         }
     }
 
-    public function Add($email, $password, $type, $dni, $cuit, $name, $surname, $phone)
-    {
-
-        $user = new User();
-
-        $user->setEmail($email);    //es unique
-        $user->setPassword($password);
-        $user->setType($type);
-        $user->setDni($dni);    //es unique, hay que chequear antes de guardar en BD
-        $user->setCuit($cuit);  //es unique
-        $user->setname($name);
-        $user->setSurname($surname);
-        $user->setPhone($phone);
-
-        $controller = new HomeController();
-        //validar que no haya repeticiones de atributos UNIQUE
-        if ($this->userDAO->ValidateUniqueEmail($email) || $this->userDAO->ValidateUniqueDni($dni) || $this->userDAO->ValidateUniqueCuit($cuit)) {
-            $controller->Index("Algunos de los datos ya estan en uso por otro usuario");
-        } else {
-            $this->userDAO->Add($user);
-            $controller->Index("Usuario registrado con exito");
-        }
-
-    }
 
     public function ShowUpdateView()
     {
@@ -232,6 +208,7 @@ class UserController
         }
     }
 
+
     public function Update($name, $surname, $phone)
     {
         $user = new User();
@@ -241,10 +218,9 @@ class UserController
         $user->setPhone($phone);
         if ($user != null) {
             $this->userDAO->Update($user);
-            $_SESSION['message'][] = "Datos actualizados correctamente";
             $this->ShowProfileView();
         } else {
-            $_SESSION['message'][] = "Error al actualizar datos";
+            $_SESSION['message'] = "Error al actualizar datos <br>";
             $this->ShowProfileView();
         }
     }

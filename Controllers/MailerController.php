@@ -46,6 +46,7 @@ class MailerController
     public function emailSend($userid, $amount){
 
         $client = $this->userController->GetUserById($userid);
+        $qrpath = FRONT_ROOT."DummyContent/Qr/qr.png";
 
         if ($client != null){
             $this->mail->setSubject("Envio de cupon de pago");
@@ -53,9 +54,8 @@ class MailerController
             $this->mail->setReceiverMail($client->getEmail());
             $this->mail->setSenderMail("pethero@kateclarkph.com");
             $this->mailerDAO->SendEmail($this->mail);
-            $_SESSION['message'][] = "Cupon de pago enviado correctamente, compruebe la casilla de correo";
         } else {
-            $_SESSION['message'][] = "Error en envío de correo, compruebe la dirección de destino";
+            $_SESSION['message'] = "Error en envío de correo, compruebe la dirección de destino. ";
         }
     }
 
