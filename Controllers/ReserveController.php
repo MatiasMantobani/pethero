@@ -197,7 +197,7 @@ class ReserveController
         $lastdate = new DateTime($dateArray[1]);
 
         $interval = $firstdate->diff($lastdate);
-        // echo "difference " . $interval->y . " years, " . $interval->m." months, ".$interval->d." days "; 
+        // echo "difference " . $interval->y . " years, " . $interval->m." months, ".$interval->d." days ";
         // var_dump($interval);
 
         // $duration = new \DateInterval('P1Y');
@@ -364,7 +364,8 @@ class ReserveController
 
             if ($currentReserve->getReserveid() != $reserve->getReserveid()) {                       //si no es la misma reserva
                 if ($reserve->getStatus() == "confirmed" || $reserve->getStatus() == "payed" || $reserve->getStatus() == "in progress") {    //si los estados de las reservas son compatibles (ej: no tiene sentido chequear contra una reserva cancelada)
-                    if ($currentReserve->getFirstdate() >= $reserve->getFirstdate() && $currentReserve->getFirstDate() <= $reserve->getLastdate() || $currentReserve->getLastdate() >= $reserve->getFirstdate() && $currentReserve->getLastDate() <= $reserve->getLastdate()) { //si las fechas de las reservas coinciden o se superponen
+                    if (($currentReserve->getFirstdate() >= $reserve->getFirstdate() && $currentReserve->getFirstDate() <= $reserve->getLastdate()) || ($currentReserve->getLastdate() >= $reserve->getFirstdate() && $currentReserve->getLastDate() <= $reserve->getLastdate())) { //si las fechas de las reservas coinciden o se superponen
+
                         $pet = $this->PetController->PetFinder($reserve->getPetid());   //comparo con la mascota de las otras reservas
                         if ($currentPet->getBreedid() != $pet->getBreedid()) {
                             $resultado = "rejected";
@@ -374,7 +375,7 @@ class ReserveController
             }
         }
         $this->StatusUpdate($currentReserve->getReserveid(), $resultado);
-        
+
         // To be sent:
         $paymentController = new PaymentController;
         $mitadDelTotal = $this->reserveDAO->getReserveById($reserveid)->getAmount() / 2;

@@ -15,9 +15,9 @@ class MailerDAO
             $body = $mail->getBody();
             $sender = "From:" . $mail->getSenderMail();
             if (mail($receiver, $subject, $body, $sender)) {
-                $_SESSION['message'][] = "Correo enviado correctamente";
+                return true;
             } else {
-                $_SESSION['message'][] = "Error en envío de correo, compruebe la dirección de destino. ";
+                return false;
             }
         } catch (Exception $ex) {
             throw $ex;

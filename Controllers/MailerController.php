@@ -44,20 +44,28 @@ class MailerController
 //    force_sender=your_email_address_here (it's optional)
 
     public function emailSend($userid, $amount){
+        try {
+            $client = $this->userController->GetUserById($userid);
+            $qrpath = FRONT_ROOT."DummyContent/Qr/qr.png";
 
-        $client = $this->userController->GetUserById($userid);
-        $qrpath = FRONT_ROOT."DummyContent/Qr/qr.png";
+            if ($client != null){
+                $this->mail->setSubject("Envio de cupon de pago");
+                $this->mail->setBody("Hola ". $client->getName() .", usted tiene para abonar el siguiente QR por un monto de $ ".$amount.". Puede abonar a través de MercadoPago directo desde la App. Muchas gracias por utilizar Pet Hero.");
+                $this->mail->setReceiverMail($client->getEmail());
+                $this->mail->setSenderMail("pethero@kateclarkph.com");
+                $mailer = $this->mailerDAO->SendEmail($this->mail);
+                if ($mailer){
+                    $_SESSION['message'][] = "El cupon de pago se envio correctamente";
+                } else {
+                    $_SESSION['message'][] = "El cupon de pago no se envio";
+                }
 
-        if ($client != null){
-            $this->mail->setSubject("Envio de cupon de pago");
-            $this->mail->setBody("Hola ". $client->getName() .", usted tiene para abonar el siguiente QR por un monto de $ ".$amount.". Puede abonar a través de MercadoPago directo desde la App. Muchas gracias por utilizar Pet Hero.");
-            $this->mail->setReceiverMail($client->getEmail());
-            $this->mail->setSenderMail("pethero@kateclarkph.com");
-            $this->mailerDAO->SendEmail($this->mail);
-
-        } else {
-            $_SESSION['message'][] = "Error en envío de correo, compruebe la dirección de destino";
-        }
+            } else {
+                $_SESSION['message'][] = "Error al recuperar la informacion";
+            }
+        } catch (\Exception $ex){
+            $_SESSION['message'][] = "Error al enviar el cupôn de pago";
+        } // End of try
     }
 
 }
