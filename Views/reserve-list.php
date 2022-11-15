@@ -5,8 +5,8 @@ require_once('nav.php');
 <main class="py-5">
      <section id="listado" class="mb-5">
           <div class="container">
-
-               <h2 class="mb-4"> Tus Reservas <?php echo "(" . $pseudostatus . ")" ?> </h2>
+              <a href="<?php echo FRONT_ROOT ?>User/ShowProfileView">Volver</a>
+               <h2 class="mb-4"> Tus reservas <?php echo "(" . $pseudostatus . ")" ?> </h2>
                <table class="table bg-light-alpha">
                     <thead>
                          <th>Guardian</th>

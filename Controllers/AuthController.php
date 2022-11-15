@@ -23,12 +23,10 @@ class AuthController
     {
 
         $user = $this->userDao->Login($email, $password);
-
-
         if ($user) {
                 $_SESSION['userid'] = $user->getUserid();
                 $_SESSION['type'] = $user->getType();
-                $_SESSION['message'] = null;
+                $_SESSION['message'] = array();
 
                 $userController = new UserController();
                 $userController->ShowProfileView();

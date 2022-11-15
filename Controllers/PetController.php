@@ -37,7 +37,7 @@ class PetController
         $petList = $this->petDAO->GetMyPets($_SESSION['userid']);  //muestra las sin carnet y disponibles
         $breeds = array();
         $breedController = new BreedController();
-        foreach ($petList as $pet) {
+        foreach ($petList as $pet){
             array_push($breeds, $breedController->getByBreedId($pet->getBreedid()));
         }
 
@@ -47,7 +47,7 @@ class PetController
         if (count($petList) > 0) {
             require_once(VIEWS_PATH . "pet-list.php");
         } else {
-            $_SESSION["message"] = "No tienes mascotas para mostrar";
+            $_SESSION["message"][] = "No tienes mascotas para mostrar";
             $userController = new UserController();
             $userController->ShowProfileView();
         }
@@ -109,11 +109,6 @@ class PetController
 
         $this->validateStatus($petid);
 
-        //para cambiar estado al dueño si completa fotos mascota
-        $userController = new UserController();
-        $userController->validateStatus();
-
-
         $pet = $this->petDAO->GetByPetId($petid);
 
         $breedid = $pet->getBreedid();
@@ -123,15 +118,12 @@ class PetController
         $vacunationImage = $this->vacunationImageController->ShowImage($pet->getPetid());
 
         if (!$petImage) {
-            $_SESSION['message'] .= "Para comenzar, podés subir mi foto. <br>";
+            $_SESSION['message'][] = "Para comenzar, subi mi foto";
         }
 
         if (!$vacunationImage) {
-            $_SESSION['message'] .= "Subí mi carnet de vacunación. <br>";
+            $_SESSION['message'][] = "Subí mi carnet de vacunación";
         }
-
-
-
         require_once(VIEWS_PATH . "pet-profile.php");
     }
 
@@ -164,7 +156,7 @@ class PetController
 
         $this->petDAO->Add($pet);
 
-        $_SESSION['message'] = "Mascota cargada con exito<br>";
+        $_SESSION['message'][] = "Mascota cargada con exito. No olvides subir al perfil foto y carnet de vacunacion";
 
         $userController = new UserController();
         $userController->ShowProfileView();
@@ -184,7 +176,7 @@ class PetController
         $pet->setName($name);
         $pet->setObservations($observations);
 
-        $_SESSION['message'] = "Mascota modificada con exito<br>";
+        $_SESSION['message'][] = "Mascota modificada con exito";
 
         $this->petDAO->Update($pet);
         $this->ShowProfileView($pet->getPetid());
@@ -201,7 +193,7 @@ class PetController
     {
         $this->petDAO->Remove($petid);
 
-        $_SESSION['message'] = "Mascota quitada con exito<br>";
+        $_SESSION['message'][] = "Mascota quitada con exito";
 
         $userController = new UserController();
         $userController->ShowProfileView();

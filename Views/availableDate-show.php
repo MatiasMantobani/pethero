@@ -5,7 +5,7 @@
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-
+            <a href="<?php echo FRONT_ROOT ?>User/ShowProfileView">Volver</a>
             <?php if ($fechas) { ?>
 
                 <h2 class="mb-4"> Tus Fechas Disponibles</h2>

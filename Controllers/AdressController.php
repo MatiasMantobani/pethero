@@ -11,22 +11,19 @@ class AdressController
 {
     private $adressDAO;
 
-
     public function __construct()
     {
         $this->adressDAO = new AdressDAO();
     }
-
 
     public function validate()
     {
         if (isset($_SESSION["userid"])) {
             return true;
         } else {
-            HomeController::Index("Permisos Insuficientes");
+            HomeController::Index("Permisos insuficientes");
         }
     }
-
 
     public function AdressFinder($userid)
     {
@@ -35,7 +32,6 @@ class AdressController
         }
     }
 
-
     public function Update($street, $number, $floor, $department, $postalcode)
     {
         if ($this->validate()) {
@@ -43,19 +39,18 @@ class AdressController
                 if ($this->AdressFinder($_SESSION['userid'])) {
                     $this->adressDAO->Update($_SESSION['userid'], $street, $number, $floor, $department, $postalcode);
 
-                    $_SESSION['message'] = "Domicilio modificado con exito<br>";
+                    $_SESSION['message'][] = "Domicilio modificado con exito";
                 } else {
                     $this->Add($street, $number, $floor, $department, $postalcode);
                 }
             } catch (Exception $ex) {
                 // var_dump($ex);
-                $_SESSION["message"] = "Error al Modificar la Direccion";
+                $_SESSION["message"][] = "Error al modificar la direccion";
             }
             $controller = new UserController();
             $controller->ShowProfileView();
         }
     }
-
 
     public function ShowAddView()
     {
@@ -64,7 +59,6 @@ class AdressController
             require_once(VIEWS_PATH . "adress-add.php");
         }
     }
-
 
     public function Add($street, $number, $floor, $department, $postalcode)
     {
@@ -82,13 +76,12 @@ class AdressController
                 $this->adressDAO->Add($adress);
             } catch (Exception $ex) {
                 // var_dump($ex);
-                $_SESSION["message"] = "Error al Agregar Direccion";
+                $_SESSION["message"][] = "Error al cargar direccion";
             }
             $controller = new UserController();
             $controller->ShowProfileView();
         }
     }
-
 
     public function getByUserId($userid)
     {
@@ -103,11 +96,10 @@ class AdressController
                 }
             } catch (Exception $ex) {
                 // var_dump($ex);
-                $_SESSION["message"] = "Error al Conseguir por Usuario en Direccion";
+                $_SESSION["message"][] = "Error al obtener direccion";
             }
         }
     }
-
 
     public function Remove($userid)
     {
@@ -116,7 +108,7 @@ class AdressController
                 $this->adressDAO->Remove($userid);
             } catch (Exception $ex) {
                 // var_dump($ex);
-                $_SESSION["message"] = "Error al Remover Direccion";
+                $_SESSION["message"][] = "Error al remover direccion";
             }
         }
     }
@@ -132,7 +124,7 @@ if ($this->validate()) {
 try {
         } catch (Exception $ex) {
             // var_dump($ex);
-            $_SESSION["message"] = "Error al ... De Direccion";
+            $_SESSION["message"][] = "Error al ... De Direccion";
         }
 
 */

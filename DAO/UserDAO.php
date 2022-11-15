@@ -81,6 +81,7 @@ class UserDAO
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (Exception $ex) {
+
             throw $ex;
         }
     }

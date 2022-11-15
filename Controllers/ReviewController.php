@@ -42,9 +42,9 @@ class ReviewController
     public function AddWithCheck($rating, $comment, $reserveid){
         if(!$this->reviewDAO->GetByReserveid($reserveid)){
             $this->Add($rating, $comment, $reserveid);
-            $_SESSION['message'] = "Tu review se envio correctamente";
+            $_SESSION['message'][] = "Tu review se envio correctamente";
         }else{
-            $_SESSION['message'] = "No puedes enviar la review, ya que dejaste una previamente";
+            $_SESSION['message'][] = "No puedes enviar la review, ya que dejaste una previamente";
         }
         $reserveController = new ReserveController();
         $reserveController->Reviewed($reserveid);
@@ -88,7 +88,7 @@ class ReviewController
         if (count($ratings) > 0) {
             require_once(VIEWS_PATH . "review-list.php");
         } else {
-            $_SESSION["message"] = "No tienes reviews para mostrar";
+            $_SESSION["message"][] = "No tienes reviews para mostrar";
             $userController->ShowProfileView();
         }
     }

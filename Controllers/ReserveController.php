@@ -96,7 +96,7 @@ class ReserveController
         if (count($reserveList) > 0) {
             require_once(VIEWS_PATH . "reserve-list.php");
         } else {
-            $_SESSION["message"] = "No tienes reservas para mostrar";
+            $_SESSION["message"][] = "No tienes reservas para mostrar";
             $userController = new UserController();
             $userController->ShowProfileView();
         }
@@ -132,7 +132,7 @@ class ReserveController
         if (count($reserveList) > 0) {
             require_once(VIEWS_PATH . "reserve-list.php");
         } else {
-            $_SESSION["message"] = "No tienes reservas para mostrar";
+            $_SESSION["message"][] = "No tienes reservas para mostrar";
             $userController = new UserController();
             $userController->ShowProfileView();
         }
@@ -152,7 +152,7 @@ class ReserveController
         $payment = $paymentController->GetFirstPayment($reserveid);
         $paymentController->UpdatePayment($payment->getPaymentid());
 
-        $_SESSION['message'] = "Tu Cupon de Pagado se ha acreditado correctamente! ";
+        $_SESSION['message'][] = "Tu pago se ha acreditado correctamente";
         $this->UserController->ShowProfileView();
     }
 
@@ -184,7 +184,7 @@ class ReserveController
         $this->reserveDAO->Add($reserve);
 
         //enviar a vista perfil
-        $_SESSION['message'] = "Reserva realizada con exito ";
+        $_SESSION['message'][] = "Reserva realizada con exito";
         $this->UserController->ShowProfileView();
     }
 
@@ -228,7 +228,7 @@ class ReserveController
         if ($listadoMascotas != null && count($listadoMascotas) > 0) {
             require_once(VIEWS_PATH . "reserve-add.php");
         } else {
-            $_SESSION["message"] = "No tienes Mascotas Activas para Reservar, Agrega a una mascota Foto de Perfil y Carnet de Vacunacion para comenzar!";
+            $_SESSION["message"][] = "No tienes mascotas activas para reservar, agrega a una mascota foto de perfil y carnet de vacunacion para comenzar";
             $userController = new UserController();
             $userController->ShowProfileView();
         }
@@ -322,28 +322,28 @@ class ReserveController
     public function RejectReserve($reserveid)
     {
         $this->StatusUpdate($reserveid, "rejected");
-        $_SESSION['message'] = "Reserva rechazada";
+        $_SESSION['message'][] = "Reserva rechazada";
         $this->UserController->ShowProfileView();
     }
 
     public function CancelReserve($reserveid)
     {
         $this->StatusUpdate($reserveid, "canceled");
-        $_SESSION['message'] = "Reserva cancelada";
+        $_SESSION['message'][] = "Reserva cancelada";
         $this->UserController->ShowProfileView();
     }
 
     public function CheckInPet($reserveid)
     {
         $this->StatusUpdate($reserveid, "in progress");
-        $_SESSION['message'] = "Mascota ingresada";
+        $_SESSION['message'][] = "Mascota ingresada";
         $this->UserController->ShowProfileView();
     }
 
     public function PickUpPet($reserveid)
     {
         $this->StatusUpdate($reserveid, "completed");
-        $_SESSION['message'] = "Mascota retirada";
+        $_SESSION['message'][] = "Mascota retirada";
         $this->UserController->ShowProfileView();
     }
 
@@ -388,10 +388,10 @@ class ReserveController
             $mail = new MailerController();
             $mail->emailSend($currentReserve->getTransmitterid(), $mitadDelTotal);
 
-            $_SESSION['message'] = "Reserva aceptada";  //no mostrarse si rechaza
+            $_SESSION['message'][] = "Reserva aceptada";  //no mostrarse si rechaza
 
         } else {
-            $_SESSION['message'] = "Esta reserva no pude ser confirmada porque ya cuidas animalitos de otra raza en esas fechas";
+            $_SESSION['message'][] = "Esta reserva no pude ser confirmada porque tenes reservas de otra raza";
         }
 
         $this->UserController->ShowProfileView();
