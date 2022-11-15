@@ -129,6 +129,9 @@ if ($this->validate()) {
         }
 
 
+        // Si solo llama a vista con requiere no lleva try-catch
+        // Si llama directa o indirectamente a un metodo de algun DAO lleva try-catch
+        // Si llama a otro metodo que ya tiene un try-catch no lleva try-catch
 try {
         } catch (Exception $ex) {
             // var_dump($ex);
