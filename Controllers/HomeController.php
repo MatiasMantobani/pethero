@@ -11,6 +11,7 @@ class HomeController
 
         if (isset($_SESSION["userid"])) {
             $userController = new UserController();
+            $_SESSION['message'][] = $message;
             $userController->ShowProfileView();
         } else {
             require_once(VIEWS_PATH . "index.php");

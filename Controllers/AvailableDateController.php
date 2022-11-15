@@ -145,7 +145,8 @@ class AvailableDateController
                 $userController->ShowProfileView();
             } catch (Exception $ex) {
                 // var_dump($ex);
-                $_SESSION["message"] = "Error al Modificar Fecha Disponible";
+                // $_SESSION["message"] = "Error al Modificar Fecha Disponible";
+                HomeController::Index("Error al Modificar Fecha Disponible");
             }
         }
     }
@@ -154,7 +155,7 @@ class AvailableDateController
     public function getAvailablesListByDatesAndBreed($breed, $dateStart, $dateFinish)
     {
         if ($this->validate()) {
-
+            
             try {
                 return $this->availableDateDAO->GetAvailablesByRangeAndBreed($breed, $dateStart, $dateFinish);
             } catch (Exception $ex) {
@@ -169,6 +170,6 @@ class AvailableDateController
 try {
 } catch (Exception $ex) {
     // var_dump($ex);
-    $_SESSION["message"] = "Error al ... De Fecha Disponible";
+    HomeController::Index("Error al ... De Fecha Disponible");
 }
 */

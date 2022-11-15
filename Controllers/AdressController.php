@@ -49,7 +49,7 @@ class AdressController
                 }
             } catch (Exception $ex) {
                 // var_dump($ex);
-                $_SESSION["message"][] = "Error al modificar la direccion";
+                HomeController::Index("Error al modificar la direccion");
             }
             $controller = new UserController();
             $controller->ShowProfileView();
@@ -135,7 +135,7 @@ if ($this->validate()) {
 try {
         } catch (Exception $ex) {
             // var_dump($ex);
-            $_SESSION["message"] = "Error al ... De Direccion";
+            HomeController::Index("Error al ... De Direccion");
         }
 
 */

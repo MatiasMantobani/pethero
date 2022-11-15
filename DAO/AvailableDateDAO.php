@@ -116,7 +116,7 @@ class AvailableDateDAO
         try {
             $query = "DELETE FROM " . $this->tableAvailableDates . " WHERE (userid = :userid AND available = :available)";
 
-            $parameters["userid"] =  $userid;
+            // $parameters["userid"] =  $userid;
             $parameters["available"] =  "0";
 
             $this->connection = Connection::GetInstance();

@@ -21,21 +21,23 @@ class AuthController
 
     public function Login($email, $password)
     {
+        try {
+            $user = $this->userDao->Login($email, $password);
 
-        $user = $this->userDao->Login($email, $password);
-
-
-        if ($user) {
+            if ($user) {
                 $_SESSION['userid'] = $user->getUserid();
                 $_SESSION['type'] = $user->getType();
                 $_SESSION['message'] = array();
 
                 $userController = new UserController();
                 $userController->ShowProfileView();
-
-        } else {
-            $homeController = new HomeController();
-            $homeController->Index("Usuario y/o clave incorrectas<br>");
+            } else {
+                $homeController = new HomeController();
+                $homeController->Index("Usuario y/o clave incorrectas<br>");
+            }
+        } catch (Exception $ex) {
+            // var_dump($ex);
+            $_SESSION["message"] = "Error al Loguearse";
         }
     }
 
@@ -60,7 +62,7 @@ class AuthController
 try {
 } catch (Exception $ex) {
 // var_dump($ex);
-$_SESSION["message"] = "Error al ... De Autentificar";
+HomeController::Index("Error al ... De Autentificar");
 }
 
 */
