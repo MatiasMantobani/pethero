@@ -5,6 +5,7 @@
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
+            <a href="<?php echo FRONT_ROOT ?>User/ShowProfileView">Volver</a>
 
             
 

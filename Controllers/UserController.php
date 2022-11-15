@@ -57,7 +57,7 @@ class UserController
             if (count($guardianList) > 0) {
                 require_once(VIEWS_PATH . "guardian-list.php");
             } else {
-                $_SESSION["message"] = "Parece que aun no hay guardianes por tu zona, prueba de nuevo mas tarde. <br>";
+                $_SESSION["message"][] = "Parece que no hay guardianes por tu zona, intenta de nuevo mas tarde";
                 $userController = new UserController();
                 $userController->ShowProfileView();
             }
@@ -82,7 +82,7 @@ class UserController
             $userImage = $userImageController->ShowImage($_SESSION['userid']);
 
             if ($adress == null) {
-                $_SESSION['message'] .= "Para comenzar, debés ingresar tu domicilio. <br>";
+                $_SESSION['message'][] = "Para comenzar, debés ingresar tu domicilio";
             }
 
             //DUEÑO
@@ -95,7 +95,7 @@ class UserController
                 $SizeController = new SizeController();
                 $size = $SizeController->getByUserId($_SESSION['userid']);
                 if ($size == null) {
-                    $_SESSION['message'] .= "Para cuidar mascotas, primero debés cargar el tamaño que aceptas. <br>";
+                    $_SESSION['message'][] = "Para cuidar mascotas, debés cargar el tamaño que aceptas";
                 }
 
                 //rating
@@ -106,11 +106,11 @@ class UserController
                 //remuneracion y creacion de keeper
                 $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
                 if ($keeper == null) {
-                    $_SESSION['message'] .= "Agregue una remuneracion diferente a 0 para comenzar. <br>";
+                    $_SESSION['message'][] = "Agregue una remuneracion diferente a 0 para comenzar";
                     $keeper = $this->keeperController->Add($_SESSION['userid']);    //si keeper no existe lo crea
                 } else {
                     if ($keeper->getPricing() == 0) {
-                        $_SESSION['message'] .= "Agregue una remuneracion diferente a 0 para comenzar. <br>";
+                        $_SESSION['message'][] = "Agregue una remuneracion diferente a 0 para comenzar";
                     }
                 }
             }
@@ -220,7 +220,7 @@ class UserController
             $this->userDAO->Update($user);
             $this->ShowProfileView();
         } else {
-            $_SESSION['message'] = "Error al actualizar datos <br>";
+            $_SESSION['message'][] = "Error al actualizar los datos";
             $this->ShowProfileView();
         }
     }

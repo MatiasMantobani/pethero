@@ -62,20 +62,20 @@ class UserImageController
                         } else {
                             $this->userImageDAO->Add($image);
                         }
-                        $_SESSION['message'] = "Imagen subida correctamente";
+                        $_SESSION['message'][] = "Imagen subida correctamente";
                         $userController->ShowProfileView();
                     } else
-                        $_SESSION['message'] = "Ocurrió un error al intentar subir la imagen";
+                        $_SESSION['message'][] = "Ocurrió un error al intentar subir la imagen";
                     $userController->ShowProfileView();
                 } else
-                    $_SESSION['message'] = "El archivo no corresponde a una imágen";
+                    $_SESSION['message'][] = "El archivo no corresponde a una imágen";
                 $userController->ShowProfileView();
             } catch (Exception $ex) {
-                $_SESSION['message'] = "Ocurrió un error al intentar subir la imagen";
+                $_SESSION['message'][] = "Ocurrió un error al intentar subir la imagen";
                 $userController->ShowProfileView();
             }
         } else {
-            $_SESSION['message'] = "No se cargo ninguna imagen";
+            $_SESSION['message'][] = "No se cargo ninguna imagen";
             $userController->ShowProfileView();
         }
     }

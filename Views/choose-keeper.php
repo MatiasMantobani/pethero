@@ -5,7 +5,7 @@
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-
+            <a href="<?php echo FRONT_ROOT ?>User/ShowProfileView">Volver</a>
             <?php if ($AvailableUsers != null) { ?>
                 <h2>Los siguientes Guardianes estan disponibles para cuidar a <?php echo $pet->getName() ?> </h2>
                 <br>

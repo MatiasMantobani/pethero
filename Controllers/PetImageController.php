@@ -39,7 +39,7 @@ class PetImageController
                 $petImage = $this->petImageDAO->GetByPetId($petid);
                 return $petImage;
             } catch (Exception $ex) {
-                $_SESSION["message"] = "error al Mostrar el Carnet de Vacunacion";
+                $_SESSION["message"][] = "Error al mostrar carnet";
             }
         }
     }
@@ -69,20 +69,20 @@ class PetImageController
                                 $this->petImageDAO->Add($image);
                             }
 
-                            $_SESSION['message'] = "Imagen subida correctamente";
+                            $_SESSION['message'][] = "Imagen subida correctamente";
                             $petController->ShowProfileView($petid);
                         } else
-                            $_SESSION['message'] = "Ocurrió un error al intentar subir la imagen";
+                            $_SESSION['message'][] = "Ocurrió un error al intentar subir la imagen";
                         $petController->ShowProfileView($petid);
                     } else
-                        $_SESSION['message'] = "El archivo no corresponde a una imágen";
+                        $_SESSION['message'][] = "El archivo no corresponde a una imágen";
                     $petController->ShowProfileView($petid);
                 } catch (Exception $ex) {
-                    $_SESSION['message'] = $ex->getMessage();
+                    $_SESSION['message'][] = "Error al cargar la imagen";
                     $petController->ShowProfileView($petid);
                 }
             } else {
-                $_SESSION['message'] = "No se cargo ninguna imagen";
+                $_SESSION['message'][] = "No se cargo ninguna imagen";
                 $petController->ShowProfileView($petid);
             }
         }

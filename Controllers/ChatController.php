@@ -66,7 +66,7 @@ class ChatController
         if (count($userList) > 0) {
             require_once(VIEWS_PATH . "chat-list.php");
         } else {
-            $_SESSION["message"] = "No tienes chats para mostrar";
+            $_SESSION["message"][] = "No tienes chats para mostrar";
             $userController = new UserController();
             $userController->ShowProfileView();
         }

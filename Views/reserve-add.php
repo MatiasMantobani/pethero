@@ -6,6 +6,7 @@
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
+            <a href="<?php echo FRONT_ROOT ?>User/ShowProfileView">Volver</a>
             <h2 class="mb-4"> Solicita una reserva </h2>
             
                 <form action="<?php echo FRONT_ROOT ?>Reserve/showChooseKeeperView" method="post" class="bg-light-alpha p-5">

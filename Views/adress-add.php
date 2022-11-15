@@ -5,6 +5,7 @@
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
+            <a href="<?php echo FRONT_ROOT ?>User/ShowProfileView">Volver</a>
             <h2 class="mb-4">Registro de domicilio</h2>
             <p>Completa todos los campos del formulario</p>
             <form action="<?php echo FRONT_ROOT ?>Adress/Update" method="post" class="bg-light-alpha p-5">

@@ -7,13 +7,11 @@ require_once('nav.php');
     <section id="listado" class="mb-5">
         <div class="container">
 
-            <?php if ($_SESSION['message'] != null) { ?>
+            <?php if ($_SESSION['message'] != null) { foreach($_SESSION['message'] as $alert) { ?>
                 <div class="alert alert-primary" role="alert">
-                    <?php echo $_SESSION['message'] ?>
+                    <?php echo $alert ?>
                 </div>
-            <?php
-                $_SESSION['message'] = null;
-            } ?>
+                <?php $_SESSION['message'] = array(); } } ?>
 
             <h2 class="mb-4">Bienvenid@ <?php echo $user->getName(); ?></h2>
 

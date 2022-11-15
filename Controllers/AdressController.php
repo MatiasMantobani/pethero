@@ -43,13 +43,13 @@ class AdressController
                 if ($this->AdressFinder($_SESSION['userid'])) {
                     $this->adressDAO->Update($_SESSION['userid'], $street, $number, $floor, $department, $postalcode);
 
-                    $_SESSION['message'] = "Domicilio modificado con exito<br>";
+                    $_SESSION['message'][] = "Domicilio modificado con exito";
                 } else {
                     $this->Add($street, $number, $floor, $department, $postalcode);
                 }
             } catch (Exception $ex) {
                 // var_dump($ex);
-                $_SESSION["message"] = "Error al Modificar la Direccion";
+                $_SESSION["message"][] = "Error al modificar la direccion";
             }
             $controller = new UserController();
             $controller->ShowProfileView();
@@ -82,7 +82,7 @@ class AdressController
                 $this->adressDAO->Add($adress);
             } catch (Exception $ex) {
                 // var_dump($ex);
-                $_SESSION["message"] = "Error al Agregar Direccion";
+                $_SESSION["message"][] = "Error al cargar direccion";
             }
             $controller = new UserController();
             $controller->ShowProfileView();
@@ -103,7 +103,7 @@ class AdressController
                 }
             } catch (Exception $ex) {
                 // var_dump($ex);
-                $_SESSION["message"] = "Error al Conseguir por Usuario en Direccion";
+                $_SESSION["message"][] = "Error al obtener direccion";
             }
         }
     }
@@ -116,7 +116,7 @@ class AdressController
                 $this->adressDAO->Remove($userid);
             } catch (Exception $ex) {
                 // var_dump($ex);
-                $_SESSION["message"] = "Error al Remover Direccion";
+                $_SESSION["message"][] = "Error al remover direccion";
             }
         }
     }
