@@ -13,7 +13,6 @@ class HomeController
             $userController = new UserController();
             $userController->ShowProfileView();
         } else {
-            $_SESSION['message'][] = $message;
             require_once(VIEWS_PATH . "index.php");
         }
     }
