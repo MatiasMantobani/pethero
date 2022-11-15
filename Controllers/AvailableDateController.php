@@ -47,14 +47,7 @@ class AvailableDateController
     }
 
 
-    public function validate()
-    {
-        if (isset($_SESSION["userid"])) {
-            return true;
-        } else {
-            HomeController::Index("Permisos Insuficientes");
-        }
-    }
+    
 
 
     public function UpdateDatesByBreed($userid, $dateStart, $dateFinish, $breedid)
@@ -149,7 +142,6 @@ class AvailableDateController
     public function getAvailablesListByDatesAndBreed($breed, $dateStart, $dateFinish)
     {
         if ($this->validate()) {
-
             try {
                 return $this->availableDateDAO->GetAvailablesByRangeAndBreed($breed, $dateStart, $dateFinish);
             } catch (Exception $ex) {
@@ -157,12 +149,21 @@ class AvailableDateController
             }
         }
     }
+
+
+    public function validate()
+    {
+        if (isset($_SESSION["userid"])) {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
 }
 
 /*
 try {
 } catch (Exception $ex) {
-    // var_dump($ex);
     HomeController::Index("Error al ... Fecha Disponible");
 }
 */

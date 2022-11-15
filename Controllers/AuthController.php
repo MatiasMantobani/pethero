@@ -48,7 +48,7 @@ class AuthController
         unset($_SESSION['message']);
         session_destroy();
 
-        HomeController::Index("Error al Desloguearse");
+        HomeController::Index("Te deslogueaste correctamente");
     }
 
     public function notFound()
