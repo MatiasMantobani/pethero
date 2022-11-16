@@ -116,6 +116,7 @@ class ChatController
         }
     }
 
+    
     public function findChat($sender, $receiver)
     {
         if ($this->validate()) {

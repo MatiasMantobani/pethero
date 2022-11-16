@@ -23,101 +23,177 @@ class KeeperController
         $this->AvailableController = new AvailableDateController();
     }
 
-    // It validates keeper table on db, pricing, userid, rating, adress & availability from keeper througt $userid
-//    public function validateKeeper($userid){
-//        $keeper = $this->getByUserId($userid);
-//
-//        if ($keeper->getPricing() > 0){
-//                $this->UpdateStatus(1);
-//                return 1;
-//
-//        } else {
-//            $this->UpdateStatus(0);
-//            return 0;
-//        }
-//    }
+
+    public function validate()
+    {
+        if (isset($_SESSION["userid"])) {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
 
     public function Add($userid)
     {
-        $keeper = new Keeper();
-        $keeper->setUserid($userid);
+        if ($this->validate()) {
+            try {
+                $keeper = new Keeper();
+                $keeper->setUserid($userid);
 
-        $this->keeperDAO->Add($keeper);
+                $this->keeperDAO->Add($keeper);
 
-        return $this->getByUserId($userid);  //solo se usa una vez al crear perfil
-
+                return $this->getByUserId($userid);  //solo se usa una vez al crear perfil
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Chat");
+            }
+        }
     }
 
-    public function ShowUpdatePricingView(){
-        $keeper = $this->getByUserId($_SESSION['userid']);
-        require_once(VIEWS_PATH . "pricing-update.php");
+
+    public function ShowUpdatePricingView()
+    {
+        if ($this->validate()) {
+            try {
+                $keeper = $this->getByUserId($_SESSION['userid']);
+                require_once(VIEWS_PATH . "pricing-update.php");
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Chat");
+            }
+        }
     }
+
 
     public function UpdatePricing($pricing)
     {
-        $controller = new UserController();
+        if ($this->validate()) {
+            try {
 
-        if($pricing > 0){
-            $keeper = new Keeper();
-            $keeper->setUserid($_SESSION['userid']);
-            $keeper->setPricing($pricing);
+                $controller = new UserController();
 
-            $this->keeperDAO->UpdatePricing($keeper);
+                if ($pricing > 0) {
+                    $keeper = new Keeper();
+                    $keeper->setUserid($_SESSION['userid']);
+                    $keeper->setPricing($pricing);
 
-            $this->UpdateStatus(1);
+                    $this->keeperDAO->UpdatePricing($keeper);
 
-            $_SESSION['message'][] = "Tarifa modificada con éxito";
-            $controller->ShowProfileView();
-        } else {
-            $_SESSION['message'][] = "Tarifa: ingrese un importe mayor";
-            $controller->ShowProfileView();
+                    $this->UpdateStatus(1);
+
+                    $_SESSION['message'][] = "Tarifa modificada con éxito";
+                    $controller->ShowProfileView();
+                } else {
+                    $_SESSION['message'][] = "Tarifa: ingrese un importe mayor";
+                    $controller->ShowProfileView();
+                }
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Chat");
+            }
         }
-
-
     }
 
-    public function getPricingByUserId($userid){
-        return $this->getByUserId($userid)->getPricing();
+
+    public function getPricingByUserId($userid)
+    {
+        if ($this->validate()) {
+            try {
+                return $this->getByUserId($userid)->getPricing();
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Chat");
+            }
+        }
     }
+
 
     public function UpdateStatus($status)
     {
-        $keeper = new Keeper();
-        $keeper->setUserid($_SESSION['userid']);
-        $keeper->setStatus($status);
+        if ($this->validate()) {
+            try {
+                $keeper = new Keeper();
+                $keeper->setUserid($_SESSION['userid']);
+                $keeper->setStatus($status);
 
-        $this->keeperDAO->UpdateStatus($keeper);;
+                $this->keeperDAO->UpdateStatus($keeper);;
 
-        $_SESSION['message'][] = "El usuario fue actualizado con éxito";
-        $controller = new UserController();
-        $controller->ShowProfileView();
-
+                $_SESSION['message'][] = "El usuario fue actualizado con éxito";
+                $controller = new UserController();
+                $controller->ShowProfileView();
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Chat");
+            }
+        }
     }
+
 
     public function GetAll()
     {
-        return $this->keeperDAO->GetAll();
+        if ($this->validate()) {
+            try {
+                return $this->keeperDAO->GetAll();
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Chat");
+            }
+        }
     }
+
 
     public function KeeperFinderByUserId($userid)
     {
-        return $this->keeperDAO->GetByUserId($userid);
+        if ($this->validate()) {
+            try {
+                return $this->keeperDAO->GetByUserId($userid);
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Chat");
+            }
+        }
     }
+
 
     public function KeeperFinderByKeeperId($keeperid)
     {
-        return $this->keeperDAO->GetByKeeperId($keeperid);
+        if ($this->validate()) {
+            try {
+                return $this->keeperDAO->GetByKeeperId($keeperid);
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Chat");
+            }
+        }
     }
 
-    public function getByKeeperId($keeperid){
-        return $this->keeperDAO->GetByKeeperId($keeperid);
+
+    public function getByKeeperId($keeperid)
+    {
+        if ($this->validate()) {
+            try {
+                return $this->keeperDAO->GetByKeeperId($keeperid);
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Chat");
+            }
+        }
     }
 
 
-    public function getByUserId($userid){
-        return $this->keeperDAO->GetByUserId($userid);
+    public function getByUserId($userid)
+    {
+        if ($this->validate()) {
+            try {
+                return $this->keeperDAO->GetByUserId($userid);
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Chat");
+            }
+        }
     }
+}
+
+/*
+if ($this->validate()) {
 
 }
 
-?>
+try {
+
+} catch (Exception $ex) {
+    HomeController::Index("Error al ... Chat");
+}
+
+*/
