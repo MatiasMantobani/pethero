@@ -55,7 +55,7 @@ class MailerController
                 $this->mail->setSenderMail("pethero@kateclarkph.com");
                 $mailer = $this->mailerDAO->SendEmail($this->mail);
                 if ($mailer){
-                    $_SESSION['message'][] = "El cupon de pago se envio correctamente";
+                    $_SESSION['message'][] = "Cupon de pago enviado correctamente, compruebe la casilla de correo";
                 } else {
                     $_SESSION['message'][] = "El cupon de pago no se envio";
                 }

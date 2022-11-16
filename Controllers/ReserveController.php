@@ -505,7 +505,6 @@ class ReserveController
 
                     $mail = new MailerController();
                     $mail->emailSend($currentReserve->getTransmitterid(), $mitadDelTotal);
-                    $_SESSION['message'][] = "Cupon de pago enviado correctamente, compruebe la casilla de correo";
                     $_SESSION['message'][] = "Reserva aceptada";  //no mostrarse si rechaza
                 } else {
                     $_SESSION['message'][] = "Esta reserva no pude ser confirmada porque tenes reservas de otra raza";
