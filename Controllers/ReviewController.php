@@ -26,46 +26,77 @@ class ReviewController
 
     public function Add($rating, $comment, $reserveid) //$receptorid, $reserveid, => Agregarlo cuando este en el boton del dueno
     {
-        $review = new Review();
+        if ($this->validate()) {
+            try {
+                $review = new Review();
 
-        $reserveController = new Reserve();
-        $reserva = $reserveController->getReserveById($reserveid);
+                $reserveController = new Reserve();
+                $reserva = $reserveController->getReserveById($reserveid);
 
-        $review->setEmitterid($_SESSION['userid']);
-        $review->setReceptorid($reserva->getReceiverid());
-        $review->setReserveid($reserveid);
-        $review->setRating((int)$rating);
-        $review->setComment($comment);
+                $review->setEmitterid($_SESSION['userid']);
+                $review->setReceptorid($reserva->getReceiverid());
+                $review->setReserveid($reserveid);
+                $review->setRating((int)$rating);
+                $review->setComment($comment);
 
-        $this->reviewDAO->Add($review);
+                $this->reviewDAO->Add($review);
+            } catch (Exception $ex) {
+                HomeController::Index("Error al enviar la Reseña");
+            }
+        }
     }
 
     public function AddWithCheck($rating, $comment, $reserveid)
     {
-        if (!$this->reviewDAO->GetByReserveid($reserveid)) {
-            $this->Add($rating, $comment, $reserveid);
-            $_SESSION['message'][] = "Tu review se envio correctamente";
-        } else {
-            $_SESSION['message'][] = "No puedes enviar la review, ya que dejaste una previamente";
+        if ($this->validate()) {
+            try {
+                if (!$this->reviewDAO->GetByReserveid($reserveid)) {
+                    $this->Add($rating, $comment, $reserveid);
+                    $_SESSION['message'][] = "Tu review se envio correctamente";
+                } else {
+                    $_SESSION['message'][] = "No puedes enviar la review, ya que dejaste una previamente";
+                }
+                $reserveController = new ReserveController();
+                $reserveController->Reviewed($reserveid);
+                $controller = new UserController();
+                $controller->ShowProfileView();
+            } catch (Exception $ex) {
+                HomeController::Index("Error al enviar la Reseña");
+            }
         }
-        $reserveController = new ReserveController();
-        $reserveController->Reviewed($reserveid);
-        $controller = new UserController();
-        $controller->ShowProfileView();
     }
 
     public function ReviewFinderByEmitter($userid)
     {
-        return $this->reviewDAO->GetByEmitterid($userid);
+        if ($this->validate()) {
+            try {
+                return $this->reviewDAO->GetByEmitterid($userid);
+            } catch (Exception $ex) {
+                HomeController::Index("Error al traer las Reseñas");
+            }
+        }
     }
+
     public function ReviewFinderByReceptor($userid)
     {
-        return $this->reviewDAO->GetByReceptorid($userid);
+        if ($this->validate()) {
+            try {
+                return $this->reviewDAO->GetByReceptorid($userid);
+            } catch (Exception $ex) {
+                HomeController::Index("Error al traer las Reseñas");
+            }
+        }
     }
 
     public function ReviewFinderByReserve($reserveid)
     {
-        return $this->reviewDAO->GetByReserveid($reserveid);
+        if ($this->validate()) {
+            try {
+                return $this->reviewDAO->GetByReserveid($reserveid);
+            } catch (Exception $ex) {
+                HomeController::Index("Error al traer las Reseñas");
+            }
+        }
     }
 
     public function ShowReviewList($userid)
@@ -117,3 +148,15 @@ class ReviewController
         return sizeof($ratings);
     }
 }
+
+/*
+
+if ($this->validate()) {
+try {
+
+} catch (Exception $ex) {
+    HomeController::Index("Error al ... Reseña");
+}
+}
+
+*/
