@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2022 at 06:20 PM
+-- Generation Time: Nov 16, 2022 at 02:01 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -179,14 +179,10 @@ CREATE TABLE `adresses` (
 --
 
 INSERT INTO `adresses` (`userid`, `street`, `number`, `floor`, `department`, `postalcode`) VALUES
-(1, 'marconi', '1990', '', '', '7600'),
-(2, 'Colon', '405', '', '', '7600'),
-(3, 'Colon', '7890', '9', 'A', '7600'),
-(5, 'San Luis', '2050', '', '', '7600'),
-(8, 'Salta', '2502', '9', 'K', '7600'),
-(11, 'Rivadavia', '2586', '4', '8', '7600'),
-(14, 'marconi', '1990', '', '', '7600'),
-(15, 'gamora', '1995', '2', '2', '7602');
+(16, 'qwe', 'qwe', 'qwe', 'qwe', 'qwe'),
+(17, 'asd', 'asd', 'asd', 'asd', 'asd'),
+(18, 'y', 'rty', 'tryrt', 'rtrt', 'rtyrt'),
+(19, 'fghfgh', 'fghfg', 'gfhfgh', 'fg', 'f');
 
 -- --------------------------------------------------------
 
@@ -196,10 +192,78 @@ INSERT INTO `adresses` (`userid`, `street`, `number`, `floor`, `department`, `po
 
 CREATE TABLE `availabledates` (
   `availabledatesid` int(11) NOT NULL,
-  `userid` int(11) NOT NULL COMMENT 'id del cuidador',
-  `date` date NOT NULL COMMENT 'fecha que pone el guardian para cuidar',
-  `available` int(11) NOT NULL COMMENT '0 = libre, sino el breedid'
+  `userid` int(11) NOT NULL COMMENT 'del keeper',
+  `date` date NOT NULL COMMENT 'una fecha del rango de fechas disponibles elegida por un keeper',
+  `available` int(11) NOT NULL COMMENT 'es 0 o breedid'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `availabledates`
+--
+
+INSERT INTO `availabledates` (`availabledatesid`, `userid`, `date`, `available`) VALUES
+(676, 17, '2022-12-01', 6),
+(677, 17, '2022-12-02', 6),
+(678, 17, '2022-12-03', 6),
+(679, 17, '2022-12-04', 6),
+(680, 17, '2022-12-05', 6),
+(681, 17, '2022-12-06', 6),
+(682, 17, '2022-12-07', 6),
+(683, 17, '2022-12-08', 6),
+(684, 17, '2022-12-09', 6),
+(685, 17, '2022-12-10', 6),
+(686, 17, '2022-12-11', 6),
+(687, 17, '2022-12-12', 6),
+(688, 17, '2022-12-13', 6),
+(689, 17, '2022-12-14', 6),
+(690, 17, '2022-12-15', 6),
+(691, 17, '2022-12-16', 6),
+(692, 17, '2022-12-17', 6),
+(693, 17, '2022-12-18', 6),
+(694, 17, '2022-12-19', 6),
+(695, 17, '2022-12-20', 6),
+(696, 17, '2022-12-21', 6),
+(697, 17, '2022-12-22', 6),
+(698, 17, '2022-12-23', 6),
+(699, 17, '2022-12-24', 6),
+(700, 17, '2022-12-25', 6),
+(701, 17, '2022-12-26', 6),
+(702, 17, '2022-12-27', 6),
+(703, 17, '2022-12-28', 6),
+(704, 17, '2022-12-29', 6),
+(705, 17, '2022-12-30', 6),
+(706, 17, '2022-12-31', 6),
+(737, 19, '2022-12-01', 0),
+(738, 19, '2022-12-02', 11),
+(739, 19, '2022-12-03', 0),
+(740, 19, '2022-12-04', 0),
+(741, 19, '2022-12-05', 0),
+(742, 19, '2022-12-06', 0),
+(743, 19, '2022-12-07', 0),
+(744, 19, '2022-12-08', 0),
+(745, 19, '2022-12-09', 0),
+(746, 19, '2022-12-10', 0),
+(747, 19, '2022-12-11', 0),
+(748, 19, '2022-12-12', 0),
+(749, 19, '2022-12-13', 0),
+(750, 19, '2022-12-14', 0),
+(751, 19, '2022-12-15', 0),
+(752, 19, '2022-12-16', 0),
+(753, 19, '2022-12-17', 0),
+(754, 19, '2022-12-18', 0),
+(755, 19, '2022-12-19', 0),
+(756, 19, '2022-12-20', 0),
+(757, 19, '2022-12-21', 0),
+(758, 19, '2022-12-22', 0),
+(759, 19, '2022-12-23', 0),
+(760, 19, '2022-12-24', 0),
+(761, 19, '2022-12-25', 0),
+(762, 19, '2022-12-26', 0),
+(763, 19, '2022-12-27', 0),
+(764, 19, '2022-12-28', 0),
+(765, 19, '2022-12-29', 0),
+(766, 19, '2022-12-30', 0),
+(767, 19, '2022-12-31', 0);
 
 -- --------------------------------------------------------
 
@@ -256,6 +320,13 @@ CREATE TABLE `chat` (
   `senderid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `chat`
+--
+
+INSERT INTO `chat` (`idmessage`, `receiverid`, `text`, `status`, `time`, `senderid`) VALUES
+(18, 17, 'hola', 'read', '2022-11-14 18:27:07', 16);
+
 -- --------------------------------------------------------
 
 --
@@ -275,9 +346,11 @@ CREATE TABLE `keepers` (
 --
 
 INSERT INTO `keepers` (`keeperid`, `userid`, `rating`, `pricing`, `status`) VALUES
-(1, 2, 0, 100, 1),
-(2, 14, 0, 500, 1),
-(3, 3, 0, 0, 0);
+(4, 17, 0, 100, 1),
+(5, 19, 0, 200, 1),
+(6, 20, 0, 0, 0),
+(7, 24, 0, 0, 0),
+(8, 26, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -295,6 +368,27 @@ CREATE TABLE `payments` (
   `date` date NOT NULL DEFAULT current_timestamp(),
   `payed` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`paymentid`, `transmitterid`, `receiverid`, `reserveid`, `monto`, `qr`, `date`, `payed`) VALUES
+(20, 16, 17, 59, 100, 'qr.png', '2022-11-14', 1),
+(21, 18, 17, 62, 3100, 'qr.png', '2022-11-15', 0),
+(22, 16, 19, 60, 200, 'qr.png', '2022-11-15', 0),
+(23, 16, 17, 61, 200, 'qr.png', '2022-11-15', 0),
+(24, 16, 17, 59, 100, 'qr.png', '2022-11-15', 0),
+(25, 16, 17, 59, 100, 'qr.png', '2022-11-15', 0),
+(26, 16, 17, 59, 100, 'qr.png', '2022-11-15', 0),
+(27, 16, 17, 61, 200, 'qr.png', '2022-11-15', 0),
+(28, 16, 17, 59, 100, 'qr.png', '2022-11-15', 0),
+(29, 16, 17, 59, 100, 'qr.png', '2022-11-15', 0),
+(30, 16, 17, 59, 100, 'qr.png', '2022-11-15', 0),
+(31, 16, 17, 59, 100, 'qr.png', '2022-11-15', 0),
+(32, 16, 17, 59, 100, 'qr.png', '2022-11-15', 0),
+(33, 16, 17, 59, 100, 'qr.png', '2022-11-15', 0),
+(34, 16, 17, 59, 100, 'qr.png', '2022-11-15', 0);
 
 -- --------------------------------------------------------
 
@@ -316,7 +410,12 @@ CREATE TABLE `pet` (
 --
 
 INSERT INTO `pet` (`petid`, `userid`, `status`, `breedid`, `name`, `observations`) VALUES
-(53, 1, 1, 19, 'asd', '');
+(61, 18, 2, 8, 'rty', ''),
+(62, 16, 2, 11, 'qwewqweq', 'qweewq'),
+(63, 16, 2, 14, 'asd', ''),
+(64, 18, 2, 6, 'rtyrt', ''),
+(65, 16, 2, 20, 'qwe1', 'sdf'),
+(66, 16, 2, 13, 'asd', 'asd');
 
 -- --------------------------------------------------------
 
@@ -329,6 +428,25 @@ CREATE TABLE `pet_images` (
   `name` varchar(100) NOT NULL,
   `petid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pet_images`
+--
+
+INSERT INTO `pet_images` (`imageid`, `name`, `petid`) VALUES
+(21, '24275813_350.png', 54),
+(22, '237c4da1793d0af4b745389886470b62.png', 55),
+(23, '237c4da1793d0af4b745389886470b62.png', 56),
+(24, '237c4da1793d0af4b745389886470b62.png', 57),
+(25, '237c4da1793d0af4b745389886470b62.png', 58),
+(26, '237c4da1793d0af4b745389886470b62.png', 59),
+(27, '237c4da1793d0af4b745389886470b62.png', 60),
+(28, '24275813_350.png', 61),
+(29, '24260663_350.png', 62),
+(30, '27659157_350.png', 64),
+(31, '237c4da1793d0af4b745389886470b62.png', 63),
+(32, '1280px-Delonix_regia_01.jpg', 66),
+(33, '237c4da1793d0af4b745389886470b62.png', 65);
 
 -- --------------------------------------------------------
 
@@ -347,6 +465,18 @@ CREATE TABLE `reserve` (
   `status` varchar(45) NOT NULL DEFAULT 'await'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `reserve`
+--
+
+INSERT INTO `reserve` (`reserveid`, `transmitterid`, `receiverid`, `petid`, `firstdate`, `lastdate`, `amount`, `status`) VALUES
+(59, 16, 17, 62, '2022-12-01', '2022-12-01', 100, 'confirmed'),
+(60, 16, 19, 62, '2022-12-02', '2022-12-02', 200, 'await'),
+(61, 16, 17, 62, '2022-12-21', '2022-12-22', 200, 'await'),
+(62, 18, 17, 64, '2022-12-01', '2022-12-31', 3100, 'completed'),
+(63, 16, 19, 63, '2022-12-07', '2022-12-08', 400, 'await'),
+(64, 16, 19, 65, '2022-12-11', '2022-12-12', 400, 'await');
+
 -- --------------------------------------------------------
 
 --
@@ -361,6 +491,13 @@ CREATE TABLE `review` (
   `rating` int(11) NOT NULL,
   `comment` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `review`
+--
+
+INSERT INTO `review` (`reviewid`, `emitterid`, `receptorid`, `reserveid`, `rating`, `comment`) VALUES
+(11, 16, 17, 59, 5, 'promocionanos profe');
 
 -- --------------------------------------------------------
 
@@ -380,11 +517,8 @@ CREATE TABLE `sizes` (
 --
 
 INSERT INTO `sizes` (`userid`, `small`, `medium`, `large`) VALUES
-(2, 1, 1, 1),
-(4, 1, 1, 1),
-(10, 0, 1, 0),
-(11, 1, 0, 1),
-(14, 1, 1, 1);
+(17, 1, 1, 1),
+(19, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -410,18 +544,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userid`, `email`, `password`, `type`, `dni`, `cuit`, `name`, `surname`, `phone`, `status`) VALUES
-(1, 'qwe', 'qwe', 'D', '13092520', '21474836497', 'Matias', 'Mantovani', '2235820553', 0),
-(2, 'asd', 'asd', 'G', '13092514', '23130925148', 'Romina', 'Schurzmann', '4803662', 0),
-(3, 'usuario3@gmail.com', '123456', 'G', '38005813', '23380058139', 'Cesar', 'Millan', '4802259', 0),
-(4, 'usuario4@gmail.com', '123456', 'G', '38456789', '20384567899', 'Nazareno', 'Gomez', '2147483647', 0),
-(5, 'usuario5@gmail.com', '123456', 'D', '32814777', '20328147779', 'Karen', 'Ditomasso', '4802694', 0),
-(8, 'usuario6@gmail.com', '123456', 'G', '32645987', '20326459874', 'Matias', 'Mantovani', '4802556', 0),
-(9, 'usuario7@gmail.com', '123456', 'D', '23456123', '20234561236', 'Juan', 'Gomez', '4805549', 0),
-(10, 'usuario10@gmail.com', '123456', 'G', '32885331', '20328853318', 'Julian', 'Moreno', '4557896', 0),
-(11, 'usuario11@gmail.com', '123456', 'G', '24456123', '23244561239', 'Ricardo', 'Montalbano', '2235820559', 0),
-(13, 'asddd@gmail.com', '123456', 'D', '12345678', '20123456785', 'hkljhkjhkjh', 'kjhkjhjkhkjh', '456789', 0),
-(14, 'aaa', '123456', 'G', '456456', '456546546', 'fds', 'fsdf', '4564', 0),
-(15, 'paola1995@hotmail.com', '1234', 'D', '95574638', '23955746384', 'maria paola', 'perez ', '1132660561', 0);
+(16, 'qwe', 'qwe', 'D', 'qwe', 'qwe', 'qwe', 'qwe', 'qwe', 1),
+(17, 'asd', 'asd', 'G', 'asd', 'asd', 'asd', 'asd', 'asd', 1),
+(18, 'rty', 'rty', 'D', 'rty', 'rty', 'rty', 'rty', 'rty', 1),
+(19, 'fgh', 'fgh', 'G', 'fgh', 'fgh', 'fgh', 'fgh', 'fgh', 1),
+(24, 'jkl', 'jkl', 'G', 'jkl', 'jkl', 'jkl', 'jkl', 'jkl', 0),
+(25, 'zxc', 'zxc', 'G', 'zxc', 'zxc', 'zxc', 'zxc', 'zxc', 0),
+(26, 'eee', 'eee', 'G', 'eee', 'eee', 'eee', 'ee', 'eee', 0);
 
 -- --------------------------------------------------------
 
@@ -435,6 +564,14 @@ CREATE TABLE `user_images` (
   `userid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+--
+-- Dumping data for table `user_images`
+--
+
+INSERT INTO `user_images` (`imageid`, `name`, `userid`) VALUES
+(12, '237c4da1793d0af4b745389886470b62.png', 16),
+(13, '237c4da1793d0af4b745389886470b62.png', 17);
+
 -- --------------------------------------------------------
 
 --
@@ -446,6 +583,25 @@ CREATE TABLE `vacunation_images` (
   `name` varchar(100) NOT NULL,
   `petid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `vacunation_images`
+--
+
+INSERT INTO `vacunation_images` (`imageid`, `name`, `petid`) VALUES
+(15, '24275813_350.png', 54),
+(16, '24275813_350.png', 55),
+(17, '24275813_350.png', 56),
+(18, '24275813_350.png', 57),
+(19, '24275813_350.png', 58),
+(20, '24275813_350.png', 59),
+(21, '24275813_350.png', 60),
+(22, '24275813_350.png', 61),
+(23, '24260663_350.png', 62),
+(24, '27659157_350.png', 64),
+(25, '237c4da1793d0af4b745389886470b62.png', 63),
+(26, '24275813_350.png', 66),
+(27, '24260663_350.png', 65);
 
 --
 -- Indexes for dumped tables
@@ -546,7 +702,7 @@ ALTER TABLE `vacunation_images`
 -- AUTO_INCREMENT for table `availabledates`
 --
 ALTER TABLE `availabledates`
-  MODIFY `availabledatesid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=494;
+  MODIFY `availabledatesid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=768;
 
 --
 -- AUTO_INCREMENT for table `breed`
@@ -558,61 +714,61 @@ ALTER TABLE `breed`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `idmessage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idmessage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `keepers`
 --
 ALTER TABLE `keepers`
-  MODIFY `keeperid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `keeperid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `paymentid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `paymentid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `pet`
 --
 ALTER TABLE `pet`
-  MODIFY `petid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `petid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `pet_images`
 --
 ALTER TABLE `pet_images`
-  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `reserve`
 --
 ALTER TABLE `reserve`
-  MODIFY `reserveid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `reserveid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `reviewid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `reviewid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'user id', AUTO_INCREMENT=16;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'user id', AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `user_images`
 --
 ALTER TABLE `user_images`
-  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `vacunation_images`
 --
 ALTER TABLE `vacunation_images`
-  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
