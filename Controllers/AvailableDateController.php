@@ -45,7 +45,7 @@ class AvailableDateController
     // REPETIDA : cambiar a parametro null = session id
     public function GetById()
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateKeeper()) {
             try {
                 return $this->availableDateDAO->GetByUserid($_SESSION['userid']);
             } catch (Exception $ex) {
@@ -58,7 +58,7 @@ class AvailableDateController
     // REPETIDA : cambiar a parametro null = session id
     public function GetByUserId($userid)
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateKeeper()) {
             try {
                 return $this->availableDateDAO->GetByUserid($userid);
             } catch (Exception $ex) {
@@ -70,7 +70,7 @@ class AvailableDateController
 
     public function UpdateDatesByBreed($userid, $dateStart, $dateFinish, $breedid)
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateKeeper()) {
             try {
                 $this->availableDateDAO->UpdateDatesByUserDatesAndBreed($userid, $dateStart, $dateFinish, $breedid);
             } catch (Exception $ex) {
@@ -82,7 +82,7 @@ class AvailableDateController
 
     public function ShowAddView()
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateKeeper()) {
             require_once(VIEWS_PATH . "availableDate-add.php");
         }
     }
@@ -90,7 +90,7 @@ class AvailableDateController
 
     public function ShowAvailableDates()
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateKeeper()) {
             $fechas = $this->GetById();
 
             //para evitar mostrar una lista vacia
@@ -107,7 +107,7 @@ class AvailableDateController
 
     public function CheckDate($userid, $date)
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateKeeper()) {
             try {
                 return $this->availableDateDAO->CheckDate($userid, $date);
             } catch (Exception $ex) {
@@ -119,7 +119,7 @@ class AvailableDateController
 
     public function AddMany($daterange)
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateKeeper()) {
 
             try {
                 $dateArray = explode(",", $daterange);
@@ -143,7 +143,7 @@ class AvailableDateController
                     }
                     $date1->modify('+1 day');
                 }
-                if($flag == 1){
+                if ($flag == 1) {
                     MessageController::add("Algunas de tus fechas disponibles no se modificaron por que ya tienen reservas confirmadas");
                 } else {
                     MessageController::add("Tus fechas fueron modificadas");
@@ -156,7 +156,7 @@ class AvailableDateController
 
     public function Update($daterange)
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateKeeper()) {
 
             try {
                 $this->availableDateDAO->RemoveAvailablesById($_SESSION['userid']);
@@ -172,7 +172,7 @@ class AvailableDateController
 
     public function getAvailablesListByDatesAndBreed($breed, $dateStart, $dateFinish)
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateKeeper()) {
             try {
                 return $this->availableDateDAO->GetAvailablesByRangeAndBreed($breed, $dateStart, $dateFinish);
             } catch (Exception $ex) {
@@ -180,8 +180,6 @@ class AvailableDateController
             }
         }
     }
-
-
 }
 
 /*
