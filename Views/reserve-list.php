@@ -19,7 +19,12 @@ require_once('nav.php');
                     <tbody>
                          <?php for($i = 0; $i < count($reserveList); $i++) {?>
                               <tr>
-                                   <td><a href="<?php echo FRONT_ROOT ?>User/ShowExternalProfile/<?php echo $reserveList[$i]->getReceiverid() ?>" class="btn btn-primary btn-sm"> <?php echo $keeperInfo[$i] ?> </a></td>
+                                  <?php if($_SESSION["type"] == "G"){ ?>
+                                      <td><a href="<?php echo FRONT_ROOT ?>User/ShowProfileView" class="btn btn-primary btn-sm"> <?php echo $keeperInfo[$i] ?> </a></td>
+                                  <?php }else{ ?>
+                                      <td><a href="<?php echo FRONT_ROOT ?>User/ShowExternalProfile/<?php echo $reserveList[$i]->getReceiverid() ?>" class="btn btn-primary btn-sm"> <?php echo $keeperInfo[$i] ?> </a></td>
+                                  <?php } ?>
+
                                    <td><a href="<?php echo FRONT_ROOT ?>Pet/ShowProfileView/<?php echo $reserveList[$i]->getPetid() ?>" class="btn btn-primary btn-sm"><?php echo $petInfo[$i] ?></a></td>
                                    <td><?php echo $reserveList[$i]->getFirstdate() ?></td>
                                    <td><?php echo $reserveList[$i]->getLastdate() ?></td>
