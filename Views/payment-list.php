@@ -8,7 +8,9 @@
                 <h2 class="mb-4"> Tus Pagos </h2>
                 <table class="table bg-light-alpha">
                     <thead>
-                        <th>ID de Reserva</th>
+                        <?php if($_SESSION["type"] == "G"){ ?>
+                            <th>ID de Reserva</th>
+                        <?php } ?>
                         <th>Fecha</th>
                         <th>Monto</th>
                         <th>Pagado</th>
@@ -18,7 +20,9 @@
                     foreach ($paymentList as $payment) {
                         ?>
                         <tr>
-                            <td><?php echo $payment->getPaymentid() ?></td>
+                            <?php if($_SESSION["type"] == "G"){ ?>
+                                <td><?php echo $payment->getPaymentid() ?></td>
+                            <?php } ?>
                             <td><?php echo $payment->getDate() ?></td>
                             <td><?php echo "$" . $payment->getMonto() ?></td>
                             <td>
