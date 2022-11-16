@@ -272,19 +272,32 @@ class ReserveController
     {
         if ($this->validate()) {
             try {
-                $listadoMascotas = $this->PetController->GetMyActive($_SESSION['userid']);
-                $choosePet = $this->PetController->PetFinder($choosePetid);
+                //para reservar user debe tener estado 1
+                $userController = new UserController();
+                $currentUser = $userController->GetUserById($_SESSION["userid"]);
+                if ($currentUser->getStatus() == 1) {
 
-                //para evitar mostrar una lista vacia
-                if ($listadoMascotas != null && count($listadoMascotas) > 0) {
+                    $listadoMascotas = $this->PetController->GetMyActive($_SESSION['userid']);
+                    $choosePet = $this->PetController->PetFinder($choosePetid);
                     require_once(VIEWS_PATH . "reserve-add.php");
                 } else {
-                    $_SESSION["message"][] = "No tienes mascotas activas para reservar, agrega a una mascota foto de perfil y carnet de vacunacion para comenzar";
+                    $_SESSION["message"][] = "Debes tener una direccion y al menos una mascota activa para reservar";
                     $userController = new UserController();
                     $userController->ShowProfileView();
                 }
+
+                // $listadoMascotas = $this->PetController->GetMyActive($_SESSION['userid']);
+                // $choosePet = $this->PetController->PetFinder($choosePetid);
+                // //para evitar mostrar una lista vacia
+                // if ($listadoMascotas != null && count($listadoMascotas) > 0) {
+                //     require_once(VIEWS_PATH . "reserve-add.php");
+                // } else {
+                //     $_SESSION["message"][] = "No tienes mascotas activas para reservar, agrega a una mascota foto de perfil y carnet de vacunacion para comenzar";
+                //     $userController = new UserController();
+                //     $userController->ShowProfileView();
+                // }
             } catch (Exception $ex) {
-                HomeController::Index("Error al mostrar la vista de generar Reserva");
+                HomeController::Index("Error al mostrar la vista de Generar Reserva");
             }
         }
     }
@@ -305,8 +318,7 @@ class ReserveController
 
         ///
         $overlapping = $this->CheckOverlapping($petid, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));  //checkeamos que la mascota no tenga una reserva existente en esa fecha
-        if ($overlapping == 0)
-        {
+        if ($overlapping == 0) {
             //obtenemos ids de los "disponibles" (aquellos que tienen al menos una fecha en el rango del dueño)
             $AvailableDates = $this->AvailableDateController->getAvailablesListByDatesAndBreed($breed, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));
             $pseudoAvailableUsers = array();
@@ -357,15 +369,14 @@ class ReserveController
                 }
             }
             require_once(VIEWS_PATH . "choose-keeper.php");
-        } else
-        {
+        } else {
             HomeController::Index("La mascota ya tiene reservas asignadas dentro del periodo elegido");
         }
     }
 
     public function CheckOverlapping($petid, $firstdate, $lastdate)
     {
-        try{
+        try {
 
             $reserve = new Reserve();
             $reserve->setPetid($petid);
@@ -375,8 +386,7 @@ class ReserveController
             $result =  $this->reserveDAO->CheckOverlapping($reserve);
 
             return $result;
-        } catch (Exception $ex)
-        {
+        } catch (Exception $ex) {
             HomeController::Index("Error al recuperar las reservas");
         }
     }
