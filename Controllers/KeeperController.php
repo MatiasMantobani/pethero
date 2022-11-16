@@ -45,7 +45,7 @@ class KeeperController
 
                 return $this->getByUserId($userid);  //solo se usa una vez al crear perfil
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Chat");
+                HomeController::Index("Error al Agregar Guardian");
             }
         }
     }
@@ -58,7 +58,7 @@ class KeeperController
                 $keeper = $this->getByUserId($_SESSION['userid']);
                 require_once(VIEWS_PATH . "pricing-update.php");
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Chat");
+                HomeController::Index("Error al Modificar Guardian");
             }
         }
     }
@@ -87,7 +87,7 @@ class KeeperController
                     $controller->ShowProfileView();
                 }
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Chat");
+                HomeController::Index("Error al Modificar Salario de Guardian");
             }
         }
     }
@@ -99,7 +99,7 @@ class KeeperController
             try {
                 return $this->getByUserId($userid)->getPricing();
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Chat");
+                HomeController::Index("Error al Conseguir Salario de Guardian");
             }
         }
     }
@@ -119,7 +119,7 @@ class KeeperController
                 $controller = new UserController();
                 $controller->ShowProfileView();
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Chat");
+                HomeController::Index("Error al Modificar Estado de Guardian");
             }
         }
     }
@@ -131,7 +131,7 @@ class KeeperController
             try {
                 return $this->keeperDAO->GetAll();
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Chat");
+                HomeController::Index("Error al Conseguir todos los Guardianes");
             }
         }
     }
@@ -143,7 +143,7 @@ class KeeperController
             try {
                 return $this->keeperDAO->GetByUserId($userid);
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Chat");
+                HomeController::Index("Error al Encontrar Guardian");
             }
         }
     }
@@ -155,7 +155,7 @@ class KeeperController
             try {
                 return $this->keeperDAO->GetByKeeperId($keeperid);
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Chat");
+                HomeController::Index("Error al Encontrar Guardian");
             }
         }
     }
@@ -167,7 +167,7 @@ class KeeperController
             try {
                 return $this->keeperDAO->GetByKeeperId($keeperid);
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Chat");
+                HomeController::Index("Error al Encontrar Guardian");
             }
         }
     }
@@ -179,7 +179,7 @@ class KeeperController
             try {
                 return $this->keeperDAO->GetByUserId($userid);
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Chat");
+                HomeController::Index("Error al Encontrar Guardian");
             }
         }
     }
@@ -193,7 +193,7 @@ if ($this->validate()) {
 try {
 
 } catch (Exception $ex) {
-    HomeController::Index("Error al ... Chat");
+    HomeController::Index("Error al ... Guardian");
 }
 
 */
