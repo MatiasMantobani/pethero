@@ -122,7 +122,7 @@ class UserDAO
 
 
     //mostrar solo guardianes activos
-    public function GetAllKeepers()
+    public function GetActiveKeepers()
     {
         try {
             $userList = array();

@@ -59,10 +59,7 @@ class UserController
         if ($this->validate()) {
             try {
                 //solo si guardianes estan activos
-
-                
-
-                $guardianList = $this->userDAO->GetAllKeepers();
+                $guardianList = $this->userDAO->GetActiveKeepers();
 
                 // Para evitar mostrar una lista vacia
                 if (count($guardianList) > 0) {
