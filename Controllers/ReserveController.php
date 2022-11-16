@@ -248,7 +248,11 @@ class ReserveController
         $dateStart2 = new DateTime($dateArray[0]);
         $dateFinish2 = new DateTime($dateArray[1]);
 
-        //obtenemos ids de los "disponibles" (aquellos que tienen al menos una fecha en el rango del dueño)
+        ///
+        $overlapping = $this->CheckOverlapping($petid, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));  //checkeamos que la mascota no tenga una reserva existente en esa fecha
+        if ($overlapping == 0)
+        {
+            //obtenemos ids de los "disponibles" (aquellos que tienen al menos una fecha en el rango del dueño)
         $AvailableDates = $this->AvailableDateController->getAvailablesListByDatesAndBreed($breed, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));
         $pseudoAvailableUsers = array();
         $flag = 0;
@@ -298,6 +302,13 @@ class ReserveController
             }
         }
         require_once(VIEWS_PATH . "choose-keeper.php");
+        } else
+        {
+            HomeController::Index("La mascota ya tiene reservas asignadas dentro del periodo elegido");
+   
+        }
+         
+        
     }
 
     // public function checkOverlap($petid, $userid, $dateStart, $dateFinish){
