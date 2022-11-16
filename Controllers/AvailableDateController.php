@@ -82,7 +82,7 @@ class AvailableDateController
 
     public function ShowAddView()
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateKeeper()) {
             require_once(VIEWS_PATH . "availableDate-add.php");
         }
     }
@@ -90,7 +90,7 @@ class AvailableDateController
 
     public function ShowAvailableDates()
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateKeeper()) {
             $fechas = $this->GetById();
 
             //para evitar mostrar una lista vacia
@@ -143,7 +143,7 @@ class AvailableDateController
                     }
                     $date1->modify('+1 day');
                 }
-                if($flag == 1){
+                if ($flag == 1) {
                     MessageController::add("Algunas de tus fechas disponibles no se modificaron por que ya tienen reservas confirmadas");
                 } else {
                     MessageController::add("Tus fechas fueron modificadas");
@@ -180,8 +180,6 @@ class AvailableDateController
             }
         }
     }
-
-
 }
 
 /*
