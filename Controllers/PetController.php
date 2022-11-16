@@ -60,7 +60,7 @@ class PetController
                     $userController->ShowProfileView();
                 }
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Mascota");
+                HomeController::Index("Error al Mostrar Lista de Mascotas");
             }
         }
     }
@@ -78,7 +78,7 @@ class PetController
                     return null;
                 }
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Mascota");
+                HomeController::Index("Error al Conseguir mis Mascota Descartadas");
             }
         }
     }
@@ -96,7 +96,7 @@ class PetController
                     return null;
                 }
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Mascota");
+                HomeController::Index("Error al Conseguir mis Mascotas Pausadas");
             }
         }
     }
@@ -114,7 +114,7 @@ class PetController
                     return null;
                 }
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Mascota");
+                HomeController::Index("Error al Conseguir mis Mascotas Activas");
             }
         }
     }
@@ -134,7 +134,7 @@ class PetController
                     $this->petDAO->UpdateStatus($petid, 1);
                 }
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Mascota");
+                HomeController::Index("Error al Validar Estado de Mascota");
             }
         }
     }
@@ -168,7 +168,7 @@ class PetController
 
                 require_once(VIEWS_PATH . "pet-profile.php");
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Mascota");
+                HomeController::Index("Error al Mostrar Perfil de Mascota");
             }
         }
     }
@@ -181,7 +181,7 @@ class PetController
                 $breedList = $this->breedController->getAllByType($type);
                 require_once(VIEWS_PATH . "pet-add.php");
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Mascota");
+                HomeController::Index("Error al Mostrar Agregar Mascota");
             }
         }
     }
@@ -193,7 +193,7 @@ class PetController
             try {
                 require_once(VIEWS_PATH . "pet-preadd.php");
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Mascota");
+                HomeController::Index("Error al Mostrar Pre-Agregar Mascota");
             }
         }
     }
@@ -206,7 +206,7 @@ class PetController
                 $pet = $this->petDAO->GetByPetId($petid);
                 require_once(VIEWS_PATH . "pet-update.php");
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Mascota");
+                HomeController::Index("Error al Modificar Mascota");
             }
         }
     }
@@ -230,7 +230,7 @@ class PetController
                 $userController = new UserController();
                 $userController->ShowProfileView();
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Mascota");
+                HomeController::Index("Error al Agregar Mascota");
             }
         }
     }
@@ -251,7 +251,7 @@ class PetController
                 $this->petDAO->Update($pet);
                 $this->ShowProfileView($pet->getPetid());
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Mascota");
+                HomeController::Index("Error al Modificar Mascota");
             }
         }
     }
@@ -263,7 +263,7 @@ class PetController
             try {
                 return $this->petDAO->GetByPetId($petid);
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Mascota");
+                HomeController::Index("Error al Encontrar Mascota");
             }
         }
     }
@@ -280,7 +280,7 @@ class PetController
                 $userController = new UserController();
                 $userController->ShowProfileView();
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Mascota");
+                HomeController::Index("Error al Remover Mascota");
             }
         }
     }
