@@ -113,22 +113,25 @@ class AvailableDateController
                     $date->setDate($date1->format('y-m-d'));
                     $date->setAvailable("0");
 
+                    $flag = 0;
                     //chequeamos si date existe y no la subimos
                     if ($this->availableDateDAO->CheckDate($_SESSION['userid'], $date->getDate())) {
-                        $_SESSION["message"][] = "Algunas de tus fechas disponibles no se modificaron por que ya tienen reservas confirmadas";
+                        $flag = 1;
                     } else {
                         $this->availableDateDAO->Add($date);
                     }
                     $date1->modify('+1 day');
                 }
-                $_SESSION["message"][] = "Tus fechas fueron modificadas";
-
+                if($flag == 1){
+                    $_SESSION["message"][] = "Algunas de tus fechas disponibles no se modificaron por que ya tienen reservas confirmadas";
+                } else {
+                    $_SESSION["message"][] = "Tus fechas fueron modificadas";
+                }
             } catch (Exception $ex) {
                 HomeController::Index("Error al Agregar Varias Fecha Disponible");
             }
         }
     }
-
 
     public function Update($daterange)
     {
