@@ -8,8 +8,6 @@
             <?php if ($AvailableUsers != null) { ?>
                 <h2>Los siguientes Guardianes estan disponibles para cuidar a <?php echo $pet->getName() ?> </h2>
                 <br>
-
-                <!-- Aca filtramos a los keepers segun el daterange y la raza que esta cuidando actualmente-->
                 <table class="table bg-light-alpha">
                     <thead>
                         <th>Nombre</th>

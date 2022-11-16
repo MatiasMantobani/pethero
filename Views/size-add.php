@@ -6,7 +6,7 @@
     <section id="listado" class="mb-5">
         <div class="container">
             <h2 class="mb-4">Carga tus medidas</h2>
-            <p>Completa todos los campos del formulario indicando que tamaños podes cuidar</p>
+            <p>Indica que tamaños de mascotas podes cuidar</p>
             <form action="<?php echo FRONT_ROOT ?>Size/Update" method="post" class="bg-light-alpha p-5">
 
                 <div class="row">

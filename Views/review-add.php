@@ -15,7 +15,7 @@
             <form action="<?php echo FRONT_ROOT ?>Review/AddWithCheck" method="post">
 
                 <div class="container">
-                    <label for="rating" class="control-label">Como calificarias el cuidado de...:</label>
+                    <label for="rating" class="control-label">Como calificarias el cuidado de tu mascota?</label>
                     <input id="rating" name="rating" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="5">
                 </div>
 

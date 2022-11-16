@@ -5,13 +5,9 @@
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-
-           
-
                 <h2 class="mb-4">Todos los chats </h2>
                 <table class="table bg-light-alpha">
                     <thead>
-<!--                    <th>Imagen</th>-->
                     <th>Usuario</th>
                     <th>Accion</th>
                     </thead>
@@ -36,10 +32,6 @@
                     </tr>
                     </tbody>
                 </table>
-
-            
-
-
         </div>
     </section>
 </main>

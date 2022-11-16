@@ -24,7 +24,6 @@
                         <td><?php echo $user->getPhone() ?></td>
                         <td><?php echo $user->getEmail() ?></td>
                         <td><a href="<?php echo FRONT_ROOT ?>User/ShowExternalProfile/<?php echo $user->getUserid() ?>" class="btn btn-primary btn-sm">Ver</a></td>
-
                     </tr>
                     <?php
                 }
@@ -32,9 +31,6 @@
                 </tr>
                 </tbody>
             </table>
-
-
-
         </div>
     </section>
 </main>

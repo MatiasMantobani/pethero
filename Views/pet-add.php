@@ -5,7 +5,6 @@
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-            <a href="<?php echo FRONT_ROOT ?>User/ShowProfileView">Cancelar</a>
 
             <h2 class="mb-4">Registro de mascota</h2>
             <p>Completa todos los campos del formulario</p>
@@ -18,8 +17,6 @@
                             <label for="breedid">Raza de mascota</label>
                             <select class="form-control" id="breedid" name="breedid" required>
 
-                                <!----><?php //$breedList = $breedController->getAllByType($type); 
-                                        ?>
                                 <?php if ($breedList != null) {
                                     foreach ($breedList as $breed) { ?>
                                         <option value="<?php echo $breed->getBreedid() ?>"><?php echo $breed->getName() ?></option>

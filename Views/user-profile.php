@@ -52,7 +52,7 @@ require_once('nav.php');
                                     </p>
                                     <a href="<?php echo FRONT_ROOT ?>Review/ShowReviewList/<?php echo $user->getUserid() ?>">Ver todas las reviews</a>
                                 <?php } else { ?>
-                                    <p class="text-muted">Error cargando reputación </p>
+                                    <p class="text-muted">Error al cargar tu reputación </p>
                                 <?php } ?>
                             <?php } ?>
                         </div>
