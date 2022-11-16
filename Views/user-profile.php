@@ -7,11 +7,17 @@ require_once('nav.php');
     <section id="listado" class="mb-5">
         <div class="container">
 
-            <?php if ($_SESSION['message'] != null) { foreach($_SESSION['message'] as $alert) { ?>
-                <div class="alert alert-primary" role="alert">
-                    <?php if($alert != "") { echo $alert; } ?>
-                </div>
-            <?php } $_SESSION['message'] = null; $_SESSION['message'] = []; } ?>
+            <?php if ($_SESSION['message'] != null) {
+                foreach ($_SESSION['message'] as $alert) { ?>
+                    <div class="alert alert-primary" role="alert">
+                        <?php if ($alert != "") {
+                            echo $alert;
+                        } ?>
+                    </div>
+            <?php }
+                $_SESSION['message'] = null;
+                $_SESSION['message'] = [];
+            } ?>
 
             <h2 class="mb-4">Bienvenid@ <?php echo $user->getName(); ?></h2>
 
@@ -87,7 +93,13 @@ require_once('nav.php');
                                     <div class="col-6 mb-3">
                                         <?php if ($_SESSION['type'] == 'G') { ?>
                                             <h6>Editar disponibilidad: </h6>
-                                            <p class="text-muted"><?php echo "De: " . $firstDate . " hasta ". $lastDate ?></p>
+
+                                            <?php if ($AvailableDateList) { ?>
+                                                <p class="text-muted"><?php echo "De: " . $firstDate . " hasta " . $lastDate ?></p>
+                                            <?php }else{ ?>
+                                                <p class="text-muted">Sin Fechas Disponibles Cargadas</p>
+                                            <?php } ?>
+
                                             <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView" class="btn btn-dark btn-sm">Editar disponibilidad <i class="far fa-edit"></i></a></p>
                                         <?php } ?>
                                     </div>

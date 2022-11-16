@@ -101,11 +101,19 @@ class UserController
             //GUARDIAN
             if ($_SESSION['type'] == 'G') {
 
+                // Mostrar primer y ultima fecha disponible
                 $availableDate = new AvailableDate();
-                $dateList = $availableDate->GetByUserId($_SESSION['userid']);
-                $firstDate = $dateList[0]->getDate();
-                $dateCount = count($dateList) - 1;
-                $lastDate = $dateList[$dateCount]->getDate();
+                $AvailableDateList = $availableDate->GetByUserId($_SESSION['userid']);
+
+                if($AvailableDateList){
+                    $firstDate = $AvailableDateList[0]->getDate();
+                    $dateCount = count($AvailableDateList) - 1;
+                    $lastDate = $AvailableDateList[$dateCount]->getDate();
+                }else{
+                    $firstDate = "SIN CARGAR";
+                    $lastDate = "SIN CARGAR";
+                }
+                
 
                 //tamaños aceptados
                 $SizeController = new SizeController();
