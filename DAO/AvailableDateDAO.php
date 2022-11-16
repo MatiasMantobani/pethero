@@ -162,4 +162,21 @@ class AvailableDateDAO
             throw $ex;
         }
     }
+    public function DeleteSpecificDate ($specificDate)
+    {
+        try{
+        $query = "CALL delete_available_by_date(?,?);";
+
+        $parameters["date"]=$specificDate->getDate();
+        $parameters["userid"]=$specificDate->getUserid();
+
+        $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+        
+
+            } catch (Exception $ex) {
+                throw $ex;
+            }
+    }
 }

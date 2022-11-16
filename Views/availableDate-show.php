@@ -9,6 +9,7 @@
             <table class="table bg-light-alpha">
                 <thead>
                     <th>Fecha</th>
+                    <th>Acción</th>
                 </thead>
                 <tbody>
                 <?php
@@ -16,7 +17,15 @@
                     ?>
                     <tr>
                         <td><?php echo $fecha->getDate() ?></td>
+                                        <td> <?php if ($fecha->getAvailable() == 0) {  ?>
+                        <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>AvailableDate/DeleteSpecificDate/<?php echo $fecha->getdate() ?>" class="btn btn-dark btn-sm">Borrar fecha<i class="far fa-edit"></i></a></p>
+ 
+<?php } else {
+    echo "Fecha reservada";
+} ?> </td>
                     </tr>
+  
+
                     <?php
                 }
                 ?>
