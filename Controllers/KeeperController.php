@@ -34,6 +34,16 @@ class KeeperController
     }
 
 
+    public function validateKeeper()
+    {
+        if ($_SESSION["type"] == "G") {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
+
     public function Add($userid)
     {
         if ($this->validate()) {
@@ -53,7 +63,7 @@ class KeeperController
 
     public function ShowUpdatePricingView()
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateKeeper()) {
             try {
                 $keeper = $this->getByUserId($_SESSION['userid']);
                 require_once(VIEWS_PATH . "pricing-update.php");
