@@ -25,9 +25,20 @@ class VacunationImageController
         }
     }
 
+    
+    public function validateOwner()
+    {
+        if ($_SESSION["type"] == "D") {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
+
     public function ShowUploadView($petid)
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateOwner()) {
             require_once(VIEWS_PATH . "vacunation-image-upload.php");
         }
     }
