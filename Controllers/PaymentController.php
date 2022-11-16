@@ -51,7 +51,7 @@ class PaymentController
             try {
                 return $this->paymentDAO->GetAllByUserIdTransmitter($userid);
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Pago");
+                HomeController::Index("Error al Cosneguir Todos los Pago");
             }
         }
     }
@@ -63,7 +63,7 @@ class PaymentController
             try {
                 return $this->paymentDAO->GetAllByUserIdReceiver($userid);
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Pago");
+                HomeController::Index("Error al Conseguir Pago");
             }
         }
     }
@@ -76,7 +76,7 @@ class PaymentController
             try {
                 return $this->paymentDAO->GetByReserveId($reserveid);
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Pago");
+                HomeController::Index("Error al Conseguir Pago");
             }
         }
     }
@@ -95,7 +95,7 @@ class PaymentController
                 }
                 return $firstPayment;
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Pago");
+                HomeController::Index("Error al Conseguir Primer Pago");
             }
         }
     }
@@ -107,7 +107,7 @@ class PaymentController
             try {
                 $this->paymentDAO->UpdatePayment($paymentid);
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Pago");
+                HomeController::Index("Error al Modificar Pago");
             }
         }
     }
@@ -123,7 +123,7 @@ class PaymentController
                     return $this->paymentDAO->GetKeeperPayments($_SESSION['userid']);
                 }
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Pago");
+                HomeController::Index("Error al Conseguir mis Pago");
             }
         }
     }
@@ -148,7 +148,7 @@ class PaymentController
                     $userController->ShowProfileView();
                 }
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Pago");
+                HomeController::Index("Error al Mostrar Lista de Pago");
             }
         }
     }
