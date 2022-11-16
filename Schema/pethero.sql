@@ -43,6 +43,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `check_for_overlapping_reserves` (IN
 SELECT COUNT(reserve.petid) FROM reserve WHERE ((reserve.petid = Petid) AND ((Firstdate <= reserve.lastdate) AND (Lastdate >= reserve.firstdate)) AND ((reserve.status != "rejected") AND (reserve.status != "canceled")));
 END$$
 
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_available_by_date`(IN `Date` DATE, IN `Userid` INT)
+BEGIN
+DELETE FROM availabledates WHERE (availabledates.date = date AND availabledates.userid = Userid AND availabledates.available = 0);
+-- Como de costumbre checkea que la fecha disponible sea 0 antes de borrarla para no borrar cuando el usuario tenga una fecha ocupada
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getReserveByDay` (IN `KeeperUserId` INT(11), IN `Date` DATE)   SELECT reserve.petid FROM reserve WHERE (reserve.receiverid = KeeperUserId AND Date BETWEEN reserve.firstdate AND reserve.lastdate)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_user_login` (IN `Email` VARCHAR(100), IN `Password` VARCHAR(100))   BEGIN
@@ -160,6 +167,8 @@ SET name=Name
 WHERE
 petid=Petid;
 END$$
+
+
 
 DELIMITER ;
 
