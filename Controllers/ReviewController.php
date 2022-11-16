@@ -18,6 +18,15 @@ class ReviewController
         $this->reviewDAO = new ReviewDAO();
     }
 
+    public function validate()
+    {
+        if (isset($_SESSION["userid"])) {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
     public function ShowAddView($reserveid)
     {
         $reserva = $reserveid;

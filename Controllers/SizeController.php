@@ -15,6 +15,15 @@ class SizeController
         $this->sizeDAO = new SizeDAO();
     }
 
+    public function validate()
+    {
+        if (isset($_SESSION["userid"])) {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
     public function ShowAddView()
     {
         $size = $this->getByUserId($_SESSION['userid']);
@@ -101,7 +110,6 @@ class SizeController
     }
 
 }
-?>
 
 /*
 
