@@ -45,6 +45,15 @@ class ReserveController
         }
     }
 
+    public function validateOwner()
+    {
+        if ($_SESSION["type"] == "D") {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
     //lo llama el boton de ver historial de reservas
     public function ShowReservesView($pseudostatus)
     {
@@ -117,7 +126,7 @@ class ReserveController
         }
     }
 
-    public function ShowAllReservesView()
+    public function ShowAllReservesView()   //la comparten los 2
     {
         if ($this->validate()) {
             try {
@@ -270,7 +279,7 @@ class ReserveController
 
     public function showAddView($choosePetid = null)  //parametro entra de reserve-add (por si selecciona reservar desde la mascota)
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateOwner()) {
             try {
                 //para reservar user debe tener estado 1
                 $userController = new UserController();
@@ -285,17 +294,6 @@ class ReserveController
                     $userController = new UserController();
                     $userController->ShowProfileView();
                 }
-
-                // $listadoMascotas = $this->PetController->GetMyActive($_SESSION['userid']);
-                // $choosePet = $this->PetController->PetFinder($choosePetid);
-                // //para evitar mostrar una lista vacia
-                // if ($listadoMascotas != null && count($listadoMascotas) > 0) {
-                //     require_once(VIEWS_PATH . "reserve-add.php");
-                // } else {
-                //     $_SESSION["message"][] = "No tienes mascotas activas para reservar, agrega a una mascota foto de perfil y carnet de vacunacion para comenzar";
-                //     $userController = new UserController();
-                //     $userController->ShowProfileView();
-                // }
             } catch (Exception $ex) {
                 HomeController::Index("Error al mostrar la vista de Generar Reserva");
             }
@@ -305,72 +303,78 @@ class ReserveController
 
     public function showChooseKeeperView($petid, $daterange)
     {
-        $pet = $this->PetController->PetFinder($petid);
+        if ($this->validate() && $this->validateOwner()) {
+            try {
 
-        $breed = $pet->getBreedId();
+                $pet = $this->PetController->PetFinder($petid);
 
-        //parseo atributos
-        $dateArray = explode(",", $daterange);
-        $dateStart = new DateTime($dateArray[0]);
-        $dateFinish = new DateTime($dateArray[1]);
-        $dateStart2 = new DateTime($dateArray[0]);
-        $dateFinish2 = new DateTime($dateArray[1]);
+                $breed = $pet->getBreedId();
 
-        ///
-        $overlapping = $this->CheckOverlapping($petid, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));  //checkeamos que la mascota no tenga una reserva existente en esa fecha
-        if ($overlapping == 0) {
-            //obtenemos ids de los "disponibles" (aquellos que tienen al menos una fecha en el rango del dueño)
-            $AvailableDates = $this->AvailableDateController->getAvailablesListByDatesAndBreed($breed, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));
-            $pseudoAvailableUsers = array();
-            $flag = 0;
-            if ($AvailableDates != null) {
-                foreach ($AvailableDates as $user) {
+                //parseo atributos
+                $dateArray = explode(",", $daterange);
+                $dateStart = new DateTime($dateArray[0]);
+                $dateFinish = new DateTime($dateArray[1]);
+                $dateStart2 = new DateTime($dateArray[0]);
+                $dateFinish2 = new DateTime($dateArray[1]);
+
+                $overlapping = $this->CheckOverlapping($petid, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));  //checkeamos que la mascota no tenga una reserva existente en esa fecha
+                if ($overlapping == 0) {
+                    //obtenemos ids de los "disponibles" (aquellos que tienen al menos una fecha en el rango del dueño)
+                    $AvailableDates = $this->AvailableDateController->getAvailablesListByDatesAndBreed($breed, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));
+                    $pseudoAvailableUsers = array();
                     $flag = 0;
-                    foreach ($pseudoAvailableUsers as $user2) {
-                        if ($user->getUserid() == $user2->getUserid()) {
-                            $flag = 1;
+                    if ($AvailableDates != null) {
+                        foreach ($AvailableDates as $user) {
+                            $flag = 0;
+                            foreach ($pseudoAvailableUsers as $user2) {
+                                if ($user->getUserid() == $user2->getUserid()) {
+                                    $flag = 1;
+                                }
+                            }
+                            if ($flag == 0) {
+                                array_push($pseudoAvailableUsers, $this->UserController->GetUserById($user->getUserid()));
+                            }
                         }
                     }
-                    if ($flag == 0) {
-                        array_push($pseudoAvailableUsers, $this->UserController->GetUserById($user->getUserid()));
-                    }
-                }
-            }
 
-            //obtenemos todos los dias marcados por el dueño
-            $availables = array();
-            while ($dateStart <= $dateFinish) {
-                $date1 = new DateTime();
-                $date1 = $dateStart;
-                $date2 = $date1->format('Y-m-d');
-                array_push($availables, $date2);
-                $dateStart->modify('+1 day');
-            }
-
-            //se guardan los users
-            $AvailableUsers = array();
-            $AvailableKeepers = array();
-            foreach ($pseudoAvailableUsers as $user) {
-                $flag = 0;
-                foreach ($availables as $date) {
-
-                    if (!($this->AvailableDateController->CheckDate($user->getUserid(), $date))) {
-                        $flag = 1;
-                    }
-                }
-                if ($flag == 0) {
-                    if ($user->getStatus() == 1) {
-                        array_push($AvailableUsers, $user);
+                    //obtenemos todos los dias marcados por el dueño
+                    $availables = array();
+                    while ($dateStart <= $dateFinish) {
+                        $date1 = new DateTime();
+                        $date1 = $dateStart;
+                        $date2 = $date1->format('Y-m-d');
+                        array_push($availables, $date2);
+                        $dateStart->modify('+1 day');
                     }
 
-                    //se guardan los keepers (que son el mismo usuario)
-                    $keeper = $this->KeeperController->getByUserId($user->getUserid());
-                    array_push($AvailableKeepers, $keeper);
+                    //se guardan los users
+                    $AvailableUsers = array();
+                    $AvailableKeepers = array();
+                    foreach ($pseudoAvailableUsers as $user) {
+                        $flag = 0;
+                        foreach ($availables as $date) {
+
+                            if (!($this->AvailableDateController->CheckDate($user->getUserid(), $date))) {
+                                $flag = 1;
+                            }
+                        }
+                        if ($flag == 0) {
+                            if ($user->getStatus() == 1) {
+                                array_push($AvailableUsers, $user);
+                            }
+
+                            //se guardan los keepers (que son el mismo usuario)
+                            $keeper = $this->KeeperController->getByUserId($user->getUserid());
+                            array_push($AvailableKeepers, $keeper);
+                        }
+                    }
+                    require_once(VIEWS_PATH . "choose-keeper.php");
+                } else {
+                    HomeController::Index("La mascota ya tiene reservas asignadas dentro del periodo elegido");
                 }
+            } catch (Exception $ex) {
+                HomeController::Index("Error al Mostrar Elegir Reserva");
             }
-            require_once(VIEWS_PATH . "choose-keeper.php");
-        } else {
-            HomeController::Index("La mascota ya tiene reservas asignadas dentro del periodo elegido");
         }
     }
 
