@@ -156,6 +156,7 @@ class PaymentController
 
 
 /*
+
 if ($this->validate()) {
 try {
 

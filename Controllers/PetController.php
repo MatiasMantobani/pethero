@@ -26,6 +26,16 @@ class PetController
     }
 
 
+    public function validate()
+    {
+        if (isset($_SESSION["userid"])) {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
+
     // 0 : dadas de baja
     // 1 : sin carnet, no puede hacer reservas
     // 2 : disponible
@@ -34,22 +44,28 @@ class PetController
     //carga y muestra mascotas en navbar dueño
     public function ShowListView()
     {
-        $petList = $this->petDAO->GetMyPets($_SESSION['userid']);  //muestra las sin carnet y disponibles
-        $breeds = array();
-        $breedController = new BreedController();
-        foreach ($petList as $pet) {
-            array_push($breeds, $breedController->getByBreedId($pet->getBreedid()));
-        }
+        if ($this->validate()) {
+            try {
+                $petList = $this->petDAO->GetMyPets($_SESSION['userid']);  //muestra las sin carnet y disponibles
+                $breeds = array();
+                $breedController = new BreedController();
+                foreach ($petList as $pet) {
+                    array_push($breeds, $breedController->getByBreedId($pet->getBreedid()));
+                }
 
 
 
-        //para evitar mostrar una lista vacia
-        if (count($petList) > 0) {
-            require_once(VIEWS_PATH . "pet-list.php");
-        } else {
-            $_SESSION["message"][] = "No tienes mascotas para mostrar";
-            $userController = new UserController();
-            $userController->ShowProfileView();
+                //para evitar mostrar una lista vacia
+                if (count($petList) > 0) {
+                    require_once(VIEWS_PATH . "pet-list.php");
+                } else {
+                    $_SESSION["message"][] = "No tienes mascotas para mostrar";
+                    $userController = new UserController();
+                    $userController->ShowProfileView();
+                }
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Mascota");
+            }
         }
     }
 
@@ -57,11 +73,17 @@ class PetController
     //dadas de baja
     public function GetMyDischarged($userid)
     {
-        $petList = $this->petDAO->GetByUseridAndStatus($_SESSION['userid'], 0);
-        if ($petList) {
-            return $petList;
-        } else {
-            return null;
+        if ($this->validate()) {
+            try {
+                $petList = $this->petDAO->GetByUseridAndStatus($_SESSION['userid'], 0);
+                if ($petList) {
+                    return $petList;
+                } else {
+                    return null;
+                }
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Mascota");
+            }
         }
     }
 
@@ -69,11 +91,17 @@ class PetController
     //no pueden hacer reservas
     public function GetMyPaused($userid)
     {
-        $petList = $this->petDAO->GetByUseridAndStatus($_SESSION['userid'], 1);
-        if ($petList) {
-            return $petList;
-        } else {
-            return null;
+        if ($this->validate()) {
+            try {
+                $petList = $this->petDAO->GetByUseridAndStatus($_SESSION['userid'], 1);
+                if ($petList) {
+                    return $petList;
+                } else {
+                    return null;
+                }
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Mascota");
+            }
         }
     }
 
@@ -81,124 +109,196 @@ class PetController
     // pueden hacer reservas
     public function GetMyActive($userid)
     {
-        $petList = $this->petDAO->GetByUseridAndStatus($_SESSION['userid'], 2);
-        if ($petList) {
-            return $petList;
-        } else {
-            return null;
+        if ($this->validate()) {
+            try {
+                $petList = $this->petDAO->GetByUseridAndStatus($_SESSION['userid'], 2);
+                if ($petList) {
+                    return $petList;
+                } else {
+                    return null;
+                }
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Mascota");
+            }
         }
     }
 
 
     public function validateStatus($petid)
     {
-        $petImageController = new PetImageController();
-        $vacunationImageController = new VacunationImageController();
-        $pet = $this->petDAO->GetByPetId($petid);
+        if ($this->validate()) {
+            try {
+                $petImageController = new PetImageController();
+                $vacunationImageController = new VacunationImageController();
+                $pet = $this->petDAO->GetByPetId($petid);
 
-        if ($petImageController->ShowImage($petid) && $vacunationImageController->ShowImage($petid) && $pet->getStatus() != 0) {
-            $this->petDAO->UpdateStatus($petid, 2);
-        } else {
-            $this->petDAO->UpdateStatus($petid, 1);
+                if ($petImageController->ShowImage($petid) && $vacunationImageController->ShowImage($petid) && $pet->getStatus() != 0) {
+                    $this->petDAO->UpdateStatus($petid, 2);
+                } else {
+                    $this->petDAO->UpdateStatus($petid, 1);
+                }
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Mascota");
+            }
         }
     }
 
 
     public function ShowProfileView($petid)
     {
+        if ($this->validate()) {
+            try {
+                $this->validateStatus($petid);
 
-        $this->validateStatus($petid);
+                //para cambiar estado al dueño si completa fotos mascota
+                $userController = new UserController();
+                $userController->validateStatus();
 
-        //para cambiar estado al dueño si completa fotos mascota
-        $userController = new UserController();
-        $userController->validateStatus();
+                $pet = $this->petDAO->GetByPetId($petid);
 
-        $pet = $this->petDAO->GetByPetId($petid);
+                $breedid = $pet->getBreedid();
+                $breed = $this->breedController->getByBreedId($breedid);
 
-        $breedid = $pet->getBreedid();
-        $breed = $this->breedController->getByBreedId($breedid);
+                $petImage = $this->petImageController->ShowImage($pet->getPetid());
+                $vacunationImage = $this->vacunationImageController->ShowImage($pet->getPetid());
 
-        $petImage = $this->petImageController->ShowImage($pet->getPetid());
-        $vacunationImage = $this->vacunationImageController->ShowImage($pet->getPetid());
+                if (empty($petImage)) {
+                    $_SESSION['message'][] = "Para comenzar, subi mi foto";
+                }
 
-        if (empty($petImage)) {
-            $_SESSION['message'][] = "Para comenzar, subi mi foto";
+                if (empty($petImage)) {
+                    $_SESSION['message'][] = "Subí mi carnet de vacunación";
+                }
+
+                require_once(VIEWS_PATH . "pet-profile.php");
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Mascota");
+            }
         }
-
-        if (empty($petImage)) {
-            $_SESSION['message'][] = "Subí mi carnet de vacunación";
-        }
-
-        require_once(VIEWS_PATH . "pet-profile.php");
     }
+
 
     public function ShowAddView($name, $type, $observations)
     {
-        $breedList = $this->breedController->getAllByType($type);
-        require_once(VIEWS_PATH . "pet-add.php");
+        if ($this->validate()) {
+            try {
+                $breedList = $this->breedController->getAllByType($type);
+                require_once(VIEWS_PATH . "pet-add.php");
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Mascota");
+            }
+        }
     }
+
 
     public function ShowPreAddView()
     {
-        require_once(VIEWS_PATH . "pet-preadd.php");
+        if ($this->validate()) {
+            try {
+                require_once(VIEWS_PATH . "pet-preadd.php");
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Mascota");
+            }
+        }
     }
+
 
     public function ShowUpdateView($petid)
     {
-        $pet = $this->petDAO->GetByPetId($petid);
-        require_once(VIEWS_PATH . "pet-update.php");
+        if ($this->validate()) {
+            try {
+                $pet = $this->petDAO->GetByPetId($petid);
+                require_once(VIEWS_PATH . "pet-update.php");
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Mascota");
+            }
+        }
     }
 
 
     public function Add($breedid, $name, $observations)
     {
-        $pet = new Pet();
+        if ($this->validate()) {
+            try {
+                $pet = new Pet();
 
-        $pet->setUserid($_SESSION['userid']);
-        $pet->setBreedid($breedid);
-        $pet->setName($name);
-        $pet->setObservations($observations);
+                $pet->setUserid($_SESSION['userid']);
+                $pet->setBreedid($breedid);
+                $pet->setName($name);
+                $pet->setObservations($observations);
 
-        $this->petDAO->Add($pet);
+                $this->petDAO->Add($pet);
 
-        $_SESSION['message'][] = "Mascota cargada con exito. No olvides subir al perfil foto y carnet de vacunacion";
+                $_SESSION['message'][] = "Mascota cargada con exito. No olvides subir al perfil foto y carnet de vacunacion";
 
-        $userController = new UserController();
-        $userController->ShowProfileView();
+                $userController = new UserController();
+                $userController->ShowProfileView();
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Mascota");
+            }
+        }
     }
 
-    //la excepcion de DAO se debe manejhar aca con try-catch
 
     public function Update($petid, $breedid, $name, $observations)
     {
+        if ($this->validate()) {
+            try {
+                $pet = new Pet();
+                $pet->setPetid($petid);
+                $pet->setBreedid($breedid);
+                $pet->setName($name);
+                $pet->setObservations($observations);
 
-        // $this->petDAO->Remove($petid);
-        // $this->Add($breedid, $name, $observations);
+                $_SESSION['message'][] = "Mascota modificada con exito";
 
-        $pet = new Pet();
-        $pet->setPetid($petid);
-        $pet->setBreedid($breedid);
-        $pet->setName($name);
-        $pet->setObservations($observations);
-
-        $_SESSION['message'][] = "Mascota modificada con exito";
-
-        $this->petDAO->Update($pet);
-        $this->ShowProfileView($pet->getPetid());
+                $this->petDAO->Update($pet);
+                $this->ShowProfileView($pet->getPetid());
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Mascota");
+            }
+        }
     }
+
 
     public function PetFinder($petid)   //retorna 1 mascota
     {
-        return $this->petDAO->GetByPetId($petid);
+        if ($this->validate()) {
+            try {
+                return $this->petDAO->GetByPetId($petid);
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Mascota");
+            }
+        }
     }
+
 
     public function Remove($petid)
     {
-        $this->petDAO->Remove($petid);
+        if ($this->validate()) {
+            try {
+                $this->petDAO->Remove($petid);
 
-        $_SESSION['message'][] = "Mascota quitada con exito";
+                $_SESSION['message'][] = "Mascota quitada con exito";
 
-        $userController = new UserController();
-        $userController->ShowProfileView();
+                $userController = new UserController();
+                $userController->ShowProfileView();
+            } catch (Exception $ex) {
+                HomeController::Index("Error al ... Mascota");
+            }
+        }
     }
 }
+
+
+/*
+
+if ($this->validate()) {
+try {
+
+} catch (Exception $ex) {
+    HomeController::Index("Error al ... Mascota");
+}
+}
+
+*/
