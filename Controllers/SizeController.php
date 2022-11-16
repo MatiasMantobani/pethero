@@ -43,7 +43,7 @@ class SizeController
 
                 $this->sizeDAO->Add($size);
 
-                $_SESSION['message'][] = "Tamaño cargado con éxito";
+                MessageController::add("Tamaño cargado con éxito");
                 $controller = new UserController();
                 $controller->ShowProfileView();
             } catch (Exception $ex) {
@@ -57,7 +57,7 @@ class SizeController
             try {
                 if ($small == false && $medium == false && $large == false){
                     $controller = new UserController();
-                    $_SESSION['message'][] = "Error: Debe aceptar al menos un tamaño";
+                    MessageController::add("Error: Debe aceptar al menos un tamaño");
                     $controller->ShowProfileView();
                 } else {
                     if($this->SizeFinder($_SESSION['userid'])){

@@ -80,10 +80,10 @@ class KeeperController
 
                     $this->UpdateStatus(1);
 
-                    $_SESSION['message'][] = "Tarifa modificada con éxito";
+                    MessageController::add("Tarifa modificada con éxito");
                     $controller->ShowProfileView();
                 } else {
-                    $_SESSION['message'][] = "Tarifa: ingrese un importe mayor";
+                    MessageController::add("Tarifa: ingrese un importe mayor");
                     $controller->ShowProfileView();
                 }
             } catch (Exception $ex) {
@@ -115,9 +115,9 @@ class KeeperController
 
                 $this->keeperDAO->UpdateStatus($keeper);;
 
-                $_SESSION['message'][] = "El usuario fue actualizado con éxito";
-                $controller = new UserController();
-                $controller->ShowProfileView();
+                //MessageController::add("El usuario fue actualizado con éxito");
+                //$controller = new UserController();
+                //$controller->ShowProfileView();
             } catch (Exception $ex) {
                 HomeController::Index("Error al Modificar Estado de Guardian");
             }

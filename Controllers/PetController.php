@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Controllers\MessageController as MessageController;
 use \Exception as Exception;
 use DAO\PetDAO as PetDAO;
 use Models\Pet as Pet;
@@ -55,7 +56,7 @@ class PetController
                 if (count($petList) > 0) {
                     require_once(VIEWS_PATH . "pet-list.php");
                 } else {
-                    $_SESSION["message"][] = "No tienes mascotas para mostrar";
+                    MessageController::add("No tienes mascotas para mostrar");
                     $userController = new UserController();
                     $userController->ShowProfileView();
                 }
@@ -158,13 +159,16 @@ class PetController
                 $petImage = $this->petImageController->ShowImage($pet->getPetid());
                 $vacunationImage = $this->vacunationImageController->ShowImage($pet->getPetid());
 
-                if (empty($petImage)) {
-                    $_SESSION['message'][] = "Para comenzar, subi mi foto";
+                if ($petImage == null) {
+                    MessageController::add("Para comenzar, subi mi foto");
                 }
 
-                if (empty($petImage)) {
-                    $_SESSION['message'][] = "Subí mi carnet de vacunación";
+                if ($vacunationImage == null) {
+                    MessageController::add("Subí mi carnet de vacunación");
                 }
+
+                $messages = MessageController::getAll();
+                MessageController::clear();
 
                 require_once(VIEWS_PATH . "pet-profile.php");
             } catch (Exception $ex) {
@@ -225,7 +229,7 @@ class PetController
 
                 $this->petDAO->Add($pet);
 
-                $_SESSION['message'][] = "Mascota cargada con exito. No olvides subir al perfil foto y carnet de vacunacion";
+                MessageController::add("Mascota cargada con exito. No olvides subir al perfil foto y carnet de vacunacion");
 
                 $userController = new UserController();
                 $userController->ShowProfileView();
@@ -246,7 +250,7 @@ class PetController
                 $pet->setName($name);
                 $pet->setObservations($observations);
 
-                $_SESSION['message'][] = "Mascota modificada con exito";
+                MessageController::add("Mascota modificada con exito");
 
                 $this->petDAO->Update($pet);
                 $this->ShowProfileView($pet->getPetid());
@@ -275,7 +279,7 @@ class PetController
             try {
                 $this->petDAO->Remove($petid);
 
-                $_SESSION['message'][] = "Mascota quitada con exito";
+                MessageController::add("Mascota quitada con exito");
 
                 $userController = new UserController();
                 $userController->ShowProfileView();

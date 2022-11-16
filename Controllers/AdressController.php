@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Controllers\MessageController as MessageController;
 use \Exception as Exception;
 use DAO\AdressDAO as AdressDAO;
 use Models\Adress as Adress;
@@ -43,7 +44,7 @@ class AdressController
                 if ($this->AdressFinder($_SESSION['userid'])) {
                     $this->adressDAO->Update($_SESSION['userid'], $street, $number, $floor, $department, $postalcode);
 
-                    $_SESSION['message'][] = "Domicilio modificado con exito";
+                    MessageController::add("Domicilio modificado con exito");
                 } else {
                     $this->Add($street, $number, $floor, $department, $postalcode);
                 }
@@ -117,20 +118,3 @@ class AdressController
         }
     }
 }
-
-/*
-
-if ($this->validate()) {
-            
-        }
-
-
-        // Si solo llama a vista con requiere no lleva try-catch
-        // Si llama directa o indirectamente a un metodo de algun DAO lleva try-catch
-        // Si llama a otro metodo que ya tiene un try-catch no lleva try-catch
-try {
-        } catch (Exception $ex) {
-            HomeController::Index("Error al ... Direccion");
-        }
-
-*/

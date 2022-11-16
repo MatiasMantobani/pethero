@@ -16,6 +16,7 @@ use Controllers\AvailableDateController as AvailableDate;
 use Controllers\KeeperController as KeeperController;
 use Controllers\ReserveController as ReserveController;
 use Controllers\HomeController as HomeController;
+use Controllers\MessageController as MessageController;
 
 class UserController
 {
@@ -65,7 +66,7 @@ class UserController
                 if (count($guardianList) > 0) {
                     require_once(VIEWS_PATH . "guardian-list.php");
                 } else {
-                    $_SESSION["message"][] = "Parece que no hay guardianes por tu zona, intenta de nuevo mas tarde";
+                    MessageController::add("Parece que no hay guardianes por tu zona, intenta de nuevo mas tarde");
                     $userController = new UserController();
                     $userController->ShowProfileView();
                 }
@@ -93,7 +94,7 @@ class UserController
             $userImage = $userImageController->ShowImage($_SESSION['userid']);
 
             if ($adress == null) {
-                $_SESSION['message'][] = "Para comenzar, debés ingresar tu domicilio";
+                MessageController::add("Para comenzar, debés ingresar tu domicilio");
             }
 
             //DUEÑO
@@ -122,7 +123,7 @@ class UserController
                 $SizeController = new SizeController();
                 $size = $SizeController->getByUserId($_SESSION['userid']);
                 if ($size == null) {
-                    $_SESSION['message'][] = "Para cuidar mascotas, debés cargar el tamaño que aceptas";
+                    MessageController::add("Para cuidar mascotas, debés cargar el tamaño que aceptas");
                 }
 
                 //rating
@@ -133,14 +134,16 @@ class UserController
                 //remuneracion y creacion de keeper
                 $keeper = $this->keeperController->getByUserId($_SESSION['userid']);
                 if ($keeper == null) {
-                    $_SESSION['message'][] = "Agregue una remuneracion diferente a 0 para comenzar";
+                    MessageController::add("Agregue una remuneracion diferente a 0 para comenzar");
                     $keeper = $this->keeperController->Add($_SESSION['userid']);    //si keeper no existe lo crea
                 } else {
                     if ($keeper->getPricing() == 0) {
-                        $_SESSION['message'][] = "Agregue una remuneracion diferente a 0 para comenzar";
+                        MessageController::add("Agregue una remuneracion diferente a 0 para comenzar");
                     }
                 }
             }
+            $messages = MessageController::getAll();
+            MessageController::clear();
 
             $this->validateStatus();    // Checks for adress and pets for owner and keeper
             require_once(VIEWS_PATH . "user-profile.php");
@@ -254,7 +257,7 @@ class UserController
                     $this->userDAO->Update($user);
                     $this->ShowProfileView();
                 } else {
-                    $_SESSION['message'][] = "Error al actualizar los datos";
+                    MessageController::add("Error al actualizar los datos");
                     $this->ShowProfileView();
                 }
             } catch (Exception $ex) {

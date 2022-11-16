@@ -7,6 +7,7 @@ use Models\User as User;
 use DAO\UserDAO as UserDAO;
 use Controllers\UserController as UserController;
 use Controllers\HomeController as HomeController;
+use Controllers\MessageController as MessageController;
 
 class AuthController
 {
@@ -27,13 +28,12 @@ class AuthController
             if ($user) {
                 $_SESSION['userid'] = $user->getUserid();
                 $_SESSION['type'] = $user->getType();
-                $_SESSION['message'] = [];
+                MessageController::add("Bienvenide!");
 
                 $userController = new UserController();
                 $userController->ShowProfileView();
             } else {
-                $homeController = new HomeController();
-                $homeController->Index("Usuario y/o clave incorrectas<br>");
+                HomeController::Index("Usuario y/o clave incorrectas");
             }
         } catch (Exception $ex) {
             HomeController::Index("Error al Loguearse");
@@ -45,7 +45,7 @@ class AuthController
     {
         unset($_SESSION['userid']);
         unset($_SESSION['type']);
-        unset($_SESSION['message']);
+        MessageController::clear();
         session_destroy();
 
         HomeController::Index("Te deslogueaste correctamente");
@@ -57,10 +57,3 @@ class AuthController
     }
 }
 
-/*
-try {
-} catch (Exception $ex) {
-HomeController::Index("Error al ... Autentificar");
-}
-
-*/

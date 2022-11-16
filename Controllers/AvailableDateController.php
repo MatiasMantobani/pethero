@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Controllers\MessageController as MessageController;
 use \Exception as Exception;
 use Cassandra\Date;
 use DAO\AvailableDateDAO as AvailableDateDAO;
@@ -96,7 +97,7 @@ class AvailableDateController
             if (count($fechas) > 0) {
                 require_once(VIEWS_PATH . "availableDate-show.php");
             } else {
-                $_SESSION["message"][] = "No tienes Fechas Disponibles para mostrar";
+                MessageController::add("No tienes Fechas Disponibles para mostrar");
                 $userController = new UserController();
                 $userController->ShowProfileView();
             }
@@ -143,9 +144,9 @@ class AvailableDateController
                     $date1->modify('+1 day');
                 }
                 if($flag == 1){
-                    $_SESSION["message"][] = "Algunas de tus fechas disponibles no se modificaron por que ya tienen reservas confirmadas";
+                    MessageController::add("Algunas de tus fechas disponibles no se modificaron por que ya tienen reservas confirmadas");
                 } else {
-                    $_SESSION["message"][] = "Tus fechas fueron modificadas";
+                    MessageController::add("Tus fechas fueron modificadas");
                 }
             } catch (Exception $ex) {
                 HomeController::Index("Error al Agregar Varias Fecha Disponible");

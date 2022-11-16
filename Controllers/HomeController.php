@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Controllers\MessageController as MessageController;
 use Controllers\UserController as UserController;
 
 class HomeController
@@ -10,7 +11,7 @@ class HomeController
     {
         if (isset($_SESSION["userid"])) {
             if($message != "") {
-                $_SESSION['message'][] = $message;
+                MessageController::add($message);
             }
             $userController = new UserController();
             $userController->ShowProfileView();

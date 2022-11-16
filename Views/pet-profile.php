@@ -6,11 +6,11 @@
     <section id="listado" class="mb-5">
         <div class="container">
 
-            <?php if ($_SESSION['type'] == "D" && $_SESSION['message'] != null) { foreach($_SESSION['message'] as $alert) { ?>
+            <?php if($_SESSION['type'] == "D") { foreach ($messages as $alert) { ?>
                 <div class="alert alert-primary" role="alert">
-                    <?php if($alert != "") { echo $alert; } ?>
+                    <?php if ($alert != "") { echo $alert; } ?>
                 </div>
-                <?php } $_SESSION['message'] = null; $_SESSION['message'] = []; } ?>
+            <?php } } ?>
             <h2 class="mb-4">Estás viendo a <?php echo $pet->getName(); ?></h2>
 
             <div class="col col-lg-12 mb-4 mb-lg-0">

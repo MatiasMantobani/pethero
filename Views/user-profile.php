@@ -1,4 +1,5 @@
 <?php
+
 require_once(VIEWS_PATH . "header.php");
 require_once('nav.php');
 ?>
@@ -7,17 +8,11 @@ require_once('nav.php');
     <section id="listado" class="mb-5">
         <div class="container">
 
-            <?php if ($_SESSION['message'] != null) {
-                foreach ($_SESSION['message'] as $alert) { ?>
+            <?php foreach ($messages as $alert) { ?>
                     <div class="alert alert-primary" role="alert">
-                        <?php if ($alert != "") {
-                            echo $alert;
-                        } ?>
+                        <?php if ($alert != "") { echo $alert; } ?>
                     </div>
-            <?php }
-                $_SESSION['message'] = null;
-                $_SESSION['message'] = [];
-            } ?>
+            <?php } ?>
 
             <h2 class="mb-4">Bienvenid@ <?php echo $user->getName(); ?></h2>
 

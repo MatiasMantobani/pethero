@@ -13,7 +13,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="pricing">Tarifa</label>
-                            <input type="number" id="pricing" name="pricing" value="<?php if($keeper != null) { echo $keeper->getPricing(); } ?>" class="form-control" required>
+                            <input type="number" id="pricing" min="1" name="pricing" value="<?php if($keeper != null) { echo $keeper->getPricing(); } ?>" class="form-control" required>
                         </div>
                     </div>
 

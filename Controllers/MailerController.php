@@ -55,16 +55,16 @@ class MailerController
                 $this->mail->setSenderMail("pethero@kateclarkph.com");
                 $mailer = $this->mailerDAO->SendEmail($this->mail);
                 if ($mailer){
-                    $_SESSION['message'][] = "Cupon de pago enviado correctamente, compruebe la casilla de correo";
+                    MessageController::add("Cupon de pago enviado correctamente, compruebe la casilla de correo");
                 } else {
-                    $_SESSION['message'][] = "El cupon de pago no se envio";
+                    MessageController::add("El cupon de pago no se envio");
                 }
 
             } else {
-                $_SESSION['message'][] = "Error al recuperar la informacion";
+                MessageController::add("Error al recuperar la informacion");
             }
         } catch (\Exception $ex){
-            $_SESSION['message'][] = "Error al enviar el cupôn de pago";
+            MessageController::add("Error al enviar el cupôn de pago");
         } // End of try
     }
 

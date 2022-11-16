@@ -107,7 +107,7 @@ class ReserveController
                 if (count($reserveList) > 0) {
                     require_once(VIEWS_PATH . "reserve-list.php");
                 } else {
-                    $_SESSION["message"][] = "No tienes reservas para mostrar";
+                    MessageController::add("No tienes reservas para mostrar");
                     $userController = new UserController();
                     $userController->ShowProfileView();
                 }
@@ -149,7 +149,7 @@ class ReserveController
                 if (count($reserveList) > 0) {
                     require_once(VIEWS_PATH . "reserve-list.php");
                 } else {
-                    $_SESSION["message"][] = "No tienes reservas para mostrar";
+                    MessageController::add("No tienes reservas para mostrar");
                     $userController = new UserController();
                     $userController->ShowProfileView();
                 }
@@ -177,7 +177,7 @@ class ReserveController
                 $payment = $paymentController->GetFirstPayment($reserveid);
                 $paymentController->UpdatePayment($payment->getPaymentid());
 
-                $_SESSION['message'][] = "Tu pago se ha acreditado correctamente";
+                MessageController::add("Tu pago se ha acreditado correctamente");
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
                 HomeController::Index("Error al pagar la Reserva");
@@ -223,7 +223,7 @@ class ReserveController
                 $this->reserveDAO->Add($reserve);
 
                 //enviar a vista perfil
-                $_SESSION['message'][] = "Reserva realizada con exito";
+                MessageController::add("Reserva realizada con exito");
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
                 HomeController::Index("Error al generar una Reserva");
@@ -281,7 +281,7 @@ class ReserveController
                     $choosePet = $this->PetController->PetFinder($choosePetid);
                     require_once(VIEWS_PATH . "reserve-add.php");
                 } else {
-                    $_SESSION["message"][] = "Debes tener una direccion y al menos una mascota activa para reservar";
+                    MessageController::add("Debes tener una direccion y al menos una mascota activa para reservar");
                     $userController = new UserController();
                     $userController->ShowProfileView();
                 }
@@ -413,7 +413,7 @@ class ReserveController
         if ($this->validate()) {
             try {
                 $this->StatusUpdate($reserveid, "rejected");
-                $_SESSION['message'][] = "Reserva rechazada";
+                MessageController::add("Reserva rechazada");
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
                 HomeController::Index("Error al rechazar la Reserva");
@@ -426,7 +426,7 @@ class ReserveController
         if ($this->validate()) {
             try {
                 $this->StatusUpdate($reserveid, "canceled");
-                $_SESSION['message'][] = "Reserva cancelada";
+                MessageController::add("Reserva cancelada");
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
                 HomeController::Index("Error al cancelar la Reserva");
@@ -439,7 +439,7 @@ class ReserveController
         if ($this->validate()) {
             try {
                 $this->StatusUpdate($reserveid, "in progress");
-                $_SESSION['message'][] = "Mascota ingresada";
+                MessageController::add("Mascota ingresada");
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
                 HomeController::Index("Error al marcar como ingresada a la mascota");
@@ -452,7 +452,7 @@ class ReserveController
         if ($this->validate()) {
             try {
                 $this->StatusUpdate($reserveid, "completed");
-                $_SESSION['message'][] = "Mascota retirada";
+                MessageController::add("Mascota retirada");
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
                 HomeController::Index("Error al marcar como retirada a la mascota");
@@ -514,9 +514,9 @@ class ReserveController
 
                     $mail = new MailerController();
                     $mail->emailSend($currentReserve->getTransmitterid(), $mitadDelTotal);
-                    $_SESSION['message'][] = "Reserva aceptada";  //no mostrarse si rechaza
+                    MessageController::add("Reserva aceptada");  //no mostrarse si rechaza
                 } else {
-                    $_SESSION['message'][] = "Esta reserva no pude ser confirmada porque tenes reservas de otra raza";
+                    MessageController::add("Esta reserva no pude ser confirmada porque tenes reservas de otra raza");
                 }
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
