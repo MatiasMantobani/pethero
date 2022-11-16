@@ -36,6 +36,15 @@ class PetController
         }
     }
 
+    public function validateOwner()
+    {
+        if ($_SESSION["type"] == "D") {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
 
     // 0 : dadas de baja
     // 1 : sin carnet, no puede hacer reservas
@@ -43,7 +52,7 @@ class PetController
     //carga y muestra mascotas en navbar dueño
     public function ShowListView()
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateOwner()) {
             try {
                 $petList = $this->petDAO->GetMyPets($_SESSION['userid']);  //muestra las sin carnet y disponibles
                 $breeds = array();
@@ -180,7 +189,7 @@ class PetController
 
     public function ShowAddView($name, $type, $observations)
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateOwner() ) {
             try {
                 $breedList = $this->breedController->getAllByType($type);
                 require_once(VIEWS_PATH . "pet-add.php");
@@ -193,7 +202,7 @@ class PetController
 
     public function ShowPreAddView()
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateOwner() ) {
             try {
                 require_once(VIEWS_PATH . "pet-preadd.php");
             } catch (Exception $ex) {
@@ -205,7 +214,7 @@ class PetController
 
     public function ShowUpdateView($petid)
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateOwner() ) {
             try {
                 $pet = $this->petDAO->GetByPetId($petid);
                 require_once(VIEWS_PATH . "pet-update.php");
