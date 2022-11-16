@@ -50,7 +50,7 @@ class AvailableDateDAO
     {
         try {
             $dateList = array();
-            $query = "SELECT * FROM " . $this->tableAvailableDates . " WHERE (userid = :userid)";
+            $query = "SELECT * FROM " . $this->tableAvailableDates . " WHERE (userid = :userid) ORDER BY " . $this->tableAvailableDates . ".date";
             $parameters["userid"] = $userid;
 
             $this->connection = Connection::GetInstance();
@@ -62,9 +62,6 @@ class AvailableDateDAO
                 $date->setUserid($row["userid"]);
                 $date->setDate($row["date"]);
                 $date->setAvailable($row["available"]);
-
-                //
-
 
                 array_push($dateList, $date);
             }

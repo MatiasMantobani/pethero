@@ -101,6 +101,12 @@ class UserController
             //GUARDIAN
             if ($_SESSION['type'] == 'G') {
 
+                $availableDate = new AvailableDate();
+                $dateList = $availableDate->GetByUserId($_SESSION['userid']);
+                $firstDate = $dateList[0]->getDate();
+                $dateCount = count($dateList) - 1;
+                $lastDate = $dateList[$dateCount]->getDate();
+
                 //tamaños aceptados
                 $SizeController = new SizeController();
                 $size = $SizeController->getByUserId($_SESSION['userid']);

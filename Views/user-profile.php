@@ -87,6 +87,7 @@ require_once('nav.php');
                                     <div class="col-6 mb-3">
                                         <?php if ($_SESSION['type'] == 'G') { ?>
                                             <h6>Editar disponibilidad: </h6>
+                                            <p class="text-muted"><?php echo "De: " . $firstDate . " hasta ". $lastDate ?></p>
                                             <p class="text-muted"><a href="<?php echo FRONT_ROOT ?>AvailableDate/ShowAddView" class="btn btn-dark btn-sm">Editar disponibilidad <i class="far fa-edit"></i></a></p>
                                         <?php } ?>
                                     </div>
