@@ -204,4 +204,23 @@ class ReserveDAO
             throw $ex;
         }
     }
+
+    public function CheckOverlapping($currentReserve)
+    {
+        try {
+            
+            $query = "CALL check_for_overlapping_reserves(?,?,?);";
+
+            $parameters["petid"] = $currentReserve->getPetid();
+            $parameters["firstdate"] = $currentReserve->getFirstdate();
+            $parameters["lastdate"] = $currentReserve->getLastdate();
+            
+            $this->connection = Connection::GetInstance();
+            $result = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+
+            return $result;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
 }

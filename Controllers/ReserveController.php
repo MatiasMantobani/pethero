@@ -404,4 +404,24 @@ class ReserveController
     {
         return $this->reserveDAO->getReserveById($reserveid);
     }
+
+    public function CheckOverlapping($petid, $firstdate, $lastdate)
+    {
+
+        try{
+
+        $reserve = new Reserve();
+        $reserve->setPetid($petid);
+        $reserve->setFirstdate($firstdate);      
+        $reserve->setLastdate($lastdate);
+
+        $result =  $this->reserveDAO->CheckOverlapping($reserve);
+
+
+        return $result;
+    } catch (Exception $ex)
+    {
+        HomeController::Index("Error al recuperar las reservas");
+    }
+    }
 }
