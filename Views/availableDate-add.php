@@ -12,6 +12,7 @@
                     $(function() {
                         $('input[name="daterange"]').daterangepicker({
                             opens: 'left',
+                            minDate:new Date(),
                             locale: {
                                 format: "YYYY-MM-DD",
                                 separator: ','
@@ -21,6 +22,7 @@
                         });
                     });
                 </script>
+
 
                 <input type="text" name="daterange" />
                 <br>
