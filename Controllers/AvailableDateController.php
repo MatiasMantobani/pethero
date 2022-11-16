@@ -21,6 +21,26 @@ class AvailableDateController
     }
 
 
+    public function validate()
+    {
+        if (isset($_SESSION["userid"])) {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
+
+    public function validateKeeper()
+    {
+        if ($_SESSION["type"] == "G") {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
+
     // REPETIDA : cambiar a parametro null = session id
     public function GetById()
     {
@@ -67,7 +87,7 @@ class AvailableDateController
     }
 
 
-    public function ShowAvailableDates()    //ESTA
+    public function ShowAvailableDates()
     {
         if ($this->validate()) {
             $fechas = $this->GetById();
@@ -161,14 +181,6 @@ class AvailableDateController
     }
 
 
-    public function validate()
-    {
-        if (isset($_SESSION["userid"])) {
-            return true;
-        } else {
-            HomeController::Index("Permisos Insuficientes");
-        }
-    }
 }
 
 /*

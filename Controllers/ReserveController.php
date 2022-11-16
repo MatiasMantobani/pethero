@@ -365,7 +365,6 @@ class ReserveController
 
     public function CheckOverlapping($petid, $firstdate, $lastdate)
     {
-
         try{
 
             $reserve = new Reserve();

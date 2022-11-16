@@ -36,7 +36,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Email</label>
-                            <input type="texts" name="email" value="" class="form-control" required>
+                            <input type="text" name="email" value="" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-lg-4">
