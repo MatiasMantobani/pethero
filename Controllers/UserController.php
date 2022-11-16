@@ -38,6 +38,16 @@ class UserController
         }
     }
 
+    
+    public function validateOwner()
+    {
+        if ($_SESSION["type"] == "D") {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
     public function ShowAddView()
     {
         require_once(VIEWS_PATH . "user-add.php");
@@ -57,7 +67,7 @@ class UserController
 
     public function ShowAllGuardians()
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateOwner()) {
             try {
                 //solo si guardianes estan activos
                 $guardianList = $this->userDAO->GetActiveKeepers();
@@ -295,7 +305,7 @@ class UserController
 
     public function ShowExternalProfile($keeperid)
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->validateOwner()) {
             $keeper = $this->keeperController->getByKeeperId($keeperid); // para la info especifica del guardian
             $user = $this->GetUserById($keeperid);  // para la info especifica del user
 
