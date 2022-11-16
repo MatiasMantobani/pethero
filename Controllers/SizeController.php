@@ -1,4 +1,5 @@
 <?php
+
 namespace Controllers;
 
 use \Exception as Exception;
@@ -24,10 +25,22 @@ class SizeController
         }
     }
 
+    public function validateKeeper()
+    {
+        if ($_SESSION["type"] == "G") {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
     public function ShowAddView()
     {
-        $size = $this->getByUserId($_SESSION['userid']);
-        require_once(VIEWS_PATH."size-add.php");
+        if ($this->validate() && $this->validateKeeper()) {
+
+            $size = $this->getByUserId($_SESSION['userid']);
+            require_once(VIEWS_PATH . "size-add.php");
+        }
     }
 
     public function Add($small, $medium, $large)
@@ -52,15 +65,16 @@ class SizeController
         }
     }
 
-    public function Update($small, $medium, $large){
+    public function Update($small, $medium, $large)
+    {
         if ($this->validate()) {
             try {
-                if ($small == false && $medium == false && $large == false){
+                if ($small == false && $medium == false && $large == false) {
                     $controller = new UserController();
                     MessageController::add("Error: Debe aceptar al menos un tamaño");
                     $controller->ShowProfileView();
                 } else {
-                    if($this->SizeFinder($_SESSION['userid'])){
+                    if ($this->SizeFinder($_SESSION['userid'])) {
                         $this->sizeDAO->Remove($_SESSION['userid']);
                         $this->Add($small, $medium, $large);
                     } else {
@@ -73,7 +87,8 @@ class SizeController
         }
     }
 
-    public function SizeFinder($userid){
+    public function SizeFinder($userid)
+    {
         if ($this->validate()) {
             try {
                 return $this->sizeDAO->GetByUserid($userid);
@@ -83,14 +98,15 @@ class SizeController
         }
     }
 
-    public function getByUserId($userid){
+    public function getByUserId($userid)
+    {
         if ($this->validate()) {
             try {
                 $sizeDAO = new SizeDAO();
                 $size = $sizeDAO->getByUserId($userid);
-                if ($size){
+                if ($size) {
                     return $size;
-                }else{
+                } else {
                     return null;
                 }
             } catch (Exception $ex) {
@@ -99,7 +115,8 @@ class SizeController
         }
     }
 
-    public function Remove($userid){
+    public function Remove($userid)
+    {
         if ($this->validate()) {
             try {
                 $this->sizeDAO->Remove($userid);
@@ -108,7 +125,6 @@ class SizeController
             }
         }
     }
-
 }
 
 /*
