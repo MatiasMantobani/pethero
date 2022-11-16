@@ -39,8 +39,6 @@ class PetController
     // 0 : dadas de baja
     // 1 : sin carnet, no puede hacer reservas
     // 2 : disponible
-
-
     //carga y muestra mascotas en navbar dueño
     public function ShowListView()
     {
@@ -52,8 +50,6 @@ class PetController
                 foreach ($petList as $pet) {
                     array_push($breeds, $breedController->getByBreedId($pet->getBreedid()));
                 }
-
-
 
                 //para evitar mostrar una lista vacia
                 if (count($petList) > 0) {
