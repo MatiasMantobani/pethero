@@ -19,7 +19,7 @@
                     <input id="rating" name="rating" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="5">
                 </div>
 
-                <textarea class="form-control" id="" name="comment" rows="3" maxlength="200"></textarea>
+                <textarea class="form-control" id="" name="comment" rows="3" maxlength="200" placeholder="Deja tu comentario aqui (maximo 200 caracteres)"></textarea>
 
                 <script>
                     $("#input-id").rating();

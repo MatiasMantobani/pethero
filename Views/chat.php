@@ -172,7 +172,7 @@
                 <form action="<?php echo FRONT_ROOT ?>Chat/Add/" method="post">
                     <li class="bg-white mb-3">
                         <div class="form-outline">
-                            <textarea class="form-control" id="text" name="text" rows="4" placeholder="Escribe un mensaje"></textarea>
+                            <textarea class="form-control" id="text" name="text" rows="4" maxlength="280" placeholder="Escribe un mensaje (maximo 280 caracteres)"></textarea>
                         </div>
                     </li>
                     <input type="hidden" name="receiverid" value="<?php echo $receiverid ?>">
