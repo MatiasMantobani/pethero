@@ -133,7 +133,7 @@ class UserController
 
     public function Add($email, $password, $type, $dni, $cuit, $name, $surname, $phone)
     {
-        if ($this->validate()) {
+        // if ($this->validate()) { //no se valida porque cuando se crea no esta logueado
             try {
                 $user = new User();
                 $user->setEmail($email);    //es unique, hay que chequear antes de guardar en BD
@@ -156,7 +156,7 @@ class UserController
             } catch (Exception $ex) {
                 HomeController::Index("Error al crear el Usuario");
             }
-        }
+        // }
     }
 
     public function validateStatus()
