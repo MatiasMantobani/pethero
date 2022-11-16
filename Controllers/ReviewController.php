@@ -27,10 +27,21 @@ class ReviewController
         }
     }
 
+    public function validateOwner()
+    {
+        if ($_SESSION["type"] == "D") {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
     public function ShowAddView($reserveid)
     {
-        $reserva = $reserveid;
-        require_once(VIEWS_PATH . "review-add.php");
+        if ($this->validate() && $this->validateOwner()) {
+            $reserva = $reserveid;
+            require_once(VIEWS_PATH . "review-add.php");
+        }
     }
 
     public function Add($rating, $comment, $reserveid) //$receptorid, $reserveid, => Agregarlo cuando este en el boton del dueno
@@ -110,51 +121,58 @@ class ReviewController
 
     public function ShowReviewList($userid)
     {
-        $ratings = $this->ReviewFinderByReceptor($userid);
+        if ($this->validate()) {
+            $ratings = $this->ReviewFinderByReceptor($userid);
 
-        $userController = new UserController();
-        $user = $userController->GetUserById($userid);
+            $userController = new UserController();
+            $user = $userController->GetUserById($userid);
 
 
-        $reserveController = new ReserveController();
-        $petController = new PetController();
-        $petIds = array();
-        $petNames = array();
-        $keepersNames = array();
+            $reserveController = new ReserveController();
+            $petController = new PetController();
+            $petIds = array();
+            $petNames = array();
+            $keepersNames = array();
 
-        foreach ($ratings as $rating) {
-            array_push($petNames, $petController->PetFinder($reserveController->getReserveById($rating->getReserveid())->getPetid())->getName());
-            array_push($petIds, $petController->PetFinder($reserveController->getReserveById($rating->getReserveid())->getPetid())->getPetid());
-            array_push($keepersNames, $userController->GetUserById($rating->getEmitterid())->getName());
-        }
+            foreach ($ratings as $rating) {
+                array_push($petNames, $petController->PetFinder($reserveController->getReserveById($rating->getReserveid())->getPetid())->getName());
+                array_push($petIds, $petController->PetFinder($reserveController->getReserveById($rating->getReserveid())->getPetid())->getPetid());
+                array_push($keepersNames, $userController->GetUserById($rating->getEmitterid())->getName());
+            }
 
-        if (count($ratings) > 0) {
-            require_once(VIEWS_PATH . "review-list.php");
-        } else {
-            MessageController::add("No tienes reviews para mostrar");
-            $userController->ShowProfileView();
+            if (count($ratings) > 0) {
+                require_once(VIEWS_PATH . "review-list.php");
+            } else {
+                MessageController::add("No tienes reviews para mostrar");
+                $userController->ShowProfileView();
+            }
         }
     }
 
     public function GetFinalScore($id, $reviewCounter)
     {
-        $ratings = $this->ReviewFinderByReceptor($id);
-        $reviewAcum = 0;
-        foreach ($ratings as $rating) {
-            $reviewAcum += $rating->getRating();
+        if ($this->validate()) {
+
+            $ratings = $this->ReviewFinderByReceptor($id);
+            $reviewAcum = 0;
+            foreach ($ratings as $rating) {
+                $reviewAcum += $rating->getRating();
+            }
+            if ($reviewCounter > 0) {
+                $finalRating = $reviewAcum / $reviewCounter;
+            } else {
+                $finalRating = 0;
+            }
+            return $finalRating;
         }
-        if ($reviewCounter > 0) {
-            $finalRating = $reviewAcum / $reviewCounter;
-        } else {
-            $finalRating = 0;
-        }
-        return $finalRating;
     }
 
     public function GetReviewCounter($id)
     {
-        $ratings = $this->ReviewFinderByReceptor($id);
-        return sizeof($ratings);
+        if ($this->validate()) {
+            $ratings = $this->ReviewFinderByReceptor($id);
+            return sizeof($ratings);
+        }
     }
 }
 
