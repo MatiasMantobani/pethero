@@ -1,4 +1,5 @@
 <?php
+
 namespace Controllers;
 
 use \Exception as Exception;
@@ -39,11 +40,12 @@ class ReviewController
         $this->reviewDAO->Add($review);
     }
 
-    public function AddWithCheck($rating, $comment, $reserveid){
-        if(!$this->reviewDAO->GetByReserveid($reserveid)){
+    public function AddWithCheck($rating, $comment, $reserveid)
+    {
+        if (!$this->reviewDAO->GetByReserveid($reserveid)) {
             $this->Add($rating, $comment, $reserveid);
             $_SESSION['message'][] = "Tu review se envio correctamente";
-        }else{
+        } else {
             $_SESSION['message'][] = "No puedes enviar la review, ya que dejaste una previamente";
         }
         $reserveController = new ReserveController();
@@ -66,7 +68,8 @@ class ReviewController
         return $this->reviewDAO->GetByReserveid($reserveid);
     }
 
-    public function ShowReviewList($userid){
+    public function ShowReviewList($userid)
+    {
         $ratings = $this->ReviewFinderByReceptor($userid);
 
         $userController = new UserController();
@@ -79,7 +82,7 @@ class ReviewController
         $petNames = array();
         $keepersNames = array();
 
-        foreach ($ratings as $rating){
+        foreach ($ratings as $rating) {
             array_push($petNames, $petController->PetFinder($reserveController->getReserveById($rating->getReserveid())->getPetid())->getName());
             array_push($petIds, $petController->PetFinder($reserveController->getReserveById($rating->getReserveid())->getPetid())->getPetid());
             array_push($keepersNames, $userController->GetUserById($rating->getEmitterid())->getName());
@@ -93,23 +96,24 @@ class ReviewController
         }
     }
 
-    public function GetFinalScore($id, $reviewCounter){
+    public function GetFinalScore($id, $reviewCounter)
+    {
         $ratings = $this->ReviewFinderByReceptor($id);
         $reviewAcum = 0;
-        foreach($ratings as $rating){
+        foreach ($ratings as $rating) {
             $reviewAcum += $rating->getRating();
         }
-        if($reviewCounter > 0){
-            $finalRating = $reviewAcum/$reviewCounter;
-        }else{
+        if ($reviewCounter > 0) {
+            $finalRating = $reviewAcum / $reviewCounter;
+        } else {
             $finalRating = 0;
         }
         return $finalRating;
     }
 
-    public function GetReviewCounter($id){
+    public function GetReviewCounter($id)
+    {
         $ratings = $this->ReviewFinderByReceptor($id);
         return sizeof($ratings);
     }
-
 }
