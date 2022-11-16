@@ -292,73 +292,93 @@ class ReserveController
 
     public function showChooseKeeperView($petid, $daterange)
     {
-        if ($this->validate()) {
-            try {
+        $pet = $this->PetController->PetFinder($petid);
 
-                $pet = $this->PetController->PetFinder($petid);
+        $breed = $pet->getBreedId();
 
-                $breed = $pet->getBreedId();
+        //parseo atributos
+        $dateArray = explode(",", $daterange);
+        $dateStart = new DateTime($dateArray[0]);
+        $dateFinish = new DateTime($dateArray[1]);
+        $dateStart2 = new DateTime($dateArray[0]);
+        $dateFinish2 = new DateTime($dateArray[1]);
 
-                //parseo atributos
-                $dateArray = explode(",", $daterange);
-                $dateStart = new DateTime($dateArray[0]);
-                $dateFinish = new DateTime($dateArray[1]);
-                $dateStart2 = new DateTime($dateArray[0]);
-                $dateFinish2 = new DateTime($dateArray[1]);
-
-                //obtenemos ids de los "disponibles" (aquellos que tienen al menos una fecha en el rango del dueño)
-                $AvailableDates = $this->AvailableDateController->getAvailablesListByDatesAndBreed($breed, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));
-                $pseudoAvailableUsers = array();
-                $flag = 0;
-                if ($AvailableDates != null) {
-                    foreach ($AvailableDates as $user) {
-                        $flag = 0;
-                        foreach ($pseudoAvailableUsers as $user2) {
-                            if ($user->getUserid() == $user2->getUserid()) {
-                                $flag = 1;
-                            }
-                        }
-                        if ($flag == 0) {
-                            array_push($pseudoAvailableUsers, $this->UserController->GetUserById($user->getUserid()));
-                        }
-                    }
-                }
-
-                //obtenemos todos los dias marcados por el dueño
-                $availables = array();
-                while ($dateStart <= $dateFinish) {
-                    $date1 = new DateTime();
-                    $date1 = $dateStart;
-                    $date2 = $date1->format('Y-m-d');
-                    array_push($availables, $date2);
-                    $dateStart->modify('+1 day');
-                }
-
-                //se guardan los users
-                $AvailableUsers = array();
-                $AvailableKeepers = array();
-                foreach ($pseudoAvailableUsers as $user) {
+        ///
+        $overlapping = $this->CheckOverlapping($petid, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));  //checkeamos que la mascota no tenga una reserva existente en esa fecha
+        if ($overlapping == 0)
+        {
+            //obtenemos ids de los "disponibles" (aquellos que tienen al menos una fecha en el rango del dueño)
+            $AvailableDates = $this->AvailableDateController->getAvailablesListByDatesAndBreed($breed, $dateStart->format('y-m-d'), $dateFinish->format('y-m-d'));
+            $pseudoAvailableUsers = array();
+            $flag = 0;
+            if ($AvailableDates != null) {
+                foreach ($AvailableDates as $user) {
                     $flag = 0;
-                    foreach ($availables as $date) {
-
-                        if (!($this->AvailableDateController->CheckDate($user->getUserid(), $date))) {
+                    foreach ($pseudoAvailableUsers as $user2) {
+                        if ($user->getUserid() == $user2->getUserid()) {
                             $flag = 1;
                         }
                     }
                     if ($flag == 0) {
-                        if ($user->getStatus() == 1) {
-                            array_push($AvailableUsers, $user);
-                        }
-
-                        //se guardan los keepers (que son el mismo usuario)
-                        $keeper = $this->KeeperController->getByUserId($user->getUserid());
-                        array_push($AvailableKeepers, $keeper);
+                        array_push($pseudoAvailableUsers, $this->UserController->GetUserById($user->getUserid()));
                     }
                 }
-                require_once(VIEWS_PATH . "choose-keeper.php");
-            } catch (Exception $ex) {
-                HomeController::Index("Error al mostrar los guardianes disponibles");
             }
+
+            //obtenemos todos los dias marcados por el dueño
+            $availables = array();
+            while ($dateStart <= $dateFinish) {
+                $date1 = new DateTime();
+                $date1 = $dateStart;
+                $date2 = $date1->format('Y-m-d');
+                array_push($availables, $date2);
+                $dateStart->modify('+1 day');
+            }
+
+            //se guardan los users
+            $AvailableUsers = array();
+            $AvailableKeepers = array();
+            foreach ($pseudoAvailableUsers as $user) {
+                $flag = 0;
+                foreach ($availables as $date) {
+
+                    if (!($this->AvailableDateController->CheckDate($user->getUserid(), $date))) {
+                        $flag = 1;
+                    }
+                }
+                if ($flag == 0) {
+                    if ($user->getStatus() == 1) {
+                        array_push($AvailableUsers, $user);
+                    }
+
+                    //se guardan los keepers (que son el mismo usuario)
+                    $keeper = $this->KeeperController->getByUserId($user->getUserid());
+                    array_push($AvailableKeepers, $keeper);
+                }
+            }
+            require_once(VIEWS_PATH . "choose-keeper.php");
+        } else
+        {
+            HomeController::Index("La mascota ya tiene reservas asignadas dentro del periodo elegido");
+        }
+    }
+
+    public function CheckOverlapping($petid, $firstdate, $lastdate)
+    {
+
+        try{
+
+            $reserve = new Reserve();
+            $reserve->setPetid($petid);
+            $reserve->setFirstdate($firstdate);
+            $reserve->setLastdate($lastdate);
+
+            $result =  $this->reserveDAO->CheckOverlapping($reserve);
+
+            return $result;
+        } catch (Exception $ex)
+        {
+            HomeController::Index("Error al recuperar las reservas");
         }
     }
 

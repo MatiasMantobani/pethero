@@ -33,6 +33,24 @@ class ReserveDAO
         }
     }
 
+    public function CheckOverlapping($currentReserve)
+    {
+        try {
+
+            $query = "CALL check_for_overlapping_reserves(?,?,?);";
+
+            $parameters["petid"] = $currentReserve->getPetid();
+            $parameters["firstdate"] = $currentReserve->getFirstdate();
+            $parameters["lastdate"] = $currentReserve->getLastdate();
+
+            $this->connection = Connection::GetInstance();
+            $result = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+
+            return $result[0][0];   // Siempre retorna un array, (key value ?), por más de que sea un solo elemento
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
 
     public function getOwnerReserves($userid)
     {
