@@ -5,7 +5,6 @@
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-            <a href="<?php echo FRONT_ROOT ?>User/ShowProfileView">Volver</a>
             <form action="<?php echo FRONT_ROOT ?>AvailableDate/Update/" method="post" class="bg-light-alpha p-5">
                 <h4>Selecciona tus fechas disponibles para cuidar mascotas</h4>
                 <br>

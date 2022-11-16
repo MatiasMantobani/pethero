@@ -44,22 +44,32 @@ class UserController
 
     public function ShowListView()
     {
-        $userList = $this->userDAO->GetAll();
-        require_once(VIEWS_PATH . "user-list.php");
+        if ($this->validate()) {
+            try {
+                $userList = $this->userDAO->GetAll();
+                require_once(VIEWS_PATH . "user-list.php");
+            } catch (Exception $ex) {
+                HomeController::Index("Error al traer el listado de Usuarios");
+            }
+        }
     }
 
     public function ShowAllGuardians()
     {
         if ($this->validate()) {
-            $guardianList = $this->userDAO->GetAllKeepers();
+            try {
+                $guardianList = $this->userDAO->GetAllKeepers();
 
-            // Para evitar mostrar una lista vacia
-            if (count($guardianList) > 0) {
-                require_once(VIEWS_PATH . "guardian-list.php");
-            } else {
-                $_SESSION["message"][] = "Parece que no hay guardianes por tu zona, intenta de nuevo mas tarde";
-                $userController = new UserController();
-                $userController->ShowProfileView();
+                // Para evitar mostrar una lista vacia
+                if (count($guardianList) > 0) {
+                    require_once(VIEWS_PATH . "guardian-list.php");
+                } else {
+                    $_SESSION["message"][] = "Parece que no hay guardianes por tu zona, intenta de nuevo mas tarde";
+                    $userController = new UserController();
+                    $userController->ShowProfileView();
+                }
+            } catch (Exception $ex) {
+                HomeController::Index("Error al traer todos los Guardianes");
             }
         }
     }
@@ -123,26 +133,31 @@ class UserController
 
     public function Add($email, $password, $type, $dni, $cuit, $name, $surname, $phone)
     {
-        $user = new User();
-        $user->setEmail($email);    //es unique, hay que chequear antes de guardar en BD
-        $user->setPassword($password);
-        $user->setType($type);
-        $user->setDni($dni);    //es unique
-        $user->setCuit($cuit);  //es unique
-        $user->setname($name);
-        $user->setSurname($surname);
-        $user->setPhone($phone);
+        if ($this->validate()) {
+            try {
+                $user = new User();
+                $user->setEmail($email);    //es unique, hay que chequear antes de guardar en BD
+                $user->setPassword($password);
+                $user->setType($type);
+                $user->setDni($dni);    //es unique
+                $user->setCuit($cuit);  //es unique
+                $user->setname($name);
+                $user->setSurname($surname);
+                $user->setPhone($phone);
 
-        $controller = new HomeController();
-        if ($this->userDAO->ValidateUniqueEmail($email) || $this->userDAO->ValidateUniqueDni($dni) || $this->userDAO->ValidateUniqueCuit($cuit)) {  //validar que no haya repeticiones de atributos UNIQUE
-            $controller->Index("Algunos de los datos ya estan en uso por otro usuario");
-        } else {
-            $this->userDAO->Add($user);
-            //aca no se puede crear un keeper porque aun no hay userid ni $_SESSION['userid']
-            $controller->Index("Usuario registrado con exito");
+                $controller = new HomeController();
+                if ($this->userDAO->ValidateUniqueEmail($email) || $this->userDAO->ValidateUniqueDni($dni) || $this->userDAO->ValidateUniqueCuit($cuit)) {  //validar que no haya repeticiones de atributos UNIQUE
+                    $controller->Index("Algunos de los datos ya estan en uso por otro usuario");
+                } else {
+                    $this->userDAO->Add($user);
+                    //aca no se puede crear un keeper porque aun no hay userid ni $_SESSION['userid']
+                    $controller->Index("Usuario registrado con exito");
+                }
+            } catch (Exception $ex) {
+                HomeController::Index("Error al crear el Usuario");
+            }
         }
     }
-
 
     public function validateStatus()
     {
@@ -211,33 +226,51 @@ class UserController
 
     public function Update($name, $surname, $phone)
     {
-        $user = new User();
-        $user->setUserid($_SESSION['userid']);
-        $user->setName($name);
-        $user->setSurname($surname);
-        $user->setPhone($phone);
-        if ($user != null) {
-            $this->userDAO->Update($user);
-            $this->ShowProfileView();
-        } else {
-            $_SESSION['message'][] = "Error al actualizar los datos";
-            $this->ShowProfileView();
+        if ($this->validate()) {
+            try {
+                $user = new User();
+                $user->setUserid($_SESSION['userid']);
+                $user->setName($name);
+                $user->setSurname($surname);
+                $user->setPhone($phone);
+                if ($user != null) {
+                    $this->userDAO->Update($user);
+                    $this->ShowProfileView();
+                } else {
+                    $_SESSION['message'][] = "Error al actualizar los datos";
+                    $this->ShowProfileView();
+                }
+            } catch (Exception $ex) {
+                HomeController::Index("Error al intentar actualizar el Usuario");
+            }
         }
     }
 
     public function UpdateStatus($status)
     {
-        $user = new User();
-        $user->setUserid($_SESSION['userid']);
-        $user->setStatus($status);
+        if ($this->validate()) {
+            try {
+                $user = new User();
+                $user->setUserid($_SESSION['userid']);
+                $user->setStatus($status);
 
-        $this->userDAO->UpdateStatus($user);
+                $this->userDAO->UpdateStatus($user);
+            } catch (Exception $ex) {
+                HomeController::Index("Error al intentar actualizar el estado del Usuario");
+            }
+        }
     }
 
     public function GetUserById($userid)
     {
-        $user = $this->userDAO->GetById($userid);
-        return $user;
+        if ($this->validate()) {
+            try {
+                $user = $this->userDAO->GetById($userid);
+                return $user;
+            } catch (Exception $ex) {
+                HomeController::Index("Error al traer el Usuario solicitado");
+            }
+        }
     }
 
     public function ShowExternalProfile($keeperid)
@@ -260,3 +293,15 @@ class UserController
         }
     }
 }
+
+/*
+
+if ($this->validate()) {
+try {
+
+} catch (Exception $ex) {
+HomeController::Index("Error al ... Usuario");
+}
+}
+
+*/

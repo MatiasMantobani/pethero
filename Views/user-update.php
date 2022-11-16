@@ -5,7 +5,6 @@
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-            <a href="<?php echo FRONT_ROOT ?>User/ShowProfileView/">Volver</a>
             <h2 class="mb-4">Cambio de datos</h2>
             <p>Completa los campos del formulario</p>
             <form action="<?php echo FRONT_ROOT ?>User/Update" method="post" class="bg-light-alpha p-5">

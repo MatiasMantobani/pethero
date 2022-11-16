@@ -11,8 +11,6 @@
                     <?php if($alert != "") { echo $alert; } ?>
                 </div>
                 <?php } $_SESSION['message'] = null; $_SESSION['message'] = []; } ?>
-
-            <a href="<?php echo FRONT_ROOT ?>User/ShowProfileView">Volver</a>
             <h2 class="mb-4">Estás viendo a <?php echo $pet->getName(); ?></h2>
 
             <div class="col col-lg-12 mb-4 mb-lg-0">
