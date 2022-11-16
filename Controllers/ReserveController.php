@@ -112,7 +112,7 @@ class ReserveController
                     $userController->ShowProfileView();
                 }
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al mostrar las Reservas");
             }
         }
     }
@@ -154,7 +154,7 @@ class ReserveController
                     $userController->ShowProfileView();
                 }
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al mostrar las Reservas");
             }
         }
     }
@@ -180,7 +180,7 @@ class ReserveController
                 $_SESSION['message'][] = "Tu pago se ha acreditado correctamente";
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al pagar la Reserva");
             }
         }
     }
@@ -196,7 +196,7 @@ class ReserveController
                     return $this->reserveDAO->getKeeperReserves($_SESSION['userid']);
                 }
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al mostrar las Reservas del usuario");
             }
         }
     }
@@ -226,7 +226,7 @@ class ReserveController
                 $_SESSION['message'][] = "Reserva realizada con exito";
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al generar una Reserva");
             }
         }
     }
@@ -262,7 +262,7 @@ class ReserveController
                 //se retorna cantidad total
                 return $total;
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al mostrar el monto final de la Reserva");
             }
         }
     }
@@ -284,7 +284,7 @@ class ReserveController
                     $userController->ShowProfileView();
                 }
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al mostrar la vista de generar Reserva");
             }
         }
     }
@@ -357,7 +357,7 @@ class ReserveController
                 }
                 require_once(VIEWS_PATH . "choose-keeper.php");
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al mostrar los guardianes disponibles");
             }
         }
     }
@@ -374,7 +374,7 @@ class ReserveController
                 $reserveDAO = new ReserveDAO();
                 $reserveDAO->StatusUpdate($reserve);
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al actualizar el estado de la Reserva");
             }
         }
     }
@@ -387,7 +387,7 @@ class ReserveController
                 $_SESSION['message'][] = "Reserva rechazada";
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al rechazar la Reserva");
             }
         }
     }
@@ -400,7 +400,7 @@ class ReserveController
                 $_SESSION['message'][] = "Reserva cancelada";
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al cancelar la Reserva");
             }
         }
     }
@@ -413,7 +413,7 @@ class ReserveController
                 $_SESSION['message'][] = "Mascota ingresada";
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al marcar como ingresada a la mascota");
             }
         }
     }
@@ -426,7 +426,7 @@ class ReserveController
                 $_SESSION['message'][] = "Mascota retirada";
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al marcar como retirada a la mascota");
             }
         }
     }
@@ -438,7 +438,7 @@ class ReserveController
                 $this->StatusUpdate($reserveid, "completed & reviewed");
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al dejar la reseña del guardian");
             }
         }
     }
@@ -492,7 +492,7 @@ class ReserveController
                 }
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al aceptar la Reserva");
             }
         }
     }
@@ -503,7 +503,7 @@ class ReserveController
             try {
                 return $this->reserveDAO->getReserveById($reserveid);
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Reserva");
+                HomeController::Index("Error al buscar la Reserva");
             }
         }
     }
