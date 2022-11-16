@@ -98,6 +98,11 @@
                                                 <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"/>
                                                 <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"/>
                                             </svg>
+                                        <?php }else{ ?>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-all" viewBox="0 0 16 16">
+                                                <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"/>
+                                                <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"/>
+                                            </svg>
                                         <?php } ?>
                                     </p>
                                 </div>
@@ -113,12 +118,6 @@
                             <div class="card-body">
                                 <p class="mb-0">
                                     <?php echo $message->getText()?>
-                                    <?php if($message->getStatus() == "read"){ ?>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-all" viewBox="0 0 16 16" color="blue">
-                                            <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"/>
-                                            <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"/>
-                                        </svg>
-                                    <?php } ?>
                                 </p>
                             </div>
                         </div>
@@ -170,14 +169,14 @@
 <!--                </li>-->
 <!--                    mensaje enviado-->
                 <form action="<?php echo FRONT_ROOT ?>Chat/Add/" method="post">
-                    <li class="bg-white mb-3">
+                    <li class="bg-white mb-3" style="list-style: none">
                         <div class="form-outline">
                             <textarea class="form-control" id="text" name="text" rows="4" maxlength="280" placeholder="Escribe un mensaje (maximo 280 caracteres)"></textarea>
                         </div>
                     </li>
                     <input type="hidden" name="receiverid" value="<?php echo $receiverid ?>">
                     <!--                    caja para escribir el mensaje-->
-                    <button type="submit" class="btn btn-success">Send</button>
+                    <button type="submit" class="btn btn-success">Enviar</button>
                 </form>
 <!--                    boton de enviar mensaje-->
             </ul>
