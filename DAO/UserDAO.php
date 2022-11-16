@@ -121,12 +121,13 @@ class UserDAO
     }
 
 
+    //mostrar solo guardianes activos
     public function GetAllKeepers()
     {
         try {
             $userList = array();
 
-            $query = "SELECT * FROM " . $this->tableUsers . " WHERE (type = 'G')";
+            $query = "SELECT * FROM " . $this->tableUsers . " WHERE (type = 'G' AND status =1)";
 
             $this->connection = Connection::GetInstance();
 
