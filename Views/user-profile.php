@@ -94,9 +94,11 @@ require_once('nav.php');
                                         <?php if ($_SESSION['type'] == 'G') { ?>
                                             <h6>Editar disponibilidad: </h6>
 
-                                            <?php if ($AvailableDateList) { ?>
-                                                <p class="text-muted"><?php echo "De: " . $firstDate . " hasta " . $lastDate ?></p>
-                                            <?php }else{ ?>
+                                            <?php if ($unicaFecha) { ?>
+                                                <p class="text-muted"><?php echo "Solo el: " . $unicaFecha ?></p>
+                                            <?php } else if ($firstDate) { ?>
+                                                <p class="text-muted"><?php echo "Del " . $firstDate . " al " . $lastDate ?></p>
+                                            <?php } else { ?>
                                                 <p class="text-muted">Sin Fechas Disponibles Cargadas</p>
                                             <?php } ?>
 

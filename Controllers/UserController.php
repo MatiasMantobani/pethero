@@ -105,15 +105,17 @@ class UserController
                 $availableDate = new AvailableDate();
                 $AvailableDateList = $availableDate->GetByUserId($_SESSION['userid']);
 
-                if($AvailableDateList){
+                $unicaFecha = null;
+                $firstDate = null;
+                $lastDate = null;
+                if ($AvailableDateList) {
+                    if (count($AvailableDateList) == 1) {
+                        $unicaFecha = $AvailableDateList[0]->getDate();
+                    }
                     $firstDate = $AvailableDateList[0]->getDate();
-                    $dateCount = count($AvailableDateList) - 1;
-                    $lastDate = $AvailableDateList[$dateCount]->getDate();
-                }else{
-                    $firstDate = "SIN CARGAR";
-                    $lastDate = "SIN CARGAR";
+                    $lastDate = $AvailableDateList[count($AvailableDateList) - 1]->getDate();
                 }
-                
+
 
                 //tamaños aceptados
                 $SizeController = new SizeController();
@@ -148,28 +150,28 @@ class UserController
     public function Add($email, $password, $type, $dni, $cuit, $name, $surname, $phone)
     {
         // if ($this->validate()) { //no se valida porque cuando se crea no esta logueado
-            try {
-                $user = new User();
-                $user->setEmail($email);    //es unique, hay que chequear antes de guardar en BD
-                $user->setPassword($password);
-                $user->setType($type);
-                $user->setDni($dni);    //es unique
-                $user->setCuit($cuit);  //es unique
-                $user->setname($name);
-                $user->setSurname($surname);
-                $user->setPhone($phone);
+        try {
+            $user = new User();
+            $user->setEmail($email);    //es unique, hay que chequear antes de guardar en BD
+            $user->setPassword($password);
+            $user->setType($type);
+            $user->setDni($dni);    //es unique
+            $user->setCuit($cuit);  //es unique
+            $user->setname($name);
+            $user->setSurname($surname);
+            $user->setPhone($phone);
 
-                $controller = new HomeController();
-                if ($this->userDAO->ValidateUniqueEmail($email) || $this->userDAO->ValidateUniqueDni($dni) || $this->userDAO->ValidateUniqueCuit($cuit)) {  //validar que no haya repeticiones de atributos UNIQUE
-                    $controller->Index("Algunos de los datos ya estan en uso por otro usuario");
-                } else {
-                    $this->userDAO->Add($user);
-                    //aca no se puede crear un keeper porque aun no hay userid ni $_SESSION['userid']
-                    $controller->Index("Usuario registrado con exito");
-                }
-            } catch (Exception $ex) {
-                HomeController::Index("Error al crear el Usuario");
+            $controller = new HomeController();
+            if ($this->userDAO->ValidateUniqueEmail($email) || $this->userDAO->ValidateUniqueDni($dni) || $this->userDAO->ValidateUniqueCuit($cuit)) {  //validar que no haya repeticiones de atributos UNIQUE
+                $controller->Index("Algunos de los datos ya estan en uso por otro usuario");
+            } else {
+                $this->userDAO->Add($user);
+                //aca no se puede crear un keeper porque aun no hay userid ni $_SESSION['userid']
+                $controller->Index("Usuario registrado con exito");
             }
+        } catch (Exception $ex) {
+            HomeController::Index("Error al crear el Usuario");
+        }
         // }
     }
 
