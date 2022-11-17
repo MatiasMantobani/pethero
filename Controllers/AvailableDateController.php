@@ -60,7 +60,12 @@ class AvailableDateController
     {
         if ($this->validate()) {
             try {
-                return $this->availableDateDAO->GetByUserid($userid);
+                $availableDate = $this->availableDateDAO->GetByUserid($userid);
+                if($availableDate != null){
+                    return $availableDate;
+                } else {
+                    return null;
+                }
             } catch (Exception $ex) {
                 HomeController::Index("Error al Traer Fecha Disponible");
             }

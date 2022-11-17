@@ -298,16 +298,3 @@ class PetController
         }
     }
 }
-
-
-/*
-
-if ($this->validate()) {
-try {
-
-} catch (Exception $ex) {
-    HomeController::Index("Error al ... Mascota");
-}
-}
-
-*/

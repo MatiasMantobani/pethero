@@ -117,6 +117,10 @@ class UserController
                 $availableDate = new AvailableDate();
                 $AvailableDateList = $availableDate->GetByUserId($_SESSION['userid']);
 
+                if($AvailableDateList == null){
+                    MessageController::add("Para aceptar reservas debes indicar tu disponibilidad");
+                }
+
                 $unicaFecha = null;
                 $firstDate = null;
                 $lastDate = null;
@@ -234,7 +238,7 @@ class UserController
                     }
                 }
 
-                if ($keeper->getPricing() > 0 && $sizeFlag == 1 && $dateFlag == 1 && $adress != null) {
+                if ($keeper->getStatus() == 1  && $sizeFlag == 1 && $dateFlag == 1 && $adress != null) {
                     $this->UpdateStatus(1);
                 } else {
                     $this->UpdateStatus(0);
