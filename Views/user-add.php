@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="">Password [6 ô más caracteres]</label>
+                            <label for="">Password [6 ó más caracteres]</label>
                             <input type="password" name="password" minlength="6" maxlength="30" value="" class="form-control" required>
                         </div>
                     </div>
