@@ -29,7 +29,32 @@ require_once('nav.php');
                                    <td><?php echo $reserveList[$i]->getFirstdate() ?></td>
                                    <td><?php echo $reserveList[$i]->getLastdate() ?></td>
                                    <td><?php echo "$" . $reserveList[$i]->getAmount() ?></td>
-                                   <td><?php echo $reserveList[$i]->getStatus() ?></td>
+                                   <td><?php switch ($reserveList[$i]->getStatus()) {
+                                           case "await":
+                                               echo "Esperando confirmaciôn";
+                                               break;
+                                           case "confirmed":
+                                               echo "Confirmado";
+                                               break;
+                                           case "rejected":
+                                               echo "Rechazado";
+                                               break;
+                                           case "payed":
+                                               echo "Pagado";
+                                               break;
+                                           case "in progress":
+                                               echo "En proceso";
+                                               break;
+                                           case "completed":
+                                               echo "Completado";
+                                               break;
+                                           case "completed & reviewed":
+                                               echo "Completado y reseñado";
+                                               break;
+                                           case "canceled":
+                                               echo "Cancelado";
+                                               break;
+                                       } ?></td>
                                    <td>
                                         <?php if ($reserveList[$i]->getStatus() == "await") { ?>
 
