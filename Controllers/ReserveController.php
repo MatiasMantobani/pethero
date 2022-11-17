@@ -442,7 +442,14 @@ class ReserveController
         if ($this->validate()) {
             try {
                 $this->StatusUpdate($reserveid, "in progress");
-                MessageController::add("Mascota ingresada");
+                MessageController::add("Mascota ingresada con exito, se envió el último cupón de pago");
+
+                $reserve = $this->getReserveById($reserveid);
+
+                $monto = $reserve->getAmount() / 2;
+                $mail = new MailerController();
+                $mail->emailSend($reserve->getTransmitterid(), $monto);
+
                 $this->UserController->ShowProfileView();
             } catch (Exception $ex) {
                 HomeController::Index("Error al marcar como ingresada a la mascota");
