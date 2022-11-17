@@ -104,7 +104,7 @@ class UserController
             }
 
             //DUEÑO
-            if ($_SESSION['type'] == 'G') {
+            if ($_SESSION['type'] == 'D') {
                 $petController = new PetController();
                 $petList = $petController->GetMyActive($_SESSION['userid']);
                 if ($petList == null) {

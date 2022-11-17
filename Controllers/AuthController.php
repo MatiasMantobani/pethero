@@ -27,7 +27,6 @@ class AuthController
             if ($user) {
                 $_SESSION['userid'] = $user->getUserid();
                 $_SESSION['type'] = $user->getType();
-                MessageController::add("Bienvenide!");
 
                 $userController = new UserController();
                 $userController->ShowProfileView();

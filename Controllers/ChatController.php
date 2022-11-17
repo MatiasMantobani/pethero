@@ -39,7 +39,11 @@ class ChatController
                 $receiverImage = $imageController->ShowImage($receiverid);
                 $senderName = $userController->GetUserById($_SESSION['userid'])->getName();
                 $receiverName = $userController->GetUserById($receiverid)->getName();
-                $this->changeStatus($_SESSION['userid'], $receiverid, "read");
+
+                $pos = count($messages);
+                if ($messages != null && $messages[$pos-1]->getSenderid() != $_SESSION['userid'] ){
+                    $this->changeStatus($_SESSION['userid'], $receiverid, "read");
+                }
                 require_once(VIEWS_PATH . "chat.php");
             } catch (Exception $ex) {
                 HomeController::Index("Error al Mostrar Vista Agregar del Chat");

@@ -41,7 +41,7 @@ require_once('nav.php');
                                     case 2:
                                         echo "Perro";
                                         break;
-                                } ?></p>
+                                } ?> - <?php echo $breed->getName() ; ?></p>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body p-4">
@@ -51,21 +51,21 @@ require_once('nav.php');
                                 <div class="row pt-1">
                                     <div class="col-6 mb-3">
                                         <h6>Nombre</h6>
-                                        <p class="text-muted"><?php echo $pet->getName() ?>
-                                            <br>
+                                        <p class="text-muted"><?php echo $pet->getName() ?><br></p>
+
                                             <?php if ($_SESSION["type"] == "D") { ?>
                                                 <a href="<?php echo FRONT_ROOT ?>Pet/ShowUpdateView/<?php echo $pet->getPetid() ?>" class="btn btn-dark"> Editar <i class="far fa-edit"></i></a>
                                             <?php } ?>
-                                        </p>
+
                                     </div>
                                     <div class="col-6 mb-3">
                                         <h6>Observaciones</h6>
                                         <p class="text-muted"><?php echo $pet->getObservations() ?>
-                                            <br>
+                                            <br></p>
                                             <?php if ($_SESSION["type"] == "D") { ?>
                                                 <a href="<?php echo FRONT_ROOT ?>Pet/ShowUpdateView/<?php echo $pet->getPetid() ?>" class="btn btn-dark"> Editar <i class="far fa-edit"></i></a>
                                             <?php } ?>
-                                        </p>
+
                                     </div>
                                 </div>
 
