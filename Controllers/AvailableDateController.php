@@ -4,11 +4,9 @@ namespace Controllers;
 
 use Controllers\MessageController as MessageController;
 use \Exception as Exception;
-use Cassandra\Date;
 use DAO\AvailableDateDAO as AvailableDateDAO;
 use Models\AvailableDate as AvailableDate;
 use Controllers\UserController as UserController;
-use DateInterval;
 use DateTime;
 
 class AvailableDateController
@@ -185,6 +183,23 @@ class AvailableDateController
             }
         }
     }
+
+    public function DeleteSpecificDate($date)
+    {
+        if ($this->validate()) {
+            try {
+                $availableDate = new AvailableDate();
+                $availableDate->setUserid($_SESSION['userid']);
+                $availableDate->setDate($date);
+
+                $this->availableDateDAO->DeleteSpecificDate($availableDate);
+                HomeController::Index("Fecha borrada exitosamente");
+            } catch (Exception $ex) {
+                HomeController::Index("Error al Borrar Fecha Disponible");
+            }
+        }
+    }
+
 }
 
 /*

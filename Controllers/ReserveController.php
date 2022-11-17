@@ -3,15 +3,10 @@
 namespace Controllers;
 
 use \Exception as Exception;
-use Controllers\AuthController as AuthController;
 use DAO\ReserveDAO;
-use Models\Payment;
 use Models\Reserve as Reserve;
-use DateInterval;
 use DateTime;
-use Cassandra\Date;
 use Controllers\AvailableDateController as AvailableDateController;
-use Models\AvailableDate;
 use Controllers\UserController as UserController;
 use Controllers\KeeperController as KeeperController;
 use Controllers\PetController as PetController;

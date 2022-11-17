@@ -4,7 +4,6 @@ namespace Controllers;
 
 use \Exception as Exception;
 use DAO\ReviewDAO as ReviewDAO;
-use Models\Keeper;
 use Models\Review as Review;
 use Controllers\ReserveController as Reserve;
 
@@ -175,15 +174,3 @@ class ReviewController
         }
     }
 }
-
-/*
-
-if ($this->validate()) {
-try {
-
-} catch (Exception $ex) {
-    HomeController::Index("Error al ... Reseña");
-}
-}
-
-*/

@@ -3,18 +3,14 @@
 namespace Controllers;
 
 use \Exception as Exception;
-use Controllers\AuthController as AuthController;
 use DAO\UserDAO as UserDAO;
 use Models\User as User;
-use Models\Adress as Adress;
 use Controllers\AdressController as AdressController;
 use Controllers\SizeController as SizeController;
 use Controllers\PetController as PetController;
-use Controllers\BreedController as BreedController;
 use Controllers\UserImageController as UserImageController;
 use Controllers\AvailableDateController as AvailableDate;
 use Controllers\KeeperController as KeeperController;
-use Controllers\ReserveController as ReserveController;
 use Controllers\HomeController as HomeController;
 use Controllers\MessageController as MessageController;
 
@@ -34,7 +30,7 @@ class UserController
         if (isset($_SESSION["userid"])) {
             return true;
         } else {
-            HomeController::Index("Permisos Insuficientes. <br>");
+            HomeController::Index("Permisos Insuficientes");
         }
     }
 
@@ -327,15 +323,3 @@ class UserController
         }
     }
 }
-
-/*
-
-if ($this->validate()) {
-try {
-
-} catch (Exception $ex) {
-HomeController::Index("Error al ... Usuario");
-}
-}
-
-*/

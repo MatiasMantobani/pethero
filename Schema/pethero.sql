@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-11-2022 a las 04:03:39
+-- Tiempo de generación: 17-11-2022 a las 01:55:21
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -41,6 +41,11 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `check_for_overlapping_reserves` (IN `Petid` INT(11), IN `Firstdate` DATE, IN `Lastdate` DATE)   BEGIN
 SELECT COUNT(reserve.petid) FROM reserve WHERE ((reserve.petid = Petid) AND ((Firstdate <= reserve.lastdate) AND (Lastdate >= reserve.firstdate)) AND ((reserve.status != "rejected") AND (reserve.status != "canceled")));
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_available_by_date` (IN `Date` DATE, IN `Userid` INT)   BEGIN
+DELETE FROM availabledates WHERE (availabledates.date = date AND availabledates.userid = Userid AND availabledates.available = 0);
+-- Como de costumbre checkea que la fecha disponible sea 0 antes de borrarla para no borrar cuando el usuario tenga una fecha ocupada
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getReserveByDay` (IN `KeeperUserId` INT(11), IN `Date` DATE)   SELECT reserve.petid FROM reserve WHERE (reserve.receiverid = KeeperUserId AND Date BETWEEN reserve.firstdate AND reserve.lastdate)$$
@@ -186,7 +191,11 @@ INSERT INTO `adresses` (`userid`, `street`, `number`, `floor`, `department`, `po
 (16, 'qwe', 'qwe', 'qwe', 'qwe', 'qwe'),
 (17, 'asd', 'asd', 'asd', 'asd', 'asd'),
 (18, 'y', 'rty', 'tryrt', 'rtrt', 'rtyrt'),
-(19, 'fghfgh', 'fghfg', 'gfhfgh', 'fg', 'f');
+(19, 'fghfgh', 'fghfg', 'gfhfgh', 'fg', 'f'),
+(27, 'marconi', '1990', '', '', '7600'),
+(28, 'marconi', '1990', '', '', '7600'),
+(29, 'marconi', '1990', '', '', '7600'),
+(30, 'marconi', '1990', '', '', '7600');
 
 -- --------------------------------------------------------
 
@@ -206,15 +215,13 @@ CREATE TABLE `availabledates` (
 --
 
 INSERT INTO `availabledates` (`availabledatesid`, `userid`, `date`, `available`) VALUES
-(768, 17, '2022-12-01', 0),
-(769, 17, '2022-12-02', 0),
-(770, 17, '2022-12-03', 0),
-(771, 17, '2022-12-04', 0),
-(772, 17, '2022-12-05', 0),
-(773, 17, '2022-12-06', 0),
-(774, 17, '2022-12-07', 0),
-(775, 17, '2022-12-08', 0),
-(776, 17, '2022-12-09', 0),
+(769, 17, '2022-12-02', 11),
+(770, 17, '2022-12-03', 11),
+(771, 17, '2022-12-04', 11),
+(772, 17, '2022-12-05', 11),
+(773, 17, '2022-12-06', 11),
+(774, 17, '2022-12-07', 11),
+(775, 17, '2022-12-08', 11),
 (777, 17, '2022-12-10', 0),
 (778, 17, '2022-12-11', 0),
 (779, 17, '2022-12-12', 0),
@@ -229,14 +236,106 @@ INSERT INTO `availabledates` (`availabledatesid`, `userid`, `date`, `available`)
 (788, 17, '2022-12-21', 0),
 (789, 17, '2022-12-22', 0),
 (790, 17, '2022-12-23', 0),
-(791, 17, '2022-12-24', 0),
 (792, 17, '2022-12-25', 0),
 (793, 17, '2022-12-26', 0),
 (794, 17, '2022-12-27', 0),
 (795, 17, '2022-12-28', 0),
 (796, 17, '2022-12-29', 0),
 (797, 17, '2022-12-30', 0),
-(798, 17, '2022-12-31', 0);
+(798, 17, '2022-12-31', 0),
+(800, 28, '2022-12-01', 0),
+(801, 28, '2022-12-02', 0),
+(802, 28, '2022-12-03', 0),
+(803, 28, '2022-12-04', 0),
+(804, 28, '2022-12-05', 0),
+(805, 28, '2022-12-06', 0),
+(806, 28, '2022-12-07', 0),
+(807, 28, '2022-12-08', 0),
+(808, 28, '2022-12-09', 0),
+(809, 28, '2022-12-10', 0),
+(810, 28, '2022-12-11', 0),
+(811, 28, '2022-12-12', 0),
+(812, 28, '2022-12-13', 0),
+(813, 28, '2022-12-14', 0),
+(814, 28, '2022-12-15', 0),
+(815, 28, '2022-12-16', 0),
+(816, 28, '2022-12-17', 0),
+(817, 28, '2022-12-18', 0),
+(818, 28, '2022-12-19', 0),
+(819, 28, '2022-12-20', 0),
+(820, 28, '2022-12-21', 0),
+(821, 28, '2022-12-22', 0),
+(822, 28, '2022-12-23', 0),
+(823, 28, '2022-12-24', 0),
+(824, 28, '2022-12-25', 0),
+(825, 28, '2022-12-26', 0),
+(826, 28, '2022-12-27', 0),
+(827, 28, '2022-12-28', 0),
+(828, 28, '2022-12-29', 0),
+(829, 28, '2022-12-30', 0),
+(830, 28, '2022-12-31', 0),
+(831, 29, '2022-12-01', 0),
+(832, 29, '2022-12-02', 0),
+(833, 29, '2022-12-03', 0),
+(834, 29, '2022-12-04', 0),
+(835, 29, '2022-12-05', 0),
+(836, 29, '2022-12-06', 0),
+(837, 29, '2022-12-07', 0),
+(838, 29, '2022-12-08', 0),
+(839, 29, '2022-12-09', 0),
+(840, 29, '2022-12-10', 0),
+(841, 29, '2022-12-11', 0),
+(842, 29, '2022-12-12', 0),
+(843, 29, '2022-12-13', 0),
+(844, 29, '2022-12-14', 0),
+(845, 29, '2022-12-15', 0),
+(846, 29, '2022-12-16', 0),
+(847, 29, '2022-12-17', 0),
+(848, 29, '2022-12-18', 0),
+(849, 29, '2022-12-19', 0),
+(850, 29, '2022-12-20', 0),
+(851, 29, '2022-12-21', 0),
+(852, 29, '2022-12-22', 0),
+(853, 29, '2022-12-23', 0),
+(854, 29, '2022-12-24', 0),
+(855, 29, '2022-12-25', 0),
+(856, 29, '2022-12-26', 0),
+(857, 29, '2022-12-27', 0),
+(858, 29, '2022-12-28', 0),
+(859, 29, '2022-12-29', 0),
+(860, 29, '2022-12-30', 0),
+(861, 29, '2022-12-31', 0),
+(862, 30, '2022-12-01', 0),
+(863, 30, '2022-12-02', 0),
+(864, 30, '2022-12-03', 0),
+(865, 30, '2022-12-04', 0),
+(866, 30, '2022-12-05', 0),
+(867, 30, '2022-12-06', 0),
+(868, 30, '2022-12-07', 0),
+(869, 30, '2022-12-08', 0),
+(870, 30, '2022-12-09', 0),
+(871, 30, '2022-12-10', 0),
+(872, 30, '2022-12-11', 0),
+(873, 30, '2022-12-12', 0),
+(874, 30, '2022-12-13', 0),
+(875, 30, '2022-12-14', 0),
+(876, 30, '2022-12-15', 0),
+(877, 30, '2022-12-16', 0),
+(878, 30, '2022-12-17', 0),
+(879, 30, '2022-12-18', 0),
+(880, 30, '2022-12-19', 0),
+(881, 30, '2022-12-20', 0),
+(882, 30, '2022-12-21', 0),
+(883, 30, '2022-12-22', 0),
+(884, 30, '2022-12-23', 0),
+(885, 30, '2022-12-24', 0),
+(886, 30, '2022-12-25', 0),
+(887, 30, '2022-12-26', 0),
+(888, 30, '2022-12-27', 0),
+(889, 30, '2022-12-28', 0),
+(890, 30, '2022-12-29', 0),
+(891, 30, '2022-12-30', 0),
+(892, 30, '2022-12-31', 0);
 
 -- --------------------------------------------------------
 
@@ -323,7 +422,10 @@ INSERT INTO `keepers` (`keeperid`, `userid`, `rating`, `pricing`, `status`) VALU
 (5, 19, 0, 200, 1),
 (6, 20, 0, 0, 0),
 (7, 24, 0, 0, 0),
-(8, 26, 0, 0, 0);
+(8, 26, 0, 0, 0),
+(9, 28, 0, 500, 1),
+(10, 29, 0, 500, 1),
+(11, 30, 0, 500, 1);
 
 -- --------------------------------------------------------
 
@@ -361,7 +463,8 @@ INSERT INTO `payments` (`paymentid`, `transmitterid`, `receiverid`, `reserveid`,
 (31, 16, 17, 59, 100, 'qr.png', '2022-11-15', 0),
 (32, 16, 17, 59, 100, 'qr.png', '2022-11-15', 0),
 (33, 16, 17, 59, 100, 'qr.png', '2022-11-15', 0),
-(34, 16, 17, 59, 100, 'qr.png', '2022-11-15', 0);
+(34, 16, 17, 59, 100, 'qr.png', '2022-11-15', 0),
+(35, 16, 17, 68, 700, 'qr.png', '2022-11-16', 1);
 
 -- --------------------------------------------------------
 
@@ -388,7 +491,9 @@ INSERT INTO `pet` (`petid`, `userid`, `status`, `breedid`, `name`, `observations
 (63, 16, 2, 14, 'asd', ''),
 (64, 18, 2, 6, 'rtyrt', ''),
 (65, 16, 2, 20, 'qwe1', 'sdf'),
-(66, 16, 2, 13, 'asd', 'asd');
+(66, 16, 2, 13, 'asd', 'asd'),
+(67, 27, 2, 10, 'Roco', ''),
+(68, 27, 2, 4, 'Misha', '');
 
 -- --------------------------------------------------------
 
@@ -419,7 +524,9 @@ INSERT INTO `pet_images` (`imageid`, `name`, `petid`) VALUES
 (30, '27659157_350.png', 64),
 (31, '237c4da1793d0af4b745389886470b62.png', 63),
 (32, '1280px-Delonix_regia_01.jpg', 66),
-(33, '237c4da1793d0af4b745389886470b62.png', 65);
+(33, '237c4da1793d0af4b745389886470b62.png', 65),
+(34, 'pexels-dorte-179221.jpg', 67),
+(35, 'pexels-alexas-fotos-2173872.jpg', 68);
 
 -- --------------------------------------------------------
 
@@ -446,7 +553,7 @@ INSERT INTO `reserve` (`reserveid`, `transmitterid`, `receiverid`, `petid`, `fir
 (65, 16, 17, 62, '2022-12-01', '2022-12-10', 1000, 'rejected'),
 (66, 16, 17, 63, '2022-12-07', '2022-12-09', 300, 'rejected'),
 (67, 16, 17, 62, '2022-12-02', '2022-12-08', 700, 'canceled'),
-(68, 16, 17, 62, '2022-12-02', '2022-12-08', 700, 'await');
+(68, 16, 17, 62, '2022-12-02', '2022-12-08', 700, 'payed');
 
 -- --------------------------------------------------------
 
@@ -489,7 +596,10 @@ CREATE TABLE `sizes` (
 
 INSERT INTO `sizes` (`userid`, `small`, `medium`, `large`) VALUES
 (17, 1, 1, 1),
-(19, 1, 1, 1);
+(19, 1, 1, 1),
+(28, 1, 0, 1),
+(29, 1, 0, 1),
+(30, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -521,7 +631,11 @@ INSERT INTO `users` (`userid`, `email`, `password`, `type`, `dni`, `cuit`, `name
 (19, 'fgh', 'fgh', 'G', 'fgh', 'fgh', 'fgh', 'fgh', 'fgh', 1),
 (24, 'jkl', 'jkl', 'G', 'jkl', 'jkl', 'jkl', 'jkl', 'jkl', 0),
 (25, 'zxc', 'zxc', 'G', 'zxc', 'zxc', 'zxc', 'zxc', 'zxc', 0),
-(26, 'eee', 'eee', 'G', 'eee', 'eee', 'eee', 'ee', 'eee', 0);
+(26, 'eee', 'eee', 'G', 'eee', 'eee', 'eee', 'ee', 'eee', 0),
+(27, 'uuu', 'uuu', 'D', 'uuu', 'uuu', 'uuu', 'uuu', 'uuu', 1),
+(28, 'yyy', 'yyy', 'G', 'yyy', 'yyy', 'yyy', 'yyy', 'yyy', 1),
+(29, 'kkk', 'kkk', 'G', 'kkk', 'kkk', 'kkk', 'kkk', 'kkk', 1),
+(30, 'lll', 'lll', 'G', 'lll', 'lll', 'lll', 'lll', 'lll', 1);
 
 -- --------------------------------------------------------
 
@@ -541,7 +655,8 @@ CREATE TABLE `user_images` (
 
 INSERT INTO `user_images` (`imageid`, `name`, `userid`) VALUES
 (12, '237c4da1793d0af4b745389886470b62.png', 16),
-(13, '237c4da1793d0af4b745389886470b62.png', 17);
+(13, '237c4da1793d0af4b745389886470b62.png', 17),
+(14, 'pexels-min-an-654690.jpg', 28);
 
 -- --------------------------------------------------------
 
@@ -572,7 +687,9 @@ INSERT INTO `vacunation_images` (`imageid`, `name`, `petid`) VALUES
 (24, '27659157_350.png', 64),
 (25, '237c4da1793d0af4b745389886470b62.png', 63),
 (26, '24275813_350.png', 66),
-(27, '24260663_350.png', 65);
+(27, '24260663_350.png', 65),
+(28, 'carnetVacunacion.jpg', 67),
+(29, 'carnetVacunacion.jpg', 68);
 
 --
 -- Índices para tablas volcadas
@@ -673,7 +790,7 @@ ALTER TABLE `vacunation_images`
 -- AUTO_INCREMENT de la tabla `availabledates`
 --
 ALTER TABLE `availabledates`
-  MODIFY `availabledatesid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=799;
+  MODIFY `availabledatesid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=893;
 
 --
 -- AUTO_INCREMENT de la tabla `breed`
@@ -691,25 +808,25 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT de la tabla `keepers`
 --
 ALTER TABLE `keepers`
-  MODIFY `keeperid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `keeperid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `paymentid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `paymentid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `pet`
 --
 ALTER TABLE `pet`
-  MODIFY `petid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `petid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT de la tabla `pet_images`
 --
 ALTER TABLE `pet_images`
-  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `reserve`
@@ -727,19 +844,19 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'user id', AUTO_INCREMENT=27;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'user id', AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `user_images`
 --
 ALTER TABLE `user_images`
-  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `vacunation_images`
 --
 ALTER TABLE `vacunation_images`
-  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `imageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

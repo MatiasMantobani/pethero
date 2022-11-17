@@ -126,15 +126,3 @@ class SizeController
         }
     }
 }
-
-/*
-
-if ($this->validate()) {
-try {
-
-} catch (Exception $ex) {
-HomeController::Index("Error al ... Tamaño");
-}
-}
-
-*/

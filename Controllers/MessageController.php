@@ -6,18 +6,36 @@ class MessageController
 {
     private static $messages = array();
 
+    public static function validate()
+    {
+        if (isset($_SESSION["userid"])) {
+            return true;
+        } else {
+            HomeController::Index("Permisos Insuficientes");
+        }
+    }
+
     public static function add($message)
     {
-        array_push(self::$messages, $message);
+        if(self::validate()){
+            array_push(self::$messages, $message);
+        }
     }
 
     public static function getAll()
     {
-        return self::$messages;
+        if(self::validate()){
+            return self::$messages;
+        }
     }
 
     public static function clear()
     {
-        self::$messages = array();
+        if(self::validate()){
+            self::$messages = array();
+        }
     }
+
+
+
 }

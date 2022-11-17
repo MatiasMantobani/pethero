@@ -5,22 +5,14 @@ namespace Controllers;
 use \Exception as Exception;
 use DAO\KeeperDAO as KeeperDAO;
 use Models\Keeper as Keeper;
-use Controllers\AdressController as AdressController;
-use Controllers\AvailableDateController as AvailableDateController;
 
 class KeeperController
 {
     private $keeperDAO;
 
-    private $adressController;
-    private $AvailableController;
-
     public function __construct()
     {
         $this->keeperDAO = new KeeperDAO();
-
-        $this->adressController = new AdressController();
-        $this->AvailableController = new AvailableDateController();
     }
 
 
@@ -123,7 +115,7 @@ class KeeperController
                 $keeper->setUserid($_SESSION['userid']);
                 $keeper->setStatus($status);
 
-                $this->keeperDAO->UpdateStatus($keeper);;
+                $this->keeperDAO->UpdateStatus($keeper);
 
                 //MessageController::add("El usuario fue actualizado con éxito");
                 //$controller = new UserController();
@@ -194,16 +186,3 @@ class KeeperController
         }
     }
 }
-
-/*
-if ($this->validate()) {
-
-}
-
-try {
-
-} catch (Exception $ex) {
-    HomeController::Index("Error al ... Guardian");
-}
-
-*/

@@ -62,7 +62,7 @@ class ChatController
 
                 $this->ShowAddView($receiverid);
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Chat");
+                HomeController::Index("Error al agregar chat");
             }
         }
     }
@@ -98,7 +98,7 @@ class ChatController
                     $userController->ShowProfileView();
                 }
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Chat");
+                HomeController::Index("Error al recuperar los chats");
             }
         }
     }
@@ -111,7 +111,7 @@ class ChatController
             try {
                 $this->chatDAO->changeStatus($senderid, $receiverid, $status);
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Chat");
+                HomeController::Index("Error al modificar estado del chat");
             }
         }
     }
@@ -123,22 +123,9 @@ class ChatController
             try {
                 return $this->chatDAO->findChat($receiver, $sender);
             } catch (Exception $ex) {
-                HomeController::Index("Error al ... Chat");
+                HomeController::Index("Error al recuperar el chat");
             }
         }
     }
 }
 
-
-/*
-if ($this->validate()) {
-
-}
-
-try {
-
-} catch (Exception $ex) {
-    HomeController::Index("Error al ... Chat");
-}
-
-*/
