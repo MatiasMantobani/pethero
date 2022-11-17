@@ -112,7 +112,7 @@ class PetController
     }
 
 
-    // pueden hacer reservas
+    // Devuelve la lista de mascotas listas para ser reservadas
     public function GetMyActive($userid)
     {
         if ($this->validate()) {

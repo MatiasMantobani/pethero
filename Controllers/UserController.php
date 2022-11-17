@@ -104,7 +104,13 @@ class UserController
             }
 
             //DUEÑO
-            // No tiene
+            if ($_SESSION['type'] == 'G') {
+                $petController = new PetController();
+                $petList = $petController->GetMyActive($_SESSION['userid']);
+                if ($petList == null) {
+                    MessageController::add("No olvides cargar tus mascotas");
+                }
+            }
 
             //GUARDIAN
             if ($_SESSION['type'] == 'G') {
