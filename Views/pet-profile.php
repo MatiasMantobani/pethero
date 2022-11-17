@@ -60,12 +60,7 @@ require_once('nav.php');
                                     </div>
                                     <div class="col-6 mb-3">
                                         <h6>Observaciones</h6>
-                                        <p class="text-muted"><?php echo $pet->getObservations() ?>
-                                            <br></p>
-                                            <?php if ($_SESSION["type"] == "D") { ?>
-                                                <a href="<?php echo FRONT_ROOT ?>Pet/ShowUpdateView/<?php echo $pet->getPetid() ?>" class="btn btn-dark"> Editar <i class="far fa-edit"></i></a>
-                                            <?php } ?>
-
+                                        <p class="text-muted"><?php echo $pet->getObservations() ?></p>
                                     </div>
                                 </div>
 

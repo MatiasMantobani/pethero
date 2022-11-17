@@ -26,20 +26,20 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Codigo postal</label>
-                            <input type="number" maxlength="9999" name="postalcode" value="<?php if($adress2 != null) echo $adress2->getPostalcode(); ?>" class="form-control" required>
+                            <input type="text" maxlength="9" name="postalcode" value="<?php if($adress2 != null) echo $adress2->getPostalcode(); ?>" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Piso [Opcional]</label>
-                            <input type="text" maxlength="5" name="floor" value="<?php if($adress2 != null) echo $adress2->getFloor(); ?>" class="form-control">
+                            <input type="text" maxlength="2" name="floor" value="<?php if($adress2 != null) echo $adress2->getFloor(); ?>" class="form-control">
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Departamento [Opcional]</label>
-                            <input type="text" maxlength="5" name="department" value="<?php if($adress2 != null) echo $adress2->getDepartment(); ?>" class="form-control">
+                            <input type="text" maxlength="2" name="department" value="<?php if($adress2 != null) echo $adress2->getDepartment(); ?>" class="form-control">
                         </div>
                     </div>
 

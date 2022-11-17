@@ -169,11 +169,11 @@ class PetController
                 $vacunationImage = $this->vacunationImageController->ShowImage($pet->getPetid());
 
                 if ($petImage == null) {
-                    MessageController::add("Para comenzar, subi mi foto");
+                    MessageController::add("Subi la foto de tu mascota");
                 }
 
                 if ($vacunationImage == null) {
-                    MessageController::add("Subí mi carnet de vacunación");
+                    MessageController::add("Subi el carnet de vacunación");
                 }
 
                 $messages = MessageController::getAll();

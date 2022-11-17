@@ -109,7 +109,7 @@ require_once('nav.php');
                                                 <?php } else if ($firstDate) { ?>
                                                     <p class="text-muted"><?php echo "Del " . $firstDate . " al " . $lastDate ?></p>
                                                 <?php } else { ?>
-                                                    <p class="text-muted">Aûn no cargaste fechas</p>
+                                                    <p class="text-muted">Aún no cargaste fechas</p>
                                                 <?php } ?>
 
                                                 <p class="text-muted"><a
@@ -134,7 +134,7 @@ require_once('nav.php');
                                                         <br>
                                                     </p>
                                                     <a href="<?php echo FRONT_ROOT ?>Keeper/ShowUpdatePricingView"
-                                                       class="btn btn-dark btn-sm">Editar remuneracion <i
+                                                       class="btn btn-dark btn-sm">Editar remuneración <i
                                                                 class="far fa-edit"></i></a>
 
                                                 <?php } else { ?>

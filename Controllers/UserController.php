@@ -108,7 +108,7 @@ class UserController
                 $petController = new PetController();
                 $petList = $petController->GetMyActive($_SESSION['userid']);
                 if ($petList == null) {
-                    MessageController::add("No olvides cargar tus mascotas");
+                    MessageController::add("No olvides activar tus mascotas con foto y vacunación");
                 }
             }
 

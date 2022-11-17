@@ -8,7 +8,9 @@ require_once('nav.php');
                <h2 class="mb-4"> Tus Reservas <?php echo "(" . $pseudostatus . ")" ?> </h2>
                <table class="table bg-light">
                     <thead>
+                         <?php if($_SESSION["type"] == "D"){ ?>
                          <th>Guardian</th>
+                         <?php } ?>
                          <th>Mascota</th>
                          <th>Fecha de inicio</th>
                          <th>Fecha de fin</th>
@@ -19,9 +21,7 @@ require_once('nav.php');
                     <tbody>
                          <?php for($i = 0; $i < count($reserveList); $i++) {?>
                               <tr>
-                                  <?php if($_SESSION["type"] == "G"){ ?>
-                                      <td><a href="<?php echo FRONT_ROOT ?>User/ShowProfileView" class="btn btn-primary btn-sm"> <?php echo $keeperInfo[$i] ?> </a></td>
-                                  <?php }else{ ?>
+                                  <?php if($_SESSION["type"] == "D"){ ?>
                                       <td><a href="<?php echo FRONT_ROOT ?>User/ShowExternalProfile/<?php echo $reserveList[$i]->getReceiverid() ?>" class="btn btn-primary btn-sm"> <?php echo $keeperInfo[$i] ?> </a></td>
                                   <?php } ?>
 
