@@ -31,11 +31,7 @@ class MessageController
 
     public static function clear()
     {
-        if(self::validate()){
             self::$messages = array();
-        }
     }
-
-
 
 }
