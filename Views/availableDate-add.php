@@ -5,7 +5,7 @@ require_once('nav.php');
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-            <form action="<?php echo FRONT_ROOT ?>AvailableDate/Update/" method="post" class="bg-light-alpha p-5">
+            <form action="<?php echo FRONT_ROOT ?>AvailableDate/Update/" method="post" class="bg-light p-5">
                 <h4>Selecciona tus fechas disponibles para cuidar mascotas</h4>
                 <br>
                 <script>

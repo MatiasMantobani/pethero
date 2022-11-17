@@ -8,7 +8,7 @@
             <?php if ($AvailableUsers != null) { ?>
                 <h2>Los siguientes Guardianes estan disponibles para cuidar a <?php echo $pet->getName() ?> </h2>
                 <br>
-                <table class="table bg-light-alpha">
+                <table class="table bg-light">
                     <thead>
                         <th>Nombre</th>
                         <th>Apellido</th>

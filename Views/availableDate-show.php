@@ -6,7 +6,7 @@
     <section id="listado" class="mb-5">
         <div class="container">
             <h2 class="mb-4">Tus fechas disponibles</h2>
-            <table class="table bg-light-alpha">
+            <table class="table bg-light">
                 <thead>
                 <th>Fecha</th>
                 <th>Acción</th>

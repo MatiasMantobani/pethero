@@ -17,7 +17,7 @@
             <h2 class="mb-4">Ingreso de usuarios</h2>
             <p>Ingresa los datos de inicio. Aun no tenes cuenta? <b><a
                             href="<?php echo FRONT_ROOT . "User/ShowAddView" ?>">Registrate</a></b></p>
-            <form action="<?php echo FRONT_ROOT ?>Auth/Login" method="post" class="bg-light-alpha p-5">
+            <form action="<?php echo FRONT_ROOT ?>Auth/Login" method="post" class="bg-light p-5" ">
 
                 <div class="row">
                     <div class="col-lg-6">

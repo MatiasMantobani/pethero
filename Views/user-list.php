@@ -6,7 +6,7 @@
      <section id="listado" class="mb-5">
           <div class="container">
                <h2 class="mb-4">Listado de usuarios</h2>
-               <table class="table bg-light-alpha">
+               <table class="table bg-light">
                     <thead>
                          <th>ID</th>
                          <th>Email</th>

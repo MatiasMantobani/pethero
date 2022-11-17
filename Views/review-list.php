@@ -7,7 +7,7 @@
         <div class="container">
 
                 <h2 class="mb-4">Todas las reviews de <?php echo $user->getName() ?> </h2>
-                <table class="table bg-light-alpha">
+                <table class="table bg-light">
                     <thead>
                     <th>Dueño</th>
                     <th>Mascota</th>

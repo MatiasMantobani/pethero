@@ -7,7 +7,7 @@
         <div class="container">
             <h2 class="mb-4">Cambio de tarifa</h2>
             <p>Completa los campos del formulario</p>
-            <form action="<?php echo FRONT_ROOT ?>Keeper/UpdatePricing" method="post" class="bg-light-alpha p-5">
+            <form action="<?php echo FRONT_ROOT ?>Keeper/UpdatePricing" method="post" class="bg-light p-5">
                 <div class="row">
 
                     <div class="col-lg-4">

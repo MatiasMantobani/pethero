@@ -6,7 +6,7 @@ require_once('nav.php');
     <section id="listado" class="mb-5">
         <div class="container">
             <h2 class="mb-4">Listado de mascotas</h2>
-            <table class="table bg-light-alpha">
+            <table class="table bg-light">
                 <thead>
                     <th>Nombre</th>
                     <th>Tipo</th>

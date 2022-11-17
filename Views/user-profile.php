@@ -142,7 +142,7 @@ require_once('nav.php');
 
                                 <h6>Ver mis Reservas</h6>
                                 <div>
-                                    <form action="<?php echo FRONT_ROOT ?>Reserve/ShowReservesView" method="post" class="bg-light-alpha p-1">
+                                    <form action="<?php echo FRONT_ROOT ?>Reserve/ShowReservesView" method="post" class="bg-light p-1">
 
                                         <select class="form-control" name="pseudostatus" required>
                                             <option value="Todas">Todas</option>

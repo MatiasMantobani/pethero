@@ -3,7 +3,7 @@
     require_once('nav.php');
 ?>
 
-<div class="container py-5 bg-light-alpha rounded" >
+<div class="container py-5 bg-light rounded" >
     <h2>Chat con <?php echo $receiverName ?></h2>
     <div class="row">
         <div class="col-md-6 col-lg-7 col-xl-12">

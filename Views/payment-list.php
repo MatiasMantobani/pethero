@@ -6,7 +6,7 @@
     <section id="listado" class="mb-5">
         <div class="container">
                 <h2 class="mb-4">Tus Pagos </h2>
-                <table class="table bg-light-alpha">
+                <table class="table bg-light">
                     <thead>
                         <?php if($_SESSION["type"] == "G"){ ?>
                             <th>ID de Reserva</th>

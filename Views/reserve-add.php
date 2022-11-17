@@ -8,7 +8,7 @@ require_once('nav.php');
         <div class="container">
             <h2 class="mb-4"> Solicita una reserva </h2>
 
-            <form action="<?php echo FRONT_ROOT ?>Reserve/showChooseKeeperView" method="post" class="bg-light-alpha p-5">
+            <form action="<?php echo FRONT_ROOT ?>Reserve/showChooseKeeperView" method="post" class="bg-light p-5">
 
                 <!--                Desplegable de mascotas-->
                 <div class="col-lg-4">

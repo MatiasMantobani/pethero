@@ -9,7 +9,7 @@
             <h2 class="mb-4">Registro de mascota</h2>
             <p>Completa todos los campos del formulario</p>
 
-            <form action="<?php echo FRONT_ROOT ?>Pet/Add" method="post" class="bg-light-alpha p-5">
+            <form action="<?php echo FRONT_ROOT ?>Pet/Add" method="post" class="bg-light p-5">
                 <div class="row">
 
                     <div class="col-lg-4">

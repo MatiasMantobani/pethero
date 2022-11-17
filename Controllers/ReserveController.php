@@ -363,7 +363,11 @@ class ReserveController
                             array_push($AvailableKeepers, $keeper);
                         }
                     }
-                    require_once(VIEWS_PATH . "choose-keeper.php");
+                    if ($AvailableUsers != null) {
+                        require_once(VIEWS_PATH . "choose-keeper.php");
+                    } else {
+                        HomeController::Index("No hay guardianes disponibles para tu mascota");
+                    }
                 } else {
                     HomeController::Index("La mascota ya tiene reservas asignadas dentro del periodo elegido");
                 }

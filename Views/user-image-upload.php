@@ -7,7 +7,7 @@
         <div class="container">
             <h2 class="mb-4">Carga de imágen</h2>
             <p>Subí tu foto de perfil</p>
-            <form action="<?php echo FRONT_ROOT ?>UserImage/Upload" method="post" enctype="multipart/form-data" class="bg-light-alpha p-5">
+            <form action="<?php echo FRONT_ROOT ?>UserImage/Upload" method="post" enctype="multipart/form-data" class="bg-light p-5">
                 <div class="row">
 
                     <div class="col-lg-4">

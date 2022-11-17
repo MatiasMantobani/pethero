@@ -7,7 +7,7 @@
         <div class="container">
             <h2 class="mb-4">Carga tus medidas</h2>
             <p>Indica que tamaños de mascotas podes cuidar</p>
-            <form action="<?php echo FRONT_ROOT ?>Size/Update" method="post" class="bg-light-alpha p-5">
+            <form action="<?php echo FRONT_ROOT ?>Size/Update" method="post" class="bg-light p-5">
 
                 <div class="row">
 

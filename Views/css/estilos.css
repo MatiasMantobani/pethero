@@ -5,8 +5,9 @@ html, body {
 }
 body {
      font-family: 'Montserrat', sans-serif;
-     background: url(../img/bg.png) no-repeat center center fixed;
-     /*background: url(../img/bg/1.png) no-repeat center center fixed;*/
+     /*background: url(../img/bg.png) no-repeat center center fixed;*/
+     background: url(../img/bg/1.png) no-repeat center center fixed;
+    opacity: 0.93;
      -webkit-background-size: cover;
         -moz-background-size: cover;
           -o-background-size: cover;

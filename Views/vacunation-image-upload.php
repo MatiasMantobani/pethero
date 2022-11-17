@@ -7,7 +7,7 @@
         <div class="container">
             <h2 class="mb-4">Carga de vacunación</h2>
             <p>Subí la foto de las vacunaciones de tu mascota</p>
-            <form action="<?php echo FRONT_ROOT ?>VacunationImage/Upload" method="post" enctype="multipart/form-data" class="bg-light-alpha p-5">
+            <form action="<?php echo FRONT_ROOT ?>VacunationImage/Upload" method="post" enctype="multipart/form-data" class="bg-light p-5">
                 <div class="row">
 
                     <div class="col-lg-4">
