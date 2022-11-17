@@ -34,7 +34,7 @@ require_once('nav.php');
 
                 <!--                calendario-->
                 <div class="col-lg-5">
-                    <label for="daterange">Selecciona el rango de fechas que necesita</label>
+                    <label for="daterange">Selecciona el rango de fechas</label>
                     <script>
                         $(function() {
                             $('input[name="daterange"]').daterangepicker({
@@ -54,7 +54,7 @@ require_once('nav.php');
 
                 <div class="col-lg-4">
                     <br>
-                    <button type="submit" class="btn btn-primary">Ver Guardianes Disponibles</button>
+                    <button type="submit" class="btn btn-primary">Buscar guardianes</button>
                 </div>
 
             </form>

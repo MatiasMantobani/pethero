@@ -13,21 +13,21 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="name">Nombre</label>
-                            <input type="text" id="name" name="name" value="<?php echo $user->getName(); ?>" class="form-control" required>
+                            <input type="text" id="name" maxlength="30" name="name" value="<?php echo $user->getName(); ?>" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="surname">Apellido</label>
-                            <input type="text" id="surname" name="surname" value="<?php echo $user->getSurname(); ?>" class="form-control" required>
+                            <input type="text" id="surname" maxlength="30" name="surname" value="<?php echo $user->getSurname(); ?>" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="col-lg-8">
                         <div class="form-group">
                             <label for="phone">Teléfono</label>
-                            <input type="number" id="phone" name="phone" value="<?php echo $user->getPhone(); ?>"  class="form-control">
+                            <input type="number" max="99999999999999999" id="phone" name="phone" value="<?php echo $user->getPhone(); ?>"  class="form-control">
                         </div>
                     </div>
 

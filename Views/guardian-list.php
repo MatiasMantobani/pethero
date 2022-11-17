@@ -10,7 +10,7 @@
                 <thead>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Telefono</th>
+                <th>Teléfono</th>
                 <th>Email</th>
                 <th>Perfil</th>
                 </thead>

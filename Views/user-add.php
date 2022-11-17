@@ -13,13 +13,13 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Nombre</label>
-                            <input type="text" name="name" value="" class="form-control" required>
+                            <input type="text" name="name" maxlength="30" value="" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Apellido</label>
-                            <input type="text" name="surname" value="" class="form-control" required>
+                            <input type="text" name="surname" maxlength="30" value="" class="form-control" required>
                         </div>
                     </div>
 
@@ -36,33 +36,33 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Email</label>
-                            <input type="text" name="email" value="" class="form-control" required>
+                            <input type="email" name="email" maxlength="45" value="" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="">Password</label>
-                            <input type="text" name="password" value="" class="form-control" required>
+                            <label for="">Password [+ 6 carcateres]</label>
+                            <input type="password" name="password" minlength="6" maxlength="30" value="" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Telefono</label>
-                            <input type="text" name="phone" value="" class="form-control" required>
+                            <input type="number" name="phone" max="99999999999999999" value="" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">DNI [8]</label>
-                            <input type="text" max="99999999" name="dni" value="" class="form-control" required>
+                            <input type="number" max="99999999" name="dni" value="" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">CUIT [11]</label>
-                            <input type="text" max="99999999999" name="cuit" value="" class="form-control" required>
+                            <input type="number" max="99999999999" name="cuit" value="" class="form-control" required>
                         </div>
                     </div>
 

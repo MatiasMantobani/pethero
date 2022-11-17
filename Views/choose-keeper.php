@@ -12,12 +12,11 @@
                     <thead>
                         <th>Nombre</th>
                         <th>Apellido</th>
-                        <th>Telefono</th>
+                        <th>Teléfono</th>
                         <th>Email</th>
                         <th>Precio</th>
                         <th>Rating</th>
                         <th>Contratar</th>
-
                     </thead>
                     <tbody>
                         <?php

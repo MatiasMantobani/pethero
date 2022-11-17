@@ -23,14 +23,14 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control" name="email" id="email"
+                            <input type="email" maxlength="45" class="form-control" name="email" id="email"
                                    placeholder="email@pethero.com" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="text" class="form-control" name="password" id="password"
+                            <input type="password" maxlength="40" class="form-control" name="password" id="password"
                                    placeholder="Password" required>
                         </div>
                     </div>

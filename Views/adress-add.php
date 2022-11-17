@@ -13,33 +13,33 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Calle</label>
-                            <input type="text" id="street" name="street" value="<?php if($adress2 != null) echo $adress2->getStreet(); ?>" class="form-control" required>
+                            <input type="text" id="street" maxlength="30" name="street" value="<?php if($adress2 != null) echo $adress2->getStreet(); ?>" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Altura</label>
-                            <input type="text" name="number" value="<?php if($adress2 != null) echo $adress2->getNumber(); ?>" class="form-control" required>
+                            <input type="number" max="9999" name="number" value="<?php if($adress2 != null) echo $adress2->getNumber(); ?>" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Codigo postal</label>
-                            <input type="text" name="postalcode" value="<?php if($adress2 != null) echo $adress2->getPostalcode(); ?>" class="form-control" required>
+                            <input type="number" maxlength="9999" name="postalcode" value="<?php if($adress2 != null) echo $adress2->getPostalcode(); ?>" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Piso [Opcional]</label>
-                            <input type="text" name="floor" value="<?php if($adress2 != null) echo $adress2->getFloor(); ?>" class="form-control">
+                            <input type="text" maxlength="5" name="floor" value="<?php if($adress2 != null) echo $adress2->getFloor(); ?>" class="form-control">
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="">Departamento [Opcional]</label>
-                            <input type="text" name="department" value="<?php if($adress2 != null) echo $adress2->getDepartment(); ?>" class="form-control">
+                            <input type="text" maxlength="5" name="department" value="<?php if($adress2 != null) echo $adress2->getDepartment(); ?>" class="form-control">
                         </div>
                     </div>
 

@@ -13,14 +13,14 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="name">Nombre</label>
-                            <input type="text" id="name" name="name" value="<?php echo $pet->getName(); ?>" class="form-control" required>
+                            <input type="text" maxlength="30" id="name" name="name" value="<?php echo $pet->getName(); ?>" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="col-lg-8">
                         <div class="form-group">
                             <label for="observations">Observaciones [Opcional]</label>
-                            <input type="text" id="observations" name="observations" value="<?php echo $pet->getObservations(); ?>"  class="form-control">
+                            <input type="text" maxlength="100" id="observations" name="observations" value="<?php echo $pet->getObservations(); ?>"  class="form-control">
                         </div>
                     </div>
 

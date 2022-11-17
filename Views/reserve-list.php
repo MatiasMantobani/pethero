@@ -10,11 +10,11 @@ require_once('nav.php');
                     <thead>
                          <th>Guardian</th>
                          <th>Mascota</th>
-                         <th>Fecha de Inicio</th>
-                         <th>Fecha de Fin</th>
-                         <th>Monto Total</th>
+                         <th>Fecha de inicio</th>
+                         <th>Fecha de fin</th>
+                         <th>Monto total</th>
                          <th>Estado</th>
-                         <th>Accionar</th>
+                         <th>Accion</th>
                     </thead>
                     <tbody>
                          <?php for($i = 0; $i < count($reserveList); $i++) {?>
@@ -49,7 +49,7 @@ require_once('nav.php');
                                                echo "Completado";
                                                break;
                                            case "completed & reviewed":
-                                               echo "Completado y reseñado";
+                                               echo "Completado y calificado";
                                                break;
                                            case "canceled":
                                                echo "Cancelado";
